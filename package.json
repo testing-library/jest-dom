@@ -1,0 +1,60 @@
+{
+  "name": "jest-dom",
+  "version": "0.0.0-semantically-released",
+  "description": "Custom jest matchers to test the dom structure",
+  "main": "dist/index.js",
+  "engines": {
+    "node": "> 4",
+    "npm": "> 3"
+  },
+  "scripts": {
+    "add-contributor": "kcd-scripts contributors add",
+    "format": "kcd-scripts format",
+    "build": "kcd-scripts build",
+    "lint": "kcd-scripts lint",
+    "test": "kcd-scripts test",
+    "test:update": "npm test -- --updateSnapshot --coverage",
+    "validate": "kcd-scripts validate",
+    "setup": "npm install && npm run validate -s",
+    "precommit": "kcd-scripts precommit"
+  },
+  "files": [
+    "dist",
+    "extend-expect.js"
+  ],
+  "keywords": [
+    "testing",
+    "dom",
+    "jest",
+    "jsdom"
+  ],
+  "author": "Ernesto Garcia <gnapse@gmail.com> (http://gnapse.github.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "jest-matcher-utils": "^22.4.3"
+  },
+  "devDependencies": {
+    "kcd-scripts": "^0.37.0"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/kcd-scripts/eslint.js",
+    "rules": {
+      "babel/no-invalid-this": "off",
+      "import/prefer-default-export": "off",
+      "import/no-unassigned-import": "off"
+    }
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "coverage",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnapse/jest-dom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gnapse/jest-dom/issues"
+  },
+  "homepage": "https://github.com/gnapse/jest-dom#readme"
+}
