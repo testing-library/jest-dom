@@ -20,8 +20,6 @@
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
 
-<a href="https://app.codesponsor.io/link/PKGFLnhDiFvsUA5P4kAXfiPs/gnapse/jest-dom" rel="nofollow"><img src="https://app.codesponsor.io/embed/PKGFLnhDiFvsUA5P4kAXfiPs/gnapse/jest-dom.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
-
 ## The problem
 
 You want to use [jest][] to write tests that assert various things about the
