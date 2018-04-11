@@ -49,6 +49,7 @@ to maintain.
   * [Using with Typescript](#using-with-typescript)
 * [Inspiration](#inspiration)
 * [Other Solutions](#other-solutions)
+* [Guiding Principles](#guiding-principles)
 * [Contributors](#contributors)
 * [LICENSE](#license)
 
@@ -199,6 +200,21 @@ independent from jest, and can be used with other tests runners as well.
 I'm not aware of any, if you are please [make a pull request][prs] and add it
 here!
 
+## Guiding Principles
+
+> [The more your tests resemble the way your software is used, the more confidence they can give you.][guiding-principle]
+
+This library follows the same guiding principles as its mother library [dom-testing-library][].
+Go [check them out](https://github.com/kentcdodds/dom-testing-library#guiding-principles)
+for more details.
+
+Additionally, with respect to custom DOM matchers, this library aims to maintain
+a minimal but useful set of them, while avoiding bloating itself with merely
+convenient ones that can be easily achieved with other APIs. In general, the
+overall criteria for what is considered a useful custom matcher to add to this
+library, is that doing the equivalent assertion on our own makes the test code
+more verbose, less clear in its intent, and/or harder to read.
+
 ## Contributors
 
 Thanks goes to these people ([emoji key][emojis]):
@@ -247,3 +263,4 @@ MIT
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/gnapse/jest-dom.svg?style=social
 [emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
 [all-contributors]: https://github.com/kentcdodds/all-contributors
+[guiding-principle]: https://twitter.com/kentcdodds/status/977018512689455106
