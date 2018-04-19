@@ -163,27 +163,19 @@ expect(getByTestId(container, 'delete-button')).not.toHaveClass('btn-link')
 
 ### Using with Typescript
 
-When you use custom Jest Matchers with Typescript, you will need to extend the
-type signature of `jest.Matchers<void>`, then cast the result of `expect`
-accordingly. Here's a handy usage example:
+When you use custom Jest Matchers with Typescript, you can extend `jest.Matchers`
+interface provided by `@types/jest` package by creating `.d.ts` file somewhere
+in your project with following content:
 
 ```typescript
-// this adds custom expect matchers once
-import 'jest-dom/extend-expect'
-
-interface ExtendedMatchers extends jest.Matchers<void> {
-  toHaveTextContent: (htmlElement: string) => object
-  toBeInTheDOM: () => void
+declare namespace jest {
+  interface Matchers<R> {
+    toHaveAttribute: (attr: string, value?: string) => R
+    toHaveTextContent: (htmlElement: string) => R
+    toHaveClass: (className: string) => R
+    toBeInTheDOM: () => R
+  }
 }
-
-test('renders the tooltip as expected', async () => {
-  // however you render it:
-  // render(`<div><span>hello world</span></div>`)
-  ;(expect(
-    container,
-    document.querySelector('span'),
-  ) as ExtendedMatchers).toHaveTextContent('hello world')
-})
 ```
 
 ## Inspiration
