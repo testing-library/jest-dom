@@ -3,7 +3,6 @@
   "version": "0.0.0-semantically-released",
   "description": "Custom jest matchers to test the dom structure",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "engines": {
     "node": "> 4",
     "npm": "> 3"
@@ -21,7 +20,8 @@
   },
   "files": [
     "dist",
-    "extend-expect.js"
+    "extend-expect.js",
+    "extend-expect.d.ts"
   ],
   "keywords": [
     "testing",
