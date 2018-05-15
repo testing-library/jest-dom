@@ -46,7 +46,6 @@ to maintain.
   * [`toHaveTextContent`](#tohavetextcontent)
   * [`toHaveAttribute`](#tohaveattribute)
   * [`toHaveClass`](#tohaveclass)
-  * [Using with Typescript](#using-with-typescript)
 * [Inspiration](#inspiration)
 * [Other Solutions](#other-solutions)
 * [Guiding Principles](#guiding-principles)
@@ -83,6 +82,9 @@ import {toBeInTheDOM, toHaveClass} from 'jest-dom'
 
 expect.extend({toBeInTheDOM, toHaveClass})
 ```
+
+> Note: when using TypeScript, this way of importing matchers won't provide the
+> necessary type definitions. More on this [here](https://github.com/gnapse/jest-dom/pull/11#issuecomment-387817459).
 
 ## Custom matchers
 
@@ -159,23 +161,6 @@ expect(getByTestId(container, 'delete-button')).toHaveClass('extra')
 expect(getByTestId(container, 'delete-button')).toHaveClass('btn-danger btn')
 expect(getByTestId(container, 'delete-button')).not.toHaveClass('btn-link')
 // ...
-```
-
-### Using with Typescript
-
-When you use custom Jest Matchers with Typescript, you can extend `jest.Matchers`
-interface provided by `@types/jest` package by creating `.d.ts` file somewhere
-in your project with following content:
-
-```typescript
-declare namespace jest {
-  interface Matchers<R> {
-    toHaveAttribute: (attr: string, value?: string) => R
-    toHaveTextContent: (htmlElement: string) => R
-    toHaveClass: (className: string) => R
-    toBeInTheDOM: () => R
-  }
-}
 ```
 
 ## Inspiration

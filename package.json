@@ -20,7 +20,8 @@
   },
   "files": [
     "dist",
-    "extend-expect.js"
+    "extend-expect.js",
+    "extend-expect.d.ts"
   ],
   "keywords": [
     "testing",
