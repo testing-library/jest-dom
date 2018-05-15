@@ -83,6 +83,9 @@ import {toBeInTheDOM, toHaveClass} from 'jest-dom'
 expect.extend({toBeInTheDOM, toHaveClass})
 ```
 
+> Note: when using TypeScript, this way of importing matchers won't provide the
+> necessary type definitions. More on this [here](https://github.com/gnapse/jest-dom/pull/11#issuecomment-387817459).
+
 ## Custom matchers
 
 ### `toBeInTheDOM`
