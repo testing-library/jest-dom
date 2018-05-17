@@ -4,5 +4,6 @@ declare namespace jest {
     toHaveTextContent: (text: string) => R
     toHaveClass: (className: string) => R
     toBeInTheDOM: () => R
+    toHaveStyle: (css: string) => R
   }
 }

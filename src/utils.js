@@ -1,3 +1,4 @@
+import redent from 'redent'
 import {
   RECEIVED_COLOR as receivedColor,
   EXPECTED_COLOR as expectedColor,
@@ -30,8 +31,8 @@ function getMessage(
 ) {
   return [
     `${matcher}\n`,
-    `${expectedLabel}:\n  ${expectedColor(expectedValue)}`,
-    `${receivedLabel}:\n  ${receivedColor(receivedValue)}`,
+    `${expectedLabel}:\n${expectedColor(redent(expectedValue, 2))}`,
+    `${receivedLabel}:\n${receivedColor(redent(receivedValue, 2))}`,
   ].join('\n')
 }
 

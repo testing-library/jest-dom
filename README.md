@@ -46,6 +46,7 @@ to maintain.
   * [`toHaveTextContent`](#tohavetextcontent)
   * [`toHaveAttribute`](#tohaveattribute)
   * [`toHaveClass`](#tohaveclass)
+  * [`toHaveStyle`](#tohavestyle)
 * [Inspiration](#inspiration)
 * [Other Solutions](#other-solutions)
 * [Guiding Principles](#guiding-principles)
@@ -162,6 +163,36 @@ expect(getByTestId(container, 'delete-button')).toHaveClass('btn-danger btn')
 expect(getByTestId(container, 'delete-button')).not.toHaveClass('btn-link')
 // ...
 ```
+
+### `toHaveStyle`
+
+This allows you to check if a certain element has some specific css properties
+with specific values applied. It matches only if the element has _all_ the
+expected properties applied, not just some of them.
+
+```javascript
+// add the custom expect matchers once
+import 'jest-dom/extend-expect'
+
+// ...
+// <button data-testid="delete-button" style="display: none; color: red">
+//   Delete item
+// </button>
+expect(getByTestId(container, 'delete-button')).toHaveStyle('display: none')
+expect(getByTestId(container, 'delete-button')).toHaveStyle(`
+  color: red;
+  display: none;
+`)
+expect(getByTestId(container, 'delete-button')).not.toHaveStyle(`
+  display: none;
+  color: blue;
+`)
+// ...
+```
+
+This also works with rules that are applied to the element via a class name for
+which some rules are defined in a stylesheet currently active in the document.
+The usual rules of css precedence apply.
 
 ## Inspiration
 
