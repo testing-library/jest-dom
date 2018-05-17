@@ -1,3 +1,4 @@
+import redent from 'redent'
 import {
   RECEIVED_COLOR as receivedColor,
   EXPECTED_COLOR as expectedColor,
@@ -21,10 +22,6 @@ function checkHtmlElement(htmlElement) {
   }
 }
 
-function indent(str) {
-  return `  ${str.replace(/\n/g, '\n  ')}`
-}
-
 function getMessage(
   matcher,
   expectedLabel,
@@ -34,8 +31,8 @@ function getMessage(
 ) {
   return [
     `${matcher}\n`,
-    `${expectedLabel}:\n${expectedColor(indent(expectedValue))}`,
-    `${receivedLabel}:\n${receivedColor(indent(receivedValue))}`,
+    `${expectedLabel}:\n${expectedColor(redent(expectedValue, 2))}`,
+    `${receivedLabel}:\n${receivedColor(redent(receivedValue, 2))}`,
   ].join('\n')
 }
 

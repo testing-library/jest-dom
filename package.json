@@ -35,7 +35,8 @@
     "chalk": "^2.4.1",
     "css": "^2.2.3",
     "jest-diff": "^22.4.3",
-    "jest-matcher-utils": "^22.4.3"
+    "jest-matcher-utils": "^22.4.3",
+    "redent": "^2.0.0"
   },
   "devDependencies": {
     "kcd-scripts": "^0.37.0"
