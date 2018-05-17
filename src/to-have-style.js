@@ -1,15 +1,14 @@
+import {parse} from 'css'
 import {matcherHint} from 'jest-matcher-utils'
 import {checkHtmlElement, getMessage} from './utils'
 
 function parseCSS(css) {
-  const props = css
-    .split(/\s*;\s*/)
-    .map(str => str.split(':').map(s => s.trim()))
-    .filter(prop => prop.length === 2)
-  return props.reduce(
-    (result, [prop, value]) => Object.assign(result, {[prop]: value}),
-    {},
-  )
+  return parse(`selector { ${css} }`)
+    .stylesheet.rules[0].declarations.filter(d => d.type === 'declaration')
+    .reduce(
+      (obj, {property, value}) => Object.assign(obj, {[property]: value}),
+      {},
+    )
 }
 
 function isSubset(styles, computedStyle) {
