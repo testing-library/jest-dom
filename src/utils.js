@@ -21,6 +21,10 @@ function checkHtmlElement(htmlElement) {
   }
 }
 
+function indent(str) {
+  return `  ${str.replace(/\n/g, '\n  ')}`
+}
+
 function getMessage(
   matcher,
   expectedLabel,
@@ -30,8 +34,8 @@ function getMessage(
 ) {
   return [
     `${matcher}\n`,
-    `${expectedLabel}:\n  ${expectedColor(expectedValue)}`,
-    `${receivedLabel}:\n  ${receivedColor(receivedValue)}`,
+    `${expectedLabel}:\n${expectedColor(indent(expectedValue))}`,
+    `${receivedLabel}:\n${receivedColor(indent(receivedValue))}`,
   ].join('\n')
 }
 

@@ -32,7 +32,9 @@
   "author": "Ernesto Garcia <gnapse@gmail.com> (http://gnapse.github.io/)",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^2.4.1",
     "css": "^2.2.3",
+    "jest-diff": "^22.4.3",
     "jest-matcher-utils": "^22.4.3"
   },
   "devDependencies": {
