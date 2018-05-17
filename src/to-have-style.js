@@ -3,12 +3,22 @@ import {matcherHint} from 'jest-matcher-utils'
 import {checkHtmlElement, getMessage} from './utils'
 
 function parseCSS(css) {
-  return parse(`selector { ${css} }`)
-    .stylesheet.rules[0].declarations.filter(d => d.type === 'declaration')
+  const ast = parse(`selector { ${css} }`, {
+    silent: true,
+  }).stylesheet
+  if (ast.parsingErrors && ast.parsingErrors.length > 0) {
+    const {reason, line, column} = ast.parsingErrors[0]
+    return {
+      parsingError: `Syntax error parsing expected css: ${reason} in ${line}:${column}`,
+    }
+  }
+  const parsedRules = ast.rules[0].declarations
+    .filter(d => d.type === 'declaration')
     .reduce(
       (obj, {property, value}) => Object.assign(obj, {[property]: value}),
       {},
     )
+  return {parsedRules}
 }
 
 function isSubset(styles, computedStyle) {
@@ -19,7 +29,13 @@ function isSubset(styles, computedStyle) {
 
 export function toHaveStyle(htmlElement, css) {
   checkHtmlElement(htmlElement)
-  const expected = parseCSS(css)
+  const {parsedRules: expected, parsingError} = parseCSS(css)
+  if (parsingError) {
+    return {
+      pass: this.isNot, // Fail regardless of the test being positive or negative
+      message: () => parsingError,
+    }
+  }
   const received = getComputedStyle(htmlElement)
   return {
     pass: isSubset(expected, received),

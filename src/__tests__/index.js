@@ -154,6 +154,16 @@ test('.toHaveStyle', () => {
     expect(container.querySelector('.label')).not.toHaveStyle('color: white'),
   ).toThrowError()
 
+  // Make sure the test fails if the css syntax is not valid
+  expect(() =>
+    expect(container.querySelector('.label')).not.toHaveStyle(
+      'font-weight bold',
+    ),
+  ).toThrowError()
+  expect(() =>
+    expect(container.querySelector('.label')).toHaveStyle('color white'),
+  ).toThrowError()
+
   document.body.removeChild(style)
   document.body.removeChild(container)
 })
