@@ -147,7 +147,12 @@ test('.toHaveStyle', () => {
     font-weight: bold;
   `)
 
-  expect(container.querySelector('.label')).not.toHaveStyle('font-weight: bold')
+  expect(() =>
+    expect(container.querySelector('.label')).toHaveStyle('font-weight: bold'),
+  ).toThrowError()
+  expect(() =>
+    expect(container.querySelector('.label')).not.toHaveStyle('color: white'),
+  ).toThrowError()
 
   document.body.removeChild(style)
   document.body.removeChild(container)
