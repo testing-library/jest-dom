@@ -47,6 +47,7 @@ to maintain.
   * [`toHaveAttribute`](#tohaveattribute)
   * [`toHaveClass`](#tohaveclass)
   * [`toHaveStyle`](#tohavestyle)
+  * [`toBeVisible`](#tobevisible)
 * [Inspiration](#inspiration)
 * [Other Solutions](#other-solutions)
 * [Guiding Principles](#guiding-principles)
@@ -193,6 +194,35 @@ expect(getByTestId(container, 'delete-button')).not.toHaveStyle(`
 This also works with rules that are applied to the element via a class name for
 which some rules are defined in a stylesheet currently active in the document.
 The usual rules of css precedence apply.
+
+### `toBeVisible`
+
+This allows you to check if an element is currently visible to the user.
+
+An element is visible if **all** the following conditions are met:
+
+* it does not have its css property `display` set to `none`
+* it does not have its css property `visibility` set to either `hidden` or
+  `collapse`
+* it does not have its css property `opacity` set to `0`
+* its parent element is also visible (and so on up to the top of the DOM tree)
+
+```javascript
+// add the custom expect matchers once
+import 'jest-dom/extend-expect'
+
+// ...
+// <header>
+//   <h1 style="display: none">Page title</h1>
+// </header>
+// <section>
+//   <p style="visibility: hidden">Hello <strong>World</strong></h1>
+// </section>
+expect(container.querySelector('header')).toBeVisible()
+expect(container.querySelector('h1')).not.toBeVisible()
+expect(container.querySelector('strong')).not.toBeVisible()
+// ...
+```
 
 ## Inspiration
 
