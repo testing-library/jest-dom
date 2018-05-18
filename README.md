@@ -204,6 +204,7 @@ An element is visible if **all** the following conditions are met:
 * it does not have its css property `display` set to `none`
 * it does not have its css property `visibility` set to either `hidden` or
   `collapse`
+* it does not have its css property `opacity` set to `0`
 * its parent element is also visible (and so on up to the top of the DOM tree)
 
 ```javascript

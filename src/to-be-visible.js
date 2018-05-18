@@ -1,12 +1,20 @@
 import {matcherHint} from 'jest-matcher-utils'
 import {checkHtmlElement, getMessage} from './utils'
 
-function isElementVisible(element) {
-  const {display, visibility} = getComputedStyle(element)
-  const isVisible =
-    display !== 'none' && visibility !== 'hidden' && visibility !== 'collapse'
+function isStyleVisible(element) {
+  const {display, visibility, opacity} = getComputedStyle(element)
   return (
-    isVisible &&
+    display !== 'none' &&
+    visibility !== 'hidden' &&
+    visibility !== 'collapse' &&
+    opacity !== '0' &&
+    opacity !== 0
+  )
+}
+
+function isElementVisible(element) {
+  return (
+    isStyleVisible(element) &&
     (!element.parentElement || isElementVisible(element.parentElement))
   )
 }

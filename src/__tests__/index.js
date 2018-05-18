@@ -175,6 +175,8 @@ test('.toBeVisible', () => {
         <h1 style="display: none">Main title</h1>
         <h2 style="visibility: hidden">Secondary title</h2>
         <h3 style="visibility: collapse">Secondary title</h3>
+        <h4 style="opacity: 0">Secondary title</h4>
+        <h5 style="opacity: 0.1">Secondary title</h5>
       </header>
       <section style="display: block; visibility: hidden">
         <p>Hello <strong>World</strong></p>
@@ -186,6 +188,8 @@ test('.toBeVisible', () => {
   expect(container.querySelector('h1')).not.toBeVisible()
   expect(container.querySelector('h2')).not.toBeVisible()
   expect(container.querySelector('h3')).not.toBeVisible()
+  expect(container.querySelector('h4')).not.toBeVisible()
+  expect(container.querySelector('h5')).toBeVisible()
   expect(container.querySelector('strong')).not.toBeVisible()
 
   expect(() =>
