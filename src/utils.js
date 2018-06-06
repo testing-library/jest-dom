@@ -2,24 +2,41 @@ import redent from 'redent'
 import {
   RECEIVED_COLOR as receivedColor,
   EXPECTED_COLOR as expectedColor,
+  matcherHint,
+  printWithType,
+  printReceived,
+  stringify,
 } from 'jest-matcher-utils'
 
-function getDisplayName(subject) {
-  if (subject && subject.constructor) {
-    return subject.constructor.name
-  } else {
-    return typeof subject
+class HtmlElementTypeError extends Error {
+  constructor(received, matcherFn, context) {
+    super()
+
+    /* istanbul ignore next */
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, matcherFn)
+    }
+    this.message = [
+      matcherHint(
+        `${context.isNot ? '.not' : ''}.${matcherFn.name}`,
+        'received',
+        '',
+      ),
+      '',
+      `${receivedColor('received')} value must be an HTMLElement.`,
+      printWithType('Received', received, printReceived),
+    ].join('\n')
   }
 }
 
-function checkHtmlElement(htmlElement) {
+function checkHtmlElement(htmlElement, ...args) {
   if (!(htmlElement instanceof HTMLElement)) {
-    throw new Error(
-      `The given subject is a ${getDisplayName(
-        htmlElement,
-      )}, not an HTMLElement`,
-    )
+    throw new HtmlElementTypeError(htmlElement, ...args)
   }
+}
+
+function display(value) {
+  return typeof value === 'string' ? value : stringify(value)
 }
 
 function getMessage(
@@ -31,8 +48,8 @@ function getMessage(
 ) {
   return [
     `${matcher}\n`,
-    `${expectedLabel}:\n${expectedColor(redent(expectedValue, 2))}`,
-    `${receivedLabel}:\n${receivedColor(redent(receivedValue, 2))}`,
+    `${expectedLabel}:\n${expectedColor(redent(display(expectedValue), 2))}`,
+    `${receivedLabel}:\n${receivedColor(redent(display(receivedValue), 2))}`,
   ].join('\n')
 }
 

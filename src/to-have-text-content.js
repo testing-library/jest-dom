@@ -2,7 +2,7 @@ import {matcherHint} from 'jest-matcher-utils'
 import {checkHtmlElement, getMessage, matches} from './utils'
 
 export function toHaveTextContent(htmlElement, checkWith) {
-  checkHtmlElement(htmlElement)
+  checkHtmlElement(htmlElement, toHaveTextContent, this)
   const textContent = htmlElement.textContent
   return {
     pass: matches(textContent, htmlElement, checkWith),

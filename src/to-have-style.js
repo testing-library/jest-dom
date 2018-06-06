@@ -32,6 +32,7 @@ function printoutStyles(styles) {
     .sort()
     .map(prop => `${prop}: ${styles[prop]};`)
     .join('\n')
+    .concat('\n') // ensure multiline for diff
 }
 
 // Highlights only style rules that were expected but were not found in the
@@ -53,7 +54,7 @@ function expectedDiff(expected, computedStyles) {
 }
 
 export function toHaveStyle(htmlElement, css) {
-  checkHtmlElement(htmlElement)
+  checkHtmlElement(htmlElement, toHaveStyle, this)
   const {parsedRules: expected, parsingError} = parseCSS(css)
   if (parsingError) {
     return {
