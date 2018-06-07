@@ -13,7 +13,7 @@ function isSubset(subset, superset) {
 }
 
 export function toHaveClass(htmlElement, expectedClassNames) {
-  checkHtmlElement(htmlElement)
+  checkHtmlElement(htmlElement, toHaveClass, this)
   const received = splitClassNames(htmlElement.getAttribute('class'))
   const expected = splitClassNames(expectedClassNames)
   return {

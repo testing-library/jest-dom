@@ -1,21 +1,19 @@
-import {matcherHint} from 'jest-matcher-utils'
-import {checkHtmlElement, getMessage} from './utils'
+import {matcherHint, printReceived} from 'jest-matcher-utils'
+import {checkHtmlElement} from './utils'
 
 export function toBeInTheDOM(received) {
   if (received) {
-    checkHtmlElement(received)
+    checkHtmlElement(received, toBeInTheDOM, this)
   }
   return {
     pass: !!received,
     message: () => {
-      const to = this.isNot ? 'not to' : 'to'
-      return getMessage(
+      return [
         matcherHint(`${this.isNot ? '.not' : ''}.toBeInTheDOM`, 'element', ''),
-        'Expected',
-        `element ${to} be present`,
-        'Received',
-        received,
-      )
+        '',
+        'Received:',
+        `  ${printReceived(received ? received.cloneNode(false) : received)}`,
+      ].join('\n')
     },
   }
 }

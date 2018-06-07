@@ -1,5 +1,5 @@
-import {matcherHint} from 'jest-matcher-utils'
-import {checkHtmlElement, getMessage} from './utils'
+import {matcherHint, printReceived} from 'jest-matcher-utils'
+import {checkHtmlElement} from './utils'
 
 function isStyleVisible(element) {
   const {display, visibility, opacity} = getComputedStyle(element)
@@ -20,20 +20,18 @@ function isElementVisible(element) {
 }
 
 export function toBeVisible(element) {
-  checkHtmlElement(element)
+  checkHtmlElement(element, toBeVisible, this)
   const isVisible = isElementVisible(element)
   return {
     pass: isVisible,
     message: () => {
-      const to = this.isNot ? 'not to' : 'to'
       const is = isVisible ? 'is' : 'is not'
-      return getMessage(
+      return [
         matcherHint(`${this.isNot ? '.not' : ''}.toBeVisible`, 'element', ''),
-        'Expected',
-        `element ${to} be visible`,
-        'Received',
-        `element ${is} visible`,
-      )
+        '',
+        `Received element ${is} visible:`,
+        `  ${printReceived(element.cloneNode(false))}`,
+      ].join('\n')
     },
   }
 }

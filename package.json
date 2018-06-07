@@ -36,6 +36,7 @@
     "css": "^2.2.3",
     "jest-diff": "^22.4.3",
     "jest-matcher-utils": "^22.4.3",
+    "pretty-format": "^23.0.1",
     "redent": "^2.0.0"
   },
   "devDependencies": {

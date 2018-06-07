@@ -12,7 +12,7 @@ function getAttributeComment(name, value) {
 }
 
 export function toHaveAttribute(htmlElement, name, expectedValue) {
-  checkHtmlElement(htmlElement)
+  checkHtmlElement(htmlElement, toHaveAttribute, this)
   const isExpectedValuePresent = expectedValue !== undefined
   const hasAttribute = htmlElement.hasAttribute(name)
   const receivedValue = htmlElement.getAttribute(name)
