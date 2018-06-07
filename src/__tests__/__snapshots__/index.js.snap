@@ -1,171 +1,171 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`.toBeInTheDOM 1`] = `
-"<dim>expect(</><red>element</><dim>).not.toBeInTheDOM(</><dim>)</>
+"expect(element).not.toBeInTheDOM()
 
 Received:
-  <red><span data-testid=\\"count-value\\" /></>"
+  <span data-testid="count-value" />"
 `;
 
 exports[`.toBeInTheDOM 2`] = `
-"<dim>expect(</><red>element</><dim>).toBeInTheDOM(</><dim>)</>
+"expect(element).toBeInTheDOM()
 
 Received:
-  <red>null</>"
+  null"
 `;
 
 exports[`.toBeInTheDOM 3`] = `
-"<dim>expect(</><red>received</><dim>).toBeInTheDOM(</><dim>)</>
+"expect(received).toBeInTheDOM()
 
-<red>received</> value must be an HTMLElement.
+received value must be an HTMLElement.
 Received:
-  object: <red>{\\"thisIsNot\\": \\"an html element\\"}</>"
+  object: {"thisIsNot": "an html element"}"
 `;
 
 exports[`.toBeVisible 1`] = `
-"<dim>expect(</><red>element</><dim>).not.toBeVisible(</><dim>)</>
+"expect(element).not.toBeVisible()
 
 Received element is visible:
-  <red><header /></>"
+  <header />"
 `;
 
 exports[`.toBeVisible 2`] = `
-"<dim>expect(</><red>element</><dim>).toBeVisible(</><dim>)</>
+"expect(element).toBeVisible()
 
 Received element is not visible:
-  <red><p /></>"
+  <p />"
 `;
 
 exports[`.toHaveAttribute 1`] = `
-"<dim>expect(</><red>element</><dim>).not.toHaveAttribute(</><green><green>\\"disabled\\"<green></><dim>) // element.hasAttribute(\\"disabled\\")</>
+"expect(element).not.toHaveAttribute("disabled") // element.hasAttribute("disabled")
 
 Expected the element not to have attribute:
-<green>  disabled</>
+  disabled
 Received:
-<red>  disabled=\\"\\"</>"
+  disabled="""
 `;
 
 exports[`.toHaveAttribute 2`] = `
-"<dim>expect(</><red>element</><dim>).not.toHaveAttribute(</><green><green>\\"type\\"<green></><dim>) // element.hasAttribute(\\"type\\")</>
+"expect(element).not.toHaveAttribute("type") // element.hasAttribute("type")
 
 Expected the element not to have attribute:
-<green>  type</>
+  type
 Received:
-<red>  type=\\"submit\\"</>"
+  type="submit""
 `;
 
 exports[`.toHaveAttribute 3`] = `
-"<dim>expect(</><red>element</><dim>).toHaveAttribute(</><green><green>\\"class\\"<green></><dim>) // element.hasAttribute(\\"class\\")</>
+"expect(element).toHaveAttribute("class") // element.hasAttribute("class")
 
 Expected the element to have attribute:
-<green>  class</>
+  class
 Received:
-<red>  null</>"
+  null"
 `;
 
 exports[`.toHaveAttribute 4`] = `
-"<dim>expect(</><red>element</><dim>).not.toHaveAttribute(</><green><green>\\"type\\"<green></><dim>, </><green><green>\\"submit\\"<green></><dim>) // element.getAttribute(\\"type\\") === \\"submit\\"</>
+"expect(element).not.toHaveAttribute("type", "submit") // element.getAttribute("type") === "submit"
 
 Expected the element not to have attribute:
-<green>  type=\\"submit\\"</>
+  type="submit"
 Received:
-<red>  type=\\"submit\\"</>"
+  type="submit""
 `;
 
 exports[`.toHaveAttribute 5`] = `
-"<dim>expect(</><red>element</><dim>).toHaveAttribute(</><green><green>\\"type\\"<green></><dim>, </><green><green>\\"button\\"<green></><dim>) // element.getAttribute(\\"type\\") === \\"button\\"</>
+"expect(element).toHaveAttribute("type", "button") // element.getAttribute("type") === "button"
 
 Expected the element to have attribute:
-<green>  type=\\"button\\"</>
+  type="button"
 Received:
-<red>  type=\\"submit\\"</>"
+  type="submit""
 `;
 
 exports[`.toHaveAttribute 6`] = `
-"<dim>expect(</><red>received</><dim>).not.toHaveAttribute(</><dim>)</>
+"expect(received).not.toHaveAttribute()
 
-<red>received</> value must be an HTMLElement.
+received value must be an HTMLElement.
 Received:
-  object: <red>{\\"thisIsNot\\": \\"an html element\\"}</>"
+  object: {"thisIsNot": "an html element"}"
 `;
 
 exports[`.toHaveClass 1`] = `
-"<dim>expect(</><red>element</><dim>).not.toHaveClass(</><green><green>\\"btn\\"<green></><dim>)</>
+"expect(element).not.toHaveClass("btn")
 
 Expected the element not to have class:
-<green>  btn</>
+  btn
 Received:
-<red>  btn extra btn-danger</>"
+  btn extra btn-danger"
 `;
 
 exports[`.toHaveClass 2`] = `
-"<dim>expect(</><red>element</><dim>).not.toHaveClass(</><green><green>\\"btn-danger\\"<green></><dim>)</>
+"expect(element).not.toHaveClass("btn-danger")
 
 Expected the element not to have class:
-<green>  btn-danger</>
+  btn-danger
 Received:
-<red>  btn extra btn-danger</>"
+  btn extra btn-danger"
 `;
 
 exports[`.toHaveClass 3`] = `
-"<dim>expect(</><red>element</><dim>).not.toHaveClass(</><green><green>\\"extra\\"<green></><dim>)</>
+"expect(element).not.toHaveClass("extra")
 
 Expected the element not to have class:
-<green>  extra</>
+  extra
 Received:
-<red>  btn extra btn-danger</>"
+  btn extra btn-danger"
 `;
 
 exports[`.toHaveClass 4`] = `
-"<dim>expect(</><red>element</><dim>).toHaveClass(</><green><green>\\"xtra\\"<green></><dim>)</>
+"expect(element).toHaveClass("xtra")
 
 Expected the element to have class:
-<green>  xtra</>
+  xtra
 Received:
-<red>  btn extra btn-danger</>"
+  btn extra btn-danger"
 `;
 
 exports[`.toHaveClass 5`] = `
-"<dim>expect(</><red>element</><dim>).not.toHaveClass(</><green><green>\\"btn btn-danger\\"<green></><dim>)</>
+"expect(element).not.toHaveClass("btn btn-danger")
 
 Expected the element not to have class:
-<green>  btn btn-danger</>
+  btn btn-danger
 Received:
-<red>  btn extra btn-danger</>"
+  btn extra btn-danger"
 `;
 
 exports[`.toHaveClass 6`] = `
-"<dim>expect(</><red>element</><dim>).toHaveClass(</><green><green>\\"btn-link\\"<green></><dim>)</>
+"expect(element).toHaveClass("btn-link")
 
 Expected the element to have class:
-<green>  btn-link</>
+  btn-link
 Received:
-<red>  btn extra btn-danger</>"
+  btn extra btn-danger"
 `;
 
 exports[`.toHaveClass 7`] = `
-"<dim>expect(</><red>element</><dim>).toHaveClass(</><green><green>\\"btn-danger\\"<green></><dim>)</>
+"expect(element).toHaveClass("btn-danger")
 
 Expected the element to have class:
-<green>  btn-danger</>
+  btn-danger
 Received:
 "
 `;
 
 exports[`.toHaveStyle 1`] = `
-"<dim>expect(</><red>element</><dim>).toHaveStyle(</><dim>)</>
+"expect(element).toHaveStyle()
 
-<green>- Expected</>
+- Expected
 
-<green>- font-weight: bold;</>
-<dim>  </>
-<red>+ </>"
+- font-weight: bold;
+  
++ "
 `;
 
 exports[`.toHaveStyle 2`] = `
-"<dim>expect(</><red>element</><dim>).not.toHaveStyle(</><dim>)</>
+"expect(element).not.toHaveStyle()
 
-<dim>Compared values have no visual difference.</>"
+Compared values have no visual difference."
 `;
 
 exports[`.toHaveStyle 3`] = `"Syntax error parsing expected css: property missing ':' in 1:24"`;
@@ -173,26 +173,26 @@ exports[`.toHaveStyle 3`] = `"Syntax error parsing expected css: property missin
 exports[`.toHaveStyle 4`] = `"Syntax error parsing expected css: property missing ':' in 1:18"`;
 
 exports[`.toHaveTextContent 1`] = `
-"<dim>expect(</><red>received</><dim>).toHaveTextContent(</><dim>)</>
+"expect(received).toHaveTextContent()
 
-<red>received</> value must be an HTMLElement.
-Received: <red>null</>"
+received value must be an HTMLElement.
+Received: null"
 `;
 
 exports[`.toHaveTextContent 2`] = `
-"<dim>expect(</><red>element</><dim>).toHaveTextContent(</><dim>)</>
+"expect(element).toHaveTextContent()
 
 Expected element to have text content:
-<green>  3</>
+  3
 Received:
-<red>  2</>"
+  2"
 `;
 
 exports[`.toHaveTextContent 3`] = `
-"<dim>expect(</><red>element</><dim>).not.toHaveTextContent(</><dim>)</>
+"expect(element).not.toHaveTextContent()
 
 Expected element not to have text content:
-<green>  2</>
+  2
 Received:
-<red>  2</>"
+  2"
 `;
