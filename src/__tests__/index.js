@@ -13,13 +13,13 @@ test('.toBeInTheDOM', () => {
   // negative test cases wrapped in throwError assertions for coverage.
   expect(() =>
     expect(queryByTestId('count-value')).not.toBeInTheDOM(),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('count-value1')).toBeInTheDOM(),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect({thisIsNot: 'an html element'}).toBeInTheDOM(),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
 })
 
 test('.toHaveTextContent', () => {
@@ -30,14 +30,14 @@ test('.toHaveTextContent', () => {
   expect(queryByTestId('count-value')).not.toHaveTextContent('21')
   expect(() =>
     expect(queryByTestId('count-value2')).toHaveTextContent('2'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
 
   expect(() =>
     expect(queryByTestId('count-value')).toHaveTextContent('3'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('count-value')).not.toHaveTextContent('2'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
 })
 
 test('.toHaveAttribute', () => {
@@ -55,22 +55,22 @@ test('.toHaveAttribute', () => {
 
   expect(() =>
     expect(queryByTestId('ok-button')).not.toHaveAttribute('disabled'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('ok-button')).not.toHaveAttribute('type'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('ok-button')).toHaveAttribute('class'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('ok-button')).not.toHaveAttribute('type', 'submit'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('ok-button')).toHaveAttribute('type', 'button'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect({thisIsNot: 'an html element'}).not.toHaveAttribute(),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
 })
 
 test('.toHaveClass', () => {
@@ -95,25 +95,25 @@ test('.toHaveClass', () => {
 
   expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass('btn'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass('btn-danger'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass('extra'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('delete-button')).toHaveClass('xtra'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass('btn btn-danger'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('delete-button')).toHaveClass('btn-link'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(queryByTestId('cancel-button')).toHaveClass('btn-danger'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
 })
 
 test('.toHaveStyle', () => {
@@ -155,20 +155,20 @@ test('.toHaveStyle', () => {
 
   expect(() =>
     expect(container.querySelector('.label')).toHaveStyle('font-weight: bold'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(container.querySelector('.label')).not.toHaveStyle('color: white'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
 
   // Make sure the test fails if the css syntax is not valid
   expect(() =>
     expect(container.querySelector('.label')).not.toHaveStyle(
       'font-weight bold',
     ),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(container.querySelector('.label')).toHaveStyle('color white'),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
 
   document.body.removeChild(style)
   document.body.removeChild(container)
@@ -200,8 +200,8 @@ test('.toBeVisible', () => {
 
   expect(() =>
     expect(container.querySelector('header')).not.toBeVisible(),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
   expect(() =>
     expect(container.querySelector('p')).toBeVisible(),
-  ).toThrowErrorMatchingSnapshot()
+  ).toThrowError()
 })
