@@ -54,6 +54,7 @@ to maintain.
   - [`toHaveStyle`](#tohavestyle)
   - [`toHaveFocus`](#tohavefocus)
   - [`toBeVisible`](#tobevisible)
+  - [`toBeDisabled`](#tobedisabled)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Guiding Principles](#guiding-principles)
@@ -305,6 +306,33 @@ expect(container.querySelector('strong')).not.toBeVisible()
 // ...
 ```
 
+### `toBeDisabled`
+
+This allows you to check whether an element is disabled from user's perspective.
+It matches if the element is a form element and has or inherits `disabled`
+attribute.
+
+```javascript
+// add the custom expect matchers once
+import 'jest-dom/extend-expect'
+
+// ...
+// <button data-testid="button" type="submit" disabled>
+//   SUBMIT
+// </button>
+// <fieldset disabled>
+//   <input type="text" data-testid="text" />
+// </fieldset>
+expect(getByTestId(container, 'button')).toBeDisabled()
+expect(getByTestId(container, 'text')).toBeDisabled()
+// ...
+
+// ...
+// <a href="..." disabled>LINK</a>
+expect(getByText(container, 'LINK')).not.toBeDisabled()
+// ...
+```
+
 ## Inspiration
 
 This whole library was extracted out of Kent C. Dodds' [dom-testing-library][],
@@ -342,8 +370,8 @@ Thanks goes to these people ([emoji key][emojis]):
 <!-- prettier-ignore -->
 | [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub><b>Kent C. Dodds</b></sub>](https://kentcdodds.com)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=kentcdodds "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/gnapse/jest-dom/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/2430381?v=4" width="100px;"/><br /><sub><b>Ryan Castner</b></sub>](http://audiolion.github.io)<br />[📖](https://github.com/gnapse/jest-dom/commits?author=audiolion "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/8008023?v=4" width="100px;"/><br /><sub><b>Daniel Sandiego</b></sub>](https://www.dnlsandiego.com)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=dnlsandiego "Code") | [<img src="https://avatars2.githubusercontent.com/u/12592677?v=4" width="100px;"/><br /><sub><b>Paweł Mikołajczyk</b></sub>](https://github.com/Miklet)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=Miklet "Code") | [<img src="https://avatars3.githubusercontent.com/u/464978?v=4" width="100px;"/><br /><sub><b>Alejandro Ñáñez Ortiz</b></sub>](http://co.linkedin.com/in/alejandronanez/)<br />[📖](https://github.com/gnapse/jest-dom/commits?author=alejandronanez "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/1402095?v=4" width="100px;"/><br /><sub><b>Matt Parrish</b></sub>](https://github.com/pbomb)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Apbomb "Bug reports") [💻](https://github.com/gnapse/jest-dom/commits?author=pbomb "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=pbomb "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=pbomb "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;"/><br /><sub><b>Justin Hall</b></sub>](https://github.com/wKovacs64)<br />[📦](#platform-wKovacs64 "Packaging/porting to new platform") |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| [<img src="https://avatars1.githubusercontent.com/u/1241511?s=460&v=4" width="100px;"/><br /><sub><b>Anto Aravinth</b></sub>](https://github.com/antoaravinth)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Code") [⚠️](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Tests") [📖](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/3462296?v=4" width="100px;"/><br /><sub><b>Jonah Moses</b></sub>](https://github.com/JonahMoses)<br />[📖](https://github.com/gnapse/jest-dom/commits?author=JonahMoses "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4002543?v=4" width="100px;"/><br /><sub><b>Łukasz Gandecki</b></sub>](http://team.thebrain.pro)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Code") [⚠️](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Tests") [📖](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/498274?v=4" width="100px;"/><br /><sub><b>Ivan Babak</b></sub>](https://sompylasar.github.io)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Asompylasar "Bug reports") [🤔](#ideas-sompylasar "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/4439618?v=4" width="100px;"/><br /><sub><b>Jesse Day</b></sub>](https://github.com/jday3)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=jday3 "Code") | [<img src="https://avatars0.githubusercontent.com/u/15199?v=4" width="100px;"/><br /><sub><b>Ernesto García</b></sub>](http://gnapse.github.io)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=gnapse "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=gnapse "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=gnapse "Tests") | [<img src="https://avatars0.githubusercontent.com/u/79312?v=4" width="100px;"/><br /><sub><b>Mark Volkmann</b></sub>](http://ociweb.com/mark/)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Amvolkmann "Bug reports") [💻](https://github.com/gnapse/jest-dom/commits?author=mvolkmann "Code") |
-| [<img src="https://avatars1.githubusercontent.com/u/1659099?v=4" width="100px;"/><br /><sub><b>smacpherson64</b></sub>](https://github.com/smacpherson64)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Tests") | [<img src="https://avatars2.githubusercontent.com/u/132233?v=4" width="100px;"/><br /><sub><b>John Gozde</b></sub>](https://github.com/jgoz)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Ajgoz "Bug reports") [💻](https://github.com/gnapse/jest-dom/commits?author=jgoz "Code") |
+| [<img src="https://avatars1.githubusercontent.com/u/1241511?s=460&v=4" width="100px;"/><br /><sub><b>Anto Aravinth</b></sub>](https://github.com/antoaravinth)<br />[�](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Code") [⚠️](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Tests") [�](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/3462296?v=4" width="100px;"/><br /><sub><b>Jonah Moses</b></sub>](https://github.com/JonahMoses)<br />[�](https://github.com/gnapse/jest-dom/commits?author=JonahMoses "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4002543?v=4" width="100px;"/><br /><sub><b>Łukasz Gandecki</b></sub>](http://team.thebrain.pro)<br />[�](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Code") [⚠️](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Tests") [�](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/498274?v=4" width="100px;"/><br /><sub><b>Ivan Babak</b></sub>](https://sompylasar.github.io)<br />[�](https://github.com/gnapse/jest-dom/issues?q=author%3Asompylasar "Bug reports") [�](#ideas-sompylasar "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/4439618?v=4" width="100px;"/><br /><sub><b>Jesse Day</b></sub>](https://github.com/jday3)<br />[�](https://github.com/gnapse/jest-dom/commits?author=jday3 "Code") | [<img src="https://avatars0.githubusercontent.com/u/15199?v=4" width="100px;"/><br /><sub><b>Ernesto García</b></sub>](http://gnapse.github.io)<br />[�](https://github.com/gnapse/jest-dom/commits?author=gnapse "Code") [�](https://github.com/gnapse/jest-dom/commits?author=gnapse "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=gnapse "Tests") | [<img src="https://avatars0.githubusercontent.com/u/79312?v=4" width="100px;"/><br /><sub><b>Mark Volkmann</b></sub>](http://ociweb.com/mark/)<br />[�](https://github.com/gnapse/jest-dom/issues?q=author%3Amvolkmann "Bug reports") [�](https://github.com/gnapse/jest-dom/commits?author=mvolkmann "Code") |
+| [<img src="https://avatars1.githubusercontent.com/u/1659099?v=4" width="100px;"/><br /><sub><b>smacpherson64</b></sub>](https://github.com/smacpherson64)<br />[�](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Code") [�](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Tests") | [<img src="https://avatars2.githubusercontent.com/u/132233?v=4" width="100px;"/><br /><sub><b>John Gozde</b></sub>](https://github.com/jgoz)<br />[�](https://github.com/gnapse/jest-dom/issues?q=author%3Ajgoz "Bug reports") [�](https://github.com/gnapse/jest-dom/commits?author=jgoz "Code") |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 

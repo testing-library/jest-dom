@@ -7,6 +7,7 @@ import {toHaveClass} from './to-have-class'
 import {toHaveStyle} from './to-have-style'
 import {toHaveFocus} from './to-have-focus'
 import {toBeVisible} from './to-be-visible'
+import {toBeDisabled} from './to-be-disabled'
 
 export {
   toBeInTheDOM,
@@ -18,4 +19,5 @@ export {
   toHaveStyle,
   toHaveFocus,
   toBeVisible,
+  toBeDisabled,
 }

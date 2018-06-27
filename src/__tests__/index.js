@@ -394,3 +394,101 @@ test('.toBeVisible', () => {
     expect(container.querySelector('p')).toBeVisible(),
   ).toThrowError()
 })
+
+test('.toBeDisabled', () => {
+  const {queryByTestId} = render(`
+    <div>
+      <button disabled={true} data-testid="button-element">x</button>
+      <textarea disabled={true} data-testid="textarea-element"></textarea>
+      <input type="checkbox" disabled={true} data-testid="input-element" />
+
+      <fieldset disabled={true}>
+        <button data-testid="inherited-element">x</button>
+      </fieldset>
+      <div disabled={true}>
+        <button data-testid="div-child-element">x</button>
+      </div>
+
+      <fieldset disabled={true} data-testid="fieldset-element">
+        <div><div><span>
+          <button data-testid="deep-nested-element">x</button>
+        </span></div></div>
+      </fieldset>
+      <fieldset disabled={true}>
+        <select data-testid="deep-select-element">
+          <optgroup data-testid="deep-optgroup-element">
+            <option data-testid="deep-option-element">x</option>
+          </optgroup>
+        </select>
+      </fieldset>
+
+      <a href="http://github.com" disabled={true} data-testid="a-element">x</a>
+    </div>
+    `)
+
+  expect(queryByTestId('button-element')).toBeDisabled()
+  expect(() =>
+    expect(queryByTestId('button-element')).not.toBeDisabled(),
+  ).toThrowError()
+  expect(queryByTestId('textarea-element')).toBeDisabled()
+  expect(queryByTestId('input-element')).toBeDisabled()
+
+  expect(queryByTestId('inherited-element')).toBeDisabled()
+  expect(queryByTestId('div-child-element')).not.toBeDisabled()
+
+  expect(queryByTestId('fieldset-element')).toBeDisabled()
+  expect(queryByTestId('deep-nested-element')).toBeDisabled()
+  expect(queryByTestId('deep-select-element')).toBeDisabled()
+  expect(queryByTestId('deep-optgroup-element')).toBeDisabled()
+  expect(queryByTestId('deep-option-element')).toBeDisabled()
+
+  expect(queryByTestId('a-element')).not.toBeDisabled()
+  expect(() => expect(queryByTestId('a-element')).toBeDisabled()).toThrowError()
+})
+
+test('.toBeDisabled fieldset>legend', () => {
+  const {queryByTestId} = render(`
+    <div>
+      <fieldset disabled={true}>
+        <button data-testid="inherited-element">x</button>
+      </fieldset>
+
+      <fieldset disabled={true}>
+        <legend>
+          <button data-testid="inherited-legend-element">x</button>
+        </legend>
+      </fieldset>
+      <fieldset disabled={true}>
+        <legend><div><div><span>
+          <button data-testid="inherited-deep-element">x</button>
+        </span></div></div></legend>
+      </fieldset>
+
+      <fieldset disabled={true}>
+        <div></div>
+        <legend>
+          <button data-testid="first-legend-element">x</button>
+        </legend>
+        <legend>
+          <button data-testid="second-legend-element">x</button>
+        </legend>
+      </fieldset>
+
+      <fieldset disabled={true}>
+        <fieldset>
+          <legend>
+            <button data-testid="outer-fieldset-element">x</button>
+          </legend>
+        </fieldset>
+      </fieldset>
+    </div>
+    `)
+
+  expect(queryByTestId('inherited-element')).toBeDisabled()
+  expect(queryByTestId('inherited-legend-element')).not.toBeDisabled()
+  expect(queryByTestId('inherited-deep-element')).not.toBeDisabled()
+
+  expect(queryByTestId('first-legend-element')).not.toBeDisabled()
+  expect(queryByTestId('second-legend-element')).toBeDisabled()
+  expect(queryByTestId('outer-fieldset-element')).toBeDisabled()
+})
