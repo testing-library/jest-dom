@@ -137,6 +137,16 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "mvolkmann",
+      "name": "Mark Volkmann",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/79312?v=4",
+      "profile": "http://ociweb.com/mark/",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ]
 }
