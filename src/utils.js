@@ -54,10 +54,10 @@ function getMessage(
 }
 
 function matches(textToMatch, node, matcher) {
-  if (typeof matcher === 'string') {
-    return textToMatch.toLowerCase().includes(matcher.toLowerCase())
-  } else {
+  if (matcher instanceof RegExp) {
     return matcher.test(textToMatch)
+  } else {
+    return textToMatch.toLowerCase().includes(String(matcher).toLowerCase())
   }
 }
 

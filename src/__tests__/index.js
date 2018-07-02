@@ -26,6 +26,7 @@ test('.toHaveTextContent', () => {
   const {queryByTestId} = render(`<span data-testid="count-value">2</span>`)
 
   expect(queryByTestId('count-value')).toHaveTextContent('2')
+  expect(queryByTestId('count-value')).toHaveTextContent(2)
   expect(queryByTestId('count-value')).toHaveTextContent(/2/)
   expect(queryByTestId('count-value')).not.toHaveTextContent('21')
   expect(() =>
