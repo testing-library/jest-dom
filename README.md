@@ -47,6 +47,7 @@ to maintain.
 * [Usage](#usage)
 * [Custom matchers](#custom-matchers)
   * [`toBeInTheDOM`](#tobeinthedom)
+  * [`toContainElement`](#tocontainelement)
   * [`toHaveTextContent`](#tohavetextcontent)
   * [`toHaveAttribute`](#tohaveattribute)
   * [`toHaveClass`](#tohaveclass)
@@ -96,7 +97,9 @@ expect.extend({toBeInTheDOM, toHaveClass})
 
 ### `toBeInTheDOM`
 
-This allows you to assert whether an element present in the DOM or not.
+This allows you to assert whether an element present in the DOM container or not. If no DOM container is specified it will use the default DOM context.
+
+#### Using the default DOM container
 
 ```javascript
 // add the custom expect matchers once
@@ -109,9 +112,44 @@ expect(queryByTestId(container, 'count-value1')).not.toBeInTheDOM()
 // ...
 ```
 
+#### Using a specified DOM container
+
+```javascript
+// add the custom expect matchers once
+import 'jest-dom/extend-expect'
+
+// ...
+// <span data-testid="ancestor"><span data-testid="descendant"></span></span>
+expect(queryByTestId(container, 'descendant')).toBeInTheDOM(
+  queryByTestId(container, 'ancestor'),
+)
+expect(queryByTestId(container, 'ancestor')).not.toBeInTheDOM(
+  queryByTestId(container, 'descendant'),
+)
+// ...
+```
+
 > Note: when using `toBeInTheDOM`, make sure you use a query function
 > (like `queryByTestId`) rather than a get function (like `getByTestId`).
 > Otherwise the `get*` function could throw an error before your assertion.
+
+### `toContainElement`
+
+This allows you to assert whether an element contains another element as a descendant or not.
+
+```javascript
+// add the custom expect matchers once
+import 'jest-dom/extend-expect'
+
+// ...
+// <span data-testid="ancestor"><span data-testid="descendant"></span></span>
+const ancestor = queryByTestId(container, 'ancestor')
+const descendant = queryByTestId(container, 'descendant')
+
+expect(ancestor).toContainElement(descendant)
+expect(descendant).not.toContainElement(ancestor)
+// ...
+```
 
 ### `toHaveTextContent`
 
