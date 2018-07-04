@@ -112,6 +112,21 @@ expect(queryByTestId(container, 'count-value1')).not.toBeInTheDOM()
 > (like `queryByTestId`) rather than a get function (like `getByTestId`).
 > Otherwise the `get*` function could throw an error before your assertion.
 
+### `toBeEmpty`
+
+This allows you to assert whether an element has content or not.
+
+```javascript
+// add the custom expect matchers once
+import 'jest-dom/extend-expect'
+
+// ...
+// <span data-testid="not-empty"><span data-testid="empty"></span></span>
+expect(queryByTestId(container, 'empty')).toBeEmpty()
+expect(queryByTestId(container, 'not-empty')).not.toBeEmpty()
+// ...
+```
+
 ### `toHaveTextContent`
 
 This API allows you to check whether the given element has a text content or not.
