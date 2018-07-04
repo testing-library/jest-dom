@@ -16,9 +16,7 @@ export function toContainElement(container, element) {
         ),
         '',
         'Received:',
-        `  ${printReceived(
-          container ? container.cloneNode(false) : container,
-        )}`,
+        `  ${printReceived(container.cloneNode(false))}`,
       ].join('\n')
     },
   }

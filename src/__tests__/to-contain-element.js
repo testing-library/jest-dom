@@ -16,6 +16,8 @@ test('.toContainElement', () => {
   const grandparent = queryByTestId('grandparent')
   const parent = queryByTestId('parent')
   const child = queryByTestId('child')
+  const nonExistantElement = queryByTestId('not-exists')
+  const fakeElement = {thisIsNot: 'an html element'}
 
   expect(grandparent).toContainElement(parent)
   expect(grandparent).toContainElement(child)
@@ -23,4 +25,32 @@ test('.toContainElement', () => {
   expect(parent).not.toContainElement(grandparent)
   expect(child).not.toContainElement(parent)
   expect(child).not.toContainElement(grandparent)
+
+  // negative test cases wrapped in throwError assertions for coverage.
+  expect(() =>
+    expect(nonExistantElement).not.toContainElement(child),
+  ).toThrowError()
+  expect(() => expect(parent).toContainElement(grandparent)).toThrowError()
+  expect(() =>
+    expect(nonExistantElement).toContainElement(grandparent),
+  ).toThrowError()
+  expect(() =>
+    expect(grandparent).toContainElement(nonExistantElement),
+  ).toThrowError()
+  expect(() =>
+    expect(nonExistantElement).toContainElement(nonExistantElement),
+  ).toThrowError()
+  expect(() =>
+    expect(nonExistantElement).toContainElement(fakeElement),
+  ).toThrowError()
+  expect(() =>
+    expect(fakeElement).toContainElement(nonExistantElement),
+  ).toThrowError()
+  expect(() =>
+    expect(fakeElement).not.toContainElement(nonExistantElement),
+  ).toThrowError()
+  expect(() => expect(fakeElement).toContainElement(grandparent)).toThrowError()
+  expect(() => expect(grandparent).toContainElement(fakeElement)).toThrowError()
+  expect(() => expect(fakeElement).toContainElement(fakeElement)).toThrowError()
+  expect(() => expect(grandparent).not.toContainElement(child)).toThrowError()
 })
