@@ -1,5 +1,3 @@
-import {toContainElement} from './src'
-
 declare namespace jest {
   interface Matchers<R> {
     toBeInTheDOM: (container?: HTMLElement) => R
