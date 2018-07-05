@@ -22,6 +22,32 @@ test('.toBeInTheDOM', () => {
   ).toThrowError()
 })
 
+test('.toBeEmpty', () => {
+  const {queryByTestId} = render(`
+    <span data-testid="not-empty">
+        <span data-testid="empty"></span>
+    </span>`)
+
+  const empty = queryByTestId('empty')
+  const notEmpty = queryByTestId('not-empty')
+  const nonExistantElement = queryByTestId('not-exists')
+  const fakeElement = {thisIsNot: 'an html element'}
+
+  expect(empty).toBeEmpty()
+  expect(notEmpty).not.toBeEmpty()
+
+  // negative test cases wrapped in throwError assertions for coverage.
+  expect(() => expect(empty).not.toBeEmpty()).toThrowError()
+
+  expect(() => expect(notEmpty).toBeEmpty()).toThrowError()
+
+  expect(() => expect(fakeElement).toBeEmpty()).toThrowError()
+
+  expect(() => {
+    expect(nonExistantElement).toBeEmpty()
+  }).toThrowError()
+})
+
 test('.toHaveTextContent', () => {
   const {queryByTestId} = render(`<span data-testid="count-value">2</span>`)
 

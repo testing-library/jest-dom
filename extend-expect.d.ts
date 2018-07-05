@@ -5,6 +5,7 @@ declare namespace jest {
     toHaveClass: (className: string) => R
     toBeInTheDOM: () => R
     toBeVisible: () => R
+    toBeEmpty: () => R
     toHaveStyle: (css: string) => R
   }
 }
