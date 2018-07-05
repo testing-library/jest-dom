@@ -46,6 +46,7 @@ to maintain.
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
+  - [`toContainElement`](#tocontainelement)
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
@@ -95,7 +96,9 @@ expect.extend({toBeInTheDOM, toHaveClass})
 
 ### `toBeInTheDOM`
 
-This allows you to assert whether an element present in the DOM or not.
+This allows you to assert whether an element present in the DOM container or not. If no DOM container is specified it will use the default DOM context.
+
+#### Using the default DOM container
 
 ```javascript
 // add the custom expect matchers once
@@ -105,6 +108,23 @@ import 'jest-dom/extend-expect'
 // <span data-testid="count-value">2</span>
 expect(queryByTestId(container, 'count-value')).toBeInTheDOM()
 expect(queryByTestId(container, 'count-value1')).not.toBeInTheDOM()
+// ...
+```
+
+#### Using a specified DOM container
+
+```javascript
+// add the custom expect matchers once
+import 'jest-dom/extend-expect'
+
+// ...
+// <span data-testid="ancestor"><span data-testid="descendant"></span></span>
+expect(queryByTestId(container, 'descendant')).toBeInTheDOM(
+  queryByTestId(container, 'ancestor'),
+)
+expect(queryByTestId(container, 'ancestor')).not.toBeInTheDOM(
+  queryByTestId(container, 'descendant'),
+)
 // ...
 ```
 
@@ -124,6 +144,24 @@ import 'jest-dom/extend-expect'
 // <span data-testid="not-empty"><span data-testid="empty"></span></span>
 expect(queryByTestId(container, 'empty')).toBeEmpty()
 expect(queryByTestId(container, 'not-empty')).not.toBeEmpty()
+// ...
+```
+
+### `toContainElement`
+
+This allows you to assert whether an element contains another element as a descendant or not.
+
+```javascript
+// add the custom expect matchers once
+import 'jest-dom/extend-expect'
+
+// ...
+// <span data-testid="ancestor"><span data-testid="descendant"></span></span>
+const ancestor = queryByTestId(container, 'ancestor')
+const descendant = queryByTestId(container, 'descendant')
+
+expect(ancestor).toContainElement(descendant)
+expect(descendant).not.toContainElement(ancestor)
 // ...
 ```
 
@@ -281,6 +319,7 @@ Thanks goes to these people ([emoji key][emojis]):
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | [<img src="https://avatars1.githubusercontent.com/u/1241511?s=460&v=4" width="100px;"/><br /><sub><b>Anto Aravinth</b></sub>](https://github.com/antoaravinth)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Code") [⚠️](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Tests") [📖](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/3462296?v=4" width="100px;"/><br /><sub><b>Jonah Moses</b></sub>](https://github.com/JonahMoses)<br />[📖](https://github.com/gnapse/jest-dom/commits?author=JonahMoses "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4002543?v=4" width="100px;"/><br /><sub><b>Łukasz Gandecki</b></sub>](http://team.thebrain.pro)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Code") [⚠️](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Tests") [📖](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/498274?v=4" width="100px;"/><br /><sub><b>Ivan Babak</b></sub>](https://sompylasar.github.io)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Asompylasar "Bug reports") [🤔](#ideas-sompylasar "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/4439618?v=4" width="100px;"/><br /><sub><b>Jesse Day</b></sub>](https://github.com/jday3)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=jday3 "Code") | [<img src="https://avatars0.githubusercontent.com/u/15199?v=4" width="100px;"/><br /><sub><b>Ernesto García</b></sub>](http://gnapse.github.io)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=gnapse "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=gnapse "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=gnapse "Tests") | [<img src="https://avatars0.githubusercontent.com/u/79312?v=4" width="100px;"/><br /><sub><b>Mark Volkmann</b></sub>](http://ociweb.com/mark/)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Amvolkmann "Bug reports") [💻](https://github.com/gnapse/jest-dom/commits?author=mvolkmann "Code") |
 | [<img src="https://avatars1.githubusercontent.com/u/1659099?v=4" width="100px;"/><br /><sub><b>smacpherson64</b></sub>](https://github.com/smacpherson64)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Tests") |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.

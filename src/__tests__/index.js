@@ -5,21 +5,97 @@ import {render} from './helpers/test-utils'
 expect.addSnapshotSerializer(plugins.ConvertAnsi)
 
 test('.toBeInTheDOM', () => {
-  const {queryByTestId} = render(`<span data-testid="count-value">2</span>`)
+  const {queryByTestId} = render(`
+    <span data-testid="count-container">
+      <span data-testid="count-value"></span> 
+    </span>`)
 
-  expect(queryByTestId('count-value')).toBeInTheDOM()
-  expect(queryByTestId('count-value1')).not.toBeInTheDOM()
+  const containerElement = queryByTestId('count-container')
+  const valueElement = queryByTestId('count-value')
+  const nonExistantElement = queryByTestId('not-exists')
+  const fakeElement = {thisIsNot: 'an html element'}
+
+  // Testing toBeInTheDOM without container
+  expect(valueElement).toBeInTheDOM()
+  expect(nonExistantElement).not.toBeInTheDOM()
+
+  // negative test cases wrapped in throwError assertions for coverage.
+  expect(() => expect(valueElement).not.toBeInTheDOM()).toThrowError()
+
+  expect(() => expect(nonExistantElement).toBeInTheDOM()).toThrowError()
+
+  expect(() => expect(fakeElement).toBeInTheDOM()).toThrowError()
+
+  // Testing toBeInTheDOM with container
+  expect(valueElement).toBeInTheDOM(containerElement)
+  expect(containerElement).not.toBeInTheDOM(valueElement)
+
+  expect(() =>
+    expect(valueElement).not.toBeInTheDOM(containerElement),
+  ).toThrowError()
+
+  expect(() =>
+    expect(nonExistantElement).toBeInTheDOM(containerElement),
+  ).toThrowError()
+
+  expect(() =>
+    expect(fakeElement).toBeInTheDOM(containerElement),
+  ).toThrowError()
+
+  expect(() => {
+    expect(valueElement).toBeInTheDOM(fakeElement)
+  }).toThrowError()
+})
+
+test('.toContainElement', () => {
+  const {queryByTestId} = render(`
+    <span data-testid="grandparent">
+      <span data-testid="parent">
+        <span data-testid="child"></span>
+      </span>
+    </span>
+    `)
+
+  const grandparent = queryByTestId('grandparent')
+  const parent = queryByTestId('parent')
+  const child = queryByTestId('child')
+  const nonExistantElement = queryByTestId('not-exists')
+  const fakeElement = {thisIsNot: 'an html element'}
+
+  expect(grandparent).toContainElement(parent)
+  expect(grandparent).toContainElement(child)
+  expect(parent).toContainElement(child)
+  expect(parent).not.toContainElement(grandparent)
+  expect(child).not.toContainElement(parent)
+  expect(child).not.toContainElement(grandparent)
 
   // negative test cases wrapped in throwError assertions for coverage.
   expect(() =>
-    expect(queryByTestId('count-value')).not.toBeInTheDOM(),
+    expect(nonExistantElement).not.toContainElement(child),
+  ).toThrowError()
+  expect(() => expect(parent).toContainElement(grandparent)).toThrowError()
+  expect(() =>
+    expect(nonExistantElement).toContainElement(grandparent),
   ).toThrowError()
   expect(() =>
-    expect(queryByTestId('count-value1')).toBeInTheDOM(),
+    expect(grandparent).toContainElement(nonExistantElement),
   ).toThrowError()
   expect(() =>
-    expect({thisIsNot: 'an html element'}).toBeInTheDOM(),
+    expect(nonExistantElement).toContainElement(nonExistantElement),
   ).toThrowError()
+  expect(() =>
+    expect(nonExistantElement).toContainElement(fakeElement),
+  ).toThrowError()
+  expect(() =>
+    expect(fakeElement).toContainElement(nonExistantElement),
+  ).toThrowError()
+  expect(() =>
+    expect(fakeElement).not.toContainElement(nonExistantElement),
+  ).toThrowError()
+  expect(() => expect(fakeElement).toContainElement(grandparent)).toThrowError()
+  expect(() => expect(grandparent).toContainElement(fakeElement)).toThrowError()
+  expect(() => expect(fakeElement).toContainElement(fakeElement)).toThrowError()
+  expect(() => expect(grandparent).not.toContainElement(child)).toThrowError()
 })
 
 test('.toBeEmpty', () => {
