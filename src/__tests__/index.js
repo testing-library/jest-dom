@@ -226,9 +226,13 @@ test('.toHaveClass', () => {
 
   expect(queryByTestId('delete-button')).toHaveClass('btn')
   expect(queryByTestId('delete-button')).toHaveClass('btn-danger')
+  expect(queryByTestId('delete-button')).toHaveClass(['btn-danger'])
   expect(queryByTestId('delete-button')).toHaveClass('extra')
   expect(queryByTestId('delete-button')).not.toHaveClass('xtra')
+  expect(queryByTestId('delete-button')).not.toHaveClass('btn xtra')
+  expect(queryByTestId('delete-button')).not.toHaveClass(['btn', 'xtra'])
   expect(queryByTestId('delete-button')).toHaveClass('btn btn-danger')
+  expect(queryByTestId('delete-button')).toHaveClass(['btn', 'btn-danger'])
   expect(queryByTestId('delete-button')).not.toHaveClass('btn-link')
   expect(queryByTestId('cancel-button')).not.toHaveClass('btn-danger')
   expect(queryByTestId('svg-spinner')).toHaveClass('spinner')
@@ -242,13 +246,28 @@ test('.toHaveClass', () => {
     expect(queryByTestId('delete-button')).not.toHaveClass('btn-danger'),
   ).toThrowError()
   expect(() =>
+    expect(queryByTestId('delete-button')).not.toHaveClass(['btn-danger']),
+  ).toThrowError()
+  expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass('extra'),
   ).toThrowError()
   expect(() =>
     expect(queryByTestId('delete-button')).toHaveClass('xtra'),
   ).toThrowError()
   expect(() =>
+    expect(queryByTestId('delete-button')).toHaveClass(['xtra']),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('delete-button')).toHaveClass(['btn', 'xtra']),
+  ).toThrowError()
+  expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass('btn btn-danger'),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('delete-button')).not.toHaveClass([
+      'btn',
+      'btn-danger',
+    ]),
   ).toThrowError()
   expect(() =>
     expect(queryByTestId('delete-button')).toHaveClass('btn-link'),

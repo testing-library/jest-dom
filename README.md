@@ -218,7 +218,15 @@ import 'jest-dom/extend-expect'
 // </button>
 expect(getByTestId(container, 'delete-button')).toHaveClass('extra')
 expect(getByTestId(container, 'delete-button')).toHaveClass('btn-danger btn')
+expect(getByTestId(container, 'delete-button')).toHaveClass([
+  'btn-danger',
+  'btn',
+])
 expect(getByTestId(container, 'delete-button')).not.toHaveClass('btn-link')
+expect(getByTestId(container, 'delete-button')).not.toHaveClass([
+  'btn',
+  'btn-link',
+])
 // ...
 ```
 

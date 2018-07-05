@@ -15,7 +15,9 @@ function isSubset(subset, superset) {
 export function toHaveClass(htmlElement, expectedClassNames) {
   checkHtmlElement(htmlElement, toHaveClass, this)
   const received = splitClassNames(htmlElement.getAttribute('class'))
-  const expected = splitClassNames(expectedClassNames)
+  const expected = Array.isArray(expectedClassNames)
+    ? expectedClassNames
+    : splitClassNames(expectedClassNames)
   return {
     pass: isSubset(expected, received),
     message: () => {
