@@ -8,19 +8,24 @@ test('.toBeInTheDOM', () => {
   const {queryByTestId} = render(`
     <span data-testid="count-container">
       <span data-testid="count-value"></span> 
+      <svg data-testid="svg-element"></svg>
     </span>`)
 
   const containerElement = queryByTestId('count-container')
   const valueElement = queryByTestId('count-value')
   const nonExistantElement = queryByTestId('not-exists')
+  const svgElement = queryByTestId('svg-element')
   const fakeElement = {thisIsNot: 'an html element'}
 
   // Testing toBeInTheDOM without container
   expect(valueElement).toBeInTheDOM()
+  expect(svgElement).toBeInTheDOM()
   expect(nonExistantElement).not.toBeInTheDOM()
 
   // negative test cases wrapped in throwError assertions for coverage.
   expect(() => expect(valueElement).not.toBeInTheDOM()).toThrowError()
+
+  expect(() => expect(svgElement).not.toBeInTheDOM()).toThrowError()
 
   expect(() => expect(nonExistantElement).toBeInTheDOM()).toThrowError()
 
@@ -28,10 +33,15 @@ test('.toBeInTheDOM', () => {
 
   // Testing toBeInTheDOM with container
   expect(valueElement).toBeInTheDOM(containerElement)
+  expect(svgElement).toBeInTheDOM(containerElement)
   expect(containerElement).not.toBeInTheDOM(valueElement)
 
   expect(() =>
     expect(valueElement).not.toBeInTheDOM(containerElement),
+  ).toThrowError()
+
+  expect(() =>
+    expect(svgElement).not.toBeInTheDOM(containerElement),
   ).toThrowError()
 
   expect(() =>
@@ -53,21 +63,26 @@ test('.toContainElement', () => {
       <span data-testid="parent">
         <span data-testid="child"></span>
       </span>
+      <svg data-testid="svg-element"></svg>
     </span>
     `)
 
   const grandparent = queryByTestId('grandparent')
   const parent = queryByTestId('parent')
   const child = queryByTestId('child')
+  const svgElement = queryByTestId('svg-element')
   const nonExistantElement = queryByTestId('not-exists')
   const fakeElement = {thisIsNot: 'an html element'}
 
   expect(grandparent).toContainElement(parent)
   expect(grandparent).toContainElement(child)
+  expect(grandparent).toContainElement(svgElement)
   expect(parent).toContainElement(child)
   expect(parent).not.toContainElement(grandparent)
+  expect(parent).not.toContainElement(svgElement)
   expect(child).not.toContainElement(parent)
   expect(child).not.toContainElement(grandparent)
+  expect(child).not.toContainElement(svgElement)
 
   // negative test cases wrapped in throwError assertions for coverage.
   expect(() =>
@@ -96,24 +111,32 @@ test('.toContainElement', () => {
   expect(() => expect(grandparent).toContainElement(fakeElement)).toThrowError()
   expect(() => expect(fakeElement).toContainElement(fakeElement)).toThrowError()
   expect(() => expect(grandparent).not.toContainElement(child)).toThrowError()
+  expect(() =>
+    expect(grandparent).not.toContainElement(svgElement),
+  ).toThrowError()
 })
 
 test('.toBeEmpty', () => {
   const {queryByTestId} = render(`
     <span data-testid="not-empty">
         <span data-testid="empty"></span>
+        <svg data-testid="svg-empty"></svg>
     </span>`)
 
   const empty = queryByTestId('empty')
   const notEmpty = queryByTestId('not-empty')
+  const svgEmpty = queryByTestId('svg-empty')
   const nonExistantElement = queryByTestId('not-exists')
   const fakeElement = {thisIsNot: 'an html element'}
 
   expect(empty).toBeEmpty()
+  expect(svgEmpty).toBeEmpty()
   expect(notEmpty).not.toBeEmpty()
 
   // negative test cases wrapped in throwError assertions for coverage.
   expect(() => expect(empty).not.toBeEmpty()).toThrowError()
+
+  expect(() => expect(svgEmpty).not.toBeEmpty()).toThrowError()
 
   expect(() => expect(notEmpty).toBeEmpty()).toThrowError()
 
@@ -148,6 +171,7 @@ test('.toHaveAttribute', () => {
     <button data-testid="ok-button" type="submit" disabled>
       OK
     </button>
+    <svg data-testid="svg-element" width="12"></svg>
   `)
 
   expect(queryByTestId('ok-button')).toHaveAttribute('disabled')
@@ -155,6 +179,9 @@ test('.toHaveAttribute', () => {
   expect(queryByTestId('ok-button')).not.toHaveAttribute('class')
   expect(queryByTestId('ok-button')).toHaveAttribute('type', 'submit')
   expect(queryByTestId('ok-button')).not.toHaveAttribute('type', 'button')
+  expect(queryByTestId('svg-element')).toHaveAttribute('width')
+  expect(queryByTestId('svg-element')).toHaveAttribute('width', '12')
+  expect(queryByTestId('ok-button')).not.toHaveAttribute('height')
 
   expect(() =>
     expect(queryByTestId('ok-button')).not.toHaveAttribute('disabled'),
@@ -172,6 +199,12 @@ test('.toHaveAttribute', () => {
     expect(queryByTestId('ok-button')).toHaveAttribute('type', 'button'),
   ).toThrowError()
   expect(() =>
+    expect(queryByTestId('svg-element')).not.toHaveAttribute('width'),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('svg-element')).not.toHaveAttribute('width', '12'),
+  ).toThrowError()
+  expect(() =>
     expect({thisIsNot: 'an html element'}).not.toHaveAttribute(),
   ).toThrowError()
 })
@@ -185,6 +218,9 @@ test('.toHaveClass', () => {
       <button data-testid="cancel-button">
         Cancel
       </button>
+      <svg data-testid="svg-spinner" class="spinner clockwise">
+        <path />
+      </svg>
     </div>
   `)
 
@@ -195,6 +231,9 @@ test('.toHaveClass', () => {
   expect(queryByTestId('delete-button')).toHaveClass('btn btn-danger')
   expect(queryByTestId('delete-button')).not.toHaveClass('btn-link')
   expect(queryByTestId('cancel-button')).not.toHaveClass('btn-danger')
+  expect(queryByTestId('svg-spinner')).toHaveClass('spinner')
+  expect(queryByTestId('svg-spinner')).toHaveClass('clockwise')
+  expect(queryByTestId('svg-spinner')).not.toHaveClass('wise')
 
   expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass('btn'),
@@ -216,6 +255,12 @@ test('.toHaveClass', () => {
   ).toThrowError()
   expect(() =>
     expect(queryByTestId('cancel-button')).toHaveClass('btn-danger'),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('svg-spinner')).not.toHaveClass('spinner'),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('svg-spinner')).toHaveClass('wise'),
   ).toThrowError()
 })
 

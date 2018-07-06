@@ -158,6 +158,16 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "jgoz",
+      "name": "John Gozde",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/132233?v=4",
+      "profile": "https://github.com/jgoz",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ]
 }

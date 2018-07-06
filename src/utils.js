@@ -23,14 +23,19 @@ class HtmlElementTypeError extends Error {
         '',
       ),
       '',
-      `${receivedColor('received')} value must be an HTMLElement.`,
+      `${receivedColor(
+        'received',
+      )} value must be an HTMLElement or an SVGElement.`,
       printWithType('Received', received, printReceived),
     ].join('\n')
   }
 }
 
 function checkHtmlElement(htmlElement, ...args) {
-  if (!(htmlElement instanceof HTMLElement)) {
+  if (
+    !(htmlElement instanceof HTMLElement) &&
+    !(htmlElement instanceof SVGElement)
+  ) {
     throw new HtmlElementTypeError(htmlElement, ...args)
   }
 }
