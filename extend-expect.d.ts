@@ -8,5 +8,6 @@ declare namespace jest {
     toHaveClass(className: string): R
     toHaveStyle(css: string): R
     toHaveTextContent(text: string | RegExp): R
+    toHaveFocus(): R
   }
 }

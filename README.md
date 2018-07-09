@@ -52,6 +52,7 @@ to maintain.
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
   - [`toHaveStyle`](#tohavestyle)
+  - [`toHaveFocus`](#tohavefocus)
   - [`toBeVisible`](#tobevisible)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
@@ -251,6 +252,28 @@ expect(getByTestId(container, 'delete-button')).not.toHaveStyle(`
 This also works with rules that are applied to the element via a class name for
 which some rules are defined in a stylesheet currently active in the document.
 The usual rules of css precedence apply.
+
+### `toHaveFocus`
+
+This allows you to assert whether an element has focus or not.
+
+```javascript
+// add the custom expect matchers once
+import 'jest-dom/extend-expect'
+
+// ...
+// <div><input id="focused" type="text" data-testid="focused" /></div>
+// const { container } = render(...)
+// const input = container.querySelector('#focused');
+
+// input.focus()
+expect(queryByTestId(container, 'focused')).toHaveFocus()
+
+// input.blur()
+expect(queryByTestId(container, 'focused')).not.toHaveFocus()
+
+// ...
+```
 
 ### `toBeVisible`
 
