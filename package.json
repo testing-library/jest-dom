@@ -1,7 +1,7 @@
 {
   "name": "jest-dom",
   "version": "0.0.0-semantically-released",
-  "description": "Custom jest matchers to test the dom structure",
+  "description": "Custom jest matchers to test the state of the DOM",
   "main": "dist/index.js",
   "engines": {
     "node": "> 4",

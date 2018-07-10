@@ -5,7 +5,7 @@
 <img height="80" width="80" alt="owl" src="https://raw.githubusercontent.com/gnapse/jest-dom/master/other/owl.png" />
 </a>
 
-<p>Custom jest matchers to test the dom structure</p>
+<p>Custom jest matchers to test the state of the DOM</p>
 </div>
 
 <hr />
