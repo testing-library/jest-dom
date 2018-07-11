@@ -99,6 +99,10 @@ expect.extend({toBeInTheDOM, toHaveClass})
 
 ### `toBeInTheDOM`
 
+```
+toBeInTheDOM(container?: HTMLElement)
+```
+
 This allows you to assert whether an element present in the DOM container or not. If no DOM container is specified it will use the default DOM context.
 
 #### Using the default DOM container
@@ -137,6 +141,10 @@ expect(queryByTestId(container, 'ancestor')).not.toBeInTheDOM(
 
 ### `toBeEmpty`
 
+```
+toBeEmpty()
+```
+
 This allows you to assert whether an element has content or not.
 
 ```javascript
@@ -151,6 +159,10 @@ expect(queryByTestId(container, 'not-empty')).not.toBeEmpty()
 ```
 
 ### `toContainElement`
+
+```
+toContainElement(element: HTMLElement)
+```
 
 This allows you to assert whether an element contains another element as a descendant or not.
 
@@ -170,6 +182,10 @@ expect(descendant).not.toContainElement(ancestor)
 
 ### `toHaveTextContent`
 
+```
+toHaveTextContent(text: string | RegExp)
+```
+
 This API allows you to check whether the given element has a text content or not.
 
 ```javascript
@@ -184,6 +200,10 @@ expect(getByTestId(container, 'count-value')).not.toHaveTextContent('21')
 ```
 
 ### `toHaveAttribute`
+
+```
+toHaveAttribute(attr: string, value?: string)
+```
 
 This allows you to check wether the given element has an attribute or not. You
 can also optionally check that the attribute has a specific expected value.
@@ -207,6 +227,10 @@ expect(getByTestId(container, 'ok-button')).not.toHaveAttribute(
 
 ### `toHaveClass`
 
+```
+toHaveClass(...classNames: string[])
+```
+
 This allows you to check wether the given element has certain classes within its
 `class` attribute.
 
@@ -226,6 +250,10 @@ expect(getByTestId(container, 'delete-button')).not.toHaveClass('btn-link')
 ```
 
 ### `toHaveStyle`
+
+```
+toHaveStyle(css: string)
+```
 
 This allows you to check if a certain element has some specific css properties
 with specific values applied. It matches only if the element has _all_ the
@@ -257,6 +285,10 @@ The usual rules of css precedence apply.
 
 ### `toHaveFocus`
 
+```
+toHaveFocus()
+```
+
 This allows you to assert whether an element has focus or not.
 
 ```javascript
@@ -278,6 +310,10 @@ expect(queryByTestId(container, 'focused')).not.toHaveFocus()
 ```
 
 ### `toBeVisible`
+
+```
+toBeVisible()
+```
 
 This allows you to check if an element is currently visible to the user.
 
@@ -307,6 +343,10 @@ expect(container.querySelector('strong')).not.toBeVisible()
 ```
 
 ### `toBeDisabled`
+
+```
+toBeDisabled()
+```
 
 This allows you to check whether an element is disabled from the user's perspective.
 
