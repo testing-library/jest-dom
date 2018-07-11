@@ -99,7 +99,7 @@ expect.extend({toBeInTheDOM, toHaveClass})
 
 ### `toBeInTheDOM`
 
-```
+```typescript
 toBeInTheDOM(container?: HTMLElement)
 ```
 
@@ -141,7 +141,7 @@ expect(queryByTestId(container, 'ancestor')).not.toBeInTheDOM(
 
 ### `toBeEmpty`
 
-```
+```typescript
 toBeEmpty()
 ```
 
@@ -160,7 +160,7 @@ expect(queryByTestId(container, 'not-empty')).not.toBeEmpty()
 
 ### `toContainElement`
 
-```
+```typescript
 toContainElement(element: HTMLElement)
 ```
 
@@ -182,7 +182,7 @@ expect(descendant).not.toContainElement(ancestor)
 
 ### `toHaveTextContent`
 
-```
+```typescript
 toHaveTextContent(text: string | RegExp)
 ```
 
@@ -201,7 +201,7 @@ expect(getByTestId(container, 'count-value')).not.toHaveTextContent('21')
 
 ### `toHaveAttribute`
 
-```
+```typescript
 toHaveAttribute(attr: string, value?: string)
 ```
 
@@ -227,7 +227,7 @@ expect(getByTestId(container, 'ok-button')).not.toHaveAttribute(
 
 ### `toHaveClass`
 
-```
+```typescript
 toHaveClass(...classNames: string[])
 ```
 
@@ -251,7 +251,7 @@ expect(getByTestId(container, 'delete-button')).not.toHaveClass('btn-link')
 
 ### `toHaveStyle`
 
-```
+```typescript
 toHaveStyle(css: string)
 ```
 
@@ -285,7 +285,7 @@ The usual rules of css precedence apply.
 
 ### `toHaveFocus`
 
-```
+```typescript
 toHaveFocus()
 ```
 
@@ -311,7 +311,7 @@ expect(queryByTestId(container, 'focused')).not.toHaveFocus()
 
 ### `toBeVisible`
 
-```
+```typescript
 toBeVisible()
 ```
 
@@ -344,7 +344,7 @@ expect(container.querySelector('strong')).not.toBeVisible()
 
 ### `toBeDisabled`
 
-```
+```typescript
 toBeDisabled()
 ```
 
