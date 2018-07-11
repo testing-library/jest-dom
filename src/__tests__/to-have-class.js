@@ -14,6 +14,7 @@ test('.toHaveClass', () => {
       <svg data-testid="svg-spinner" class="spinner clockwise">
         <path />
       </svg>
+      <div data-testid="no-classes"></div>
     </div>
   `)
 
@@ -35,19 +36,9 @@ test('.toHaveClass', () => {
   expect(queryByTestId('svg-spinner')).toHaveClass('spinner')
   expect(queryByTestId('svg-spinner')).toHaveClass('clockwise')
   expect(queryByTestId('svg-spinner')).not.toHaveClass('wise')
+  expect(queryByTestId('no-classes')).not.toHaveClass()
+  expect(queryByTestId('no-classes')).not.toHaveClass(' ')
 
-  expect(() =>
-    expect(queryByTestId('delete-button')).toHaveClass(),
-  ).toThrowError(/At least one expected class must be provided/)
-  expect(() =>
-    expect(queryByTestId('delete-button')).not.toHaveClass(),
-  ).toThrowError(/At least one expected class must be provided/)
-  expect(() =>
-    expect(queryByTestId('delete-button')).toHaveClass(''),
-  ).toThrowError(/At least one expected class must be provided/)
-  expect(() =>
-    expect(queryByTestId('delete-button')).not.toHaveClass('  '),
-  ).toThrowError(/At least one expected class must be provided/)
   expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass('btn'),
   ).toThrowError()
@@ -84,4 +75,19 @@ test('.toHaveClass', () => {
   expect(() =>
     expect(queryByTestId('svg-spinner')).toHaveClass('wise'),
   ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('delete-button')).toHaveClass(),
+  ).toThrowError(/At least one expected class must be provided/)
+  expect(() =>
+    expect(queryByTestId('delete-button')).toHaveClass(''),
+  ).toThrowError(/At least one expected class must be provided/)
+  expect(() => expect(queryByTestId('no-classes')).toHaveClass()).toThrowError(
+    /At least one expected class must be provided/,
+  )
+  expect(() =>
+    expect(queryByTestId('delete-button')).not.toHaveClass(),
+  ).toThrowError(/(none)/)
+  expect(() =>
+    expect(queryByTestId('delete-button')).not.toHaveClass('  '),
+  ).toThrowError(/(none)/)
 })

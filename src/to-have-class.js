@@ -38,11 +38,19 @@ export function toHaveClass(htmlElement, ...expectedClassNames) {
         },
       }
     : {
-        pass: this.isNot,
+        pass: this.isNot ? received.length > 0 : false,
         message: () =>
-          [
-            matcherHint(`${this.isNot ? '.not' : ''}.toHaveClass`, 'element'),
-            'At least one expected class must be provided.',
-          ].join('\n'),
+          this.isNot
+            ? getMessage(
+                matcherHint('.not.toHaveClass', 'element', ''),
+                'Expected the element to have classes',
+                '(none)',
+                'Received',
+                received.join(' '),
+              )
+            : [
+                matcherHint(`.toHaveClass`, 'element'),
+                'At least one expected class must be provided.',
+              ].join('\n'),
       }
 }
