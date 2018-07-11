@@ -3,6 +3,7 @@ declare namespace jest {
     toBeInTheDOM(container?: HTMLElement): R
     toBeVisible(): R
     toBeEmpty(): R
+    toBeDisabled(): R
     toContainElement(element: HTMLElement): R
     toHaveAttribute(attr: string, value?: string): R
     toHaveClass(...classNames: string[]): R

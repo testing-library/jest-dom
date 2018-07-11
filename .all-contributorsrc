@@ -168,6 +168,17 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "callada",
+      "name": "Iwona",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/7830590?v=4",
+      "profile": "https://github.com/callada",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ]
 }
