@@ -1,8 +1,4 @@
-import '../extend-expect'
-import {plugins} from 'pretty-format'
 import {render} from './helpers/test-utils'
-
-expect.addSnapshotSerializer(plugins.ConvertAnsi)
 
 test('.toBeDisabled', () => {
   const {queryByTestId} = render(`
@@ -22,7 +18,7 @@ test('.toBeDisabled', () => {
       <fieldset disabled={true}>
         <div>
           <button data-testid="nested-form-element">x</button>
-        
+
           <select data-testid="deep-select-element">
             <optgroup data-testid="deep-optgroup-element">
               <option data-testid="deep-option-element">x</option>

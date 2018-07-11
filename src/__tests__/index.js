@@ -1,13 +1,9 @@
-import '../extend-expect'
-import {plugins} from 'pretty-format'
 import {render} from './helpers/test-utils'
-
-expect.addSnapshotSerializer(plugins.ConvertAnsi)
 
 test('.toBeInTheDOM', () => {
   const {queryByTestId} = render(`
     <span data-testid="count-container">
-      <span data-testid="count-value"></span> 
+      <span data-testid="count-value"></span>
       <svg data-testid="svg-element"></svg>
     </span>`)
 
