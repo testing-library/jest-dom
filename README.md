@@ -100,7 +100,7 @@ expect.extend({toBeInTheDOM, toHaveClass})
 ### `toBeInTheDOM`
 
 ```typescript
-toBeInTheDOM(container?: HTMLElement)
+toBeInTheDOM(container?: HTMLElement | SVGElement)
 ```
 
 This allows you to assert whether an element present in the DOM container or not. If no DOM container is specified it will use the default DOM context.
@@ -161,7 +161,7 @@ expect(queryByTestId(container, 'not-empty')).not.toBeEmpty()
 ### `toContainElement`
 
 ```typescript
-toContainElement(element: HTMLElement)
+toContainElement(element: HTMLElement | SVGElement)
 ```
 
 This allows you to assert whether an element contains another element as a descendant or not.
