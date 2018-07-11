@@ -20,6 +20,8 @@ function getTag(element) {
  * According to specification:
  * If <fieldset> is disabled, the form controls that are its descendants,
  * except descendants of its first optional <legend> element, are disabled
+ * 
+ * https://html.spec.whatwg.org/multipage/form-elements.html#concept-fieldset-disabled
  *
  * This method tests whether element is first legend child of fieldset parent
  */
