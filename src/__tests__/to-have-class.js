@@ -1,3 +1,5 @@
+/* eslint max-statements:off */
+
 import {render} from './helpers/test-utils'
 
 test('.toHaveClass', () => {
@@ -15,7 +17,6 @@ test('.toHaveClass', () => {
     </div>
   `)
 
-  expect(queryByTestId('delete-button')).toHaveClass()
   expect(queryByTestId('delete-button')).toHaveClass('btn')
   expect(queryByTestId('delete-button')).toHaveClass('btn-danger')
   expect(queryByTestId('delete-button')).toHaveClass('extra')
@@ -36,8 +37,17 @@ test('.toHaveClass', () => {
   expect(queryByTestId('svg-spinner')).not.toHaveClass('wise')
 
   expect(() =>
+    expect(queryByTestId('delete-button')).toHaveClass(),
+  ).toThrowError(/At least one expected class must be provided/)
+  expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass(),
-  ).toThrowError()
+  ).toThrowError(/At least one expected class must be provided/)
+  expect(() =>
+    expect(queryByTestId('delete-button')).toHaveClass(''),
+  ).toThrowError(/At least one expected class must be provided/)
+  expect(() =>
+    expect(queryByTestId('delete-button')).not.toHaveClass('  '),
+  ).toThrowError(/At least one expected class must be provided/)
   expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass('btn'),
   ).toThrowError()

@@ -19,21 +19,30 @@ export function toHaveClass(htmlElement, ...expectedClassNames) {
     (acc, className) => acc.concat(splitClassNames(className)),
     [],
   )
-  return {
-    pass: isSubset(expected, received),
-    message: () => {
-      const to = this.isNot ? 'not to' : 'to'
-      return getMessage(
-        matcherHint(
-          `${this.isNot ? '.not' : ''}.toHaveClass`,
-          'element',
-          printExpected(expected.join(' ')),
-        ),
-        `Expected the element ${to} have class`,
-        expected.join(' '),
-        'Received',
-        received.join(' '),
-      )
-    },
-  }
+  return expected.length > 0
+    ? {
+        pass: isSubset(expected, received),
+        message: () => {
+          const to = this.isNot ? 'not to' : 'to'
+          return getMessage(
+            matcherHint(
+              `${this.isNot ? '.not' : ''}.toHaveClass`,
+              'element',
+              printExpected(expected.join(' ')),
+            ),
+            `Expected the element ${to} have class`,
+            expected.join(' '),
+            'Received',
+            received.join(' '),
+          )
+        },
+      }
+    : {
+        pass: this.isNot,
+        message: () =>
+          [
+            matcherHint(`${this.isNot ? '.not' : ''}.toHaveClass`, 'element'),
+            'At least one expected class must be provided.',
+          ].join('\n'),
+      }
 }
