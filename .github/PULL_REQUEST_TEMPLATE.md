@@ -14,21 +14,21 @@ Please fill out the information below to expedite the review and (hopefully)
 merge of your pull request!
 -->
 
-<!-- What changes are being made? (What feature/bug is being fixed here?) -->
 
 **What**:
+<!-- What changes are being made? (What feature/bug is being fixed here?) -->
 
-<!-- Why are these changes necessary? -->
 
 **Why**:
+<!-- Why are these changes necessary? -->
 
-<!-- How were these changes implemented? -->
 
 **How**:
+<!-- How were these changes implemented? -->
 
-<!-- Have you done all of these things?  -->
 
 **Checklist**:
+<!-- Have you done all of these things?  -->
 
 <!-- add "N/A" to the end of each line that's irrelevant to your changes -->
 
@@ -36,6 +36,7 @@ merge of your pull request!
 
 * [ ] Documentation
 * [ ] Tests
+* [ ] Updated Type Definitions
 * [ ] Ready to be merged <!-- In your opinion, is this ready to be merged as soon as it's reviewed? -->
 * [ ] Added myself to contributors table <!-- this is optional, see the contributing guidelines for instructions -->
 
