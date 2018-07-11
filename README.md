@@ -205,7 +205,7 @@ expect(getByTestId(container, 'count-value')).not.toHaveTextContent('21')
 toHaveAttribute(attr: string, value?: string)
 ```
 
-This allows you to check wether the given element has an attribute or not. You
+This allows you to check whether the given element has an attribute or not. You
 can also optionally check that the attribute has a specific expected value.
 
 ```javascript
@@ -231,7 +231,7 @@ expect(getByTestId(container, 'ok-button')).not.toHaveAttribute(
 toHaveClass(...classNames: string[])
 ```
 
-This allows you to check wether the given element has certain classes within its
+This allows you to check whether the given element has certain classes within its
 `class` attribute.
 
 ```javascript
