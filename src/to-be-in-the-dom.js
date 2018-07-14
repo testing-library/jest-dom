@@ -1,7 +1,12 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {checkHtmlElement, deprecate} from './utils'
 
 export function toBeInTheDOM(element, container) {
+  deprecate(
+    'toBeInTheDOM',
+    'Please use toBeInTheDocument for searching the entire document and toContainElement for searching a specific container.',
+  )
+
   if (element) {
     checkHtmlElement(element, toBeInTheDOM, this)
   }
