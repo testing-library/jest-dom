@@ -124,7 +124,7 @@ expect(queryByTestId(container, 'not-empty')).not.toBeEmpty()
 toBeInTheDocument()
 ```
 
-This allows you to assert whether an element present in the document or not.
+This allows you to assert whether an element is present in the document or not.
 
 ```javascript
 // add the custom expect matchers once
