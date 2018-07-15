@@ -1,8 +1,9 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {checkHtmlElement, checkDocumentKey} from './utils'
 
 export function toBeInTheDocument(element) {
   checkHtmlElement(element, toBeInTheDocument, this)
+  checkDocumentKey(global.document, 'documentElement', toBeInTheDocument)
 
   return {
     pass: document.documentElement.contains(element),
