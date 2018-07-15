@@ -20,9 +20,12 @@ test('deprecate', () => {
 test('checkDocumentKey', () => {
   const fakeKey = 'fakeKey'
   const realKey = 'documentElement'
-  const message = `${fakeKey} is undefined on document but is required to use ${
+  const badKeyMessage = `${fakeKey} is undefined on document but is required to use ${
     matcherMock.name
   }.`
+
+  const badDocumentMessage =
+    'document is undefined on global but is required to use matcherMock.'
 
   expect(() =>
     checkDocumentKey(document, realKey, matcherMock),
@@ -30,19 +33,10 @@ test('checkDocumentKey', () => {
 
   expect(() => {
     checkDocumentKey(document, fakeKey, matcherMock)
-  }).toThrowError()
-
-  try {
-    checkDocumentKey(document, fakeKey, matcherMock)
-  } catch (error) {
-    expect(error.message).toBe(message)
-    expect(error.constructor.name).toBe('InvalidDocumentError')
-  }
+  }).toThrow(badKeyMessage)
 
   expect(() => {
     //eslint-disable-next-line no-undef
     checkDocumentKey(undefined, realKey, matcherMock)
-  }).toThrow(
-    'document is undefined on global but is required to use matcherMock.',
-  )
+  }).toThrow(badDocumentMessage)
 })
