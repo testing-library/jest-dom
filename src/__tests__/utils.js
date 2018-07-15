@@ -24,8 +24,9 @@ test('checkDocumentKey', () => {
     matcherMock.name
   }.`
 
-  const badDocumentMessage =
-    'document is undefined on global but is required to use matcherMock.'
+  const badDocumentMessage = `document is undefined on global but is required to use ${
+    matcherMock.name
+  }.`
 
   expect(() =>
     checkDocumentKey(document, realKey, matcherMock),
