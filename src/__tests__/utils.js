@@ -1,15 +1,16 @@
-import {deprecate, getDepreciationMessage} from '../utils'
+import {deprecate} from '../utils'
 
 test('deprecate', () => {
   const spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
+  const name = 'test'
+  const replacement = 'test'
+  const message = `Warning: ${name} has been deprecated and will be removed in future updates.`
 
-  const messageWithReplacement = getDepreciationMessage('test', 'test')
-  deprecate('test', 'test')
-  expect(spy).toHaveBeenCalledWith(messageWithReplacement)
+  deprecate(name, replacement)
+  expect(spy).toHaveBeenCalledWith(message, replacement)
 
-  const messageWithoutReplacement = getDepreciationMessage('test')
-  deprecate('test')
-  expect(spy).toHaveBeenCalledWith(messageWithoutReplacement)
+  deprecate(name)
+  expect(spy).toHaveBeenCalledWith(message, undefined)
 
   spy.mockRestore()
 })

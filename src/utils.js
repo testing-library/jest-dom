@@ -67,28 +67,12 @@ function matches(textToMatch, node, matcher) {
 }
 
 function deprecate(name, replacementText) {
-  const message = getDepreciationMessage(name, replacementText)
-
   // Notify user that they are using deprecated functionality.
   // eslint-disable-next-line no-console
-  console.warn(message)
-}
-
-function getDepreciationMessage(name, replacementText) {
-  return [
-    'Warning:',
-    name,
-    'has been deprecated and will be removed in future updates.',
+  console.warn(
+    `Warning: ${name} has been deprecated and will be removed in future updates.`,
     replacementText,
-  ]
-    .join(' ')
-    .trim()
+  )
 }
 
-export {
-  checkHtmlElement,
-  getMessage,
-  matches,
-  deprecate,
-  getDepreciationMessage,
-}
+export {checkHtmlElement, getMessage, matches, deprecate}
