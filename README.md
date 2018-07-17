@@ -131,9 +131,14 @@ This allows you to assert whether an element is present in the document or not.
 import 'jest-dom/extend-expect'
 
 // ...
-// <span data-testid="count-value">2</span>
+// document.body.innerHTML = `<span data-testid="html-element"><span>Html Element</span></span><svg data-testid="svg-element"></svg>`
+
+// const htmlElement = document.querySelector('[data-testid="html-element"]')
+// const svgElement = document.querySelector('[data-testid="html-element"]')
+// const detachedElement = document.createElement('div')
+
 expect(queryByTestId(container, 'count-value').toBeInTheDocument()
-expect(queryByTestId(container, 'count-value1')).not.toBeInTheDocument()
+expect(detacthedElement).not.toBeInTheDocument()
 // ...
 ```
 
@@ -363,9 +368,11 @@ expect(getByText(container, 'LINK')).not.toBeDisabled()
 
 ### `toBeInTheDOM`
 
-> Please use [`toBeInTheDocument`](#tobeinthedocument) for searching the entire document.
+> Note: The differences between `toBeInTheDOM` and `toBeInTheDocument` are significant. Replacing all uses of `toBeInTheDOM` with `toBeInTheDocument` will likely cause unintended consequences in your tests. Please make sure when replacing `toBeInTheDOM` to read through the replacements below to see which use case works better for your needs.
 
 > Please use [`toContainElement`](#tocontainelement) for searching a specific container.
+
+> Please use [`toBeInTheDocument`](#tobeinthedocument) for searching the entire document.
 
 ## Inspiration
 
