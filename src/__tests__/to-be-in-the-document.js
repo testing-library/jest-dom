@@ -7,6 +7,8 @@ test('.toBeInTheDocument', () => {
   const svgElement = document.querySelector('[data-testid="html-element"]')
   const detachedElement = document.createElement('div')
   const fakeElement = {thisIsNot: 'an html element'}
+  const undefinedElement = undefined
+  const nullElement = null
 
   expect(htmlElement).toBeInTheDocument()
   expect(svgElement).toBeInTheDocument()
@@ -17,4 +19,6 @@ test('.toBeInTheDocument', () => {
   expect(() => expect(svgElement).not.toBeInTheDocument()).toThrowError()
   expect(() => expect(detachedElement).toBeInTheDocument()).toThrowError()
   expect(() => expect(fakeElement).toBeInTheDocument()).toThrowError()
+  expect(() => expect(undefinedElement).toBeInTheDocument()).toThrowError()
+  expect(() => expect(nullElement).toBeInTheDocument()).toThrowError()
 })
