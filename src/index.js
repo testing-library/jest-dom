@@ -1,4 +1,5 @@
 import {toBeInTheDOM} from './to-be-in-the-dom'
+import {toBeInTheDocument} from './to-be-in-the-document'
 import {toBeEmpty} from './to-be-empty'
 import {toContainElement} from './to-contain-element'
 import {toHaveTextContent} from './to-have-text-content'
@@ -11,6 +12,7 @@ import {toBeDisabled} from './to-be-disabled'
 
 export {
   toBeInTheDOM,
+  toBeInTheDocument,
   toBeEmpty,
   toContainElement,
   toHaveTextContent,

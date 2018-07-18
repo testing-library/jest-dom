@@ -45,8 +45,8 @@ to maintain.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
-  - [`toBeInTheDOM`](#tobeinthedom)
   - [`toBeEmpty`](#tobeempty)
+  - [`toBeInTheDocument`](#tobeinthedocument)
   - [`toContainElement`](#tocontainelement)
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveAttribute`](#tohaveattribute)
@@ -55,6 +55,8 @@ to maintain.
   - [`toHaveFocus`](#tohavefocus)
   - [`toBeVisible`](#tobevisible)
   - [`toBeDisabled`](#tobedisabled)
+- [Deprecated matchers](#deprecated-matchers)
+  - [`toBeInTheDOM`](#tobeinthedom)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Guiding Principles](#guiding-principles)
@@ -87,57 +89,15 @@ Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
 
 ```javascript
-import {toBeInTheDOM, toHaveClass} from 'jest-dom'
+import {toBeInTheDocument, toHaveClass} from 'jest-dom'
 
-expect.extend({toBeInTheDOM, toHaveClass})
+expect.extend({toBeInTheDocument, toHaveClass})
 ```
 
 > Note: when using TypeScript, this way of importing matchers won't provide the
 > necessary type definitions. More on this [here](https://github.com/gnapse/jest-dom/pull/11#issuecomment-387817459).
 
 ## Custom matchers
-
-### `toBeInTheDOM`
-
-```typescript
-toBeInTheDOM(container?: HTMLElement | SVGElement)
-```
-
-This allows you to assert whether an element present in the DOM container or not. If no DOM container is specified it will use the default DOM context.
-
-#### Using the default DOM container
-
-```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
-
-// ...
-// <span data-testid="count-value">2</span>
-expect(queryByTestId(container, 'count-value')).toBeInTheDOM()
-expect(queryByTestId(container, 'count-value1')).not.toBeInTheDOM()
-// ...
-```
-
-#### Using a specified DOM container
-
-```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
-
-// ...
-// <span data-testid="ancestor"><span data-testid="descendant"></span></span>
-expect(queryByTestId(container, 'descendant')).toBeInTheDOM(
-  queryByTestId(container, 'ancestor'),
-)
-expect(queryByTestId(container, 'ancestor')).not.toBeInTheDOM(
-  queryByTestId(container, 'descendant'),
-)
-// ...
-```
-
-> Note: when using `toBeInTheDOM`, make sure you use a query function
-> (like `queryByTestId`) rather than a get function (like `getByTestId`).
-> Otherwise the `get*` function could throw an error before your assertion.
 
 ### `toBeEmpty`
 
@@ -157,6 +117,33 @@ expect(queryByTestId(container, 'empty')).toBeEmpty()
 expect(queryByTestId(container, 'not-empty')).not.toBeEmpty()
 // ...
 ```
+
+### `toBeInTheDocument`
+
+```typescript
+toBeInTheDocument()
+```
+
+This allows you to assert whether an element is present in the document or not.
+
+```javascript
+// add the custom expect matchers once
+import 'jest-dom/extend-expect'
+
+// ...
+// document.body.innerHTML = `<span data-testid="html-element"><span>Html Element</span></span><svg data-testid="svg-element"></svg>`
+
+// const htmlElement = document.querySelector('[data-testid="html-element"]')
+// const svgElement = document.querySelector('[data-testid="html-element"]')
+// const detachedElement = document.createElement('div')
+
+expect(htmlElement).toBeInTheDocument()
+expect(svgElement).toBeInTheDocument()
+expect(detacthedElement).not.toBeInTheDocument()
+// ...
+```
+
+> Note: This will not find detached elements. The element must be added to the document to be found. If you desire to search in a detached element please use: [`toContainElement`](#tocontainelement)
 
 ### `toContainElement`
 
@@ -388,6 +375,16 @@ expect(getByTestId(container, 'text')).toBeDisabled()
 expect(getByText(container, 'LINK')).not.toBeDisabled()
 // ...
 ```
+
+## Deprecated matchers
+
+### `toBeInTheDOM`
+
+> Note: The differences between `toBeInTheDOM` and `toBeInTheDocument` are significant. Replacing all uses of `toBeInTheDOM` with `toBeInTheDocument` will likely cause unintended consequences in your tests. Please make sure when replacing `toBeInTheDOM` to read through the replacements below to see which use case works better for your needs.
+
+> Please use [`toContainElement`](#tocontainelement) for searching a specific container.
+
+> Please use [`toBeInTheDocument`](#tobeinthedocument) for searching the entire document.
 
 ## Inspiration
 

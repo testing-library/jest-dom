@@ -1,6 +1,9 @@
 import {render} from './helpers/test-utils'
 
 test('.toBeInTheDOM', () => {
+  // @deprecated intentionally hiding warnings for test clarity
+  const spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
+
   const {queryByTestId} = render(`
     <span data-testid="count-container">
       <span data-testid="count-value"></span>
@@ -51,4 +54,6 @@ test('.toBeInTheDOM', () => {
   expect(() => {
     expect(valueElement).toBeInTheDOM(fakeElement)
   }).toThrowError()
+
+  spy.mockRestore()
 })

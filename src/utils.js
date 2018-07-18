@@ -40,6 +40,39 @@ function checkHtmlElement(htmlElement, ...args) {
   }
 }
 
+class InvalidDocumentError extends Error {
+  constructor(message, matcherFn) {
+    super()
+
+    /* istanbul ignore next */
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, matcherFn)
+    }
+
+    this.message = message
+  }
+}
+
+function checkDocumentKey(document, key, matcherFn) {
+  if (typeof document === 'undefined') {
+    throw new InvalidDocumentError(
+      `document is undefined on global but is required to use ${
+        matcherFn.name
+      }.`,
+      matcherFn,
+    )
+  }
+
+  if (typeof document[key] === 'undefined') {
+    throw new InvalidDocumentError(
+      `${key} is undefined on document but is required to use ${
+        matcherFn.name
+      }.`,
+      matcherFn,
+    )
+  }
+}
+
 function display(value) {
   return typeof value === 'string' ? value : stringify(value)
 }
@@ -66,4 +99,13 @@ function matches(textToMatch, node, matcher) {
   }
 }
 
-export {checkHtmlElement, getMessage, matches}
+function deprecate(name, replacementText) {
+  // Notify user that they are using deprecated functionality.
+  // eslint-disable-next-line no-console
+  console.warn(
+    `Warning: ${name} has been deprecated and will be removed in future updates.`,
+    replacementText,
+  )
+}
+
+export {checkDocumentKey, checkHtmlElement, deprecate, getMessage, matches}

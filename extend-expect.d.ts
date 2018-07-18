@@ -1,6 +1,10 @@
 declare namespace jest {
   interface Matchers<R> {
+    /**
+     * @deprecated
+     */
     toBeInTheDOM(container?: HTMLElement | SVGElement): R
+    toBeInTheDocument(): R
     toBeVisible(): R
     toBeEmpty(): R
     toBeDisabled(): R
