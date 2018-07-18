@@ -236,6 +236,17 @@ expect(getByTestId(container, 'delete-button')).not.toHaveClass('btn-link')
 // ...
 ```
 
+You must provide at least one class, unless you are asserting that an element
+does not have any classes.
+
+```javascript
+// ...
+// <button data-testid="no-classes">
+//   Delete item
+// </button>
+expect(getByTestId(container, 'no-classes')).not.toHaveClass()
+```
+
 ### `toHaveStyle`
 
 ```typescript
