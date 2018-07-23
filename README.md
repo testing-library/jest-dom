@@ -380,11 +380,35 @@ expect(getByText(container, 'LINK')).not.toBeDisabled()
 
 ### `toBeInTheDOM`
 
-> Note: The differences between `toBeInTheDOM` and `toBeInTheDocument` are significant. Replacing all uses of `toBeInTheDOM` with `toBeInTheDocument` will likely cause unintended consequences in your tests. Please make sure when replacing `toBeInTheDOM` to read through the replacements below to see which use case works better for your needs.
+```typescript
+toBeInTheDOM()
+```
 
-> Please use [`toContainElement`](#tocontainelement) for searching a specific container.
+This allows you to check whether a value is a DOM element, or not.
 
-> Please use [`toBeInTheDocument`](#tobeinthedocument) for searching the entire document.
+Contrary to what its name implies, this matcher only checks that you passed to
+it a valid DOM element. It does not have a clear definition of that "the DOM"
+is. Therefore, it does not check wether that element is contained anywhere.
+
+This is the main reason why this matcher is deprecated, and will be removed in
+the next major release. You can follow the discussion around this decision in
+more detail [here](https://github.com/gnapse/jest-dom/issues/34).
+
+As an alternative, you can use [`toBeInTheDocument`](#tobeinthedocument)
+or [`toContainElement`](#tocontainelement). Or if you just want to check if a
+value is indeed an `HTMLElement` you can always use some of
+[jest's built-in matchers](https://jestjs.io/docs/en/expect#tobeinstanceofclass):
+
+```js
+expect(document.querySelector('.ok-button')).toBeInstanceOf(HTMLElement)
+expect(document.querySelector('.cancel-button')).toBeThruthy();
+```
+
+> Note: The differences between `toBeInTheDOM` and `toBeInTheDocument` are
+> significant. Replacing all uses of `toBeInTheDOM` with `toBeInTheDocument`
+> will likely cause unintended consequences in your tests. Please make sure when
+> replacing `toBeInTheDOM` to read through the documentation of the proposed
+> alternatives to see which use case works better for your needs.
 
 ## Inspiration
 
