@@ -134,7 +134,7 @@ import 'jest-dom/extend-expect'
 // document.body.innerHTML = `<span data-testid="html-element"><span>Html Element</span></span><svg data-testid="svg-element"></svg>`
 
 // const htmlElement = document.querySelector('[data-testid="html-element"]')
-// const svgElement = document.querySelector('[data-testid="html-element"]')
+// const svgElement = document.querySelector('[data-testid="svg-element"]')
 // const detachedElement = document.createElement('div')
 
 expect(htmlElement).toBeInTheDocument()
