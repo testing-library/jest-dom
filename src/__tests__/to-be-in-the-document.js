@@ -4,7 +4,7 @@ test('.toBeInTheDocument', () => {
     <svg data-testid="svg-element"></svg>`
 
   const htmlElement = document.querySelector('[data-testid="html-element"]')
-  const svgElement = document.querySelector('[data-testid="html-element"]')
+  const svgElement = document.querySelector('[data-testid="svg-element"]')
   const detachedElement = document.createElement('div')
   const fakeElement = {thisIsNot: 'an html element'}
   const undefinedElement = undefined
