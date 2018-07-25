@@ -1,5 +1,6 @@
 import {render} from './helpers/test-utils'
 
+/* eslint-disable max-statements */
 test('.toContainHTML', () => {
   const {queryByTestId} = render(`
     <span data-testid="grandparent">
@@ -16,6 +17,7 @@ test('.toContainHTML', () => {
   const nonExistantElement = queryByTestId('not-exists')
   const fakeElement = {thisIsNot: 'an html element'}
   const stringChildElement = '<span data-testid="child"></span>'
+  const incorrectStringHtml = '<span data-testid="child"></div>'
   const nonExistantString = '<span> Does not exists </span>'
   const svgElement = queryByTestId('svg-element')
 
@@ -25,6 +27,11 @@ test('.toContainHTML', () => {
   expect(grandparent).not.toContainHTML(nonExistantString)
   expect(parent).not.toContainHTML(nonExistantString)
   expect(child).not.toContainHTML(nonExistantString)
+  expect(child).not.toContainHTML(nonExistantString)
+  expect(grandparent).not.toContainHTML(incorrectStringHtml)
+  expect(parent).not.toContainHTML(incorrectStringHtml)
+  expect(child).not.toContainHTML(incorrectStringHtml)
+  expect(child).not.toContainHTML(incorrectStringHtml)
 
   // negative test cases wrapped in throwError assertions for coverage.
   expect(() =>
@@ -61,4 +68,12 @@ test('.toContainHTML', () => {
   expect(() =>
     expect(grandparent).toContainHTML(nonExistantElement),
   ).toThrowError()
+  expect(() =>
+    expect(nonExistantElement).toContainHTML(incorrectStringHtml),
+  ).toThrowError()
+  expect(() =>
+    expect(grandparent).toContainHTML(incorrectStringHtml),
+  ).toThrowError()
+  expect(() => expect(child).toContainHTML(incorrectStringHtml)).toThrowError()
+  expect(() => expect(parent).toContainHTML(incorrectStringHtml)).toThrowError()
 })
