@@ -1,7 +1,6 @@
 import {render} from './helpers/test-utils'
 
-/* eslint-disable max-statements */
-test('.toContainHtml', () => {
+test('.toContainHTML', () => {
   const {queryByTestId} = render(`
     <span data-testid="grandparent">
       <span data-testid="parent">
@@ -17,32 +16,49 @@ test('.toContainHtml', () => {
   const nonExistantElement = queryByTestId('not-exists')
   const fakeElement = {thisIsNot: 'an html element'}
   const stringChildElement = '<span data-testid="child"></span>'
+  const nonExistantString = '<span> Does not exists </span>'
   const svgElement = queryByTestId('svg-element')
 
-  expect(grandparent).toContainHtml(stringChildElement)
-  expect(parent).toContainHtml(stringChildElement)
-  expect(child).toContainHtml(stringChildElement)
+  expect(grandparent).toContainHTML(stringChildElement)
+  expect(parent).toContainHTML(stringChildElement)
+  expect(child).toContainHTML(stringChildElement)
+  expect(grandparent).not.toContainHTML(nonExistantString)
+  expect(parent).not.toContainHTML(nonExistantString)
+  expect(child).not.toContainHTML(nonExistantString)
 
   // negative test cases wrapped in throwError assertions for coverage.
   expect(() =>
-    expect(nonExistantElement).not.toContainHtml(stringChildElement),
+    expect(nonExistantElement).not.toContainHTML(stringChildElement),
   ).toThrowError()
   expect(() =>
-    expect(nonExistantElement).not.toContainHtml(nonExistantElement),
+    expect(nonExistantElement).not.toContainHTML(nonExistantElement),
   ).toThrowError()
   expect(() =>
-    expect(stringChildElement).not.toContainHtml(fakeElement),
+    expect(stringChildElement).not.toContainHTML(fakeElement),
   ).toThrowError()
   expect(() =>
-    expect(svgElement).toContainHtml(stringChildElement),
+    expect(svgElement).toContainHTML(stringChildElement),
   ).toThrowError()
   expect(() =>
-    expect(grandparent).not.toContainHtml(stringChildElement),
+    expect(grandparent).not.toContainHTML(stringChildElement),
   ).toThrowError()
   expect(() =>
-    expect(parent).not.toContainHtml(stringChildElement),
+    expect(parent).not.toContainHTML(stringChildElement),
   ).toThrowError()
   expect(() =>
-    expect(child).not.toContainHtml(stringChildElement),
+    expect(child).not.toContainHTML(stringChildElement),
+  ).toThrowError()
+  expect(() =>
+    expect(child).not.toContainHTML(stringChildElement),
+  ).toThrowError()
+  expect(() => expect(child).toContainHTML(nonExistantString)).toThrowError()
+  expect(() => expect(parent).toContainHTML(nonExistantString)).toThrowError()
+  expect(() =>
+    expect(grandparent).toContainHTML(nonExistantString),
+  ).toThrowError()
+  expect(() => expect(child).toContainHTML(nonExistantElement)).toThrowError()
+  expect(() => expect(parent).toContainHTML(nonExistantElement)).toThrowError()
+  expect(() =>
+    expect(grandparent).toContainHTML(nonExistantElement),
   ).toThrowError()
 })

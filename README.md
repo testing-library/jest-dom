@@ -48,7 +48,7 @@ to maintain.
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDocument`](#tobeinthedocument)
   - [`toContainElement`](#tocontainelement)
-  - [`toContainHtml`](#tocontainhtml)
+  - [`toContainHTML`](#tocontainhtml)
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
@@ -168,13 +168,13 @@ expect(descendant).not.toContainElement(ancestor)
 // ...
 ```
 
-### `toContainHtml`
+### `toContainHTML`
 
 ```typescript
-toContainHtml(htmlText: String)
+toContainHTML(htmlText: string)
 ```
 
-Assert whether a string representing a HTML element is contained in another Element:
+Assert whether a string representing a HTML element is contained in another element:
 
 ```javascript
 // add the custom expect matchers once
@@ -183,11 +183,15 @@ import 'jest-dom/extend-expect'
 // ...
 // <span data-testid="parent"><span data-testid="child"></span></span>
 const parent = queryByTestId('parent')
-expect(parentElement).toContainHtml('<span data-testid="child"></span>')
+expect(parentElement).toContainHTML('<span data-testid="child"></span>')
 // ...
 ```
 
-> Note: Chances are you probably do not need to use this method. We encourage testing from the perspective of how the user perceives the app in a browser. That's why testing against a specific DOM structure is not advised. It might come in handy in rare cases such as if your users manipulate the DOM such as a content management tool - where users are expected to type custom HTML. please use: [`toContainElement`](#tocontainelement)
+> Chances are you probably do not need to use this matcher. We encourage testing from the perspective of how the user perceives the app in a browser. That's why testing against a specific DOM structure is not advised.
+
+It could be useful in situations where the code being tested renders html that was obtained from an external source, and you want to validate that that html code was used as intended.
+
+It should not be used to check DOM structure that you control. Please use [`toContainElement`](#tocontainelement) instead.
 
 ### `toHaveTextContent`
 

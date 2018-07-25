@@ -2,7 +2,7 @@ import {toBeInTheDOM} from './to-be-in-the-dom'
 import {toBeInTheDocument} from './to-be-in-the-document'
 import {toBeEmpty} from './to-be-empty'
 import {toContainElement} from './to-contain-element'
-import {toContainHtml} from './to-contain-html'
+import {toContainHTML} from './to-contain-html'
 import {toHaveTextContent} from './to-have-text-content'
 import {toHaveAttribute} from './to-have-attribute'
 import {toHaveClass} from './to-have-class'
@@ -16,7 +16,7 @@ export {
   toBeInTheDocument,
   toBeEmpty,
   toContainElement,
-  toContainHtml,
+  toContainHTML,
   toHaveTextContent,
   toHaveAttribute,
   toHaveClass,
