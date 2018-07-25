@@ -9,6 +9,7 @@ declare namespace jest {
     toBeEmpty(): R
     toBeDisabled(): R
     toContainElement(element: HTMLElement | SVGElement): R
+    toContainHTML(htmlText: string): R
     toHaveAttribute(attr: string, value?: string): R
     toHaveClass(...classNames: string[]): R
     toHaveStyle(css: string): R
