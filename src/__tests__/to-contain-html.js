@@ -7,6 +7,7 @@ test('.toContainHtml', () => {
       <span data-testid="parent">
         <span data-testid="child"></span>
       </span>
+      <svg data-testid="svg-element"></svg>
     </span>
     `)
 
@@ -16,6 +17,7 @@ test('.toContainHtml', () => {
   const nonExistantElement = queryByTestId('not-exists')
   const fakeElement = {thisIsNot: 'an html element'}
   const stringChildElement = '<span data-testid="child"></span>'
+  const svgElement = queryByTestId('svg-element')
 
   expect(grandparent).toContainHtml(stringChildElement)
   expect(parent).toContainHtml(stringChildElement)
@@ -26,6 +28,21 @@ test('.toContainHtml', () => {
     expect(nonExistantElement).not.toContainHtml(stringChildElement),
   ).toThrowError()
   expect(() =>
-    expect(fakeElement).toContainHtml(nonExistantElement),
+    expect(nonExistantElement).not.toContainHtml(nonExistantElement),
+  ).toThrowError()
+  expect(() =>
+    expect(stringChildElement).not.toContainHtml(fakeElement),
+  ).toThrowError()
+  expect(() =>
+    expect(svgElement).toContainHtml(stringChildElement),
+  ).toThrowError()
+  expect(() =>
+    expect(grandparent).not.toContainHtml(stringChildElement),
+  ).toThrowError()
+  expect(() =>
+    expect(parent).not.toContainHtml(stringChildElement),
+  ).toThrowError()
+  expect(() =>
+    expect(child).not.toContainHtml(stringChildElement),
   ).toThrowError()
 })
