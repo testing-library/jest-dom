@@ -179,6 +179,15 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "6ewis",
+      "name": "Lewis",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/840609?v=4",
+      "profile": "https://github.com/6ewis",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
