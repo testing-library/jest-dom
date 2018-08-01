@@ -6,7 +6,7 @@ import {
 import {checkHtmlElement, checkDocumentKey} from './utils'
 
 export function toBeInTheDocument(element) {
-  if (element) {
+  if (element !== null && element !== undefined) {
     checkHtmlElement(element, toBeInTheDocument, this)
   }
 
