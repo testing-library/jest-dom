@@ -1,8 +1,15 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
+import {
+  matcherHint,
+  stringify,
+  RECEIVED_COLOR as receivedColor,
+} from 'jest-matcher-utils'
 import {checkHtmlElement, checkDocumentKey} from './utils'
 
 export function toBeInTheDocument(element) {
-  checkHtmlElement(element, toBeInTheDocument, this)
+  if (element) {
+    checkHtmlElement(element, toBeInTheDocument, this)
+  }
+
   checkDocumentKey(global.document, 'documentElement', toBeInTheDocument)
 
   return {
@@ -15,10 +22,12 @@ export function toBeInTheDocument(element) {
           '',
         ),
         '',
-        'Received:',
-        `  ${printReceived(
-          element.hasChildNodes() ? element.cloneNode(false) : element,
-        )}`,
+        receivedColor(`${stringify(
+          document.documentElement.cloneNode(false),
+        )} ${this.isNot ? 'contains:' : 'does not contain:'} ${stringify(
+          element ? element.cloneNode(false) : element,
+        )}
+        `),
       ].join('\n')
     },
   }

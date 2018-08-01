@@ -1,9 +1,16 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
+import {
+  matcherHint,
+  stringify,
+  RECEIVED_COLOR as receivedColor,
+} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
 export function toContainElement(container, element) {
   checkHtmlElement(container, toContainElement, this)
-  checkHtmlElement(element, toContainElement, this)
+
+  if (element) {
+    checkHtmlElement(element, toContainElement, this)
+  }
 
   return {
     pass: container.contains(element),
@@ -12,11 +19,13 @@ export function toContainElement(container, element) {
         matcherHint(
           `${this.isNot ? '.not' : ''}.toContainElement`,
           'element',
-          '',
+          'element',
         ),
         '',
-        'Received:',
-        `  ${printReceived(container.cloneNode(false))}`,
+        receivedColor(`${stringify(container.cloneNode(false))} ${
+          this.isNot ? 'contains:' : 'does not contain:'
+        } ${stringify(element ? element.cloneNode(false) : element)}
+        `),
       ].join('\n')
     },
   }

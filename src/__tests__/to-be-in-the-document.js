@@ -13,6 +13,8 @@ test('.toBeInTheDocument', () => {
   expect(htmlElement).toBeInTheDocument()
   expect(svgElement).toBeInTheDocument()
   expect(detachedElement).not.toBeInTheDocument()
+  expect(nullElement).not.toBeInTheDocument()
+  expect(undefinedElement).not.toBeInTheDocument()
 
   // negative test cases wrapped in throwError assertions for coverage.
   expect(() => expect(htmlElement).not.toBeInTheDocument()).toThrowError()
