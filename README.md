@@ -136,13 +136,14 @@ import 'jest-dom/extend-expect'
 
 // const htmlElement = document.querySelector('[data-testid="html-element"]')
 // const svgElement = document.querySelector('[data-testid="svg-element"]')
+// const nonExistantElement = document.querySelector('does-not-exist')
 // const detachedElement = document.createElement('div')
 
 expect(htmlElement).toBeInTheDocument()
 expect(svgElement).toBeInTheDocument()
 expect(detacthedElement).not.toBeInTheDocument()
-// ...
-```
+expect(nonExistantElement).not.toBeInTheDocument()
+// ...```
 
 > Note: This will not find detached elements. The element must be added to the document to be found. If you desire to search in a detached element please use: [`toContainElement`](#tocontainelement)
 
@@ -162,9 +163,11 @@ import 'jest-dom/extend-expect'
 // <span data-testid="ancestor"><span data-testid="descendant"></span></span>
 const ancestor = queryByTestId(container, 'ancestor')
 const descendant = queryByTestId(container, 'descendant')
+const nonExistantElement = queryByTestId(container, 'does-not-exist')
 
 expect(ancestor).toContainElement(descendant)
 expect(descendant).not.toContainElement(ancestor)
+expect(ancestor).not.toContainElement(nonExistantElement)
 // ...
 ```
 
