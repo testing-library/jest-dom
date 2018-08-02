@@ -8,7 +8,7 @@ import {checkHtmlElement} from './utils'
 export function toContainElement(container, element) {
   checkHtmlElement(container, toContainElement, this)
 
-  if (element !== null && element !== undefined) {
+  if (element !== null) {
     checkHtmlElement(element, toContainElement, this)
   }
 
