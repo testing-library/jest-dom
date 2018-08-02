@@ -143,7 +143,8 @@ expect(htmlElement).toBeInTheDocument()
 expect(svgElement).toBeInTheDocument()
 expect(detacthedElement).not.toBeInTheDocument()
 expect(nonExistantElement).not.toBeInTheDocument()
-// ...```
+// ...
+```
 
 > Note: This will not find detached elements. The element must be added to the document to be found. If you desire to search in a detached element please use: [`toContainElement`](#tocontainelement)
 
