@@ -27,7 +27,6 @@ test('.toContainElement positive test cases', () => {
   expect(child).not.toContainElement(grandparent)
   expect(child).not.toContainElement(svgElement)
   expect(grandparent).not.toContainElement(nonExistantElement)
-  expect(grandparent).not.toContainElement(undefined)
 })
 
 test('.toContainElement negative test cases', () => {
@@ -58,6 +57,10 @@ test('.toContainElement negative test cases', () => {
   expect(() => expect(fakeElement).toContainElement(fakeElement)).toThrowError()
   expect(() => expect(grandparent).not.toContainElement(child)).toThrowError()
   expect(() =>
-    expect(grandparent).not.toContainElement(svgElement),
+    expect(grandparent).not.toContainElement(svgElement)
   ).toThrowError()
+  expect(() =>
+      expect(grandparent).not.toContainElement(undefined)
+  ).toThrowError()
+)
 })
