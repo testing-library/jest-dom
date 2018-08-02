@@ -62,5 +62,4 @@ test('.toContainElement negative test cases', () => {
   expect(() =>
       expect(grandparent).not.toContainElement(undefined)
   ).toThrowError()
-)
 })
