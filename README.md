@@ -151,7 +151,7 @@ expect(nonExistantElement).not.toBeInTheDocument()
 ### `toContainElement`
 
 ```typescript
-toContainElement(element?: HTMLElement | SVGElement | null)
+toContainElement(element: HTMLElement | SVGElement | null)
 ```
 
 This allows you to assert whether an element contains another element as a descendant or not.
