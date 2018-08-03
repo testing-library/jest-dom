@@ -136,11 +136,13 @@ import 'jest-dom/extend-expect'
 
 // const htmlElement = document.querySelector('[data-testid="html-element"]')
 // const svgElement = document.querySelector('[data-testid="svg-element"]')
+// const nonExistantElement = document.querySelector('does-not-exist')
 // const detachedElement = document.createElement('div')
 
 expect(htmlElement).toBeInTheDocument()
 expect(svgElement).toBeInTheDocument()
 expect(detacthedElement).not.toBeInTheDocument()
+expect(nonExistantElement).not.toBeInTheDocument()
 // ...
 ```
 
@@ -149,7 +151,7 @@ expect(detacthedElement).not.toBeInTheDocument()
 ### `toContainElement`
 
 ```typescript
-toContainElement(element: HTMLElement | SVGElement)
+toContainElement(element: HTMLElement | SVGElement | null)
 ```
 
 This allows you to assert whether an element contains another element as a descendant or not.
@@ -162,9 +164,11 @@ import 'jest-dom/extend-expect'
 // <span data-testid="ancestor"><span data-testid="descendant"></span></span>
 const ancestor = queryByTestId(container, 'ancestor')
 const descendant = queryByTestId(container, 'descendant')
+const nonExistantElement = queryByTestId(container, 'does-not-exist')
 
 expect(ancestor).toContainElement(descendant)
 expect(descendant).not.toContainElement(ancestor)
+expect(ancestor).not.toContainElement(nonExistantElement)
 // ...
 ```
 

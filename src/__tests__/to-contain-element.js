@@ -1,22 +1,22 @@
 import {render} from './helpers/test-utils'
 
-test('.toContainElement', () => {
-  const {queryByTestId} = render(`
-    <span data-testid="grandparent">
-      <span data-testid="parent">
-        <span data-testid="child"></span>
-      </span>
-      <svg data-testid="svg-element"></svg>
-    </span>
-    `)
+const {queryByTestId} = render(`
+<span data-testid="grandparent">
+  <span data-testid="parent">
+    <span data-testid="child"></span>
+  </span>
+  <svg data-testid="svg-element"></svg>
+</span>
+`)
 
-  const grandparent = queryByTestId('grandparent')
-  const parent = queryByTestId('parent')
-  const child = queryByTestId('child')
-  const svgElement = queryByTestId('svg-element')
-  const nonExistantElement = queryByTestId('not-exists')
-  const fakeElement = {thisIsNot: 'an html element'}
+const grandparent = queryByTestId('grandparent')
+const parent = queryByTestId('parent')
+const child = queryByTestId('child')
+const svgElement = queryByTestId('svg-element')
+const nonExistantElement = queryByTestId('not-exists')
+const fakeElement = {thisIsNot: 'an html element'}
 
+test('.toContainElement positive test cases', () => {
   expect(grandparent).toContainElement(parent)
   expect(grandparent).toContainElement(child)
   expect(grandparent).toContainElement(svgElement)
@@ -26,8 +26,10 @@ test('.toContainElement', () => {
   expect(child).not.toContainElement(parent)
   expect(child).not.toContainElement(grandparent)
   expect(child).not.toContainElement(svgElement)
+  expect(grandparent).not.toContainElement(nonExistantElement)
+})
 
-  // negative test cases wrapped in throwError assertions for coverage.
+test('.toContainElement negative test cases', () => {
   expect(() =>
     expect(nonExistantElement).not.toContainElement(child),
   ).toThrowError()
@@ -55,6 +57,9 @@ test('.toContainElement', () => {
   expect(() => expect(fakeElement).toContainElement(fakeElement)).toThrowError()
   expect(() => expect(grandparent).not.toContainElement(child)).toThrowError()
   expect(() =>
-    expect(grandparent).not.toContainElement(svgElement),
+    expect(grandparent).not.toContainElement(svgElement)
+  ).toThrowError()
+  expect(() =>
+      expect(grandparent).not.toContainElement(undefined)
   ).toThrowError()
 })
