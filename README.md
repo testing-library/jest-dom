@@ -45,17 +45,17 @@ to maintain.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
+  - [`toBeDisabled`](#tobedisabled)
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDocument`](#tobeinthedocument)
+  - [`toBeVisible`](#tobevisible)
   - [`toContainElement`](#tocontainelement)
   - [`toContainHTML`](#tocontainhtml)
-  - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
-  - [`toHaveStyle`](#tohavestyle)
   - [`toHaveFocus`](#tohavefocus)
-  - [`toBeVisible`](#tobevisible)
-  - [`toBeDisabled`](#tobedisabled)
+  - [`toHaveStyle`](#tohavestyle)
+  - [`toHaveTextContent`](#tohavetextcontent)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
 - [Inspiration](#inspiration)
@@ -100,6 +100,49 @@ expect.extend({toBeInTheDocument, toHaveClass})
 
 ## Custom matchers
 
+`jest-dom` can work with any library or framework that returns DOM elements from queries. The custom matcher examples below demonstrate using `document.querySelector` and [dom-testing-library](https://github.com/kentcdodds/dom-testing-library) for querying DOM elements.
+
+### `toBeDisabled`
+
+```typescript
+toBeDisabled()
+```
+
+This allows you to check whether an element is disabled from the user's perspective.
+
+It matches if the element is a form control and the `disabled` attribute is
+specified on this element or the element is a descendant of a form element
+with a `disabled` attribute.
+
+According to the specification, the following elements can be [actually disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
+`button`, `input`, `select`, `textarea`, `optgroup`, `option`, `fieldset`.
+
+#### Examples
+
+```html
+<button data-testid="button" type="submit" disabled>submit</button>
+<fieldset disabled><input type="text" data-testid="input" /></fieldset>
+<a href="..." disabled>link</a>
+```
+
+##### Using document.querySelector
+
+```javascript
+expect(document.querySelector('[data-testid="button"]')).toBeDisabled()
+expect(document.querySelector('[data-testid="input"]')).toBeDisabled()
+expect(document.querySelector('a')).not.toBeDisabled()
+```
+
+##### Using dom-testing-library
+
+```javascript
+expect(getByTestId(container, 'button')).toBeDisabled()
+expect(getByTestId(container, 'input')).toBeDisabled()
+expect(getByText(container, 'link')).not.toBeDisabled()
+```
+
+<hr />
+
 ### `toBeEmpty`
 
 ```typescript
@@ -108,16 +151,27 @@ toBeEmpty()
 
 This allows you to assert whether an element has content or not.
 
-```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
+#### Examples
 
-// ...
-// <span data-testid="not-empty"><span data-testid="empty"></span></span>
+```html
+<span data-testid="not-empty"><span data-testid="empty"></span></span>
+```
+
+##### Using document.querySelector
+
+```javascript
+expect(document.querySelector('[data-testid="empty"]').toBeEmpty()
+expect(document.querySelector('[data-testid="not-empty"]').not.toBeEmpty()
+```
+
+##### Using dom-testing-library
+
+```javascript
 expect(queryByTestId(container, 'empty')).toBeEmpty()
 expect(queryByTestId(container, 'not-empty')).not.toBeEmpty()
-// ...
 ```
+
+<hr />
 
 ### `toBeInTheDocument`
 
@@ -127,215 +181,44 @@ toBeInTheDocument()
 
 This allows you to assert whether an element is present in the document or not.
 
+#### Examples
+
+```html
+<span data-testid="html-element"><span>Html Element</span></span>
+<svg data-testid="svg-element"></svg>
+```
+
+##### Using document.querySelector
+
 ```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
-
-// ...
-// document.body.innerHTML = `<span data-testid="html-element"><span>Html Element</span></span><svg data-testid="svg-element"></svg>`
-
-// const htmlElement = document.querySelector('[data-testid="html-element"]')
-// const svgElement = document.querySelector('[data-testid="svg-element"]')
-// const nonExistantElement = document.querySelector('does-not-exist')
-// const detachedElement = document.createElement('div')
+const htmlElement = document.querySelector('[data-testid="html-element"]')
+const svgElement = document.querySelector('[data-testid="svg-element"]')
+const nonExistantElement = document.querySelector('does-not-exist')
+const detachedElement = document.createElement('div')
 
 expect(htmlElement).toBeInTheDocument()
 expect(svgElement).toBeInTheDocument()
 expect(detacthedElement).not.toBeInTheDocument()
 expect(nonExistantElement).not.toBeInTheDocument()
-// ...
 ```
 
-> Note: This will not find detached elements. The element must be added to the document to be found. If you desire to search in a detached element please use: [`toContainElement`](#tocontainelement)
-
-### `toContainElement`
-
-```typescript
-toContainElement(element: HTMLElement | SVGElement | null)
-```
-
-This allows you to assert whether an element contains another element as a descendant or not.
+##### Using dom-testing-library
 
 ```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
-
-// ...
-// <span data-testid="ancestor"><span data-testid="descendant"></span></span>
-const ancestor = queryByTestId(container, 'ancestor')
-const descendant = queryByTestId(container, 'descendant')
-const nonExistantElement = queryByTestId(container, 'does-not-exist')
-
-expect(ancestor).toContainElement(descendant)
-expect(descendant).not.toContainElement(ancestor)
-expect(ancestor).not.toContainElement(nonExistantElement)
-// ...
+expect(
+  queryByTestId(document.documentElement, 'html-element'),
+).toBeInTheDocument()
+expect(
+  queryByTestId(document.documentElement, 'svg-element'),
+).toBeInTheDocument()
+expect(
+  queryByTestId(document.documentElement, 'does-not-exist'),
+).not.toBeInTheDocument()
 ```
 
-### `toContainHTML`
+> Note: This matcher does not find detached elements. The element must be added to the document to be found by toBeInTheDocument. If you desire to search in a detached element please use: [`toContainElement`](#tocontainelement)
 
-```typescript
-toContainHTML(htmlText: string)
-```
-
-Assert whether a string representing a HTML element is contained in another element:
-
-```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
-
-// ...
-// <span data-testid="parent"><span data-testid="child"></span></span>
-const parent = queryByTestId('parent')
-expect(parentElement).toContainHTML('<span data-testid="child"></span>')
-// ...
-```
-
-> Chances are you probably do not need to use this matcher. We encourage testing from the perspective of how the user perceives the app in a browser. That's why testing against a specific DOM structure is not advised.
->
-> It could be useful in situations where the code being tested renders html that was obtained from an external source, and you want to validate that that html code was used as intended.
->
-> It should not be used to check DOM structure that you control. Please use [`toContainElement`](#tocontainelement) instead.
-
-### `toHaveTextContent`
-
-```typescript
-toHaveTextContent(text: string | RegExp)
-```
-
-This API allows you to check whether the given element has a text content or not.
-
-```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
-
-// ...
-// <span data-testid="count-value">2</span>
-expect(getByTestId(container, 'count-value')).toHaveTextContent('2')
-expect(getByTestId(container, 'count-value')).not.toHaveTextContent('21')
-// ...
-```
-
-### `toHaveAttribute`
-
-```typescript
-toHaveAttribute(attr: string, value?: string)
-```
-
-This allows you to check whether the given element has an attribute or not. You
-can also optionally check that the attribute has a specific expected value.
-
-```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
-
-// ...
-// <button data-testid="ok-button" type="submit" disabled>
-//   OK
-// </button>
-expect(getByTestId(container, 'ok-button')).toHaveAttribute('disabled')
-expect(getByTestId(container, 'ok-button')).toHaveAttribute('type', 'submit')
-expect(getByTestId(container, 'ok-button')).not.toHaveAttribute(
-  'type',
-  'button',
-)
-// ...
-```
-
-### `toHaveClass`
-
-```typescript
-toHaveClass(...classNames: string[])
-```
-
-This allows you to check whether the given element has certain classes within its
-`class` attribute.
-
-```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
-
-// ...
-// <button data-testid="delete-button" class="btn extra btn-danger">
-//   Delete item
-// </button>
-expect(getByTestId(container, 'delete-button')).toHaveClass('extra')
-expect(getByTestId(container, 'delete-button')).toHaveClass('btn-danger btn')
-expect(getByTestId(container, 'delete-button')).toHaveClass('btn-danger', 'btn')
-expect(getByTestId(container, 'delete-button')).not.toHaveClass('btn-link')
-// ...
-```
-
-You must provide at least one class, unless you are asserting that an element
-does not have any classes.
-
-```javascript
-// ...
-// <button data-testid="no-classes">
-//   Delete item
-// </button>
-expect(getByTestId(container, 'no-classes')).not.toHaveClass()
-```
-
-### `toHaveStyle`
-
-```typescript
-toHaveStyle(css: string)
-```
-
-This allows you to check if a certain element has some specific css properties
-with specific values applied. It matches only if the element has _all_ the
-expected properties applied, not just some of them.
-
-```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
-
-// ...
-// <button data-testid="delete-button" style="display: none; color: red">
-//   Delete item
-// </button>
-expect(getByTestId(container, 'delete-button')).toHaveStyle('display: none')
-expect(getByTestId(container, 'delete-button')).toHaveStyle(`
-  color: red;
-  display: none;
-`)
-expect(getByTestId(container, 'delete-button')).not.toHaveStyle(`
-  display: none;
-  color: blue;
-`)
-// ...
-```
-
-This also works with rules that are applied to the element via a class name for
-which some rules are defined in a stylesheet currently active in the document.
-The usual rules of css precedence apply.
-
-### `toHaveFocus`
-
-```typescript
-toHaveFocus()
-```
-
-This allows you to assert whether an element has focus or not.
-
-```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
-
-// ...
-// <div><input id="focused" type="text" data-testid="focused" /></div>
-// const { container } = render(...)
-// const input = container.querySelector('#focused');
-
-// input.focus()
-expect(queryByTestId(container, 'focused')).toHaveFocus()
-
-// input.blur()
-expect(queryByTestId(container, 'focused')).not.toHaveFocus()
-
-// ...
-```
+<hr />
 
 ### `toBeVisible`
 
@@ -353,58 +236,337 @@ An element is visible if **all** the following conditions are met:
 - it does not have its css property `opacity` set to `0`
 - its parent element is also visible (and so on up to the top of the DOM tree)
 
-```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
+#### Examples
 
-// ...
-// <header>
-//   <h1 style="display: none">Page title</h1>
-// </header>
-// <section>
-//   <p style="visibility: hidden">Hello <strong>World</strong></h1>
-// </section>
-expect(container.querySelector('header')).toBeVisible()
-expect(container.querySelector('h1')).not.toBeVisible()
-expect(container.querySelector('strong')).not.toBeVisible()
-// ...
+```html
+<div data-testid="zero-opacity" style="opacity: 0">Zero Opacity Example</div>
+<div data-testid="visibility-hidden" style="visibility: hidden">Visibility Hidden Example</div>
+<div data-testid="display-none" style="display: none">Display None Example</div>
+<div style="opacity: 0"><span data-testid="hidden-parent">Hidden Parent Example</span></div>
+<div data-testid="visible">Visible Example</div>
 ```
 
-### `toBeDisabled`
+##### Using document.querySelector
+
+```javascript
+expect(document.querySelector('[data-testid="zero-opacity"]'])).not.toBeVisible()
+expect(document.querySelector('[data-testid="visibility-hidden"]'])).not.toBeVisible()
+expect(document.querySelector('[data-testid="display-none"]'])).not.toBeVisible()
+expect(document.querySelector('[data-testid="hidden-parent"]'])).not.toBeVisible()
+expect(document.querySelector('[data-testid="visible"]'])).toBeVisible()
+```
+
+##### Using dom-testing-library
+
+```javascript
+expect(getByText(container, 'Zero Opacity Example')).not.toBeVisible()
+expect(getByText(container, 'Visibility Hidden Example')).not.toBeVisible()
+expect(getByText(container, 'Display None Example')).not.toBeVisible()
+expect(getByText(container, 'Hidden Parent Example')).not.toBeVisible()
+expect(getByText(container, 'Visible Example')).toBeVisible()
+```
+
+<hr />
+
+### `toContainElement`
 
 ```typescript
-toBeDisabled()
+toContainElement(element: HTMLElement | SVGElement | null)
 ```
 
-This allows you to check whether an element is disabled from the user's perspective.
+This allows you to assert whether an element contains another element as a descendant or not.
 
-It matches if the element is a form control and the `disabled` attribute is
-specified on this element or the element is a descendant of a form element
-with a `disabled` attribute.
+#### Examples
 
-According to the specification, the following elements can be [actually disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
-`button`, `input`, `select`, `textarea`, `optgroup`, `option`, `fieldset`.
+```html
+<span data-testid="ancestor"><span data-testid="descendant"></span></span>
+```
+
+##### Using document.querySelector
 
 ```javascript
-// add the custom expect matchers once
-import 'jest-dom/extend-expect'
+const ancestor = document.querySelector('[data-testid="ancestor"]')
+const descendant = document.querySelector('[data-testid="descendant"]')
+const nonExistantElement = document.querySelector(
+  '[data-testid="does-not-exist"]',
+)
 
-// ...
-// <button data-testid="button" type="submit" disabled>
-//   SUBMIT
-// </button>
-// <fieldset disabled>
-//   <input type="text" data-testid="text" />
-// </fieldset>
-expect(getByTestId(container, 'button')).toBeDisabled()
-expect(getByTestId(container, 'text')).toBeDisabled()
-// ...
-
-// ...
-// <a href="..." disabled>LINK</a>
-expect(getByText(container, 'LINK')).not.toBeDisabled()
-// ...
+expect(ancestor).toContainElement(descendant)
+expect(descendant).not.toContainElement(ancestor)
+expect(ancestor).not.toContainElement(nonExistantElement)
 ```
+
+##### Using dom-testing-library
+
+```javascript
+const {queryByTestId} = render(/* Rendered HTML */)
+
+const ancestor = queryByTestId(container, 'ancestor')
+const descendant = queryByTestId(container, 'descendant')
+const nonExistantElement = queryByTestId(container, 'does-not-exist')
+
+expect(ancestor).toContainElement(descendant)
+expect(descendant).not.toContainElement(ancestor)
+expect(ancestor).not.toContainElement(nonExistantElement)
+```
+
+<hr />
+
+### `toContainHTML`
+
+```typescript
+toContainHTML(htmlText: string)
+```
+
+Assert whether a string representing a HTML element is contained in another element:
+
+#### Examples
+
+```html
+<span data-testid="parent"><span data-testid="child"></span></span>
+```
+
+##### Using document.querySelector
+
+```javascript
+expect(document.querySelector('[data-testid="parent"]')).toContainHTML(
+  '<span data-testid="child"></span>',
+)
+```
+
+##### Using dom-testing-library
+
+```javascript
+expect(getByTestId(container, 'parent')).toContainHTML(
+  '<span data-testid="child"></span>',
+)
+```
+
+> Chances are you probably do not need to use this matcher. We encourage testing from the perspective of how the user perceives the app in a browser. That's why testing against a specific DOM structure is not advised.
+>
+> It could be useful in situations where the code being tested renders html that was obtained from an external source, and you want to validate that that html code was used as intended.
+>
+> It should not be used to check DOM structure that you control. Please use [`toContainElement`](#tocontainelement) instead.
+
+<hr />
+
+### `toHaveAttribute`
+
+```typescript
+toHaveAttribute(attr: string, value?: string)
+```
+
+This allows you to check whether the given element has an attribute or not. You
+can also optionally check that the attribute has a specific expected value.
+
+#### Examples
+
+```html
+<button data-testid="ok-button" type="submit" disabled>ok</button>
+```
+
+##### Using document.querySelector
+
+```javascript
+const button = document.querySelector('[data-testid="ok-button"]')
+
+expect(button).toHaveAttribute('disabled')
+expect(button).toHaveAttribute('type', 'submit')
+expect(button).not.toHaveAttribute('type', 'button')
+```
+
+##### Using dom-testing-library
+
+```javascript
+const button = getByTestId(container, 'ok-button')
+
+expect(button).toHaveAttribute('disabled')
+expect(button).toHaveAttribute('type', 'submit')
+expect(button).not.toHaveAttribute('type', 'button')
+```
+
+<hr />
+
+### `toHaveClass`
+
+```typescript
+toHaveClass(...classNames: string[])
+```
+
+This allows you to check whether the given element has certain classes within its
+`class` attribute.
+
+You must provide at least one class, unless you are asserting that an element
+does not have any classes.
+
+#### Examples
+
+```html
+<button data-testid="delete-button" class="btn extra btn-danger">Delete item</button>
+<button data-testid="no-classes">No Classes</button>
+```
+
+##### Using document.querySelector
+
+```javascript
+const deleteButton = document.querySelector('[data-testid="delete-button"]')
+const noClasses = document.querySelector('[data-testid="no-classes"]')
+
+expect(deleteButton).toHaveClass('extra')
+expect(deleteButton).toHaveClass('btn-danger btn')
+expect(deleteButton).toHaveClass('btn-danger', 'btn')
+expect(deleteButton).not.toHaveClass('btn-link')
+
+expect(noClasses).not.toHaveClass()
+```
+
+##### Using dom-testing-library
+
+```javascript
+const deleteButton = getByTestId(container, 'delete-button')
+const noClasses = getByTestId(container, 'no-classes')
+
+expect(deleteButton).toHaveClass('extra')
+expect(deleteButton).toHaveClass('btn-danger btn')
+expect(deleteButton).toHaveClass('btn-danger', 'btn')
+expect(deleteButton).not.toHaveClass('btn-link')
+
+expect(noClasses).not.toHaveClass()
+```
+
+<hr />
+
+### `toHaveFocus`
+
+```typescript
+toHaveFocus()
+```
+
+This allows you to assert whether an element has focus or not.
+
+#### Examples
+
+```html
+<div><input type="text" data-testid="element-to-focus" /></div>
+```
+
+##### Using document.querySelector
+
+```javascript
+const input = document.querySelector(['data-testid="element-to-focus"')
+
+input.focus()
+expect(input).toHaveFocus()
+
+input.blur()
+expect(input).not.toHaveFocus()
+```
+
+##### Using dom-testing-library
+
+```javascript
+const input = queryByTestId(container, 'element-to-focus')
+
+fireEvent.focus(input)
+expect(input).toHaveFocus()
+
+fireEvent.blur(input)
+expect(input).not.toHaveFocus()
+```
+
+<hr />
+
+### `toHaveStyle`
+
+```typescript
+toHaveStyle(css: string)
+```
+
+This allows you to check if a certain element has some specific css properties
+with specific values applied. It matches only if the element has _all_ the
+expected properties applied, not just some of them.
+
+#### Examples
+
+```html
+<button data-testid="delete-button" style="display: none; color: red">
+  Delete item
+</button>
+```
+
+##### Using document.querySelector
+
+```javascript
+const input = document.querySelector(['data-testid="delete-button"')
+
+expect(button).toHaveStyle('display: none')
+expect(button).toHaveStyle(`
+  color: red;
+  display: none;
+`)
+expect(button).not.toHaveStyle(`
+  display: none;
+  color: blue;
+`)
+```
+
+##### Using dom-testing-library
+
+```javascript
+const button = getByTestId(container, 'delete-button')
+
+expect(button).toHaveStyle('display: none')
+expect(button).toHaveStyle(`
+  color: red;
+  display: none;
+`)
+expect(button).not.toHaveStyle(`
+  display: none;
+  color: blue;
+`)
+```
+
+This also works with rules that are applied to the element via a class name for
+which some rules are defined in a stylesheet currently active in the document.
+The usual rules of css precedence apply.
+
+<hr />
+
+### `toHaveTextContent`
+
+```typescript
+toHaveTextContent(text: string | RegExp)
+```
+
+This API allows you to check whether the given element has a text content or not.
+
+#### Examples
+
+```html
+<span data-testid="count-value">2</span>
+```
+
+##### Using document.querySelector
+
+```javascript
+const button = document.querySelector('[data-testid="count-value"]')
+
+expect(content).toHaveTextContent('2')
+expect(content).toHaveTextContent(/^2$/)
+expect(content).not.toHaveTextContent('21')
+```
+
+##### Using dom-testing-library
+
+```javascript
+const content = getByTestId(container, 'count-value')
+
+expect(content).toHaveTextContent('2')
+expect(content).toHaveTextContent(/^2$/)
+expect(content).not.toHaveTextContent('21')
+```
+
+<hr />
 
 ## Deprecated matchers
 
