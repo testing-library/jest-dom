@@ -1,43 +1,69 @@
-const createErrorMessage = error => {
-  return `[${error.index}] ${error.element}`
-}
+// ============================
+// NodeList HOC Matcher
+// ============================
 
-const displayResults = (results, nodeList) => {
-  const originalMessage = results[0].message
+// ----------------------------
+// Generic Utils
+// ----------------------------
 
-  const errors = results
-    .map((result, index) => {
-      return result.pass
-        ? null
-        : {
-            index,
-            element: nodeList[index].cloneNode(false),
-          }
-    })
-    .filter(Boolean)
+const conditional = (condition, trueValue, falseValue) =>
+  condition ? trueValue : falseValue
+
+// ----------------------------
+// Messaging
+// ----------------------------
+
+const getMatcherMessage = result => result.message
+const getFirstMatcherMessage = results => getMatcherMessage(results[0])
+
+const getErrorMessage = (index, element) => `[${index}] ${element}`
+
+// ----------------------------
+// Results Logic
+// ----------------------------
+
+const markErrors = nodeList => (result, index) =>
+  conditional(
+    result.pass,
+    null,
+    getErrorMessage(index, nodeList[index].cloneNode(false)),
+  )
+
+const createResults = (results, nodeList) => {
+  const errors = results.map(markErrors(nodeList)).filter(Boolean)
 
   return {
     pass: errors.length === 0,
-    message: `The following elements failed:\n\n${errors
-      .map(createErrorMessage)
-      .join(`\n`)}\n\n${originalMessage}`,
+    message: `The following elements failed:\n\n${errors.join(
+      `\n`,
+    )}\n\n${getFirstMatcherMessage(nodeList)}`,
   }
 }
 
-const createNodeListTest = callback => element => callback.bind(null, element)
+// ----------------------------
+// HOC Matcher Creation
+// ----------------------------
+
+const createMatcher = matcher => element => matcher.bind(null, element)
 
 const nodeListMatcher = matcher => (nodeList, ...rest) => {
-  const results = Array.prototype.map.call(
-    nodeList,
-    createNodeListTest(matcher)(...rest),
-  )
-
-  return displayResults(results, nodeList)
+  return createResults(
+    Array.prototype.map.call(nodeList, createMatcher(matcher)(...rest)),
+  )(nodeList)
 }
+
+// ----------------------------
+// Logic Units
+// ----------------------------
 
 const isNodeList = nodeList => nodeList instanceof NodeList
 
+// ----------------------------
+// Main Export
+// ----------------------------
+
 export const withNodeList = matcher => (nodeListOrElement, ...rest) =>
-  isNodeList(nodeListOrElement)
-    ? nodeListMatcher(matcher)(nodeListOrElement, ...rest)
-    : matcher(nodeListOrElement, ...rest)
+  conditional(isNodeList(nodeListOrElement), nodeListMatcher(matcher), matcher)(
+    nodeListOrElement,
+    ...rest,
+  )
