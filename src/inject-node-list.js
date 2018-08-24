@@ -26,19 +26,18 @@ const displayResults = (results, nodeList) => {
 
 const createNodeListTest = callback => element => callback.bind(null, element)
 
-const nodeListCallback = callback => (nodeList, ...rest) => {
-  const matchers = Array.prototype.map.call(
+const nodeListMatcher = matcher => (nodeList, ...rest) => {
+  const results = Array.prototype.map.call(
     nodeList,
-    createNodeListTest(callback),
+    createNodeListTest(matcher)(...rest),
   )
-  const results = matchers.map(matcher => matcher(...rest))
 
   return displayResults(results, nodeList)
 }
 
 const isNodeList = nodeList => nodeList instanceof NodeList
 
-export const withNodeList = elementCallback => (nodeListOrElement, ...rest) =>
+export const withNodeList = matcher => (nodeListOrElement, ...rest) =>
   isNodeList(nodeListOrElement)
-    ? nodeListCallback(elementCallback)(nodeListOrElement, ...rest)
-    : elementCallback(nodeListOrElement, ...rest)
+    ? nodeListMatcher(matcher)(nodeListOrElement, ...rest)
+    : matcher(nodeListOrElement, ...rest)
