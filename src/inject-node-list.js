@@ -1,5 +1,5 @@
 // ============================
-// NodeList HOC Matcher
+// NodeList Matcher HOC
 // ============================
 
 // ----------------------------
@@ -49,7 +49,8 @@ const createMatcher = matcher => element => matcher.bind(null, element)
 const nodeListMatcher = matcher => (nodeList, ...rest) => {
   return createResults(
     Array.prototype.map.call(nodeList, createMatcher(matcher)(...rest)),
-  )(nodeList)
+    nodeList,
+  )
 }
 
 // ----------------------------
