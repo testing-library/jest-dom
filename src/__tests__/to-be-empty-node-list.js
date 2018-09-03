@@ -21,7 +21,7 @@ describe('NodeList .toBeEmpty', () => {
     expect(emptyNodes).not.toBeEmpty()
   })
 
-  test('fails normally correctly', () => {
+  test('fails correctly', () => {
     expect(() => {
       document.body.innerHTML = `
       <div>
@@ -47,10 +47,20 @@ describe('NodeList .toBeEmpty', () => {
     }).toThrowError()
   })
 
-  test('fails a large amount of elements', () => {
+  test('fails large amount of elements', () => {
     expect(() => {
       document.body.innerHTML = `
     <div>
+      <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
+      <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
+      <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
+      <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
+      <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
+      <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
+      <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
+      <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
+      <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
+      <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
       <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
       <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
       <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
