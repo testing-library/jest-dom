@@ -40,6 +40,7 @@
     "redent": "^2.0.0"
   },
   "devDependencies": {
+    "dom-path-utils": "0.1.0",
     "kcd-scripts": "^0.37.0"
   },
   "eslintConfig": {
