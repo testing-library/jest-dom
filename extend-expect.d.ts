@@ -15,7 +15,7 @@ declare namespace jest {
     toHaveStyle(css: string): R
     toHaveTextContent(
       text: string | RegExp,
-      options?: {normalizeSpaces: boolean},
+      options?: {normalizeWhitespace: boolean},
     ): R
     toHaveFocus(): R
   }

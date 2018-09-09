@@ -5,16 +5,18 @@ import {checkHtmlElement, getMessage, matches} from './utils'
 export function toHaveTextContent(
   htmlElement,
   checkWith,
-  options = {normalizeSpaces: false},
+  options = {normalizeWhitespace: true},
 ) {
   checkHtmlElement(htmlElement, toHaveTextContent, this)
 
-  const textContent = options.normalizeSpaces
-    ? getNodeText(htmlElement).replace(/\s+/g, ' ')
-    : getNodeText(htmlElement)
+  const textContent = options.normalizeWhitespace
+    ? getNodeText(htmlElement)
+        .replace(/\s+/g, ' ')
+        .trim()
+    : getNodeText(htmlElement).replace(/\u00a0/g, ' ') // Replace &nbsp; with normal spaces
 
   return {
-    pass: matches(textContent, htmlElement, checkWith),
+    pass: matches(textContent, checkWith),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
       return getMessage(

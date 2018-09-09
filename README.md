@@ -535,7 +535,7 @@ The usual rules of css precedence apply.
 ### `toHaveTextContent`
 
 ```typescript
-toHaveTextContent(text: string | RegExp, options?: {normalizeSpaces: boolean})
+toHaveTextContent(text: string | RegExp, options?: {normalizeWhitespace: boolean})
 ```
 
 This API allows you to check whether the given element has a text content or not.

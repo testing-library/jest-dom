@@ -25,7 +25,7 @@ describe('.toHaveTextContent', () => {
     ).toThrowError()
   })
 
-  test('normalizes whitespace', () => {
+  test('normalizes whitespace by default', () => {
     const {container} = render(`
       <span>
         Step
@@ -35,8 +35,14 @@ describe('.toHaveTextContent', () => {
       </span>
     `)
 
-    expect(container.querySelector('span')).toHaveTextContent('Step 1 of 4', {
-      normalizeSpaces: true,
+    expect(container.querySelector('span')).toHaveTextContent('Step 1 of 4')
+  })
+
+  test('allows whitespace normalization to be turned off', () => {
+    const {container} = render(`<span>&nbsp;&nbsp;Step 1 of 4</span>`)
+
+    expect(container.querySelector('span')).toHaveTextContent('  Step 1 of 4', {
+      normalizeWhitespace: false,
     })
   })
 })
