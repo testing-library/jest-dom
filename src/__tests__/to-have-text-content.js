@@ -35,6 +35,8 @@ describe('.toHaveTextContent', () => {
       </span>
     `)
 
-    expect(container.querySelector('span')).toHaveTextContent('Step 1 of 4')
+    expect(container.querySelector('span')).toHaveTextContent('Step 1 of 4', {
+      normalizeSpaces: true,
+    })
   })
 })

@@ -2,9 +2,16 @@ import {matcherHint} from 'jest-matcher-utils'
 import {getNodeText} from 'dom-testing-library'
 import {checkHtmlElement, getMessage, matches} from './utils'
 
-export function toHaveTextContent(htmlElement, checkWith) {
+export function toHaveTextContent(
+  htmlElement,
+  checkWith,
+  options = {normalizeSpaces: false},
+) {
   checkHtmlElement(htmlElement, toHaveTextContent, this)
-  const textContent = getNodeText(htmlElement).replace(/\s+/g, ' ')
+
+  const textContent = options.normalizeSpaces
+    ? getNodeText(htmlElement).replace(/\s+/g, ' ')
+    : getNodeText(htmlElement)
 
   return {
     pass: matches(textContent, htmlElement, checkWith),
