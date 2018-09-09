@@ -26,11 +26,14 @@ describe('.toHaveTextContent', () => {
   })
 
   test('normalizes whitespace', () => {
-    const {container} = render(`<span>
-   Step
-     1
-   of 4
- </span>`)
+    const {container} = render(`
+      <span>
+        Step
+          1
+            of
+              4
+      </span>
+    `)
 
     expect(container.querySelector('span')).toHaveTextContent('Step 1 of 4')
   })
