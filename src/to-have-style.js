@@ -1,24 +1,17 @@
-import {parse} from 'css'
 import {matcherHint} from 'jest-matcher-utils'
 import jestDiff from 'jest-diff'
 import chalk from 'chalk'
-import {checkHtmlElement} from './utils'
+import {checkHtmlElement, checkValidCSS} from './utils'
 
-function parseCSS(css) {
-  const ast = parse(`selector { ${css} }`, {silent: true}).stylesheet
-  if (ast.parsingErrors && ast.parsingErrors.length > 0) {
-    const {reason, line, column} = ast.parsingErrors[0]
-    return {
-      parsingError: `Syntax error parsing expected css: ${reason} in ${line}:${column}`,
-    }
-  }
-  const parsedRules = ast.rules[0].declarations
-    .filter(d => d.type === 'declaration')
-    .reduce(
-      (obj, {property, value}) => Object.assign(obj, {[property]: value}),
-      {},
-    )
-  return {parsedRules}
+function getStyleDeclaration(css) {
+  const copy = document.createElement('div')
+  copy.style = css
+  const styles = copy.style
+
+  return Array.from(styles).reduce(
+    (acc, name) => ({...acc, [name]: styles[name]}),
+    {},
+  )
 }
 
 function isSubset(styles, computedStyle) {
@@ -55,14 +48,11 @@ function expectedDiff(expected, computedStyles) {
 
 export function toHaveStyle(htmlElement, css) {
   checkHtmlElement(htmlElement, toHaveStyle, this)
-  const {parsedRules: expected, parsingError} = parseCSS(css)
-  if (parsingError) {
-    return {
-      pass: this.isNot, // Fail regardless of the test being positive or negative
-      message: () => parsingError,
-    }
-  }
+  checkValidCSS(css, toHaveStyle, this)
+
+  const expected = getStyleDeclaration(css)
   const received = getComputedStyle(htmlElement)
+
   return {
     pass: isSubset(expected, received),
     message: () => {
