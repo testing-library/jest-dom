@@ -88,4 +88,11 @@ describe('.toHaveStyle', () => {
       'background-color: #123456',
     )
   })
+
+  test('properly normalizes colors for border', () => {
+    const {queryByTestId} = render(`
+    <span data-testid="color-example" style="border: 1px solid #fff">Hello World</span>
+  `)
+    expect(queryByTestId('color-example')).toHaveStyle('border: 1px solid #fff')
+  })
 })
