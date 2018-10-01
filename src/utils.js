@@ -7,6 +7,7 @@ import {
   printReceived,
   stringify,
 } from 'jest-matcher-utils'
+import {parse} from 'css'
 
 class HtmlElementTypeError extends Error {
   constructor(received, matcherFn, context) {
@@ -37,6 +38,39 @@ function checkHtmlElement(htmlElement, ...args) {
     !(htmlElement instanceof SVGElement)
   ) {
     throw new HtmlElementTypeError(htmlElement, ...args)
+  }
+}
+
+class InvalidCSSError extends Error {
+  constructor(received, matcherFn) {
+    super()
+
+    /* istanbul ignore next */
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, matcherFn)
+    }
+    this.message = [
+      received.message,
+      '',
+      receivedColor(`Failing css:`),
+      receivedColor(`${received.css}`),
+    ].join('\n')
+  }
+}
+
+function checkValidCSS(css, ...args) {
+  const ast = parse(`selector { ${css} }`, {silent: true}).stylesheet
+
+  if (ast.parsingErrors && ast.parsingErrors.length > 0) {
+    const {reason, line} = ast.parsingErrors[0]
+
+    throw new InvalidCSSError(
+      {
+        css,
+        message: `Syntax error parsing expected css: ${reason} on line: ${line}`,
+      },
+      ...args,
+    )
   }
 }
 
@@ -108,4 +142,11 @@ function deprecate(name, replacementText) {
   )
 }
 
-export {checkDocumentKey, checkHtmlElement, deprecate, getMessage, matches}
+export {
+  checkDocumentKey,
+  checkHtmlElement,
+  checkValidCSS,
+  deprecate,
+  getMessage,
+  matches,
+}
