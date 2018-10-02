@@ -1,11 +1,22 @@
 import {matcherHint} from 'jest-matcher-utils'
+import {getNodeText} from 'dom-testing-library'
 import {checkHtmlElement, getMessage, matches} from './utils'
 
-export function toHaveTextContent(htmlElement, checkWith) {
+export function toHaveTextContent(
+  htmlElement,
+  checkWith,
+  options = {normalizeWhitespace: true},
+) {
   checkHtmlElement(htmlElement, toHaveTextContent, this)
-  const textContent = htmlElement.textContent
+
+  const textContent = options.normalizeWhitespace
+    ? getNodeText(htmlElement)
+        .replace(/\s+/g, ' ')
+        .trim()
+    : getNodeText(htmlElement).replace(/\u00a0/g, ' ') // Replace &nbsp; with normal spaces
+
   return {
-    pass: matches(textContent, htmlElement, checkWith),
+    pass: matches(textContent, checkWith),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
       return getMessage(

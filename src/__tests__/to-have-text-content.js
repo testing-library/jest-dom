@@ -1,20 +1,48 @@
 import {render} from './helpers/test-utils'
 
-test('.toHaveTextContent', () => {
-  const {queryByTestId} = render(`<span data-testid="count-value">2</span>`)
+describe('.toHaveTextContent', () => {
+  test('handles positive test cases', () => {
+    const {queryByTestId} = render(`<span data-testid="count-value">2</span>`)
 
-  expect(queryByTestId('count-value')).toHaveTextContent('2')
-  expect(queryByTestId('count-value')).toHaveTextContent(2)
-  expect(queryByTestId('count-value')).toHaveTextContent(/2/)
-  expect(queryByTestId('count-value')).not.toHaveTextContent('21')
-  expect(() =>
-    expect(queryByTestId('count-value2')).toHaveTextContent('2'),
-  ).toThrowError()
+    expect(queryByTestId('count-value')).toHaveTextContent('2')
+    expect(queryByTestId('count-value')).toHaveTextContent(2)
+    expect(queryByTestId('count-value')).toHaveTextContent(/2/)
+    expect(queryByTestId('count-value')).not.toHaveTextContent('21')
+  })
 
-  expect(() =>
-    expect(queryByTestId('count-value')).toHaveTextContent('3'),
-  ).toThrowError()
-  expect(() =>
-    expect(queryByTestId('count-value')).not.toHaveTextContent('2'),
-  ).toThrowError()
+  test('handles negative test cases', () => {
+    const {queryByTestId} = render(`<span data-testid="count-value">2</span>`)
+
+    expect(() =>
+      expect(queryByTestId('count-value2')).toHaveTextContent('2'),
+    ).toThrowError()
+
+    expect(() =>
+      expect(queryByTestId('count-value')).toHaveTextContent('3'),
+    ).toThrowError()
+    expect(() =>
+      expect(queryByTestId('count-value')).not.toHaveTextContent('2'),
+    ).toThrowError()
+  })
+
+  test('normalizes whitespace by default', () => {
+    const {container} = render(`
+      <span>
+        Step
+          1
+            of
+              4
+      </span>
+    `)
+
+    expect(container.querySelector('span')).toHaveTextContent('Step 1 of 4')
+  })
+
+  test('allows whitespace normalization to be turned off', () => {
+    const {container} = render(`<span>&nbsp;&nbsp;Step 1 of 4</span>`)
+
+    expect(container.querySelector('span')).toHaveTextContent('  Step 1 of 4', {
+      normalizeWhitespace: false,
+    })
+  })
 })

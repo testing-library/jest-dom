@@ -125,7 +125,7 @@ function getMessage(
   ].join('\n')
 }
 
-function matches(textToMatch, node, matcher) {
+function matches(textToMatch, matcher) {
   if (matcher instanceof RegExp) {
     return matcher.test(textToMatch)
   } else {
