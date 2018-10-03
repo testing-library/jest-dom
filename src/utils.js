@@ -142,6 +142,10 @@ function deprecate(name, replacementText) {
   )
 }
 
+function normalize(text) {
+  return text.replace(/\s+/g, ' ').trim()
+}
+
 export {
   checkDocumentKey,
   checkHtmlElement,
@@ -149,4 +153,5 @@ export {
   deprecate,
   getMessage,
   matches,
+  normalize,
 }
