@@ -45,4 +45,32 @@ describe('.toHaveTextContent', () => {
       normalizeWhitespace: false,
     })
   })
+
+  test('can handle multiple levels', () => {
+    const {container} = render(`<span id="parent"><span>Step 1 
+    
+    of 4</span></span>`)
+
+    expect(container.querySelector('#parent')).toHaveTextContent('Step 1 of 4')
+  })
+
+  test('can handle multiple levels with content spread across decendants', () => {
+    const {container} = render(`
+        <span id="parent">
+            <span>Step</span>
+            <span>      1</span>
+            <span><span>of</span></span>
+
+
+            4</span>
+        </span>
+    `)
+
+    expect(container.querySelector('#parent')).toHaveTextContent('Step 1 of 4')
+  })
+
+  test('does not throw error with empty content', () => {
+    const {container} = render(`<span></span>`)
+    expect(container.querySelector('span')).toHaveTextContent('')
+  })
 })
