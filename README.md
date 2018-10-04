@@ -593,7 +593,7 @@ value is indeed an `HTMLElement` you can always use some of
 
 ```js
 expect(document.querySelector('.ok-button')).toBeInstanceOf(HTMLElement)
-expect(document.querySelector('.cancel-button')).toBeThruthy()
+expect(document.querySelector('.cancel-button')).toBeTruthy()
 ```
 
 > Note: The differences between `toBeInTheDOM` and `toBeInTheDocument` are
