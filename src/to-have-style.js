@@ -25,7 +25,6 @@ function printoutStyles(styles) {
     .sort()
     .map(prop => `${prop}: ${styles[prop]};`)
     .join('\n')
-    .concat('\n') // ensure multiline for diff
 }
 
 // Highlights only style rules that were expected but were not found in the
