@@ -34,13 +34,13 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "css": "^2.2.3",
-    "jest-diff": "^22.4.3",
-    "jest-matcher-utils": "^22.4.3",
-    "pretty-format": "^23.0.1",
+    "jest-diff": "^23.6.0",
+    "jest-matcher-utils": "^23.6.0",
+    "pretty-format": "^23.6.0",
     "redent": "^2.0.0"
   },
   "devDependencies": {
-    "kcd-scripts": "^0.37.0"
+    "kcd-scripts": "^0.44.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
