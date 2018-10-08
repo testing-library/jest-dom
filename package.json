@@ -13,8 +13,9 @@
     "build": "kcd-scripts build",
     "lint": "kcd-scripts lint",
     "test": "kcd-scripts test",
+    "test:all": "npm test && npm test -- --env jsdom",
     "test:update": "npm test -- --updateSnapshot --coverage",
-    "validate": "kcd-scripts validate",
+    "validate": "kcd-scripts validate build,lint,test:all",
     "setup": "npm install && npm run validate -s",
     "precommit": "kcd-scripts precommit"
   },
@@ -40,6 +41,7 @@
     "redent": "^2.0.0"
   },
   "devDependencies": {
+    "jsdom": "^12.2.0",
     "kcd-scripts": "^0.44.0"
   },
   "eslintConfig": {

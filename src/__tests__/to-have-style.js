@@ -1,4 +1,5 @@
 import {render} from './helpers/test-utils'
+import document from './helpers/document'
 
 describe('.toHaveStyle', () => {
   test('handles positive test cases', () => {

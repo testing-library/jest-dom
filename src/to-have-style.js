@@ -3,7 +3,7 @@ import jestDiff from 'jest-diff'
 import chalk from 'chalk'
 import {checkHtmlElement, checkValidCSS} from './utils'
 
-function getStyleDeclaration(css) {
+function getStyleDeclaration(document, css) {
   const copy = document.createElement('div')
   copy.style = css
   const styles = copy.style
@@ -48,8 +48,9 @@ function expectedDiff(expected, computedStyles) {
 export function toHaveStyle(htmlElement, css) {
   checkHtmlElement(htmlElement, toHaveStyle, this)
   checkValidCSS(css, toHaveStyle, this)
+  const {getComputedStyle} = htmlElement.ownerDocument.defaultView
 
-  const expected = getStyleDeclaration(css)
+  const expected = getStyleDeclaration(htmlElement.ownerDocument, css)
   const received = getComputedStyle(htmlElement)
 
   return {

@@ -1,6 +1,4 @@
-import {checkDocumentKey, deprecate} from '../utils'
-
-function matcherMock() {}
+import {deprecate} from '../utils'
 
 test('deprecate', () => {
   const spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
@@ -15,29 +13,4 @@ test('deprecate', () => {
   expect(spy).toHaveBeenCalledWith(message, undefined)
 
   spy.mockRestore()
-})
-
-test('checkDocumentKey', () => {
-  const fakeKey = 'fakeKey'
-  const realKey = 'documentElement'
-  const badKeyMessage = `${fakeKey} is undefined on document but is required to use ${
-    matcherMock.name
-  }.`
-
-  const badDocumentMessage = `document is undefined on global but is required to use ${
-    matcherMock.name
-  }.`
-
-  expect(() =>
-    checkDocumentKey(document, realKey, matcherMock),
-  ).not.toThrowError()
-
-  expect(() => {
-    checkDocumentKey(document, fakeKey, matcherMock)
-  }).toThrow(badKeyMessage)
-
-  expect(() => {
-    //eslint-disable-next-line no-undef
-    checkDocumentKey(undefined, realKey, matcherMock)
-  }).toThrow(badDocumentMessage)
 })

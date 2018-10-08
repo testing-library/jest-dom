@@ -34,8 +34,9 @@ class HtmlElementTypeError extends Error {
 
 function checkHtmlElement(htmlElement, ...args) {
   if (
-    !(htmlElement instanceof HTMLElement) &&
-    !(htmlElement instanceof SVGElement)
+    !htmlElement.ownerDocument &&
+    !(htmlElement instanceof htmlElement.ownerDocument.HTMLElement) &&
+    !(htmlElement instanceof htmlElement.ownerDocument.SVGElement)
   ) {
     throw new HtmlElementTypeError(htmlElement, ...args)
   }
@@ -70,39 +71,6 @@ function checkValidCSS(css, ...args) {
         message: `Syntax error parsing expected css: ${reason} on line: ${line}`,
       },
       ...args,
-    )
-  }
-}
-
-class InvalidDocumentError extends Error {
-  constructor(message, matcherFn) {
-    super()
-
-    /* istanbul ignore next */
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, matcherFn)
-    }
-
-    this.message = message
-  }
-}
-
-function checkDocumentKey(document, key, matcherFn) {
-  if (typeof document === 'undefined') {
-    throw new InvalidDocumentError(
-      `document is undefined on global but is required to use ${
-        matcherFn.name
-      }.`,
-      matcherFn,
-    )
-  }
-
-  if (typeof document[key] === 'undefined') {
-    throw new InvalidDocumentError(
-      `${key} is undefined on document but is required to use ${
-        matcherFn.name
-      }.`,
-      matcherFn,
     )
   }
 }
@@ -147,7 +115,6 @@ function normalize(text) {
 }
 
 export {
-  checkDocumentKey,
   checkHtmlElement,
   checkValidCSS,
   deprecate,
