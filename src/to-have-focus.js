@@ -5,13 +5,13 @@ export function toHaveFocus(element) {
   checkHtmlElement(element, toHaveFocus, this)
 
   return {
-    pass: document.activeElement === element,
+    pass: element.ownerDocument.activeElement === element,
     message: () => {
       return [
         matcherHint(`${this.isNot ? '.not' : ''}.toHaveFocus`, 'element', ''),
         '',
         'Received:',
-        `  ${printReceived(document.activeElement)}`,
+        `  ${printReceived(element.ownerDocument.activeElement)}`,
       ].join('\n')
     },
   }
