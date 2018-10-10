@@ -489,8 +489,8 @@ given name, and having the specified value.
 > It is important to stress that this matcher can only be invoked on a [form][]
 > or a [fieldset][] element.
 >
-> This allows it to take advantage of these elements' `[elements][]` property,
-> to reliably fetch all form controls within them.
+> This allows it to take advantage of the [.elements][] property in `form` and
+> `fieldset` to reliably fetch all form controls within them.
 >
 > This also avoids the possibility that users provide a container that contains
 > more than one `form`, thereby intermixing form controls that are not related,
@@ -535,7 +535,7 @@ by this matcher to compare against would be the same.
 [selected options]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/selectedOptions
 [form]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
 [fieldset]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLFieldSetElement
-[elements]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements
+[.elements]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements
 
 #### Examples
 
