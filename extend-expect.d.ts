@@ -13,7 +13,7 @@ declare namespace jest {
     toHaveAttribute(attr: string, value?: string): R
     toHaveClass(...classNames: string[]): R
     toHaveFocus(): R
-    toHaveFormValues(object)
+    toHaveFormValues(expectedValues: {[name: string]: any}): R
     toHaveStyle(css: string): R
     toHaveTextContent(
       text: string | RegExp,

@@ -480,7 +480,9 @@ expect(input).not.toHaveFocus()
 ### `toHaveFormValues`
 
 ```typescript
-toHaveFormValues(object)
+toHaveFormValues(expectedValues: {
+  [name: string]: any
+})
 ```
 
 This allows you to check if a form or fieldset contains form controls for each
@@ -520,7 +522,7 @@ of all cases covered:
   that's not explicitly covered in different rules above (e.g. `search`,
   `email`, `date`, `password`, `hidden`, etc.)
 - `<select>` elements without the `multiple` attribute return the value as a
-  string corresponding to the `value` attribute of the selected `option`, or
+  **string** corresponding to the `value` attribute of the selected `option`, or
   `undefined` if there's no selected option.
 - `<select multiple>` elements return the value as an **array** containing all
   the values of the [selected options][].
