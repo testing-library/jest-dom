@@ -93,9 +93,7 @@ function getPureName(name) {
 }
 
 function getAllFormValues(container) {
-  const names = uniq(
-    [...container.querySelectorAll('[name]')].map(element => element.name),
-  )
+  const names = Array.from(container.elements).map(element => element.name)
   return names.reduce(
     (obj, name) => ({
       ...obj,

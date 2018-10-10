@@ -156,8 +156,9 @@ describe('.toHaveFormValues', () => {
           <input type="radio" name="accept">
         </form>
       `)
+      const form = container.querySelector('form')
       expect(() => {
-        expect(container).toHaveFormValues({})
+        expect(form).toHaveFormValues({})
       }).toThrowError(/must be of the same type/)
     })
 
@@ -168,7 +169,8 @@ describe('.toHaveFormValues', () => {
           <input type="text" name="title" value="two">
         </form>
       `)
-      expect(container).toHaveFormValues({
+      const form = container.querySelector('form')
+      expect(form).toHaveFormValues({
         title: ['one', 'two'],
       })
     })
