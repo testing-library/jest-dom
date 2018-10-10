@@ -185,6 +185,23 @@ describe('.toHaveFormValues', () => {
         category: undefined,
       })
     })
+
+    it('supports being called only on form and fieldset elements', () => {
+      const expectedValues = {title: 'one', description: 'two'}
+      const {container} = render(`
+        <form>
+          <input type="text" name="title" value="one">
+          <input type="text" name="description" value="two">
+        </form>
+      `)
+      const form = container.querySelector('form')
+      expect(() => {
+        expect(container).toHaveFormValues(expectedValues)
+      }).toThrowError(/a form or a fieldset/)
+      expect(() => {
+        expect(form).toHaveFormValues(expectedValues)
+      }).not.toThrowError()
+    })
   })
 
   describe('failed assertions', () => {
