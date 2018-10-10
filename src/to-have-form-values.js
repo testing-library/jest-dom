@@ -1,17 +1,15 @@
 import {matcherHint} from 'jest-matcher-utils'
 import jestDiff from 'jest-diff'
+import isEqual from 'lodash/isEqual'
+import isEqualWith from 'lodash/isEqualWith'
+import uniq from 'lodash/uniq'
 import {checkHtmlElement} from './utils'
 
-function uniq(value, index, self) {
-  return self.indexOf(value) === index
-}
-
-function isEqual(a, b) {
+function compareArraysAsSet(a, b) {
   if (Array.isArray(a) && Array.isArray(b)) {
-    a = [...a].sort()
-    b = [...b].sort()
+    return isEqual(new Set(a), new Set(b))
   }
-  return JSON.stringify(a) === JSON.stringify(b)
+  return undefined
 }
 
 function getSelectValue({multiple, selectedOptions}) {
@@ -54,7 +52,7 @@ function getSingleElementValue(element) {
 // Returns the combined value of several elements that have the same name
 // e.g. radio buttons or groups of checkboxes
 function getMultiElementValue(elements) {
-  const types = elements.map(element => element.type).filter(uniq)
+  const types = uniq(elements.map(element => element.type))
   if (types.length !== 1) {
     throw new Error(
       'Multiple form elements with the same name must be of the same type',
@@ -95,9 +93,9 @@ function getPureName(name) {
 }
 
 function getAllFormValues(container) {
-  const names = [...container.querySelectorAll('[name]')]
-    .map(element => element.name)
-    .filter(uniq)
+  const names = uniq(
+    [...container.querySelectorAll('[name]')].map(element => element.name),
+  )
   return names.reduce(
     (obj, name) => ({
       ...obj,
@@ -111,8 +109,8 @@ export function toHaveFormValues(formElement, expectedValues) {
   checkHtmlElement(formElement, toHaveFormValues, this)
   const formValues = getAllFormValues(formElement)
   return {
-    pass: Object.entries(expectedValues).every(([name, value]) =>
-      isEqual(formValues[name], value),
+    pass: Object.entries(expectedValues).every(([name, expectedValue]) =>
+      isEqualWith(formValues[name], expectedValue, compareArraysAsSet),
     ),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
