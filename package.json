@@ -13,8 +13,9 @@
     "build": "kcd-scripts build",
     "lint": "kcd-scripts lint",
     "test": "kcd-scripts test",
+    "test:all": "npm test && npm test -- --env jsdom",
     "test:update": "npm test -- --updateSnapshot --coverage",
-    "validate": "kcd-scripts validate",
+    "validate": "kcd-scripts validate build,lint,test:all",
     "setup": "npm install && npm run validate -s",
     "precommit": "kcd-scripts precommit"
   },
@@ -34,14 +35,15 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "css": "^2.2.3",
-    "jest-diff": "^22.4.3",
-    "jest-matcher-utils": "^22.4.3",
-    "pretty-format": "^23.0.1",
+    "jest-diff": "^23.6.0",
+    "jest-matcher-utils": "^23.6.0",
+    "pretty-format": "^23.6.0",
     "redent": "^2.0.0"
   },
   "devDependencies": {
     "dom-path-utils": "0.1.0",
-    "kcd-scripts": "^0.37.0"
+    "jsdom": "^12.2.0",
+    "kcd-scripts": "^0.44.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",

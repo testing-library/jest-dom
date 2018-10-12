@@ -1,11 +1,19 @@
 import {matcherHint} from 'jest-matcher-utils'
-import {checkHtmlElement, getMessage, matches} from './utils'
+import {checkHtmlElement, getMessage, matches, normalize} from './utils'
 
-export function toHaveTextContent(htmlElement, checkWith) {
+export function toHaveTextContent(
+  htmlElement,
+  checkWith,
+  options = {normalizeWhitespace: true},
+) {
   checkHtmlElement(htmlElement, toHaveTextContent, this)
-  const textContent = htmlElement.textContent
+
+  const textContent = options.normalizeWhitespace
+    ? normalize(htmlElement.textContent)
+    : htmlElement.textContent.replace(/\u00a0/g, ' ') // Replace &nbsp; with normal spaces
+
   return {
-    pass: matches(textContent, htmlElement, checkWith),
+    pass: matches(textContent, checkWith),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
       return getMessage(

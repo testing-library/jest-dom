@@ -1,3 +1,5 @@
+import document from './helpers/document'
+
 test('.toBeInTheDocument', () => {
   document.body.innerHTML = `
     <span data-testid="html-element"><span>Html Element</span></span>

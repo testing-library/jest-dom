@@ -34,8 +34,9 @@ class HtmlElementTypeError extends Error {
 
 function checkHtmlElement(htmlElement, ...args) {
   if (
-    !(htmlElement instanceof HTMLElement) &&
-    !(htmlElement instanceof SVGElement)
+    !htmlElement.ownerDocument &&
+    !(htmlElement instanceof htmlElement.ownerDocument.HTMLElement) &&
+    !(htmlElement instanceof htmlElement.ownerDocument.SVGElement)
   ) {
     throw new HtmlElementTypeError(htmlElement, ...args)
   }
@@ -74,39 +75,6 @@ function checkValidCSS(css, ...args) {
   }
 }
 
-class InvalidDocumentError extends Error {
-  constructor(message, matcherFn) {
-    super()
-
-    /* istanbul ignore next */
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, matcherFn)
-    }
-
-    this.message = message
-  }
-}
-
-function checkDocumentKey(document, key, matcherFn) {
-  if (typeof document === 'undefined') {
-    throw new InvalidDocumentError(
-      `document is undefined on global but is required to use ${
-        matcherFn.name
-      }.`,
-      matcherFn,
-    )
-  }
-
-  if (typeof document[key] === 'undefined') {
-    throw new InvalidDocumentError(
-      `${key} is undefined on document but is required to use ${
-        matcherFn.name
-      }.`,
-      matcherFn,
-    )
-  }
-}
-
 function display(value) {
   return typeof value === 'string' ? value : stringify(value)
 }
@@ -125,7 +93,7 @@ function getMessage(
   ].join('\n')
 }
 
-function matches(textToMatch, node, matcher) {
+function matches(textToMatch, matcher) {
   if (matcher instanceof RegExp) {
     return matcher.test(textToMatch)
   } else {
@@ -142,11 +110,15 @@ function deprecate(name, replacementText) {
   )
 }
 
+function normalize(text) {
+  return text.replace(/\s+/g, ' ').trim()
+}
+
 export {
-  checkDocumentKey,
   checkHtmlElement,
   checkValidCSS,
   deprecate,
   getMessage,
   matches,
+  normalize,
 }

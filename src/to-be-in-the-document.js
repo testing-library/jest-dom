@@ -3,17 +3,18 @@ import {
   stringify,
   RECEIVED_COLOR as receivedColor,
 } from 'jest-matcher-utils'
-import {checkHtmlElement, checkDocumentKey} from './utils'
+import {checkHtmlElement} from './utils'
 
 export function toBeInTheDocument(element) {
   if (element !== null) {
     checkHtmlElement(element, toBeInTheDocument, this)
   }
 
-  checkDocumentKey(global.document, 'documentElement', toBeInTheDocument)
+  const pass =
+    element === null ? false : element.ownerDocument.contains(element)
 
   return {
-    pass: document.documentElement.contains(element),
+    pass,
     message: () => {
       return [
         matcherHint(
@@ -22,11 +23,9 @@ export function toBeInTheDocument(element) {
           '',
         ),
         '',
-        receivedColor(`${stringify(
-          document.documentElement.cloneNode(false),
-        )} ${this.isNot ? 'contains:' : 'does not contain:'} ${stringify(
-          element ? element.cloneNode(false) : element,
-        )}
+        receivedColor(`${stringify(element.ownerDocument.cloneNode(false))} ${
+          this.isNot ? 'contains:' : 'does not contain:'
+        } ${stringify(element ? element.cloneNode(false) : element)}
         `),
       ].join('\n')
     },

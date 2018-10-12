@@ -2,6 +2,8 @@ import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
 function isStyleVisible(element) {
+  const {getComputedStyle} = element.ownerDocument.defaultView
+
   const {display, visibility, opacity} = getComputedStyle(element)
   return (
     display !== 'none' &&
