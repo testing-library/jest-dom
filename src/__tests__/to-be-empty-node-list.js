@@ -1,55 +1,57 @@
+import {render} from './helpers/test-utils'
+
 describe('NodeList .toBeEmpty', () => {
   test('runs without failing.', () => {
-    document.body.innerHTML = `
+    const {container} = render(`
       <div>
         <span></span>
         <span></span>
-      </div>`
+      </div>`)
 
-    const emptyNodes = document.querySelectorAll('span')
+    const emptyNodes = container.querySelectorAll('span')
     expect(emptyNodes).toBeEmpty()
   })
 
   test('runs inverted without failing', () => {
-    document.body.innerHTML = `
+    const {container} = render(`
       <div>
         <span>a</span>
         <span>a</span>
-      </div>`
+      </div>`)
 
-    const emptyNodes = document.querySelectorAll('span')
+    const emptyNodes = container.querySelectorAll('span')
     expect(emptyNodes).not.toBeEmpty()
   })
 
   test('fails correctly', () => {
     expect(() => {
-      document.body.innerHTML = `
+      const {container} = render(`
       <div>
         <span></span>
         <span>a</span>
-      </div>`
+      </div>`)
 
-      const emptyNodes = document.querySelectorAll('span')
+      const emptyNodes = container.querySelectorAll('span')
       expect(emptyNodes).toBeEmpty()
     }).toThrowError()
   })
 
   test('fails inverted correctly', () => {
     expect(() => {
-      document.body.innerHTML = `
+      const {container} = render(`
       <div>
         <span></span>
         <span>a</span>
-      </div>`
+      </div>`)
 
-      const emptyNodes = document.querySelectorAll('span')
+      const emptyNodes = container.querySelectorAll('span')
       expect(emptyNodes).not.toBeEmpty()
     }).toThrowError()
   })
 
   test('fails large amount of elements', () => {
     expect(() => {
-      document.body.innerHTML = `
+      const {container} = render(`
     <div>
       <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
       <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
@@ -71,9 +73,9 @@ describe('NodeList .toBeEmpty', () => {
       <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
       <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
       <span>a</span><span>a</span><span>a</span><span>a</span><span>a</span>
-    </div>`
+    </div>`)
 
-      const emptyNodes = document.querySelectorAll('span')
+      const emptyNodes = container.querySelectorAll('span')
       expect(emptyNodes).toBeEmpty()
     }).toThrowError()
   })

@@ -95,7 +95,8 @@ function nodeListMatcher(matcher) {
 // Logic Units
 // ----------------------------
 
-const isNodeList = nodeList => nodeList instanceof NodeList
+const isNodeList = elementSelection =>
+  !!elementSelection && elementSelection.constructor.name === 'NodeList'
 
 // ----------------------------
 // Main Export

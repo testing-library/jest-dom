@@ -35,13 +35,13 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "css": "^2.2.3",
+    "dom-path-utils": "0.2.0",
     "jest-diff": "^23.6.0",
     "jest-matcher-utils": "^23.6.0",
     "pretty-format": "^23.6.0",
     "redent": "^2.0.0"
   },
   "devDependencies": {
-    "dom-path-utils": "0.1.0",
     "jsdom": "^12.2.0",
     "kcd-scripts": "^0.44.0"
   },
