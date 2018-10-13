@@ -1,4 +1,4 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
+import {matcherHint, printReceived, printExpected} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
 export function toHaveFocus(element) {
@@ -10,6 +10,8 @@ export function toHaveFocus(element) {
       return [
         matcherHint(`${this.isNot ? '.not' : ''}.toHaveFocus`, 'element', ''),
         '',
+        'Expected',
+        `  ${printExpected(element)}`,
         'Received:',
         `  ${printReceived(element.ownerDocument.activeElement)}`,
       ].join('\n')
