@@ -37,6 +37,7 @@
     "css": "^2.2.3",
     "jest-diff": "^23.6.0",
     "jest-matcher-utils": "^23.6.0",
+    "lodash": "^4.17.11",
     "pretty-format": "^23.6.0",
     "redent": "^2.0.0"
   },
