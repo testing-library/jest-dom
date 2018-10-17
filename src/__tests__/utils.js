@@ -1,4 +1,5 @@
-import {deprecate} from '../utils'
+import {deprecate, checkHtmlElement, HtmlElementTypeError} from '../utils'
+import document from './helpers/document'
 
 test('deprecate', () => {
   const spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
@@ -13,4 +14,47 @@ test('deprecate', () => {
   expect(spy).toHaveBeenCalledWith(message, undefined)
 
   spy.mockRestore()
+})
+
+describe('checkHtmlElement', () => {
+  it('does not throw an error for correct html element', () => {
+    expect(() => {
+      const element = document.createElement('p')
+      checkHtmlElement(element, () => {}, {})
+    }).not.toThrow()
+  })
+
+  it('does not throw an error for correct svg element', () => {
+    expect(() => {
+      const element = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'rect',
+      )
+      checkHtmlElement(element, () => {}, {})
+    }).not.toThrow()
+  })
+
+  it('does not throw for body', () => {
+    expect(() => {
+      checkHtmlElement(document.body, () => {}, {})
+    }).not.toThrow()
+  })
+
+  it('throws for undefined', () => {
+    expect(() => {
+      checkHtmlElement(undefined, () => {}, {})
+    }).toThrow(HtmlElementTypeError)
+  })
+
+  it('throws for document', () => {
+    expect(() => {
+      checkHtmlElement(document, () => {}, {})
+    }).toThrow(HtmlElementTypeError)
+  })
+
+  it('throws for function', () => {
+    expect(() => {
+      checkHtmlElement(() => {}, () => {}, {})
+    }).toThrow(HtmlElementTypeError)
+  })
 })
