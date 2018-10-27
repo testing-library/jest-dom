@@ -12,11 +12,12 @@ declare namespace jest {
     toContainHTML(htmlText: string): R
     toHaveAttribute(attr: string, value?: string): R
     toHaveClass(...classNames: string[]): R
+    toHaveFocus(): R
+    toHaveFormValues(expectedValues: {[name: string]: any}): R
     toHaveStyle(css: string): R
     toHaveTextContent(
       text: string | RegExp,
       options?: {normalizeWhitespace: boolean},
     ): R
-    toHaveFocus(): R
   }
 }

@@ -8,6 +8,7 @@ import {toHaveAttribute as toHaveAttributeDirect} from './to-have-attribute'
 import {toHaveClass as toHaveClassDirect} from './to-have-class'
 import {toHaveStyle as toHaveStyleDirect} from './to-have-style'
 import {toHaveFocus as toHaveFocusDirect} from './to-have-focus'
+import {toHaveFormValues as toHaveFormValuesDirect} from './to-have-form-values'
 import {toBeVisible as toBeVisibleDirect} from './to-be-visible'
 import {toBeDisabled as toBeDisabledDirect} from './to-be-disabled'
 import {withNodeList} from './with-node-list'
@@ -22,6 +23,7 @@ const toHaveAttribute = withNodeList(toHaveAttributeDirect)
 const toHaveClass = withNodeList(toHaveClassDirect)
 const toHaveStyle = withNodeList(toHaveStyleDirect)
 const toHaveFocus = withNodeList(toHaveFocusDirect)
+const toHaveFormValues = withNodeList(toHaveFormValuesDirect)
 const toBeVisible = withNodeList(toBeVisibleDirect)
 const toBeDisabled = withNodeList(toBeDisabledDirect)
 
@@ -36,6 +38,7 @@ export {
   toHaveClass,
   toHaveStyle,
   toHaveFocus,
+  toHaveFormValues,
   toBeVisible,
   toBeDisabled,
 }
