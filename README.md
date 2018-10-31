@@ -199,8 +199,8 @@ const detachedElement = document.createElement('div')
 
 expect(htmlElement).toBeInTheDocument()
 expect(svgElement).toBeInTheDocument()
-expect(detachedElement).not.toBeInTheDocument()
 expect(nonExistantElement).not.toBeInTheDocument()
+expect(detachedElement).not.toBeInTheDocument()
 ```
 
 ##### Using dom-testing-library
