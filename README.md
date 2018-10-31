@@ -631,21 +631,21 @@ This API allows you to check whether the given element has a text content or not
 ##### Using document.querySelector
 
 ```javascript
-const content = document.querySelector('[data-testid="count-value"]')
+const element = document.querySelector('[data-testid="count-value"]')
 
-expect(content).toHaveTextContent('2')
-expect(content).toHaveTextContent(/^2$/)
-expect(content).not.toHaveTextContent('21')
+expect(element).toHaveTextContent('2')
+expect(element).toHaveTextContent(/^2$/)
+expect(element).not.toHaveTextContent('21')
 ```
 
 ##### Using dom-testing-library
 
 ```javascript
-const content = getByTestId(container, 'count-value')
+const element = getByTestId(container, 'count-value')
 
-expect(content).toHaveTextContent('2')
-expect(content).toHaveTextContent(/^2$/)
-expect(content).not.toHaveTextContent('21')
+expect(element).toHaveTextContent('2')
+expect(element).toHaveTextContent(/^2$/)
+expect(element).not.toHaveTextContent('21')
 ```
 
 <hr />
