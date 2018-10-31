@@ -587,8 +587,8 @@ expect(button).toHaveStyle(`
   display: none;
 `)
 expect(button).not.toHaveStyle(`
-  display: none;
   color: blue;
+  display: none;
 `)
 ```
 
@@ -603,8 +603,8 @@ expect(button).toHaveStyle(`
   display: none;
 `)
 expect(button).not.toHaveStyle(`
-  display: none;
   color: blue;
+  display: none;
 `)
 ```
 
