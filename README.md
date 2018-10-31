@@ -579,7 +579,7 @@ expected properties applied, not just some of them.
 ##### Using document.querySelector
 
 ```javascript
-const input = document.querySelector(['data-testid="delete-button"')
+const button = document.querySelector(['data-testid="delete-button"')
 
 expect(button).toHaveStyle('display: none')
 expect(button).toHaveStyle(`
@@ -631,7 +631,7 @@ This API allows you to check whether the given element has a text content or not
 ##### Using document.querySelector
 
 ```javascript
-const button = document.querySelector('[data-testid="count-value"]')
+const content = document.querySelector('[data-testid="count-value"]')
 
 expect(content).toHaveTextContent('2')
 expect(content).toHaveTextContent(/^2$/)
