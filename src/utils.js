@@ -17,6 +17,13 @@ class HtmlElementTypeError extends Error {
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, matcherFn)
     }
+    let withType = ''
+    try {
+      withType = printWithType('Received', received, printReceived)
+    } catch (e) {
+      // Can throw for Document:
+      // https://github.com/jsdom/jsdom/issues/2304
+    }
     this.message = [
       matcherHint(
         `${context.isNot ? '.not' : ''}.${matcherFn.name}`,
@@ -27,16 +34,28 @@ class HtmlElementTypeError extends Error {
       `${receivedColor(
         'received',
       )} value must be an HTMLElement or an SVGElement.`,
-      printWithType('Received', received, printReceived),
+      withType,
     ].join('\n')
   }
 }
 
-function checkHtmlElement(htmlElement, ...args) {
+function checkHasWindow(htmlElement, ...args) {
   if (
-    !htmlElement.ownerDocument &&
-    !(htmlElement instanceof htmlElement.ownerDocument.HTMLElement) &&
-    !(htmlElement instanceof htmlElement.ownerDocument.SVGElement)
+    !htmlElement ||
+    !htmlElement.ownerDocument ||
+    !htmlElement.ownerDocument.defaultView
+  ) {
+    throw new HtmlElementTypeError(htmlElement, ...args)
+  }
+}
+
+function checkHtmlElement(htmlElement, ...args) {
+  checkHasWindow(htmlElement, ...args)
+  const window = htmlElement.ownerDocument.defaultView
+
+  if (
+    !(htmlElement instanceof window.HTMLElement) &&
+    !(htmlElement instanceof window.SVGElement)
   ) {
     throw new HtmlElementTypeError(htmlElement, ...args)
   }
@@ -115,6 +134,7 @@ function normalize(text) {
 }
 
 export {
+  HtmlElementTypeError,
   checkHtmlElement,
   checkValidCSS,
   deprecate,
