@@ -199,8 +199,8 @@ const detachedElement = document.createElement('div')
 
 expect(htmlElement).toBeInTheDocument()
 expect(svgElement).toBeInTheDocument()
-expect(detacthedElement).not.toBeInTheDocument()
 expect(nonExistantElement).not.toBeInTheDocument()
+expect(detachedElement).not.toBeInTheDocument()
 ```
 
 ##### Using dom-testing-library
@@ -579,7 +579,7 @@ expected properties applied, not just some of them.
 ##### Using document.querySelector
 
 ```javascript
-const input = document.querySelector(['data-testid="delete-button"')
+const button = document.querySelector(['data-testid="delete-button"')
 
 expect(button).toHaveStyle('display: none')
 expect(button).toHaveStyle(`
@@ -587,8 +587,8 @@ expect(button).toHaveStyle(`
   display: none;
 `)
 expect(button).not.toHaveStyle(`
-  display: none;
   color: blue;
+  display: none;
 `)
 ```
 
@@ -603,8 +603,8 @@ expect(button).toHaveStyle(`
   display: none;
 `)
 expect(button).not.toHaveStyle(`
-  display: none;
   color: blue;
+  display: none;
 `)
 ```
 
@@ -631,21 +631,21 @@ This API allows you to check whether the given element has a text content or not
 ##### Using document.querySelector
 
 ```javascript
-const button = document.querySelector('[data-testid="count-value"]')
+const element = document.querySelector('[data-testid="count-value"]')
 
-expect(content).toHaveTextContent('2')
-expect(content).toHaveTextContent(/^2$/)
-expect(content).not.toHaveTextContent('21')
+expect(element).toHaveTextContent('2')
+expect(element).toHaveTextContent(/^2$/)
+expect(element).not.toHaveTextContent('21')
 ```
 
 ##### Using dom-testing-library
 
 ```javascript
-const content = getByTestId(container, 'count-value')
+const element = getByTestId(container, 'count-value')
 
-expect(content).toHaveTextContent('2')
-expect(content).toHaveTextContent(/^2$/)
-expect(content).not.toHaveTextContent('21')
+expect(element).toHaveTextContent('2')
+expect(element).toHaveTextContent(/^2$/)
+expect(element).not.toHaveTextContent('21')
 ```
 
 <hr />
