@@ -188,6 +188,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "lourenci",
+      "name": "Leandro Lourenci",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2339362?v=4",
+      "profile": "https://blog.lourenci.com/",
+      "contributions": [
+        "bug"
+      ]
     }
   ]
 }
