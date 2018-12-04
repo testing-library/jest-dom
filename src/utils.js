@@ -116,7 +116,7 @@ function matches(textToMatch, matcher) {
   if (matcher instanceof RegExp) {
     return matcher.test(textToMatch)
   } else {
-    return textToMatch.includes(matcher)
+    return textToMatch.includes(String(matcher))
   }
 }
 
