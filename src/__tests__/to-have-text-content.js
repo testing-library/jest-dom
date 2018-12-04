@@ -73,4 +73,13 @@ describe('.toHaveTextContent', () => {
     const {container} = render(`<span></span>`)
     expect(container.querySelector('span')).toHaveTextContent('')
   })
+
+  test('is case-sensitive', () => {
+    const {container} = render('<span>Sensitive text</span>')
+
+    expect(container.querySelector('span')).toHaveTextContent('Sensitive text')
+    expect(container.querySelector('span')).not.toHaveTextContent(
+      'sensitive text',
+    )
+  })
 })
