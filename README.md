@@ -16,7 +16,7 @@
 [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-19-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
 
@@ -199,8 +199,8 @@ const detachedElement = document.createElement('div')
 
 expect(htmlElement).toBeInTheDocument()
 expect(svgElement).toBeInTheDocument()
-expect(detacthedElement).not.toBeInTheDocument()
 expect(nonExistantElement).not.toBeInTheDocument()
+expect(detachedElement).not.toBeInTheDocument()
 ```
 
 ##### Using dom-testing-library
@@ -241,9 +241,13 @@ An element is visible if **all** the following conditions are met:
 
 ```html
 <div data-testid="zero-opacity" style="opacity: 0">Zero Opacity Example</div>
-<div data-testid="visibility-hidden" style="visibility: hidden">Visibility Hidden Example</div>
+<div data-testid="visibility-hidden" style="visibility: hidden">
+  Visibility Hidden Example
+</div>
 <div data-testid="display-none" style="display: none">Display None Example</div>
-<div style="opacity: 0"><span data-testid="hidden-parent">Hidden Parent Example</span></div>
+<div style="opacity: 0">
+  <span data-testid="hidden-parent">Hidden Parent Example</span>
+</div>
 <div data-testid="visible">Visible Example</div>
 ```
 
@@ -403,7 +407,9 @@ does not have any classes.
 #### Examples
 
 ```html
-<button data-testid="delete-button" class="btn extra btn-danger">Delete item</button>
+<button data-testid="delete-button" class="btn extra btn-danger">
+  Delete item
+</button>
 <button data-testid="no-classes">No Classes</button>
 ```
 
@@ -579,7 +585,7 @@ expected properties applied, not just some of them.
 ##### Using document.querySelector
 
 ```javascript
-const input = document.querySelector(['data-testid="delete-button"')
+const button = document.querySelector(['data-testid="delete-button"')
 
 expect(button).toHaveStyle('display: none')
 expect(button).toHaveStyle(`
@@ -587,8 +593,8 @@ expect(button).toHaveStyle(`
   display: none;
 `)
 expect(button).not.toHaveStyle(`
-  display: none;
   color: blue;
+  display: none;
 `)
 ```
 
@@ -603,8 +609,8 @@ expect(button).toHaveStyle(`
   display: none;
 `)
 expect(button).not.toHaveStyle(`
-  display: none;
   color: blue;
+  display: none;
 `)
 ```
 
@@ -620,32 +626,40 @@ The usual rules of css precedence apply.
 toHaveTextContent(text: string | RegExp, options?: {normalizeWhitespace: boolean})
 ```
 
-This API allows you to check whether the given element has a text content or not.
+This allows you to check whether the given element has a text content or not.
+
+When a `string` argument is passed through, it will perform a partial case-sensitive match to the element content.
+
+To perform a case-insensitive match, you can use a `RegExp` with the `/i` modifier.
+
+If you want to match the whole content, you can use a `RegExp` to do it.
 
 #### Examples
 
 ```html
-<span data-testid="count-value">2</span>
+<span data-testid="text-content">Text Content</span>
 ```
 
 ##### Using document.querySelector
 
 ```javascript
-const button = document.querySelector('[data-testid="count-value"]')
+const element = document.querySelector('[data-testid="text-content"]')
 
-expect(content).toHaveTextContent('2')
-expect(content).toHaveTextContent(/^2$/)
-expect(content).not.toHaveTextContent('21')
+expect(element).toHaveTextContent('Content')
+expect(element).toHaveTextContent(/^Text Content$/) // to match the whole content
+expect(element).toHaveTextContent(/content$/i) // to use case-insentive match
+expect(element).not.toHaveTextContent('content')
 ```
 
 ##### Using dom-testing-library
 
 ```javascript
-const content = getByTestId(container, 'count-value')
+const element = getByTestId(container, 'text-content')
 
-expect(content).toHaveTextContent('2')
-expect(content).toHaveTextContent(/^2$/)
-expect(content).not.toHaveTextContent('21')
+expect(element).toHaveTextContent('Content')
+expect(element).toHaveTextContent(/^Text Content$/) // to match the whole content
+expect(element).toHaveTextContent(/content$/i) // to use case-insentive match
+expect(element).not.toHaveTextContent('content')
 ```
 
 <hr />
@@ -722,7 +736,7 @@ Thanks goes to these people ([emoji key][emojis]):
 | [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub><b>Kent C. Dodds</b></sub>](https://kentcdodds.com)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=kentcdodds "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/gnapse/jest-dom/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/2430381?v=4" width="100px;"/><br /><sub><b>Ryan Castner</b></sub>](http://audiolion.github.io)<br />[📖](https://github.com/gnapse/jest-dom/commits?author=audiolion "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/8008023?v=4" width="100px;"/><br /><sub><b>Daniel Sandiego</b></sub>](https://www.dnlsandiego.com)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=dnlsandiego "Code") | [<img src="https://avatars2.githubusercontent.com/u/12592677?v=4" width="100px;"/><br /><sub><b>Paweł Mikołajczyk</b></sub>](https://github.com/Miklet)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=Miklet "Code") | [<img src="https://avatars3.githubusercontent.com/u/464978?v=4" width="100px;"/><br /><sub><b>Alejandro Ñáñez Ortiz</b></sub>](http://co.linkedin.com/in/alejandronanez/)<br />[📖](https://github.com/gnapse/jest-dom/commits?author=alejandronanez "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/1402095?v=4" width="100px;"/><br /><sub><b>Matt Parrish</b></sub>](https://github.com/pbomb)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Apbomb "Bug reports") [💻](https://github.com/gnapse/jest-dom/commits?author=pbomb "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=pbomb "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=pbomb "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;"/><br /><sub><b>Justin Hall</b></sub>](https://github.com/wKovacs64)<br />[📦](#platform-wKovacs64 "Packaging/porting to new platform") |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | [<img src="https://avatars1.githubusercontent.com/u/1241511?s=460&v=4" width="100px;"/><br /><sub><b>Anto Aravinth</b></sub>](https://github.com/antoaravinth)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Code") [⚠️](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Tests") [📖](https://github.com/gnapse/jest-dom/commits?author=antoaravinth "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/3462296?v=4" width="100px;"/><br /><sub><b>Jonah Moses</b></sub>](https://github.com/JonahMoses)<br />[📖](https://github.com/gnapse/jest-dom/commits?author=JonahMoses "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4002543?v=4" width="100px;"/><br /><sub><b>Łukasz Gandecki</b></sub>](http://team.thebrain.pro)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Code") [⚠️](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Tests") [📖](https://github.com/gnapse/jest-dom/commits?author=lgandecki "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/498274?v=4" width="100px;"/><br /><sub><b>Ivan Babak</b></sub>](https://sompylasar.github.io)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Asompylasar "Bug reports") [🤔](#ideas-sompylasar "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/4439618?v=4" width="100px;"/><br /><sub><b>Jesse Day</b></sub>](https://github.com/jday3)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=jday3 "Code") | [<img src="https://avatars0.githubusercontent.com/u/15199?v=4" width="100px;"/><br /><sub><b>Ernesto García</b></sub>](http://gnapse.github.io)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=gnapse "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=gnapse "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=gnapse "Tests") | [<img src="https://avatars0.githubusercontent.com/u/79312?v=4" width="100px;"/><br /><sub><b>Mark Volkmann</b></sub>](http://ociweb.com/mark/)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Amvolkmann "Bug reports") [💻](https://github.com/gnapse/jest-dom/commits?author=mvolkmann "Code") |
-| [<img src="https://avatars1.githubusercontent.com/u/1659099?v=4" width="100px;"/><br /><sub><b>smacpherson64</b></sub>](https://github.com/smacpherson64)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Tests") | [<img src="https://avatars2.githubusercontent.com/u/132233?v=4" width="100px;"/><br /><sub><b>John Gozde</b></sub>](https://github.com/jgoz)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Ajgoz "Bug reports") [💻](https://github.com/gnapse/jest-dom/commits?author=jgoz "Code") | [<img src="https://avatars2.githubusercontent.com/u/7830590?v=4" width="100px;"/><br /><sub><b>Iwona</b></sub>](https://github.com/callada)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=callada "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=callada "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=callada "Tests") | [<img src="https://avatars0.githubusercontent.com/u/840609?v=4" width="100px;"/><br /><sub><b>Lewis</b></sub>](https://github.com/6ewis)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=6ewis "Code") |
+| [<img src="https://avatars1.githubusercontent.com/u/1659099?v=4" width="100px;"/><br /><sub><b>smacpherson64</b></sub>](https://github.com/smacpherson64)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=smacpherson64 "Tests") | [<img src="https://avatars2.githubusercontent.com/u/132233?v=4" width="100px;"/><br /><sub><b>John Gozde</b></sub>](https://github.com/jgoz)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Ajgoz "Bug reports") [💻](https://github.com/gnapse/jest-dom/commits?author=jgoz "Code") | [<img src="https://avatars2.githubusercontent.com/u/7830590?v=4" width="100px;"/><br /><sub><b>Iwona</b></sub>](https://github.com/callada)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=callada "Code") [📖](https://github.com/gnapse/jest-dom/commits?author=callada "Documentation") [⚠️](https://github.com/gnapse/jest-dom/commits?author=callada "Tests") | [<img src="https://avatars0.githubusercontent.com/u/840609?v=4" width="100px;"/><br /><sub><b>Lewis</b></sub>](https://github.com/6ewis)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=6ewis "Code") | [<img src="https://avatars3.githubusercontent.com/u/2339362?v=4" width="100px;"/><br /><sub><b>Leandro Lourenci</b></sub>](https://blog.lourenci.com/)<br />[🐛](https://github.com/gnapse/jest-dom/issues?q=author%3Alourenci "Bug reports") [📖](https://github.com/gnapse/jest-dom/commits?author=lourenci "Documentation") |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
