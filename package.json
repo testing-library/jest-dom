@@ -35,10 +35,10 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "css": "^2.2.3",
-    "jest-diff": "^23.6.0",
-    "jest-matcher-utils": "^23.6.0",
+    "jest-diff": "^24.0.0",
+    "jest-matcher-utils": "^24.0.0",
     "lodash": "^4.17.11",
-    "pretty-format": "^23.6.0",
+    "pretty-format": "^24.0.0",
     "redent": "^2.0.0"
   },
   "devDependencies": {
