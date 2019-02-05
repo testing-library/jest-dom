@@ -4,6 +4,7 @@ import isEqual from 'lodash/isEqual'
 import isEqualWith from 'lodash/isEqualWith'
 import uniq from 'lodash/uniq'
 import {checkHtmlElement} from './utils'
+import escape from 'css.escape'
 
 function compareArraysAsSet(a, b) {
   if (Array.isArray(a) && Array.isArray(b)) {
@@ -74,7 +75,7 @@ function getMultiElementValue(elements) {
 }
 
 function getFormValue(container, name) {
-  const elements = [...container.querySelectorAll(`[name="${name}"]`)]
+  const elements = [...container.querySelectorAll(`[name="${escape(name)}"]`)]
   /* istanbul ignore if */
   if (elements.length === 0) {
     return undefined // shouldn't happen, but just in case
