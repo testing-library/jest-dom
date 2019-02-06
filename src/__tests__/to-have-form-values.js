@@ -23,6 +23,9 @@ const defaultValues = {
   description: 'You need to know your stuff',
   remote: true,
   freelancing: false,
+  'is%Private^': true,
+  'benefits[0]': 'Fruit & free drinks everyday',
+  'benefits[1]': 'Multicultural environment',
 }
 
 function renderForm({
@@ -70,6 +73,30 @@ function renderForm({
         name="freelancing" ${values.freelancing ? 'checked' : ''}
       />
       <label for="freelancing">Freelancing?</label>
+
+      <fieldset>
+        <legend>Benefits</legend>
+        <input
+          type="text"
+          id="benefits[0]"
+          name="benefits[0]"
+          value="${values['benefits[0]']}"
+        />
+        <input
+          type="text"
+          id="benefits[1]"
+          name="benefits[1]"
+          value="${values['benefits[1]']}"
+        />
+      </fieldset>
+
+      <label for="is%Private^">Is Private</label>
+      <input
+        type="checkbox"
+        id="is%Private^"
+        name="is%Private^"
+        name="isPrivate" ${values['is%Private^'] ? 'checked' : ''}
+      />
 
       ${selectSingle('category', 'Category', categories, values.category)}
       ${selectMultiple('skills', 'Skills', skills, values.skills)}
