@@ -66,7 +66,9 @@ test('.toBeEnabled', () => {
   }).toThrowError()
 
   expect(queryByTestId('a-element')).toBeEnabled()
-  expect(queryByTestId('a-element')).toBeEnabled()
+  expect(() =>
+    expect(queryByTestId('a-element')).not.toBeEnabled(),
+  ).toThrowError()
 })
 
 test('.toBeEnabled fieldset>legend', () => {
