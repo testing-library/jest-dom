@@ -133,6 +133,62 @@ function normalize(text) {
   return text.replace(/\s+/g, ' ').trim()
 }
 
+function isElementDisabled(element) {
+  // form elements that support 'disabled'
+  const FORM_TAGS = [
+    'fieldset',
+    'input',
+    'select',
+    'optgroup',
+    'option',
+    'button',
+    'textarea',
+  ]
+
+  return FORM_TAGS.includes(getTag(element)) && element.hasAttribute('disabled')
+}
+
+function getTag(element) {
+  return element.tagName && element.tagName.toLowerCase()
+}
+
+function isAncestorDisabled(element) {
+  const parent = element.parentElement
+  return (
+    Boolean(parent) &&
+    (isElementDisabledByParent(element, parent) || isAncestorDisabled(parent))
+  )
+}
+
+function isElementDisabledByParent(element, parent) {
+  return (
+    isElementDisabled(parent) && !isFirstLegendChildOfFieldset(element, parent)
+  )
+}
+
+/*
+ * According to specification:
+ * If <fieldset> is disabled, the form controls that are its descendants,
+ * except descendants of its first optional <legend> element, are disabled
+ *
+ * https://html.spec.whatwg.org/multipage/form-elements.html#concept-fieldset-disabled
+ *
+ * This method tests whether element is first legend child of fieldset parent
+ */
+function isFirstLegendChildOfFieldset(element, parent) {
+  return (
+    getTag(element) === 'legend' &&
+    getTag(parent) === 'fieldset' &&
+    element.isSameNode(
+      Array.from(parent.children).find(child => getTag(child) === 'legend'),
+    )
+  )
+}
+
+function checkDisabledElement(element) {
+  return isElementDisabled(element) || isAncestorDisabled(element)
+}
+
 export {
   HtmlElementTypeError,
   checkHtmlElement,
@@ -141,4 +197,5 @@ export {
   getMessage,
   matches,
   normalize,
+  checkDisabledElement,
 }
