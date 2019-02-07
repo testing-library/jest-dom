@@ -46,6 +46,7 @@ to maintain.
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
   - [`toBeDisabled`](#tobedisabled)
+  - [`toBeEnabled`](#tobeenabled)
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDocument`](#tobeinthedocument)
   - [`toBeVisible`](#tobevisible)
@@ -141,6 +142,18 @@ expect(getByTestId(container, 'button')).toBeDisabled()
 expect(getByTestId(container, 'input')).toBeDisabled()
 expect(getByText(container, 'link')).not.toBeDisabled()
 ```
+
+<hr />
+
+### `toBeEnabled`
+
+```typescript
+toBeEnabled()
+```
+
+This allows you to check whether an element is not disabled from the user's perspective.
+
+It works like `not.toBeDisabled()`. Use this matcher to avoid double negation in your tests.
 
 <hr />
 
