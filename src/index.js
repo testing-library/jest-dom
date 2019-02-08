@@ -10,8 +10,7 @@ import {toHaveStyle} from './to-have-style'
 import {toHaveFocus} from './to-have-focus'
 import {toHaveFormValues} from './to-have-form-values'
 import {toBeVisible} from './to-be-visible'
-import {toBeDisabled} from './to-be-disabled'
-import {toBeEnabled} from './to-be-enabled'
+import {toBeDisabled, toBeEnabled} from './to-be-disabled'
 
 export {
   toBeInTheDOM,
