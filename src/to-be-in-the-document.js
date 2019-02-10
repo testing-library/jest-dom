@@ -6,7 +6,7 @@ import {
 import {checkHtmlElement} from './utils'
 
 export function toBeInTheDocument(element) {
-  if (element !== null) {
+  if (element !== null || !this.isNot) {
     checkHtmlElement(element, toBeInTheDocument, this)
   }
 

@@ -1,4 +1,5 @@
 import document from './helpers/document'
+import {HtmlElementTypeError} from '../utils'
 
 test('.toBeInTheDocument', () => {
   document.body.innerHTML = `
@@ -18,10 +19,24 @@ test('.toBeInTheDocument', () => {
   expect(nullElement).not.toBeInTheDocument()
 
   // negative test cases wrapped in throwError assertions for coverage.
-  expect(() => expect(htmlElement).not.toBeInTheDocument()).toThrowError()
-  expect(() => expect(svgElement).not.toBeInTheDocument()).toThrowError()
-  expect(() => expect(detachedElement).toBeInTheDocument()).toThrowError()
-  expect(() => expect(fakeElement).toBeInTheDocument()).toThrowError()
-  expect(() => expect(undefinedElement).toBeInTheDocument()).toThrowError()
-  expect(() => expect(nullElement).toBeInTheDocument()).toThrowError()
+  const expectToBe = /expect.*\.toBeInTheDocument/
+  const expectNotToBe = /expect.*not\.toBeInTheDocument/
+  expect(() => expect(htmlElement).not.toBeInTheDocument()).toThrowError(
+    expectNotToBe,
+  )
+  expect(() => expect(svgElement).not.toBeInTheDocument()).toThrowError(
+    expectNotToBe,
+  )
+  expect(() => expect(detachedElement).toBeInTheDocument()).toThrowError(
+    expectToBe,
+  )
+  expect(() => expect(fakeElement).toBeInTheDocument()).toThrowError(
+    HtmlElementTypeError,
+  )
+  expect(() => expect(undefinedElement).toBeInTheDocument()).toThrowError(
+    HtmlElementTypeError,
+  )
+  expect(() => expect(nullElement).toBeInTheDocument()).toThrowError(
+    HtmlElementTypeError,
+  )
 })
