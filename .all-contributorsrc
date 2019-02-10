@@ -196,7 +196,9 @@
       "profile": "https://blog.lourenci.com/",
       "contributions": [
         "bug",
-        "doc"
+        "doc",
+        "code",
+        "test"
       ]
     },
     {

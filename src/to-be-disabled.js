@@ -20,7 +20,7 @@ function getTag(element) {
  * According to specification:
  * If <fieldset> is disabled, the form controls that are its descendants,
  * except descendants of its first optional <legend> element, are disabled
- * 
+ *
  * https://html.spec.whatwg.org/multipage/form-elements.html#concept-fieldset-disabled
  *
  * This method tests whether element is first legend child of fieldset parent
@@ -66,6 +66,25 @@ export function toBeDisabled(element) {
         matcherHint(`${this.isNot ? '.not' : ''}.toBeDisabled`, 'element', ''),
         '',
         `Received element ${is} disabled:`,
+        `  ${printReceived(element.cloneNode(false))}`,
+      ].join('\n')
+    },
+  }
+}
+
+export function toBeEnabled(element) {
+  checkHtmlElement(element, toBeEnabled, this)
+
+  const isEnabled = !(isElementDisabled(element) || isAncestorDisabled(element))
+
+  return {
+    pass: isEnabled,
+    message: () => {
+      const is = isEnabled ? 'is' : 'is not'
+      return [
+        matcherHint(`${this.isNot ? '.not' : ''}.toBeEnabled`, 'element', ''),
+        '',
+        `Received element ${is} enabled:`,
         `  ${printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
