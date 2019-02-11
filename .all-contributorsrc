@@ -209,6 +209,16 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "dreyks",
+      "name": "Roman Usherenko",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1481264?v=4",
+      "profile": "https://github.com/dreyks",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ]
 }
