@@ -267,11 +267,11 @@ An element is visible if **all** the following conditions are met:
 ##### Using document.querySelector
 
 ```javascript
-expect(document.querySelector('[data-testid="zero-opacity"]'])).not.toBeVisible()
-expect(document.querySelector('[data-testid="visibility-hidden"]'])).not.toBeVisible()
-expect(document.querySelector('[data-testid="display-none"]'])).not.toBeVisible()
-expect(document.querySelector('[data-testid="hidden-parent"]'])).not.toBeVisible()
-expect(document.querySelector('[data-testid="visible"]'])).toBeVisible()
+expect(document.querySelector('[data-testid="zero-opacity"]')).not.toBeVisible()
+expect(document.querySelector('[data-testid="visibility-hidden"]')).not.toBeVisible()
+expect(document.querySelector('[data-testid="display-none"]')).not.toBeVisible()
+expect(document.querySelector('[data-testid="hidden-parent"]')).not.toBeVisible()
+expect(document.querySelector('[data-testid="visible"]')).toBeVisible()
 ```
 
 ##### Using dom-testing-library
