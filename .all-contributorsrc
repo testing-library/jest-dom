@@ -219,6 +219,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "jhsu",
+      "name": "Joe Hsu",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/648?v=4",
+      "profile": "http://josephhsu.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ]
 }
