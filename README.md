@@ -249,6 +249,7 @@ An element is visible if **all** the following conditions are met:
   `collapse`
 - it does not have its css property `opacity` set to `0`
 - its parent element is also visible (and so on up to the top of the DOM tree)
+- it does not have the [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden) attribute
 
 #### Examples
 
@@ -262,6 +263,7 @@ An element is visible if **all** the following conditions are met:
   <span data-testid="hidden-parent">Hidden Parent Example</span>
 </div>
 <div data-testid="visible">Visible Example</div>
+<div data-testid="hidden-attribute" hidden>Hidden Attribute Example</div>
 ```
 
 ##### Using document.querySelector
@@ -276,6 +278,9 @@ expect(
   document.querySelector('[data-testid="hidden-parent"]'),
 ).not.toBeVisible()
 expect(document.querySelector('[data-testid="visible"]')).toBeVisible()
+expect(
+  document.querySelector('[data-testid="hidden-attribute"]'),
+).not.toBeVisible()
 ```
 
 ##### Using dom-testing-library
@@ -286,6 +291,7 @@ expect(getByText(container, 'Visibility Hidden Example')).not.toBeVisible()
 expect(getByText(container, 'Display None Example')).not.toBeVisible()
 expect(getByText(container, 'Hidden Parent Example')).not.toBeVisible()
 expect(getByText(container, 'Visible Example')).toBeVisible()
+expect(getByText(container, 'Hidden Attribute Example')).not.toBeVisible()
 ```
 
 <hr />
