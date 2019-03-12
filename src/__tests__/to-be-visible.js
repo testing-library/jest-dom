@@ -10,6 +10,8 @@ test('.toBeVisible', () => {
         <h4 style="opacity: 0">Secondary title</h4>
         <h5 style="opacity: 0.1">Secondary title</h5>
       </header>
+      <button hidden>Hidden button</button>
+      <span hidden style="display: block">Hidden span with display</span>
       <section style="display: block; visibility: hidden">
         <p>Hello <strong>World</strong></p>
       </section>
@@ -22,6 +24,8 @@ test('.toBeVisible', () => {
   expect(container.querySelector('h3')).not.toBeVisible()
   expect(container.querySelector('h4')).not.toBeVisible()
   expect(container.querySelector('h5')).toBeVisible()
+  expect(container.querySelector('button')).not.toBeVisible()
+  expect(container.querySelector('span')).toBeVisible()
   expect(container.querySelector('strong')).not.toBeVisible()
 
   expect(() =>
