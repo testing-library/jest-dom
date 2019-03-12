@@ -17,6 +17,7 @@ function isStyleVisible(element) {
 function isElementVisible(element) {
   return (
     isStyleVisible(element) &&
+    !element.hasAttribute('hidden') &&
     (!element.parentElement || isElementVisible(element.parentElement))
   )
 }
