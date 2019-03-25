@@ -238,6 +238,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "j13l",
+      "name": "Adam Juras",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1720867?v=4",
+      "profile": "https://adamjuras.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ]
 }
