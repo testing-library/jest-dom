@@ -13,6 +13,7 @@ import {toBeVisible} from './to-be-visible'
 import {toBeDisabled, toBeEnabled} from './to-be-disabled'
 import {toBeRequired} from './to-be-required'
 import {toBeInvalid, toBeValid} from './to-be-invalid'
+import {toHaveValue} from './to-have-value'
 
 export {
   toBeInTheDOM,
@@ -32,4 +33,5 @@ export {
   toBeRequired,
   toBeInvalid,
   toBeValid,
+  toHaveValue,
 }

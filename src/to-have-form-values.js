@@ -1,54 +1,13 @@
 import {matcherHint} from 'jest-matcher-utils'
 import jestDiff from 'jest-diff'
-import isEqual from 'lodash/isEqual'
 import isEqualWith from 'lodash/isEqualWith'
 import uniq from 'lodash/uniq'
-import {checkHtmlElement} from './utils'
 import escape from 'css.escape'
-
-function compareArraysAsSet(a, b) {
-  if (Array.isArray(a) && Array.isArray(b)) {
-    return isEqual(new Set(a), new Set(b))
-  }
-  return undefined
-}
-
-function getSelectValue({multiple, selectedOptions}) {
-  if (multiple) {
-    return [...selectedOptions].map(opt => opt.value)
-  }
-  /* istanbul ignore if */
-  if (selectedOptions.length === 0) {
-    return undefined // Couldn't make this happen, but just in case
-  }
-  return selectedOptions[0].value
-}
-
-function getInputValue(inputElement) {
-  switch (inputElement.type) {
-    case 'number':
-      return inputElement.value === '' ? null : Number(inputElement.value)
-    case 'checkbox':
-      return inputElement.checked
-    default:
-      return inputElement.value
-  }
-}
-
-function getSingleElementValue(element) {
-  /* istanbul ignore if */
-  if (!element) {
-    return undefined
-  }
-  switch (element.tagName.toLowerCase()) {
-    case 'input':
-      return getInputValue(element)
-    case 'select':
-      return getSelectValue(element)
-    default:
-      return element.value
-  }
-}
+import {
+  checkHtmlElement,
+  compareArraysAsSet,
+  getSingleElementValue,
+} from './utils'
 
 // Returns the combined value of several elements that have the same name
 // e.g. radio buttons or groups of checkboxes
