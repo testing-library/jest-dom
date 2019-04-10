@@ -483,7 +483,7 @@ This allows you to assert whether an element has focus or not.
 ##### Using document.querySelector
 
 ```javascript
-const input = document.querySelector(['data-testid="element-to-focus"')
+const input = document.querySelector(['data-testid="element-to-focus"'])
 
 input.focus()
 expect(input).toHaveFocus()
