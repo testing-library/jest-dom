@@ -41,4 +41,22 @@ test('.toHaveAttribute', () => {
   expect(() =>
     expect({thisIsNot: 'an html element'}).not.toHaveAttribute(),
   ).toThrowError()
+
+  // Asymettic matchers
+  expect(queryByTestId('ok-button')).toHaveAttribute(
+    'type',
+    expect.stringContaining('sub'),
+  )
+  expect(queryByTestId('ok-button')).toHaveAttribute(
+    'type',
+    expect.stringMatching(/sub*/),
+  )
+  expect(queryByTestId('ok-button')).toHaveAttribute('type', expect.anything())
+
+  expect(() =>
+    expect(queryByTestId('ok-button')).toHaveAttribute(
+      'type',
+      expect.not.stringContaining('sub'),
+    ),
+  ).toThrowError()
 })
