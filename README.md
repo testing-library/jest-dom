@@ -82,7 +82,7 @@ npm install --save-dev jest-dom
 Import `jest-dom/extend-expect` once (for instance in your [tests setup file][])
 and you're good to go:
 
-[tests setup file]: https://facebook.github.io/jest/docs/en/configuration.html#setuptestframeworkscriptfile-string
+[tests setup file]: https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
 
 ```javascript
 import 'jest-dom/extend-expect'
