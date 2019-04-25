@@ -15,7 +15,7 @@ Thanks for being willing to contribute!
 > pull requests from branches on your fork. To do this, run:
 >
 > ```
-> git remote add upstream https://github.com/gnapse/jest-dom.git
+> git remote add upstream https://github.com/testing-library/jest-dom.git
 > git fetch upstream
 > git branch --set-upstream-to=upstream/master master
 > ```
@@ -68,5 +68,5 @@ Also, please watch the repo and respond to questions/bug reports/feature
 requests! Thanks!
 
 [egghead]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
-[all-contributors]: https://github.com/kentcdodds/all-contributors
-[issues]: https://github.com/gnapse/jest-dom/issues
+[all-contributors]: https://github.com/all-contributors/all-contributors
+[issues]: https://github.com/testing-library/jest-dom/issues

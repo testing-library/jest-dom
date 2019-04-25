@@ -1,6 +1,6 @@
 {
   "projectName": "jest-dom",
-  "projectOwner": "gnapse",
+  "projectOwner": "testing-library",
   "repoType": "github",
   "files": [
     "README.md"

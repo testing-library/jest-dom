@@ -61,10 +61,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/gnapse/jest-dom.git"
+    "url": "https://github.com/testing-library/jest-dom.git"
   },
   "bugs": {
-    "url": "https://github.com/gnapse/jest-dom/issues"
+    "url": "https://github.com/testing-library/jest-dom/issues"
   },
-  "homepage": "https://github.com/gnapse/jest-dom#readme"
+  "homepage": "https://github.com/testing-library/jest-dom#readme"
 }
