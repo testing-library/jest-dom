@@ -1,5 +1,5 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {getHtmlElement} from './utils'
 
 function isStyleVisible(element) {
   const {getComputedStyle} = element.ownerDocument.defaultView
@@ -23,7 +23,7 @@ function isElementVisible(element) {
 }
 
 export function toBeVisible(element) {
-  checkHtmlElement(element, toBeVisible, this)
+  element = getHtmlElement(element, toBeVisible, this)
   const isVisible = isElementVisible(element)
   return {
     pass: isVisible,

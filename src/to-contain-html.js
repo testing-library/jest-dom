@@ -1,8 +1,8 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {getHtmlElement} from './utils'
 
 export function toContainHTML(container, htmlText) {
-  checkHtmlElement(container, toContainHTML, this)
+  container = getHtmlElement(container, toContainHTML, this)
 
   return {
     pass: container.outerHTML.includes(htmlText),

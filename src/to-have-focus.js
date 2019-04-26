@@ -1,8 +1,8 @@
 import {matcherHint, printReceived, printExpected} from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {getHtmlElement} from './utils'
 
 export function toHaveFocus(element) {
-  checkHtmlElement(element, toHaveFocus, this)
+  element = getHtmlElement(element, toHaveFocus, this)
 
   return {
     pass: element.ownerDocument.activeElement === element,

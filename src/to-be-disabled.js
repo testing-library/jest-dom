@@ -1,5 +1,5 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {getHtmlElement} from './utils'
 
 // form elements that support 'disabled'
 const FORM_TAGS = [
@@ -54,7 +54,7 @@ function isAncestorDisabled(element) {
 }
 
 export function toBeDisabled(element) {
-  checkHtmlElement(element, toBeDisabled, this)
+  element = getHtmlElement(element, toBeDisabled, this)
 
   const isDisabled = isElementDisabled(element) || isAncestorDisabled(element)
 
@@ -73,7 +73,7 @@ export function toBeDisabled(element) {
 }
 
 export function toBeEnabled(element) {
-  checkHtmlElement(element, toBeEnabled, this)
+  element = getHtmlElement(element, toBeEnabled, this)
 
   const isEnabled = !(isElementDisabled(element) || isAncestorDisabled(element))
 

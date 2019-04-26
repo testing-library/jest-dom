@@ -39,26 +39,37 @@ class HtmlElementTypeError extends Error {
   }
 }
 
-function checkHasWindow(htmlElement, ...args) {
+function getWindow(htmlElement, ...args) {
   if (
-    !htmlElement ||
-    !htmlElement.ownerDocument ||
-    !htmlElement.ownerDocument.defaultView
+    htmlElement &&
+    htmlElement.ownerDocument &&
+    htmlElement.ownerDocument.defaultView
   ) {
-    throw new HtmlElementTypeError(htmlElement, ...args)
+    return htmlElement.ownerDocument.defaultView
   }
+
+  if (htmlElement && htmlElement.defaultView) {
+    return htmlElement.defaultView
+  }
+
+  throw new HtmlElementTypeError(htmlElement, ...args)
 }
 
-function checkHtmlElement(htmlElement, ...args) {
-  checkHasWindow(htmlElement, ...args)
-  const window = htmlElement.ownerDocument.defaultView
+function getHtmlElement(htmlElement, ...args) {
+  const window = getWindow(htmlElement, ...args)
+
+  if (htmlElement.documentElement instanceof window.HTMLHtmlElement) {
+    return getHtmlElement(htmlElement.documentElement)
+  }
 
   if (
     !(htmlElement instanceof window.HTMLElement) &&
-    !(htmlElement instanceof window.SVGElement)
+    !(htmlElement instanceof window.SVGElement) &&
+    !(htmlElement instanceof window.HTMLBodyElement)
   ) {
     throw new HtmlElementTypeError(htmlElement, ...args)
   }
+  return htmlElement
 }
 
 class InvalidCSSError extends Error {
@@ -135,7 +146,7 @@ function normalize(text) {
 
 export {
   HtmlElementTypeError,
-  checkHtmlElement,
+  getHtmlElement,
   checkValidCSS,
   deprecate,
   getMessage,

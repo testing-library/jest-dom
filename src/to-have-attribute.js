@@ -1,5 +1,5 @@
 import {matcherHint, stringify, printExpected} from 'jest-matcher-utils'
-import {checkHtmlElement, getMessage} from './utils'
+import {getHtmlElement, getMessage} from './utils'
 
 function printAttribute(name, value) {
   return value === undefined ? name : `${name}=${stringify(value)}`
@@ -12,7 +12,7 @@ function getAttributeComment(name, value) {
 }
 
 export function toHaveAttribute(htmlElement, name, expectedValue) {
-  checkHtmlElement(htmlElement, toHaveAttribute, this)
+  htmlElement = getHtmlElement(htmlElement, toHaveAttribute, this)
   const isExpectedValuePresent = expectedValue !== undefined
   const hasAttribute = htmlElement.hasAttribute(name)
   const receivedValue = htmlElement.getAttribute(name)

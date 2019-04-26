@@ -1,5 +1,5 @@
 import {matcherHint, printExpected} from 'jest-matcher-utils'
-import {checkHtmlElement, getMessage} from './utils'
+import {getHtmlElement, getMessage} from './utils'
 
 function splitClassNames(str) {
   if (!str) {
@@ -13,7 +13,7 @@ function isSubset(subset, superset) {
 }
 
 export function toHaveClass(htmlElement, ...expectedClassNames) {
-  checkHtmlElement(htmlElement, toHaveClass, this)
+  htmlElement = getHtmlElement(htmlElement, toHaveClass, this)
   const received = splitClassNames(htmlElement.getAttribute('class'))
   const expected = expectedClassNames.reduce(
     (acc, className) => acc.concat(splitClassNames(className)),

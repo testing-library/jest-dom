@@ -1,4 +1,4 @@
-import {deprecate, checkHtmlElement, HtmlElementTypeError} from '../utils'
+import {deprecate, getHtmlElement, HtmlElementTypeError} from '../utils'
 import document from './helpers/document'
 
 test('deprecate', () => {
@@ -16,45 +16,39 @@ test('deprecate', () => {
   spy.mockRestore()
 })
 
-describe('checkHtmlElement', () => {
+describe('getHtmlElement', () => {
   it('does not throw an error for correct html element', () => {
-    expect(() => {
-      const element = document.createElement('p')
-      checkHtmlElement(element, () => {}, {})
-    }).not.toThrow()
+    const element = document.createElement('p')
+    expect(getHtmlElement(element, () => {}, {})).toEqual(element)
+  })
+
+  it('returns documentElement if document is passed', () => {
+    expect(getHtmlElement(document, () => {}, {})).toEqual(
+      document.documentElement,
+    )
   })
 
   it('does not throw an error for correct svg element', () => {
-    expect(() => {
-      const element = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'rect',
-      )
-      checkHtmlElement(element, () => {}, {})
-    }).not.toThrow()
+    const element = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'rect',
+    )
+    expect(getHtmlElement(element, () => {}, {})).toEqual(element)
   })
 
   it('does not throw for body', () => {
-    expect(() => {
-      checkHtmlElement(document.body, () => {}, {})
-    }).not.toThrow()
+    expect(getHtmlElement(document.body, () => {}, {})).toEqual(document.body)
   })
 
   it('throws for undefined', () => {
     expect(() => {
-      checkHtmlElement(undefined, () => {}, {})
-    }).toThrow(HtmlElementTypeError)
-  })
-
-  it('throws for document', () => {
-    expect(() => {
-      checkHtmlElement(document, () => {}, {})
+      getHtmlElement(undefined, () => {}, {})
     }).toThrow(HtmlElementTypeError)
   })
 
   it('throws for function', () => {
     expect(() => {
-      checkHtmlElement(() => {}, () => {}, {})
+      getHtmlElement(() => {}, () => {}, {})
     }).toThrow(HtmlElementTypeError)
   })
 })

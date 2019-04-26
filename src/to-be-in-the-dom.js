@@ -1,5 +1,5 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement, deprecate} from './utils'
+import {getHtmlElement, deprecate} from './utils'
 
 export function toBeInTheDOM(element, container) {
   deprecate(
@@ -8,11 +8,11 @@ export function toBeInTheDOM(element, container) {
   )
 
   if (element) {
-    checkHtmlElement(element, toBeInTheDOM, this)
+    element = getHtmlElement(element, toBeInTheDOM, this)
   }
 
   if (container) {
-    checkHtmlElement(container, toBeInTheDOM, this)
+    container = getHtmlElement(container, toBeInTheDOM, this)
   }
 
   return {

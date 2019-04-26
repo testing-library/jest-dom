@@ -1,8 +1,8 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {getHtmlElement} from './utils'
 
 export function toBeEmpty(element) {
-  checkHtmlElement(element, toBeEmpty, this)
+  element = getHtmlElement(element, toBeEmpty, this)
 
   return {
     pass: element.innerHTML === '',

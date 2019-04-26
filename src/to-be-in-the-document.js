@@ -3,11 +3,11 @@ import {
   stringify,
   RECEIVED_COLOR as receivedColor,
 } from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {getHtmlElement} from './utils'
 
 export function toBeInTheDocument(element) {
   if (element !== null || !this.isNot) {
-    checkHtmlElement(element, toBeInTheDocument, this)
+    element = getHtmlElement(element, toBeInTheDocument, this)
   }
 
   const pass =

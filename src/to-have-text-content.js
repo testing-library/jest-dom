@@ -1,12 +1,12 @@
 import {matcherHint} from 'jest-matcher-utils'
-import {checkHtmlElement, getMessage, matches, normalize} from './utils'
+import {getHtmlElement, getMessage, matches, normalize} from './utils'
 
 export function toHaveTextContent(
   htmlElement,
   checkWith,
   options = {normalizeWhitespace: true},
 ) {
-  checkHtmlElement(htmlElement, toHaveTextContent, this)
+  htmlElement = getHtmlElement(htmlElement, toHaveTextContent, this)
 
   const textContent = options.normalizeWhitespace
     ? normalize(htmlElement.textContent)

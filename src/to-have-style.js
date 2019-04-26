@@ -1,7 +1,7 @@
 import {matcherHint} from 'jest-matcher-utils'
 import jestDiff from 'jest-diff'
 import chalk from 'chalk'
-import {checkHtmlElement, checkValidCSS} from './utils'
+import {getHtmlElement, checkValidCSS} from './utils'
 
 function getStyleDeclaration(document, css) {
   const copy = document.createElement('div')
@@ -46,7 +46,7 @@ function expectedDiff(expected, computedStyles) {
 }
 
 export function toHaveStyle(htmlElement, css) {
-  checkHtmlElement(htmlElement, toHaveStyle, this)
+  htmlElement = getHtmlElement(htmlElement, toHaveStyle, this)
   checkValidCSS(css, toHaveStyle, this)
   const {getComputedStyle} = htmlElement.ownerDocument.defaultView
 
