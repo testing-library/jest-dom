@@ -11,7 +11,7 @@ export function toContainHTML(container, htmlText) {
         matcherHint(`${this.isNot ? '.not' : ''}.toContainHTML`, 'element', ''),
         '',
         'Received:',
-        `  ${printReceived(container.cloneNode(false))}`,
+        `  ${printReceived(container.cloneNode(true))}`,
       ].join('\n')
     },
   }
