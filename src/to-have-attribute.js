@@ -1,4 +1,5 @@
 import {matcherHint, stringify, printExpected} from 'jest-matcher-utils'
+import {equals} from 'expect/build/jasmineUtils'
 import {checkHtmlElement, getMessage} from './utils'
 
 function printAttribute(name, value) {
@@ -18,7 +19,7 @@ export function toHaveAttribute(htmlElement, name, expectedValue) {
   const receivedValue = htmlElement.getAttribute(name)
   return {
     pass: isExpectedValuePresent
-      ? hasAttribute && receivedValue === expectedValue
+      ? hasAttribute && equals(receivedValue, expectedValue)
       : hasAttribute,
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
