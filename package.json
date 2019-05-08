@@ -36,7 +36,6 @@
     "chalk": "^2.4.1",
     "css": "^2.2.3",
     "css.escape": "^1.5.1",
-    "expect": "^24.7.1",
     "jest-diff": "^24.0.0",
     "jest-matcher-utils": "^24.0.0",
     "lodash": "^4.17.11",
