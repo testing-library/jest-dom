@@ -25,11 +25,18 @@ describe('.toHaveTextContent', () => {
     ).toThrowError()
   })
 
-  test('handles falsy values for text content', () => {
-    const {queryByTestId} = render(`<span data-testid="count-value">0</span>`)
+  test('can assert that content is empty', () => {
+    const {queryByTestId} = render(`
+      <span data-testid="count-value-0">0</span>
+      <span data-testid="count-value-1">1</span>
+    `)
 
     expect(() =>
-      expect(queryByTestId('count-value')).toHaveTextContent(''),
+      expect(queryByTestId('count-value-0')).toHaveTextContent(''),
+    ).toThrowError()
+
+    expect(() =>
+      expect(queryByTestId('count-value-1')).toHaveTextContent(''),
     ).toThrowError()
   })
 
