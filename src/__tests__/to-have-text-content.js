@@ -24,14 +24,6 @@ describe('.toHaveTextContent', () => {
       expect(queryByTestId('count-value')).not.toHaveTextContent('2'),
     ).toThrowError()
   })
-  
-  test('handles falsy values for text content', () => {
-    const {queryByTestId} = render(`<span data-testid="count-value">0</span>`)
-
-    expect(() =>
-      expect(queryByTestId('count-value2')).toHaveTextContent(''),
-    ).toThrowError()
-  })
 
   test('normalizes whitespace by default', () => {
     const {container} = render(`
