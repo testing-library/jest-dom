@@ -16,6 +16,23 @@ test('.toBeRequired', () => {
   expect(queryByTestId('conflicted-input')).toBeRequired()
   expect(queryByTestId('not-required-input')).not.toBeRequired()
   expect(queryByTestId('basic-input')).not.toBeRequired()
+
+  // negative test cases wrapped in throwError assertions for coverage.
+  expect(() =>
+    expect(queryByTestId('required-input')).not.toBeRequired(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('aria-required-input')).not.toBeRequired(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('conflicted-input')).not.toBeRequired(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('not-required-input')).toBeRequired(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('basic-input')).toBeRequired(),
+  ).toThrowError()
 })
 
 test('.toBeOptional', () => {
@@ -34,4 +51,21 @@ test('.toBeOptional', () => {
   expect(queryByTestId('conflicted-input')).not.toBeOptional()
   expect(queryByTestId('not-required-input')).toBeOptional()
   expect(queryByTestId('basic-input')).toBeOptional()
+
+  // negative test cases wrapped in throwError assertions for coverage.
+  expect(() =>
+    expect(queryByTestId('required-input')).toBeOptional(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('aria-required-input')).toBeOptional(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('conflicted-input')).toBeOptional(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('not-required-input')).not.toBeOptional(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('basic-input')).not.toBeOptional(),
+  ).toThrowError()
 })
