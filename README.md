@@ -49,6 +49,8 @@ to maintain.
   - [`toBeEnabled`](#tobeenabled)
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDocument`](#tobeinthedocument)
+  - [`toBeOptional`](#tobeoptional)
+  - [`toBeRequired`](#toberequired)
   - [`toBeVisible`](#tobevisible)
   - [`toContainElement`](#tocontainelement)
   - [`toContainHTML`](#tocontainhtml)
@@ -231,6 +233,106 @@ expect(
 ```
 
 > Note: This matcher does not find detached elements. The element must be added to the document to be found by toBeInTheDocument. If you desire to search in a detached element please use: [`toContainElement`](#tocontainelement)
+
+<hr />
+
+### `toBeOptional`
+
+```typescript
+toBeOptional()
+```
+
+This allows you to check if an form element is currently optional.
+
+An element is optional if it is not having a `required` or `aria-required="true"` attribute.
+
+#### Examples
+
+```html
+<input data-testid="required-input" required />
+<input data-testid="aria-required-input" aria-required="true" />
+<input data-testid="conflicted-input" required aria-required="false" />
+<input data-testid="aria-not-required-input" aria-required="false" />
+<input data-testid="optional-input" />
+```
+
+##### Using document.querySelector
+
+```javascript
+expect(
+  document.querySelector('[data-testid="required-input"]'),
+).not.toBeOptional()
+expect(
+  document.querySelector('[data-testid="aria-required-input"]'),
+).not.toBeOptional()
+expect(
+  document.querySelector('[data-testid="conflicted-input"]'),
+).not.toBeOptional()
+expect(
+  document.querySelector('[data-testid="aria-not-required-input"]'),
+).toBeOptional()
+expect(document.querySelector('[data-testid="optional-input"]')).toBeOptional()
+```
+
+##### Using dom-testing-library
+
+```javascript
+expect(getByTestId(container, 'required-input')).not.toBeOptional()
+expect(getByTestId(container, 'aria-required-input')).not.toBeOptional()
+expect(getByTestId(container, 'conflicted-input')).not.toBeOptional()
+expect(getByTestId(container, 'aria-not-required-input')).toBeOptional()
+expect(getByTestId(container, 'optional-input')).toBeOptional()
+```
+
+<hr />
+
+### `toBeRequired`
+
+```typescript
+toBeRequired()
+```
+
+This allows you to check if an form element is currently required.
+
+An element is required if it is having a `required` or `aria-required="true"` attribute.
+
+#### Examples
+
+```html
+<input data-testid="required-input" required />
+<input data-testid="aria-required-input" aria-required="true" />
+<input data-testid="conflicted-input" required aria-required="false" />
+<input data-testid="aria-not-required-input" aria-required="false" />
+<input data-testid="optional-input" />
+```
+
+##### Using document.querySelector
+
+```javascript
+expect(document.querySelector('[data-testid="required-input"]')).toBeRequired()
+expect(
+  document.querySelector('[data-testid="aria-required-input"]'),
+).toBeRequired()
+expect(
+  document.querySelector('[data-testid="conflicted-input"]'),
+).toBeRequired()
+expect(
+  document.querySelector('[data-testid="aria-not-required-input"]'),
+).not.toBeRequired()
+expect(
+  document.querySelector('[data-testid="optional-input"]'),
+).not.toBeRequired()
+```
+
+##### Using dom-testing-library
+
+```javascript
+expect(getByTestId(container, 'required-input')).toBeRequired()
+expect(getByTestId(container, 'aria-required-input')).toBeRequired()
+expect(getByTestId(container, 'conflicted-input')).toBeRequired()
+expect(getByTestId(container, 'aria-not-required-input')).not.toBeRequired()
+expect(getByTestId(container, 'optional-input')).not.toBeRequired()
+```
 
 <hr />
 
