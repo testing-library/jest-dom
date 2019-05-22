@@ -72,26 +72,3 @@ export function toBeRequired(element) {
     },
   }
 }
-
-export function toBeOptional(element) {
-  checkHtmlElement(element, toBeOptional, this)
-
-  const isOptional = !(
-    isRequiredOnFormTagsExceptInput(element) ||
-    isRequiredOnSupportedInput(element) ||
-    isElementRequiredByARIA(element)
-  )
-
-  return {
-    pass: isOptional,
-    message: () => {
-      const is = isOptional ? 'is' : 'is not'
-      return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toBeOptional`, 'element', ''),
-        '',
-        `Received element ${is} optional:`,
-        `  ${printReceived(element.cloneNode(false))}`,
-      ].join('\n')
-    },
-  }
-}

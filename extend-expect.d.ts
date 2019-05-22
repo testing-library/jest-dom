@@ -9,7 +9,6 @@ declare namespace jest {
     toBeEmpty(): R
     toBeDisabled(): R
     toBeEnabled(): R
-    toBeOptional(): R
     toBeRequired(): R
     toContainElement(element: HTMLElement | SVGElement | null): R
     toContainHTML(htmlText: string): R
