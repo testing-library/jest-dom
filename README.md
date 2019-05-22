@@ -254,6 +254,11 @@ An element is optional if it is not having a `required` or `aria-required="true"
 <input data-testid="conflicted-input" required aria-required="false" />
 <input data-testid="aria-not-required-input" aria-required="false" />
 <input data-testid="optional-input" />
+<input data-testid="unsupported-type" type="image" required />
+<select data-testid="select" required></select>
+<textarea data-testid="textarea" required></textarea>
+<div data-testid="supported-role" role="tree" required></div>
+<div data-testid="supported-role-aria" role="tree" aria-required="true"></div>
 ```
 
 ##### Using document.querySelector
@@ -272,6 +277,15 @@ expect(
   document.querySelector('[data-testid="aria-not-required-input"]'),
 ).toBeOptional()
 expect(document.querySelector('[data-testid="optional-input"]')).toBeOptional()
+expect(
+  document.querySelector('[data-testid="unsupported-type"]'),
+).toBeOptional()
+expect(document.querySelector('[data-testid="select"]')).not.toBeOptional()
+expect(document.querySelector('[data-testid="textarea"]')).not.toBeOptional()
+expect(document.querySelector('[data-testid="supported-role"]')).toBeOptional()
+expect(
+  document.querySelector('[data-testid="supported-role-aria"]'),
+).not.toBeOptional()
 ```
 
 ##### Using dom-testing-library
@@ -282,6 +296,11 @@ expect(getByTestId(container, 'aria-required-input')).not.toBeOptional()
 expect(getByTestId(container, 'conflicted-input')).not.toBeOptional()
 expect(getByTestId(container, 'aria-not-required-input')).toBeOptional()
 expect(getByTestId(container, 'optional-input')).toBeOptional()
+expect(getByTestId(container, 'unsupported-type')).toBeOptional()
+expect(getByTestId(container, 'select')).not.toBeOptional()
+expect(getByTestId(container, 'textarea')).not.toBeOptional()
+expect(getByTestId(container, 'supported-role')).toBeOptional()
+expect(getByTestId(container, 'supported-role-aria')).not.toBeOptional()
 ```
 
 <hr />
@@ -304,6 +323,11 @@ An element is required if it is having a `required` or `aria-required="true"` at
 <input data-testid="conflicted-input" required aria-required="false" />
 <input data-testid="aria-not-required-input" aria-required="false" />
 <input data-testid="optional-input" />
+<input data-testid="unsupported-type" type="image" required />
+<select data-testid="select" required></select>
+<textarea data-testid="textarea" required></textarea>
+<div data-testid="supported-role" role="tree" required></div>
+<div data-testid="supported-role-aria" role="tree" aria-required="true"></div>
 ```
 
 ##### Using document.querySelector
@@ -320,8 +344,16 @@ expect(
   document.querySelector('[data-testid="aria-not-required-input"]'),
 ).not.toBeRequired()
 expect(
-  document.querySelector('[data-testid="optional-input"]'),
+  document.querySelector('[data-testid="unsupported-type"]'),
 ).not.toBeRequired()
+expect(document.querySelector('[data-testid="select"]')).toBeRequired()
+expect(document.querySelector('[data-testid="textarea"]')).toBeRequired()
+expect(
+  document.querySelector('[data-testid="supported-role"]'),
+).not.toBeRequired()
+expect(
+  document.querySelector('[data-testid="supported-role-aria"]'),
+).toBeRequired()
 ```
 
 ##### Using dom-testing-library
@@ -332,6 +364,11 @@ expect(getByTestId(container, 'aria-required-input')).toBeRequired()
 expect(getByTestId(container, 'conflicted-input')).toBeRequired()
 expect(getByTestId(container, 'aria-not-required-input')).not.toBeRequired()
 expect(getByTestId(container, 'optional-input')).not.toBeRequired()
+expect(getByTestId(container, 'unsupported-type')).not.toBeRequired()
+expect(getByTestId(container, 'select')).toBeRequired()
+expect(getByTestId(container, 'textarea')).toBeRequired()
+expect(getByTestId(container, 'supported-role')).not.toBeRequired()
+expect(getByTestId(container, 'supported-role-aria')).toBeRequired()
 ```
 
 <hr />
