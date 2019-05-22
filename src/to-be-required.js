@@ -2,27 +2,52 @@ import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
 // form elements that support 'required'
-const FORM_TAGS = [
-  'input',
-  'select',
-  'optgroup',
-  'option',
-  'button',
-  'textarea',
+const FORM_TAGS = ['select', 'textarea']
+
+const ARIA_FORM_TAGS = ['input', 'select', 'textarea']
+
+const UNSUPPORTED_INPUT_TYPES = [
+  'color',
+  'hidden',
+  'range',
+  'submit',
+  'image',
+  'reset',
+]
+
+const SUPPORTED_ARIA_ROLES = [
+  'combobox',
+  'gridcell',
+  'radiogroup',
+  'spinbutton',
+  'tree',
 ]
 
 function getTag(element) {
   return element.tagName && element.tagName.toLowerCase()
 }
 
-function isElementRequired(element) {
+function isRequiredOnFormTagsExceptInput(element) {
   return FORM_TAGS.includes(getTag(element)) && element.hasAttribute('required')
+}
+
+function isRequiredOnSupportedInput(element) {
+  return (
+    getTag(element) === 'input' &&
+    element.hasAttribute('required') &&
+    ((element.hasAttribute('type') &&
+      !UNSUPPORTED_INPUT_TYPES.includes(element.getAttribute('type'))) ||
+      !element.hasAttribute('type'))
+  )
 }
 
 function isElementRequiredByARIA(element) {
   return (
-    FORM_TAGS.includes(getTag(element)) &&
-    element.getAttribute('aria-required') === 'true'
+    element.hasAttribute('aria-required') &&
+    element.getAttribute('aria-required') === 'true' &&
+    (ARIA_FORM_TAGS.includes(getTag(element)) ||
+      (element.hasAttribute('role') &&
+        SUPPORTED_ARIA_ROLES.includes(element.getAttribute('role'))))
   )
 }
 
@@ -30,7 +55,9 @@ export function toBeRequired(element) {
   checkHtmlElement(element, toBeRequired, this)
 
   const isRequired =
-    isElementRequired(element) || isElementRequiredByARIA(element)
+    isRequiredOnFormTagsExceptInput(element) ||
+    isRequiredOnSupportedInput(element) ||
+    isElementRequiredByARIA(element)
 
   return {
     pass: isRequired,
@@ -50,7 +77,9 @@ export function toBeOptional(element) {
   checkHtmlElement(element, toBeOptional, this)
 
   const isOptional = !(
-    isElementRequired(element) || isElementRequiredByARIA(element)
+    isRequiredOnFormTagsExceptInput(element) ||
+    isRequiredOnSupportedInput(element) ||
+    isElementRequiredByARIA(element)
   )
 
   return {
