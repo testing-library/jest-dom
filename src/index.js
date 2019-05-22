@@ -11,6 +11,7 @@ import {toHaveFocus} from './to-have-focus'
 import {toHaveFormValues} from './to-have-form-values'
 import {toBeVisible} from './to-be-visible'
 import {toBeDisabled, toBeEnabled} from './to-be-disabled'
+import {toBeRequired} from './to-be-required'
 
 export {
   toBeInTheDOM,
@@ -27,4 +28,5 @@ export {
   toBeVisible,
   toBeDisabled,
   toBeEnabled,
+  toBeRequired,
 }

@@ -16,7 +16,7 @@
 [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-24-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-25-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
 
@@ -49,6 +49,7 @@ to maintain.
   - [`toBeEnabled`](#tobeenabled)
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDocument`](#tobeinthedocument)
+  - [`toBeRequired`](#toberequired)
   - [`toBeVisible`](#tobevisible)
   - [`toContainElement`](#tocontainelement)
   - [`toContainHTML`](#tocontainhtml)
@@ -231,6 +232,74 @@ expect(
 ```
 
 > Note: This matcher does not find detached elements. The element must be added to the document to be found by toBeInTheDocument. If you desire to search in a detached element please use: [`toContainElement`](#tocontainelement)
+
+<hr />
+
+### `toBeRequired`
+
+```typescript
+toBeRequired()
+```
+
+This allows you to check if an form element is currently required.
+
+An element is required if it is having a `required` or `aria-required="true"` attribute.
+
+#### Examples
+
+```html
+<input data-testid="required-input" required />
+<input data-testid="aria-required-input" aria-required="true" />
+<input data-testid="conflicted-input" required aria-required="false" />
+<input data-testid="aria-not-required-input" aria-required="false" />
+<input data-testid="optional-input" />
+<input data-testid="unsupported-type" type="image" required />
+<select data-testid="select" required></select>
+<textarea data-testid="textarea" required></textarea>
+<div data-testid="supported-role" role="tree" required></div>
+<div data-testid="supported-role-aria" role="tree" aria-required="true"></div>
+```
+
+##### Using document.querySelector
+
+```javascript
+expect(document.querySelector('[data-testid="required-input"]')).toBeRequired()
+expect(
+  document.querySelector('[data-testid="aria-required-input"]'),
+).toBeRequired()
+expect(
+  document.querySelector('[data-testid="conflicted-input"]'),
+).toBeRequired()
+expect(
+  document.querySelector('[data-testid="aria-not-required-input"]'),
+).not.toBeRequired()
+expect(
+  document.querySelector('[data-testid="unsupported-type"]'),
+).not.toBeRequired()
+expect(document.querySelector('[data-testid="select"]')).toBeRequired()
+expect(document.querySelector('[data-testid="textarea"]')).toBeRequired()
+expect(
+  document.querySelector('[data-testid="supported-role"]'),
+).not.toBeRequired()
+expect(
+  document.querySelector('[data-testid="supported-role-aria"]'),
+).toBeRequired()
+```
+
+##### Using dom-testing-library
+
+```javascript
+expect(getByTestId(container, 'required-input')).toBeRequired()
+expect(getByTestId(container, 'aria-required-input')).toBeRequired()
+expect(getByTestId(container, 'conflicted-input')).toBeRequired()
+expect(getByTestId(container, 'aria-not-required-input')).not.toBeRequired()
+expect(getByTestId(container, 'optional-input')).not.toBeRequired()
+expect(getByTestId(container, 'unsupported-type')).not.toBeRequired()
+expect(getByTestId(container, 'select')).toBeRequired()
+expect(getByTestId(container, 'textarea')).toBeRequired()
+expect(getByTestId(container, 'supported-role')).not.toBeRequired()
+expect(getByTestId(container, 'supported-role-aria')).toBeRequired()
+```
 
 <hr />
 
@@ -763,7 +832,8 @@ Thanks goes to these people ([emoji key][emojis]):
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | [<img src="https://avatars1.githubusercontent.com/u/1241511?s=460&v=4" width="100px;" alt="Anto Aravinth"/><br /><sub><b>Anto Aravinth</b></sub>](https://github.com/antoaravinth)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=antoaravinth "Code") [⚠️](https://github.com/testing-library/jest-dom/commits?author=antoaravinth "Tests") [📖](https://github.com/testing-library/jest-dom/commits?author=antoaravinth "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/3462296?v=4" width="100px;" alt="Jonah Moses"/><br /><sub><b>Jonah Moses</b></sub>](https://github.com/JonahMoses)<br />[📖](https://github.com/testing-library/jest-dom/commits?author=JonahMoses "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4002543?v=4" width="100px;" alt="Łukasz Gandecki"/><br /><sub><b>Łukasz Gandecki</b></sub>](http://team.thebrain.pro)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=lgandecki "Code") [⚠️](https://github.com/testing-library/jest-dom/commits?author=lgandecki "Tests") [📖](https://github.com/testing-library/jest-dom/commits?author=lgandecki "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/498274?v=4" width="100px;" alt="Ivan Babak"/><br /><sub><b>Ivan Babak</b></sub>](https://sompylasar.github.io)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Asompylasar "Bug reports") [🤔](#ideas-sompylasar "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/4439618?v=4" width="100px;" alt="Jesse Day"/><br /><sub><b>Jesse Day</b></sub>](https://github.com/jday3)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=jday3 "Code") | [<img src="https://avatars0.githubusercontent.com/u/15199?v=4" width="100px;" alt="Ernesto García"/><br /><sub><b>Ernesto García</b></sub>](http://gnapse.github.io)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=gnapse "Code") [📖](https://github.com/testing-library/jest-dom/commits?author=gnapse "Documentation") [⚠️](https://github.com/testing-library/jest-dom/commits?author=gnapse "Tests") | [<img src="https://avatars0.githubusercontent.com/u/79312?v=4" width="100px;" alt="Mark Volkmann"/><br /><sub><b>Mark Volkmann</b></sub>](http://ociweb.com/mark/)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Amvolkmann "Bug reports") [💻](https://github.com/testing-library/jest-dom/commits?author=mvolkmann "Code") |
 | [<img src="https://avatars1.githubusercontent.com/u/1659099?v=4" width="100px;" alt="smacpherson64"/><br /><sub><b>smacpherson64</b></sub>](https://github.com/smacpherson64)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=smacpherson64 "Code") [📖](https://github.com/testing-library/jest-dom/commits?author=smacpherson64 "Documentation") [⚠️](https://github.com/testing-library/jest-dom/commits?author=smacpherson64 "Tests") | [<img src="https://avatars2.githubusercontent.com/u/132233?v=4" width="100px;" alt="John Gozde"/><br /><sub><b>John Gozde</b></sub>](https://github.com/jgoz)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Ajgoz "Bug reports") [💻](https://github.com/testing-library/jest-dom/commits?author=jgoz "Code") | [<img src="https://avatars2.githubusercontent.com/u/7830590?v=4" width="100px;" alt="Iwona"/><br /><sub><b>Iwona</b></sub>](https://github.com/callada)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=callada "Code") [📖](https://github.com/testing-library/jest-dom/commits?author=callada "Documentation") [⚠️](https://github.com/testing-library/jest-dom/commits?author=callada "Tests") | [<img src="https://avatars0.githubusercontent.com/u/840609?v=4" width="100px;" alt="Lewis"/><br /><sub><b>Lewis</b></sub>](https://github.com/6ewis)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=6ewis "Code") | [<img src="https://avatars3.githubusercontent.com/u/2339362?v=4" width="100px;" alt="Leandro Lourenci"/><br /><sub><b>Leandro Lourenci</b></sub>](https://blog.lourenci.com/)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Alourenci "Bug reports") [📖](https://github.com/testing-library/jest-dom/commits?author=lourenci "Documentation") [💻](https://github.com/testing-library/jest-dom/commits?author=lourenci "Code") [⚠️](https://github.com/testing-library/jest-dom/commits?author=lourenci "Tests") | [<img src="https://avatars1.githubusercontent.com/u/626420?v=4" width="100px;" alt="Shukhrat Mukimov"/><br /><sub><b>Shukhrat Mukimov</b></sub>](https://github.com/mufasa71)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Amufasa71 "Bug reports") | [<img src="https://avatars3.githubusercontent.com/u/1481264?v=4" width="100px;" alt="Roman Usherenko"/><br /><sub><b>Roman Usherenko</b></sub>](https://github.com/dreyks)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=dreyks "Code") [⚠️](https://github.com/testing-library/jest-dom/commits?author=dreyks "Tests") |
-| [<img src="https://avatars1.githubusercontent.com/u/648?v=4" width="100px;" alt="Joe Hsu"/><br /><sub><b>Joe Hsu</b></sub>](http://josephhsu.com)<br />[📖](https://github.com/testing-library/jest-dom/commits?author=jhsu "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/3068563?v=4" width="100px;" alt="Haz"/><br /><sub><b>Haz</b></sub>](https://twitter.com/diegohaz)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Adiegohaz "Bug reports") [💻](https://github.com/testing-library/jest-dom/commits?author=diegohaz "Code") | [<img src="https://avatars3.githubusercontent.com/u/463904?v=4" width="100px;" alt="Revath S Kumar"/><br /><sub><b>Revath S Kumar</b></sub>](https://blog.revathskumar.com)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=revathskumar "Code") |
+| [<img src="https://avatars1.githubusercontent.com/u/648?v=4" width="100px;" alt="Joe Hsu"/><br /><sub><b>Joe Hsu</b></sub>](http://josephhsu.com)<br />[📖](https://github.com/testing-library/jest-dom/commits?author=jhsu "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/3068563?v=4" width="100px;" alt="Haz"/><br /><sub><b>Haz</b></sub>](https://twitter.com/diegohaz)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Adiegohaz "Bug reports") [💻](https://github.com/testing-library/jest-dom/commits?author=diegohaz "Code") | [<img src="https://avatars3.githubusercontent.com/u/463904?v=4" width="100px;" alt="Revath S Kumar"/><br /><sub><b>Revath S Kumar</b></sub>](https://blog.revathskumar.com)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=revathskumar "Code") | [<img src="https://avatars0.githubusercontent.com/u/4989733?v=4" width="100px;" alt="hiwelo."/><br /><sub><b>hiwelo.</b></sub>](https://raccoon.studio)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=hiwelo "Code") [🤔](#ideas-hiwelo "Ideas, Planning, & Feedback") [⚠️](https://github.com/testing-library/jest-dom/commits?author=hiwelo "Tests") |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
