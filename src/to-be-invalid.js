@@ -52,7 +52,7 @@ export function toBeValid(element) {
       return [
         matcherHint(`${this.isNot ? '.not' : ''}.toBeValid`, 'element', ''),
         '',
-        `Received element ${is} currently invalid:`,
+        `Received element ${is} currently valid:`,
         `  ${printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
