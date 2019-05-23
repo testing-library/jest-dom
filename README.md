@@ -49,7 +49,9 @@ to maintain.
   - [`toBeEnabled`](#tobeenabled)
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDocument`](#tobeinthedocument)
+  - [`toBeInvalid`](#tobeinvalid)
   - [`toBeRequired`](#toberequired)
+  - [`toBeValid`](#tobevalid)
   - [`toBeVisible`](#tobevisible)
   - [`toContainElement`](#tocontainelement)
   - [`toContainHTML`](#tocontainhtml)
@@ -235,6 +237,45 @@ expect(
 
 <hr />
 
+### `toBeInvalid`
+
+```typescript
+toBeInvalid()
+```
+
+This allows you to check if an form element is currently invalid.
+
+An element is invalid if it is having an `aria-invalid` attribute or if the result of `checkValidity()` are false.
+
+#### Examples
+
+```html
+<input data-testid="no-aria-invalid" />
+<input data-testid="aria-invalid" aria-invalid />
+<input data-testid="aria-invalid-value" aria-invalid="true" />
+<input data-testid="aria-invalid-false" aria-invalid="false" />
+```
+
+##### Using document.querySelector
+
+```javascript
+expect(queryByTestId('no-aria-invalid')).not.toBeInvalid()
+expect(queryByTestId('aria-invalid')).toBeInvalid()
+expect(queryByTestId('aria-invalid-value')).toBeInvalid()
+expect(queryByTestId('aria-invalid-false')).not.toBeInvalid()
+```
+
+##### Using dom-testing-library
+
+```javascript
+expect(getByTestId(container, 'no-aria-invalid')).not.toBeInvalid()
+expect(getByTestId(container, 'aria-invalid')).toBeInvalid()
+expect(getByTestId(container, 'aria-invalid-value')).toBeInvalid()
+expect(getByTestId(container, 'aria-invalid-false')).not.toBeInvalid()
+```
+
+<hr />
+
 ### `toBeRequired`
 
 ```typescript
@@ -299,6 +340,45 @@ expect(getByTestId(container, 'select')).toBeRequired()
 expect(getByTestId(container, 'textarea')).toBeRequired()
 expect(getByTestId(container, 'supported-role')).not.toBeRequired()
 expect(getByTestId(container, 'supported-role-aria')).toBeRequired()
+```
+
+<hr />
+
+### `toBeValid`
+
+```typescript
+toBeValid()
+```
+
+This allows you to check if the value of a form element is currently valid.
+
+An element is valid if it is not having an `aria-invalid` attribute or having `false` as a value and returning `true` when calling `checkValidity()`.
+
+#### Examples
+
+```html
+<input data-testid="no-aria-invalid" />
+<input data-testid="aria-invalid" aria-invalid />
+<input data-testid="aria-invalid-value" aria-invalid="true" />
+<input data-testid="aria-invalid-false" aria-invalid="false" />
+```
+
+##### Using document.querySelector
+
+```javascript
+expect(queryByTestId('no-aria-invalid')).toBeValid()
+expect(queryByTestId('aria-invalid')).not.toBeValid()
+expect(queryByTestId('aria-invalid-value')).not.toBeValid()
+expect(queryByTestId('aria-invalid-false')).toBeValid()
+```
+
+##### Using dom-testing-library
+
+```javascript
+expect(getByTestId(container, 'no-aria-invalid')).toBeValid()
+expect(getByTestId(container, 'aria-invalid')).not.toBeValid()
+expect(getByTestId(container, 'aria-invalid-value')).not.toBeValid()
+expect(getByTestId(container, 'aria-invalid-false')).toBeValid()
 ```
 
 <hr />

@@ -43,7 +43,7 @@
     "redent": "^2.0.0"
   },
   "devDependencies": {
-    "jsdom": "^12.2.0",
+    "jsdom": "^15.1.0",
     "kcd-scripts": "^0.44.0"
   },
   "eslintConfig": {
