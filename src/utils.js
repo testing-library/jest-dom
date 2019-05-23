@@ -133,6 +133,10 @@ function normalize(text) {
   return text.replace(/\s+/g, ' ').trim()
 }
 
+function getTag(element) {
+  return element.tagName && element.tagName.toLowerCase()
+}
+
 export {
   HtmlElementTypeError,
   checkHtmlElement,
@@ -141,4 +145,5 @@ export {
   getMessage,
   matches,
   normalize,
+  getTag,
 }
