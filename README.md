@@ -245,7 +245,7 @@ toBeInvalid()
 
 This allows you to check if an form element is currently invalid.
 
-An element is invalid if it is having an `aria-invalid` attribute or if the result of `checkValidity()` are false.
+An element is invalid if it is having an [`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute) or if the result of [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity) are false.
 
 #### Examples
 
@@ -352,7 +352,7 @@ toBeValid()
 
 This allows you to check if the value of a form element is currently valid.
 
-An element is valid if it is not having an `aria-invalid` attribute or having `false` as a value and returning `true` when calling `checkValidity()`.
+An element is valid if it is not having an [`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute) or having `false` as a value and returning `true` when calling [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity).
 
 #### Examples
 
