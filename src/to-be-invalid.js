@@ -1,6 +1,12 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
+const FORM_TAGS = ['input', 'select', 'textarea']
+
+function getTag(element) {
+  return element.tagName && element.tagName.toLowerCase()
+}
+
 function isElementHavingAriaInvalid(element) {
   return (
     element.hasAttribute('aria-invalid') &&
@@ -36,7 +42,8 @@ export function toBeValid(element) {
   checkHtmlElement(element, toBeValid, this)
 
   const isValid =
-    !isElementHavingAriaInvalid(element) && !isElementInvalid(element)
+    !isElementHavingAriaInvalid(element) &&
+    (FORM_TAGS.includes(getTag(element)) && !isElementInvalid(element))
 
   return {
     pass: isValid,
