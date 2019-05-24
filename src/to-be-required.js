@@ -1,5 +1,5 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {checkHtmlElement, getTag} from './utils'
 
 // form elements that support 'required'
 const FORM_TAGS = ['select', 'textarea']
@@ -22,10 +22,6 @@ const SUPPORTED_ARIA_ROLES = [
   'spinbutton',
   'tree',
 ]
-
-function getTag(element) {
-  return element.tagName && element.tagName.toLowerCase()
-}
 
 function isRequiredOnFormTagsExceptInput(element) {
   return FORM_TAGS.includes(getTag(element)) && element.hasAttribute('required')

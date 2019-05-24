@@ -1,5 +1,5 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {checkHtmlElement, getTag} from './utils'
 
 // form elements that support 'disabled'
 const FORM_TAGS = [
@@ -11,10 +11,6 @@ const FORM_TAGS = [
   'button',
   'textarea',
 ]
-
-function getTag(element) {
-  return element.tagName && element.tagName.toLowerCase()
-}
 
 /*
  * According to specification:
