@@ -9,6 +9,7 @@ declare namespace jest {
     toBeEmpty(): R
     toBeDisabled(): R
     toBeEnabled(): R
+    toBeLabelled(element: HTMLElement | SVGElement | null): R
     toBeInvalid(): R
     toBeRequired(): R
     toBeValid(): R
