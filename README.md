@@ -50,6 +50,7 @@ to maintain.
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDocument`](#tobeinthedocument)
   - [`toBeInvalid`](#tobeinvalid)
+  - [`toBeLabelled`](#tobelabelled)
   - [`toBeRequired`](#toberequired)
   - [`toBeValid`](#tobevalid)
   - [`toBeVisible`](#tobevisible)
@@ -273,6 +274,78 @@ expect(getByTestId(container, 'no-aria-invalid')).not.toBeInvalid()
 expect(getByTestId(container, 'aria-invalid')).toBeInvalid()
 expect(getByTestId(container, 'aria-invalid-value')).toBeInvalid()
 expect(getByTestId(container, 'aria-invalid-false')).not.toBeInvalid()
+```
+
+<hr />
+
+### `toBeLabelled`
+
+```typescript
+toBeLabelled()
+```
+
+This allows you to check if a HTML element is correctly labelled.
+Labelling element is important for accessibility reason, [especially for non-text content](https://www.w3.org/TR/WCAG20/#text-equiv).
+
+An element is labelled if it is having at least one of the following:
+
+- the element is an image having a [not empty `alt` attribute](https://www.w3.org/TR/WCAG20-TECHS/H37.html);
+- the element is a SVG element having [a not empty `title` element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title);
+- the element is having [an `aria-label` attribute](https://www.w3.org/TR/WCAG20-TECHS/ARIA6.html);
+- the element is [referencing a labelling element via `aria-labelledby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA10.html);
+- the element is [a form input having a `title` attribute](https://www.w3.org/TR/WCAG20-TECHS/H65.html);
+- the element is [an image associated to a short content](https://www.w3.org/TR/WCAG20-TECHS/H2.html) within a button or a link;
+- the element is a link, a button or [an object having a text content](https://www.w3.org/TR/WCAG20-TECHS/H53.html).
+
+#### Examples
+
+```html
+<img data-testid="img-alt" src="" alt="Test alt" />
+<img data-testid="img-label" src="" alt="" aria-label="Test alt" />
+<img data-testid="img-labelledby" src="" alt="" aria-labelledby="testId" />
+<img data-testid="img-empty-alt" src="" alt="" />
+<svg data-testid="svg-title"><title>Test title</title></svg>
+<button><img data-testid="img-text-sibling" src="" alt="" /><span>Test content</span></button>
+<button data-testid="button-img-alt"><img src="" alt="Test" /></button>
+<object data-testid="object" data="companylogo.gif" type="image/gif"><p>Company Name</p></object>
+<p><img data-testid="img-paragraph" src="" alt="" />Test content</p>
+<button data-testid="svg-button"><svg><title>Test</title></svg></p>
+<div><svg data-testid="svg-without-title"></svg></div>
+<input data-testid="input-title" title="test" />
+```
+
+##### Using document.querySelector
+
+```javascript
+expect(queryByTestId('img-alt')).toBeLabelled()
+expect(queryByTestId('img-label')).toBeLabelled()
+expect(queryByTestId('img-labelledby')).toBeLabelled()
+expect(queryByTestId('img-empty-alt')).not.toBeLabelled()
+expect(queryByTestId('svg-title')).toBeLabelled()
+expect(queryByTestId('img-text-sibling')).toBeLabelled()
+expect(queryByTestId('button-img-alt')).toBeLabelled()
+expect(queryByTestId('object')).toBeLabelled()
+expect(queryByTestId('img-paragraph')).not.toBeLabelled()
+expect(queryByTestId('svg-button')).toBeLabelled()
+expect(queryByTestId('svg-without-title')).not.toBeLabelled()
+expect(queryByTestId('input-title')).toBeLabelled()
+```
+
+##### Using dom-testing-library
+
+```javascript
+expect(getByTestId(container, 'img-alt')).toBeLabelled()
+expect(getByTestId(container, 'img-label')).toBeLabelled()
+expect(getByTestId(container, 'img-labelledby')).toBeLabelled()
+expect(getByTestId(container, 'img-empty-alt')).not.toBeLabelled()
+expect(getByTestId(container, 'svg-title')).toBeLabelled()
+expect(getByTestId(container, 'img-text-sibling')).toBeLabelled()
+expect(getByTestId(container, 'button-img-alt')).toBeLabelled()
+expect(getByTestId(container, 'object')).toBeLabelled()
+expect(getByTestId(container, 'img-paragraph')).not.toBeLabelled()
+expect(getByTestId(container, 'svg-button')).toBeLabelled()
+expect(getByTestId(container, 'svg-without-title')).not.toBeLabelled()
+expect(getByTestId(container, 'input-title')).toBeLabelled()
 ```
 
 <hr />
