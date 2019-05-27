@@ -14,6 +14,7 @@ test('.toBeLabelled', () => {
       <p><img data-testid="img-paragraph" src="" alt="" />Test content</p>
       <button data-testid="svg-button"><svg><title>Test</title></svg></p>
       <div><svg data-testid="svg-without-title"></svg></div>
+      <input data-testid="input-title" title="test" />
     </div>
   `)
 
@@ -28,6 +29,7 @@ test('.toBeLabelled', () => {
   expect(queryByTestId('img-paragraph')).not.toBeLabelled()
   expect(queryByTestId('svg-button')).toBeLabelled()
   expect(queryByTestId('svg-without-title')).not.toBeLabelled()
+  expect(queryByTestId('input-title')).toBeLabelled()
 
   expect(() =>
     expect(queryByTestId('img-alt')).not.toBeLabelled(),
@@ -61,5 +63,8 @@ test('.toBeLabelled', () => {
   ).toThrowError()
   expect(() =>
     expect(queryByTestId('svg-without-title')).toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('input-title')).not.toBeLabelled(),
   ).toThrowError()
 })

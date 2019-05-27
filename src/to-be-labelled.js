@@ -7,7 +7,9 @@ import {checkHtmlElement, getTag} from './utils'
  */
 const TAGS_WITH_ALT = ['applet', 'area', 'img']
 
-const TAGS_WITH_TITLE = ['svg', 'input', 'select', 'textarea', 'abbr']
+const TAGS_WITH_TITLE = ['svg']
+
+const TAGS_WITH_TITLE_ATTR = ['input', 'select', 'textarea', 'abbr']
 
 const TAGS_IMAGES = ['img', 'svg']
 
@@ -49,6 +51,14 @@ function isHavingMeaningfulTitle(element) {
   return (
     TAGS_WITH_TITLE.includes(getTag(element)) &&
     element.querySelector('title') !== null
+  )
+}
+
+function isHavingMeaningfulTitleAttribute(element) {
+  return (
+    TAGS_WITH_TITLE_ATTR.includes(getTag(element)) &&
+    element.hasAttribute('title') &&
+    element.getAttribute('title') !== null
   )
 }
 
@@ -95,6 +105,7 @@ export function toBeLabelled(element) {
     isHavingARIALabelledBy(element) ||
     isHavingMeaningfulAlt(element) ||
     isHavingMeaningfulTitle(element) ||
+    isHavingMeaningfulTitleAttribute(element) ||
     isHavingASiblingLabel(element) ||
     isHavingAContentText(element)
 
