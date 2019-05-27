@@ -12,7 +12,8 @@ test('.toBeLabelled', () => {
       <button data-testid="button-img-alt"><img src="" alt="Test" /></button>
       <object data-testid="object" data="companylogo.gif" type="image/gif"><p>Company Name</p></object>
       <p><img data-testid="img-paragraph" src="" alt="" />Test content</p>
-      <svg data-testid="svg-without-title"></svg>
+      <button data-testid="svg-button"><svg><title>Test</title></svg></p>
+      <div><svg data-testid="svg-without-title"></svg></div>
     </div>
   `)
 
@@ -25,5 +26,40 @@ test('.toBeLabelled', () => {
   expect(queryByTestId('button-img-alt')).toBeLabelled()
   expect(queryByTestId('object')).toBeLabelled()
   expect(queryByTestId('img-paragraph')).not.toBeLabelled()
+  expect(queryByTestId('svg-button')).toBeLabelled()
   expect(queryByTestId('svg-without-title')).not.toBeLabelled()
+
+  expect(() =>
+    expect(queryByTestId('img-alt')).not.toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('img-label')).not.toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('img-labelledby')).not.toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('img-empty-alt')).toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('svg-title')).not.toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('img-text-sibling')).not.toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('button-img-alt')).not.toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('object')).not.toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('img-paragraph')).toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('svg-button')).not.toBeLabelled(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('svg-without-title')).toBeLabelled(),
+  ).toThrowError()
 })
