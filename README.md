@@ -760,7 +760,7 @@ expected properties applied, not just some of them.
 ##### Using document.querySelector
 
 ```javascript
-const button = document.querySelector(['data-testid="delete-button"')
+const button = document.querySelector(['data-testid="delete-button"'])
 
 expect(button).toHaveStyle('display: none')
 expect(button).toHaveStyle(`
