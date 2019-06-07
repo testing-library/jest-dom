@@ -23,5 +23,6 @@ declare namespace jest {
       text: string | RegExp,
       options?: {normalizeWhitespace: boolean},
     ): R
+    toHaveValue(value?: string | string[] | number): R
   }
 }

@@ -8,6 +8,7 @@ import {
   stringify,
 } from 'jest-matcher-utils'
 import {parse} from 'css'
+import isEqual from 'lodash/isEqual'
 
 class HtmlElementTypeError extends Error {
   constructor(received, matcherFn, context) {
@@ -137,6 +138,50 @@ function getTag(element) {
   return element.tagName && element.tagName.toLowerCase()
 }
 
+function getSelectValue({multiple, selectedOptions}) {
+  if (multiple) {
+    return [...selectedOptions].map(opt => opt.value)
+  }
+  /* istanbul ignore if */
+  if (selectedOptions.length === 0) {
+    return undefined // Couldn't make this happen, but just in case
+  }
+  return selectedOptions[0].value
+}
+
+function getInputValue(inputElement) {
+  switch (inputElement.type) {
+    case 'number':
+      return inputElement.value === '' ? null : Number(inputElement.value)
+    case 'checkbox':
+      return inputElement.checked
+    default:
+      return inputElement.value
+  }
+}
+
+function getSingleElementValue(element) {
+  /* istanbul ignore if */
+  if (!element) {
+    return undefined
+  }
+  switch (element.tagName.toLowerCase()) {
+    case 'input':
+      return getInputValue(element)
+    case 'select':
+      return getSelectValue(element)
+    default:
+      return element.value
+  }
+}
+
+function compareArraysAsSet(a, b) {
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return isEqual(new Set(a), new Set(b))
+  }
+  return undefined
+}
+
 export {
   HtmlElementTypeError,
   checkHtmlElement,
@@ -146,4 +191,6 @@ export {
   matches,
   normalize,
   getTag,
+  getSingleElementValue,
+  compareArraysAsSet,
 }
