@@ -98,7 +98,7 @@ function isHavingASiblingLabel(element) {
 }
 
 /*
- * Checks if the image is having a meaningful content with with ARIA, an alt attribute or a title attribute
+ * Checks if the image is having a meaningful content with ARIA, an alt attribute or a title attribute
  *
  * @link https://www.w3.org/TR/WCAG20-TECHS/H2.html
  */
