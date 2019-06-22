@@ -60,9 +60,12 @@ function isHavingMeaningfulAlt(element) {
  * @link https://www.w3.org/TR/WCAG20-TECHS/H65.html
  */
 function isHavingMeaningfulTitle(element) {
+  const titleTag = element.querySelector('title')
+
   return (
     TAGS_WITH_TITLE.includes(getTag(element)) &&
-    element.querySelector('title') !== null
+    titleTag !== null &&
+    titleTag.textContent !== null
   )
 }
 
