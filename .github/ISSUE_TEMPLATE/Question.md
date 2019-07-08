@@ -12,11 +12,8 @@ and feature requests so we recommend not using this medium to ask them here 😁
 
 ## ❓ Support Forums
 
-* React Spectrum
-  https://spectrum.chat/react-testing-library
-* Reactiflux on Discord
-  https://www.reactiflux.com
-* Stack Overflow
-  https://stackoverflow.com/questions/tagged/jest-dom
+- React Spectrum https://spectrum.chat/react-testing-library
+- Reactiflux on Discord https://www.reactiflux.com
+- Stack Overflow https://stackoverflow.com/questions/tagged/jest-dom
 
 **ISSUES WHICH ARE QUESTIONS WILL BE CLOSED**

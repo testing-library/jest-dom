@@ -1,14 +1,13 @@
 {
-  "name": "jest-dom",
+  "name": "@testing-library/jest-dom",
   "version": "0.0.0-semantically-released",
   "description": "Custom jest matchers to test the state of the DOM",
   "main": "dist/index.js",
   "engines": {
-    "node": "> 4",
-    "npm": "> 3"
+    "node": ">=8",
+    "npm": ">=6"
   },
   "scripts": {
-    "add-contributor": "kcd-scripts contributors add",
     "format": "kcd-scripts format",
     "build": "kcd-scripts build",
     "lint": "kcd-scripts lint",
