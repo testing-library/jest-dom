@@ -1066,7 +1066,8 @@ MIT
 [coverage]: https://codecov.io/github/testing-library/jest-dom
 [version-badge]: https://img.shields.io/npm/v/jest-dom.svg?style=flat-square
 [package]: https://www.npmjs.com/package/jest-dom
-[downloads-badge]: https://img.shields.io/npm/dm/jest-dom.svg?style=flat-square
+[downloads-badge]:
+  https://img.shields.io/npm/dm/@testing-library/jest-dom.svg?style=flat-square
 [npmtrends]: http://www.npmtrends.com/jest-dom
 [license-badge]: https://img.shields.io/npm/l/jest-dom.svg?style=flat-square
 [license]: https://github.com/testing-library/jest-dom/blob/master/LICENSE
