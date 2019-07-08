@@ -57,4 +57,19 @@ describe('checkHtmlElement', () => {
       checkHtmlElement(() => {}, () => {}, {})
     }).toThrow(HtmlElementTypeError)
   })
+
+  it('throws for almost element-like objects', () => {
+    class FakeObject {}
+    expect(() => {
+      checkHtmlElement(
+        {
+          ownerDocument: {
+            defaultView: {HTMLElement: FakeObject, SVGElement: FakeObject},
+          },
+        },
+        () => {},
+        {},
+      )
+    }).toThrow(HtmlElementTypeError)
+  })
 })

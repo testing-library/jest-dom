@@ -1,5 +1,5 @@
-import document from './helpers/document'
 import {HtmlElementTypeError} from '../utils'
+import document from './helpers/document'
 
 test('.toBeInTheDocument', () => {
   document.body.innerHTML = `
@@ -33,10 +33,13 @@ test('.toBeInTheDocument', () => {
   expect(() => expect(fakeElement).toBeInTheDocument()).toThrowError(
     HtmlElementTypeError,
   )
+  expect(() => expect(nullElement).toBeInTheDocument()).toThrowError(
+    HtmlElementTypeError,
+  )
   expect(() => expect(undefinedElement).toBeInTheDocument()).toThrowError(
     HtmlElementTypeError,
   )
-  expect(() => expect(nullElement).toBeInTheDocument()).toThrowError(
+  expect(() => expect(undefinedElement).not.toBeInTheDocument()).toThrowError(
     HtmlElementTypeError,
   )
 })

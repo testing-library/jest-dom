@@ -13,11 +13,14 @@
     "build": "kcd-scripts build",
     "lint": "kcd-scripts lint",
     "test": "kcd-scripts test",
-    "test:all": "npm test && npm test -- --env jsdom",
     "test:update": "npm test -- --updateSnapshot --coverage",
-    "validate": "kcd-scripts validate build,lint,test:all",
-    "setup": "npm install && npm run validate -s",
-    "precommit": "kcd-scripts precommit"
+    "validate": "kcd-scripts validate",
+    "setup": "npm install && npm run validate -s"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "kcd-scripts pre-commit"
+    }
   },
   "files": [
     "dist",
@@ -33,6 +36,7 @@
   "author": "Ernesto Garcia <gnapse@gmail.com> (http://gnapse.github.io/)",
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.5.1",
     "chalk": "^2.4.1",
     "css": "^2.2.3",
     "css.escape": "^1.5.1",
@@ -40,11 +44,12 @@
     "jest-matcher-utils": "^24.0.0",
     "lodash": "^4.17.11",
     "pretty-format": "^24.0.0",
-    "redent": "^2.0.0"
+    "redent": "^3.0.0"
   },
   "devDependencies": {
+    "jest-watch-select-projects": "^0.1.2",
     "jsdom": "^15.1.0",
-    "kcd-scripts": "^0.44.0"
+    "kcd-scripts": "^1.4.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",

@@ -25,7 +25,7 @@ export function toBeInTheDocument(element) {
         '',
         receivedColor(`${stringify(element.ownerDocument.cloneNode(false))} ${
           this.isNot ? 'contains:' : 'does not contain:'
-        } ${stringify(element ? element.cloneNode(false) : element)}
+        } ${stringify(element.cloneNode(false))}
         `),
       ].join('\n')
     },
