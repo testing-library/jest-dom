@@ -1,7 +1,10 @@
-const jestConfig = require('kcd-scripts/jest')
+const config = require('kcd-scripts/jest')
 
-module.exports = Object.assign(jestConfig, {
-  testEnvironment: 'jest-environment-node',
-  testURL: 'http://localhost/',
-  setupTestFrameworkScriptFile: '<rootDir>/setupTests.js',
-})
+module.exports = {
+  ...config,
+  projects: [
+    require.resolve('jest-watch-select-projects'),
+    require.resolve('./tests/jest.config.dom'),
+    require.resolve('./tests/jest.config.node'),
+  ],
+}

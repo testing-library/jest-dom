@@ -103,4 +103,86 @@ describe('.toHaveValue', () => {
       expect(queryByTestId('radio')).toHaveValue('')
     }).toThrow()
   })
+
+  test('throws when the expected input value does not match', () => {
+    const {container} = render(`<input data-testid="one" value="foo" />`)
+    const input = container.firstChild
+    let errorMessage
+    try {
+      expect(input).toHaveValue('something else')
+    } catch (error) {
+      errorMessage = error.message
+    }
+
+    expect(errorMessage).toMatchInlineSnapshot(`
+      "<dim>expect(</><red>element</><dim>).toHaveValue(</><green>something else</><dim>)</>
+
+      Expected the element to have value:
+      <green>  something else</>
+      Received:
+      <red>  foo</>"
+    `)
+  })
+
+  test('throws when using not but the expected input value does match', () => {
+    const {container} = render(`<input data-testid="one" value="foo" />`)
+    const input = container.firstChild
+    let errorMessage
+
+    try {
+      expect(input).not.toHaveValue('foo')
+    } catch (error) {
+      errorMessage = error.message
+    }
+    expect(errorMessage).toMatchInlineSnapshot(`
+      "<dim>expect(</><red>element</><dim>).not.toHaveValue(</><green>foo</><dim>)</>
+
+      Expected the element not to have value:
+      <green>  foo</>
+      Received:
+      <red>  foo</>"
+    `)
+  })
+
+  test('throws when the form has no a value but a value is expected', () => {
+    const {container} = render(`<input data-testid="one" />`)
+    const input = container.firstChild
+    let errorMessage
+
+    try {
+      expect(input).toHaveValue()
+    } catch (error) {
+      errorMessage = error.message
+    }
+    expect(errorMessage).toMatchInlineSnapshot(`
+      "<dim>expect(</><red>element</><dim>).toHaveValue(</><green>expected</><dim>)</>
+
+      Expected the element to have value:
+      <green>  (any)</>
+      Received:
+      "
+    `)
+  })
+
+  test('throws when the form has a value but none is expected', () => {
+    const {container} = render(`<input data-testid="one" value="foo" />`)
+    const input = container.firstChild
+    let errorMessage
+
+    try {
+      expect(input).not.toHaveValue()
+    } catch (error) {
+      errorMessage = error.message
+    }
+    expect(errorMessage).toMatchInlineSnapshot(`
+      "<dim>expect(</><red>element</><dim>).not.toHaveValue(</><green>expected</><dim>)</>
+
+      Expected the element not to have value:
+      <green>  (any)</>
+      Received:
+      <red>  foo</>"
+    `)
+  })
 })
+
+/* eslint max-lines-per-function:0 */
