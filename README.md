@@ -1054,8 +1054,9 @@ Contributions of any kind welcome!
 MIT
 
 [jest]: https://facebook.github.io/jest/
-[dom-testing-library]: https://github.com/kentcdodds/dom-testing-library
-[react-testing-library]: https://github.com/kentcdodds/react-testing-library
+[dom-testing-library]: https://github.com/testing-library/dom-testing-library
+[react-testing-library]:
+  https://github.com/testing-library/react-testing-library
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
 [build-badge]:
@@ -1064,18 +1065,18 @@ MIT
 [coverage-badge]:
   https://img.shields.io/codecov/c/github/testing-library/jest-dom.svg?style=flat-square
 [coverage]: https://codecov.io/github/testing-library/jest-dom
-[version-badge]: https://img.shields.io/npm/v/jest-dom.svg?style=flat-square
-[package]: https://www.npmjs.com/package/jest-dom
+[version-badge]:
+  https://img.shields.io/npm/v/@testing-library/jest-dom.svg?style=flat-square
+[package]: https://www.npmjs.com/package/@testing-library/jest-dom
 [downloads-badge]:
   https://img.shields.io/npm/dm/@testing-library/jest-dom.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/jest-dom
-[license-badge]: https://img.shields.io/npm/l/jest-dom.svg?style=flat-square
+[npmtrends]: http://www.npmtrends.com/@testing-library/jest-dom
+[license-badge]:
+  https://img.shields.io/npm/l/@testing-library/jest-dom.svg?style=flat-square
 [license]: https://github.com/testing-library/jest-dom/blob/master/LICENSE
 [prs-badge]:
   https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
-[donate-badge]:
-  https://img.shields.io/badge/$-support-green.svg?style=flat-square
 [coc-badge]:
   https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
 [coc]:
@@ -1090,6 +1091,6 @@ MIT
   https://twitter.com/intent/tweet?text=Check%20out%20jest-dom%20by%20%40gnapse%20https%3A%2F%2Fgithub.com%2Ftesting-library%2Fjest-dom%20%F0%9F%91%8D
 [twitter-badge]:
   https://img.shields.io/twitter/url/https/github.com/testing-library/jest-dom.svg?style=social
-[emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
-[all-contributors]: https://github.com/kentcdodds/all-contributors
+[emojis]: https://allcontributors.org/docs/en/emoji-key
+[all-contributors]: https://github.com/all-contributors/all-contributors
 [guiding-principle]: https://twitter.com/kentcdodds/status/977018512689455106
