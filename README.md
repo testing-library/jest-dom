@@ -115,7 +115,7 @@ expect.extend({toBeInTheDocument, toHaveClass})
 `@testing-library/jest-dom` can work with any library or framework that returns
 DOM elements from queries. The custom matcher examples below demonstrate using
 `document.querySelector` and
-[dom-testing-library](https://github.com/kentcdodds/dom-testing-library) for
+[DOM Testing Library](https://github.com/testing-library/dom-testing-library) for
 querying DOM elements.
 
 ### `toBeDisabled`
@@ -151,7 +151,7 @@ expect(document.querySelector('[data-testid="input"]')).toBeDisabled()
 expect(document.querySelector('a')).not.toBeDisabled()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByTestId(container, 'button')).toBeDisabled()
@@ -196,7 +196,7 @@ expect(document.querySelector('[data-testid="empty"]').toBeEmpty()
 expect(document.querySelector('[data-testid="not-empty"]').not.toBeEmpty()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(queryByTestId(container, 'empty')).toBeEmpty()
@@ -234,7 +234,7 @@ expect(nonExistantElement).not.toBeInTheDocument()
 expect(detachedElement).not.toBeInTheDocument()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(
@@ -286,7 +286,7 @@ expect(queryByTestId('aria-invalid-value')).toBeInvalid()
 expect(queryByTestId('aria-invalid-false')).not.toBeInvalid()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByTestId(container, 'no-aria-invalid')).not.toBeInvalid()
@@ -349,7 +349,7 @@ expect(
 ).toBeRequired()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByTestId(container, 'required-input')).toBeRequired()
@@ -397,7 +397,7 @@ expect(queryByTestId('aria-invalid-value')).not.toBeValid()
 expect(queryByTestId('aria-invalid-false')).toBeValid()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByTestId(container, 'no-aria-invalid')).toBeValid()
@@ -459,7 +459,7 @@ expect(
 ).not.toBeVisible()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByText(container, 'Zero Opacity Example')).not.toBeVisible()
@@ -501,7 +501,7 @@ expect(descendant).not.toContainElement(ancestor)
 expect(ancestor).not.toContainElement(nonExistantElement)
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const {queryByTestId} = render(/* Rendered HTML */)
@@ -540,7 +540,7 @@ expect(document.querySelector('[data-testid="parent"]')).toContainHTML(
 )
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByTestId(container, 'parent')).toContainHTML(
@@ -588,7 +588,7 @@ expect(button).toHaveAttribute('type', 'submit')
 expect(button).not.toHaveAttribute('type', 'button')
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const button = getByTestId(container, 'ok-button')
@@ -638,7 +638,7 @@ expect(deleteButton).not.toHaveClass('btn-link')
 expect(noClasses).not.toHaveClass()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const deleteButton = getByTestId(container, 'delete-button')
@@ -680,7 +680,7 @@ input.blur()
 expect(input).not.toHaveFocus()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const input = queryByTestId(container, 'element-to-focus')
@@ -811,7 +811,7 @@ expect(button).not.toHaveStyle(`
 `)
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const button = getByTestId(container, 'delete-button')
@@ -866,7 +866,7 @@ expect(element).toHaveTextContent(/content$/i) // to use case-insentive match
 expect(element).not.toHaveTextContent('content')
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const element = getByTestId(container, 'text-content')
@@ -920,7 +920,7 @@ expect(emptyInput).not.toHaveValue()
 expect(selectInput).not.toHaveValue(['second', 'third'])
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const {getByTestId} = render(/* Rendered HTML */)
@@ -972,8 +972,8 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 
 ## Inspiration
 
-This whole library was extracted out of Kent C. Dodds' [dom-testing-library][],
-which was in turn extracted out of [react-testing-library][].
+This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][],
+which was in turn extracted out of [React Testing Library][].
 
 The intention is to make this available to be used independently of these other
 libraries, and also to make it more clear that these other libraries are
@@ -990,9 +990,7 @@ here!
 > confidence they can give you.][guiding-principle]
 
 This library follows the same guiding principles as its mother library
-[dom-testing-library][]. Go
-[check them out](https://github.com/kentcdodds/dom-testing-library#guiding-principles)
-for more details.
+[DOM Testing Library][]. Go [check them out][guiding-principle] for more details.
 
 Additionally, with respect to custom DOM matchers, this library aims to maintain
 a minimal but useful set of them, while avoiding bloating itself with merely
@@ -1093,4 +1091,4 @@ MIT
   https://img.shields.io/twitter/url/https/github.com/testing-library/jest-dom.svg?style=social
 [emojis]: https://allcontributors.org/docs/en/emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
-[guiding-principle]: https://twitter.com/kentcdodds/status/977018512689455106
+[guiding-principle]: https://testing-library.com/docs/guiding-principles
