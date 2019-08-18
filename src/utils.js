@@ -138,7 +138,9 @@ function getTag(element) {
   return element.tagName && element.tagName.toLowerCase()
 }
 
-function getSelectValue({multiple, selectedOptions}) {
+function getSelectValue({multiple, options}) {
+  const selectedOptions = [...options].filter(option => option.selected)
+
   if (multiple) {
     return [...selectedOptions].map(opt => opt.value)
   }
