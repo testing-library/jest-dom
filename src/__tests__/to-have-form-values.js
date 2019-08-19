@@ -229,6 +229,24 @@ describe('.toHaveFormValues', () => {
         expect(form).toHaveFormValues(expectedValues)
       }).not.toThrowError()
     })
+
+    it('matches change in selected value of select', () => {
+      const oldValue = ''
+      const newValue = 'design'
+
+      const {container} = render(`
+        <form>
+          ${renderSelectSingle('category', 'Category', categories, oldValue)}
+        </form>
+      `)
+
+      const form = container.querySelector('form')
+      const select = container.querySelector('select')
+      expect(form).toHaveFormValues({category: oldValue})
+
+      select.value = newValue
+      expect(form).toHaveFormValues({category: newValue})
+    })
   })
 
   describe('failed assertions', () => {
@@ -331,3 +349,5 @@ function renderSelectMultiple(name, label, options, value = []) {
 function renderList(items, mapper) {
   return items.map(mapper).join('')
 }
+
+/* eslint max-lines-per-function:0 */
