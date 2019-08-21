@@ -23,7 +23,8 @@ function getDOMElement(htmlString, selector) {
   return new JSDOM(htmlString).window.document.querySelector(selector)
 }
 
-const invalidInputHtml = `<input pattern="[a-z]{1,3}" value="test+">`
+// A required field without a value is invalid
+const invalidInputHtml = `<input required>`
 
 const invalidInputNode = getDOMElement(invalidInputHtml, 'input')
 
