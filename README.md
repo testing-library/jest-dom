@@ -260,13 +260,14 @@ expect(
 toBeInvalid()
 ```
 
-This allows you to check if an form element is currently invalid.
+This allows you to check if a form element, or the entire `form`, is currently
+invalid.
 
-An element is invalid if it is having an
+An `input`, `select`, `textarea`, or `form` element is invalid if it has an
 [`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
-or if the result of
+with no value or a value of `"true"`, or if the result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
-are false.
+is `false`.
 
 #### Examples
 
@@ -275,6 +276,14 @@ are false.
 <input data-testid="aria-invalid" aria-invalid />
 <input data-testid="aria-invalid-value" aria-invalid="true" />
 <input data-testid="aria-invalid-false" aria-invalid="false" />
+
+<form data-testid="valid-form">
+  <input />
+</form>
+
+<form data-testid="invalid-form">
+  <input required />
+</form>
 ```
 
 ##### Using document.querySelector
@@ -284,6 +293,9 @@ expect(queryByTestId('no-aria-invalid')).not.toBeInvalid()
 expect(queryByTestId('aria-invalid')).toBeInvalid()
 expect(queryByTestId('aria-invalid-value')).toBeInvalid()
 expect(queryByTestId('aria-invalid-false')).not.toBeInvalid()
+
+expect(queryByTestId('valid-form')).not.toBeInvalid()
+expect(queryByTestId('invalid-form')).toBeInvalid()
 ```
 
 ##### Using DOM Testing Library
@@ -293,6 +305,9 @@ expect(getByTestId(container, 'no-aria-invalid')).not.toBeInvalid()
 expect(getByTestId(container, 'aria-invalid')).toBeInvalid()
 expect(getByTestId(container, 'aria-invalid-value')).toBeInvalid()
 expect(getByTestId(container, 'aria-invalid-false')).not.toBeInvalid()
+
+expect(getByTestId(container, 'valid-form')).not.toBeInvalid()
+expect(getByTestId(container, 'invalid-form')).toBeInvalid()
 ```
 
 <hr />
@@ -372,12 +387,14 @@ expect(getByTestId(container, 'supported-role-aria')).toBeRequired()
 toBeValid()
 ```
 
-This allows you to check if the value of a form element is currently valid.
+This allows you to check if the value of a form element, or the entire `form`,
+is currently valid.
 
-An element is valid if it is not having an
+An `input`, `select`, `textarea`, or `form` element is valid if it has no
 [`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
-or having `false` as a value and returning `true` when calling
-[`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation).
+or an attribute value of `"false"`. The result of
+[`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
+must also be `true`.
 
 #### Examples
 
@@ -386,6 +403,14 @@ or having `false` as a value and returning `true` when calling
 <input data-testid="aria-invalid" aria-invalid />
 <input data-testid="aria-invalid-value" aria-invalid="true" />
 <input data-testid="aria-invalid-false" aria-invalid="false" />
+
+<form data-testid="valid-form">
+  <input />
+</form>
+
+<form data-testid="invalid-form">
+  <input required />
+</form>
 ```
 
 ##### Using document.querySelector
@@ -395,6 +420,9 @@ expect(queryByTestId('no-aria-invalid')).toBeValid()
 expect(queryByTestId('aria-invalid')).not.toBeValid()
 expect(queryByTestId('aria-invalid-value')).not.toBeValid()
 expect(queryByTestId('aria-invalid-false')).toBeValid()
+
+expect(queryByTestId('valid-form')).toBeValid()
+expect(queryByTestId('invalid-form')).not.toBeValid()
 ```
 
 ##### Using DOM Testing Library
@@ -404,6 +432,9 @@ expect(getByTestId(container, 'no-aria-invalid')).toBeValid()
 expect(getByTestId(container, 'aria-invalid')).not.toBeValid()
 expect(getByTestId(container, 'aria-invalid-value')).not.toBeValid()
 expect(getByTestId(container, 'aria-invalid-false')).toBeValid()
+
+expect(getByTestId(container, 'valid-form')).toBeValid()
+expect(getByTestId(container, 'invalid-form')).not.toBeValid()
 ```
 
 <hr />
