@@ -1,7 +1,7 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement, getTag} from './utils'
 
-const FORM_TAGS = ['input', 'select', 'textarea']
+const FORM_TAGS = ['form', 'input', 'select', 'textarea']
 
 function isElementHavingAriaInvalid(element) {
   return (

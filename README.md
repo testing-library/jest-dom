@@ -2,23 +2,27 @@
 <h1>jest-dom</h1>
 
 <a href="https://www.emojione.com/emoji/1f989">
-<img height="80" width="80" alt="owl" src="https://raw.githubusercontent.com/testing-library/jest-dom/master/other/owl.png" />
+  <img
+    height="80"
+    width="80"
+    alt="owl"
+    src="https://raw.githubusercontent.com/testing-library/jest-dom/master/other/owl.png"
+  />
 </a>
 
 <p>Custom jest matchers to test the state of the DOM</p>
+
 </div>
 
 <hr />
 
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
-[![version][version-badge]][package]
-[![downloads][downloads-badge]][npmtrends]
+[![version][version-badge]][package] [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square)](#contributors)
-[![PRs Welcome][prs-badge]][prs]
-[![Code of Conduct][coc-badge]][coc]
+[![All Contributors](https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square)](#contributors-)
+[![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
@@ -33,9 +37,9 @@ content, its css classes, you name it.
 
 ## This solution
 
-The `jest-dom` library provides a set of custom jest matchers that you can use
-to extend jest. These will make your tests more declarative, clear to read and
-to maintain.
+The `@testing-library/jest-dom` library provides a set of custom jest matchers
+that you can use to extend jest. These will make your tests more declarative,
+clear to read and to maintain.
 
 ## Table of Contents
 
@@ -79,35 +83,41 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
 ```
-npm install --save-dev jest-dom
+npm install --save-dev @testing-library/jest-dom
 ```
 
 ## Usage
 
-Import `jest-dom/extend-expect` once (for instance in your [tests setup file][])
-and you're good to go:
+Import `@testing-library/jest-dom/extend-expect` once (for instance in your
+[tests setup file][]) and you're good to go:
 
-[tests setup file]: https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
+[tests setup file]:
+  https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
 
 ```javascript
-import 'jest-dom/extend-expect'
+import '@testing-library/jest-dom/extend-expect'
 ```
 
 Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
 
 ```javascript
-import {toBeInTheDocument, toHaveClass} from 'jest-dom'
+import {toBeInTheDocument, toHaveClass} from '@testing-library/jest-dom'
 
 expect.extend({toBeInTheDocument, toHaveClass})
 ```
 
 > Note: when using TypeScript, this way of importing matchers won't provide the
-> necessary type definitions. More on this [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
+> necessary type definitions. More on this
+> [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
 
 ## Custom matchers
 
-`jest-dom` can work with any library or framework that returns DOM elements from queries. The custom matcher examples below demonstrate using `document.querySelector` and [dom-testing-library](https://github.com/kentcdodds/dom-testing-library) for querying DOM elements.
+`@testing-library/jest-dom` can work with any library or framework that returns
+DOM elements from queries. The custom matcher examples below demonstrate using
+`document.querySelector` and
+[DOM Testing Library](https://github.com/testing-library/dom-testing-library)
+for querying DOM elements.
 
 ### `toBeDisabled`
 
@@ -115,13 +125,15 @@ expect.extend({toBeInTheDocument, toHaveClass})
 toBeDisabled()
 ```
 
-This allows you to check whether an element is disabled from the user's perspective.
+This allows you to check whether an element is disabled from the user's
+perspective.
 
 It matches if the element is a form control and the `disabled` attribute is
-specified on this element or the element is a descendant of a form element
-with a `disabled` attribute.
+specified on this element or the element is a descendant of a form element with
+a `disabled` attribute.
 
-According to the specification, the following elements can be [actually disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
+According to the specification, the following elements can be
+[actually disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
 `button`, `input`, `select`, `textarea`, `optgroup`, `option`, `fieldset`.
 
 #### Examples
@@ -140,7 +152,7 @@ expect(document.querySelector('[data-testid="input"]')).toBeDisabled()
 expect(document.querySelector('a')).not.toBeDisabled()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByTestId(container, 'button')).toBeDisabled()
@@ -156,9 +168,11 @@ expect(getByText(container, 'link')).not.toBeDisabled()
 toBeEnabled()
 ```
 
-This allows you to check whether an element is not disabled from the user's perspective.
+This allows you to check whether an element is not disabled from the user's
+perspective.
 
-It works like `not.toBeDisabled()`. Use this matcher to avoid double negation in your tests.
+It works like `not.toBeDisabled()`. Use this matcher to avoid double negation in
+your tests.
 
 <hr />
 
@@ -183,7 +197,7 @@ expect(document.querySelector('[data-testid="empty"]').toBeEmpty()
 expect(document.querySelector('[data-testid="not-empty"]').not.toBeEmpty()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(queryByTestId(container, 'empty')).toBeEmpty()
@@ -221,7 +235,7 @@ expect(nonExistantElement).not.toBeInTheDocument()
 expect(detachedElement).not.toBeInTheDocument()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(
@@ -235,7 +249,9 @@ expect(
 ).not.toBeInTheDocument()
 ```
 
-> Note: This matcher does not find detached elements. The element must be added to the document to be found by toBeInTheDocument. If you desire to search in a detached element please use: [`toContainElement`](#tocontainelement)
+> Note: This matcher does not find detached elements. The element must be added
+> to the document to be found by toBeInTheDocument. If you desire to search in a
+> detached element please use: [`toContainElement`](#tocontainelement)
 
 <hr />
 
@@ -245,9 +261,14 @@ expect(
 toBeInvalid()
 ```
 
-This allows you to check if an form element is currently invalid.
+This allows you to check if a form element, or the entire `form`, is currently
+invalid.
 
-An element is invalid if it is having an [`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute) or if the result of [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation) are false.
+An `input`, `select`, `textarea`, or `form` element is invalid if it has an
+[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
+with no value or a value of `"true"`, or if the result of
+[`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
+is `false`.
 
 #### Examples
 
@@ -256,6 +277,14 @@ An element is invalid if it is having an [`aria-invalid` attribute](https://deve
 <input data-testid="aria-invalid" aria-invalid />
 <input data-testid="aria-invalid-value" aria-invalid="true" />
 <input data-testid="aria-invalid-false" aria-invalid="false" />
+
+<form data-testid="valid-form">
+  <input />
+</form>
+
+<form data-testid="invalid-form">
+  <input required />
+</form>
 ```
 
 ##### Using document.querySelector
@@ -265,15 +294,21 @@ expect(queryByTestId('no-aria-invalid')).not.toBeInvalid()
 expect(queryByTestId('aria-invalid')).toBeInvalid()
 expect(queryByTestId('aria-invalid-value')).toBeInvalid()
 expect(queryByTestId('aria-invalid-false')).not.toBeInvalid()
+
+expect(queryByTestId('valid-form')).not.toBeInvalid()
+expect(queryByTestId('invalid-form')).toBeInvalid()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByTestId(container, 'no-aria-invalid')).not.toBeInvalid()
 expect(getByTestId(container, 'aria-invalid')).toBeInvalid()
 expect(getByTestId(container, 'aria-invalid-value')).toBeInvalid()
 expect(getByTestId(container, 'aria-invalid-false')).not.toBeInvalid()
+
+expect(getByTestId(container, 'valid-form')).not.toBeInvalid()
+expect(getByTestId(container, 'invalid-form')).toBeInvalid()
 ```
 
 <hr />
@@ -358,7 +393,8 @@ toBeRequired()
 
 This allows you to check if an form element is currently required.
 
-An element is required if it is having a `required` or `aria-required="true"` attribute.
+An element is required if it is having a `required` or `aria-required="true"`
+attribute.
 
 #### Examples
 
@@ -401,7 +437,7 @@ expect(
 ).toBeRequired()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByTestId(container, 'required-input')).toBeRequired()
@@ -424,9 +460,14 @@ expect(getByTestId(container, 'supported-role-aria')).toBeRequired()
 toBeValid()
 ```
 
-This allows you to check if the value of a form element is currently valid.
+This allows you to check if the value of a form element, or the entire `form`,
+is currently valid.
 
-An element is valid if it is not having an [`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute) or having `false` as a value and returning `true` when calling [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation).
+An `input`, `select`, `textarea`, or `form` element is valid if it has no
+[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
+or an attribute value of `"false"`. The result of
+[`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
+must also be `true`.
 
 #### Examples
 
@@ -435,6 +476,14 @@ An element is valid if it is not having an [`aria-invalid` attribute](https://de
 <input data-testid="aria-invalid" aria-invalid />
 <input data-testid="aria-invalid-value" aria-invalid="true" />
 <input data-testid="aria-invalid-false" aria-invalid="false" />
+
+<form data-testid="valid-form">
+  <input />
+</form>
+
+<form data-testid="invalid-form">
+  <input required />
+</form>
 ```
 
 ##### Using document.querySelector
@@ -444,15 +493,21 @@ expect(queryByTestId('no-aria-invalid')).toBeValid()
 expect(queryByTestId('aria-invalid')).not.toBeValid()
 expect(queryByTestId('aria-invalid-value')).not.toBeValid()
 expect(queryByTestId('aria-invalid-false')).toBeValid()
+
+expect(queryByTestId('valid-form')).toBeValid()
+expect(queryByTestId('invalid-form')).not.toBeValid()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByTestId(container, 'no-aria-invalid')).toBeValid()
 expect(getByTestId(container, 'aria-invalid')).not.toBeValid()
 expect(getByTestId(container, 'aria-invalid-value')).not.toBeValid()
 expect(getByTestId(container, 'aria-invalid-false')).toBeValid()
+
+expect(getByTestId(container, 'valid-form')).toBeValid()
+expect(getByTestId(container, 'invalid-form')).not.toBeValid()
 ```
 
 <hr />
@@ -472,7 +527,9 @@ An element is visible if **all** the following conditions are met:
   `collapse`
 - it does not have its css property `opacity` set to `0`
 - its parent element is also visible (and so on up to the top of the DOM tree)
-- it does not have the [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden) attribute
+- it does not have the
+  [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden)
+  attribute
 
 #### Examples
 
@@ -506,7 +563,7 @@ expect(
 ).not.toBeVisible()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByText(container, 'Zero Opacity Example')).not.toBeVisible()
@@ -525,7 +582,8 @@ expect(getByText(container, 'Hidden Attribute Example')).not.toBeVisible()
 toContainElement(element: HTMLElement | SVGElement | null)
 ```
 
-This allows you to assert whether an element contains another element as a descendant or not.
+This allows you to assert whether an element contains another element as a
+descendant or not.
 
 #### Examples
 
@@ -547,7 +605,7 @@ expect(descendant).not.toContainElement(ancestor)
 expect(ancestor).not.toContainElement(nonExistantElement)
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const {queryByTestId} = render(/* Rendered HTML */)
@@ -569,7 +627,8 @@ expect(ancestor).not.toContainElement(nonExistantElement)
 toContainHTML(htmlText: string)
 ```
 
-Assert whether a string representing a HTML element is contained in another element:
+Assert whether a string representing a HTML element is contained in another
+element:
 
 #### Examples
 
@@ -585,7 +644,7 @@ expect(document.querySelector('[data-testid="parent"]')).toContainHTML(
 )
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 expect(getByTestId(container, 'parent')).toContainHTML(
@@ -593,11 +652,16 @@ expect(getByTestId(container, 'parent')).toContainHTML(
 )
 ```
 
-> Chances are you probably do not need to use this matcher. We encourage testing from the perspective of how the user perceives the app in a browser. That's why testing against a specific DOM structure is not advised.
+> Chances are you probably do not need to use this matcher. We encourage testing
+> from the perspective of how the user perceives the app in a browser. That's
+> why testing against a specific DOM structure is not advised.
 >
-> It could be useful in situations where the code being tested renders html that was obtained from an external source, and you want to validate that that html code was used as intended.
+> It could be useful in situations where the code being tested renders html that
+> was obtained from an external source, and you want to validate that that html
+> code was used as intended.
 >
-> It should not be used to check DOM structure that you control. Please use [`toContainElement`](#tocontainelement) instead.
+> It should not be used to check DOM structure that you control. Please use
+> [`toContainElement`](#tocontainelement) instead.
 
 <hr />
 
@@ -608,7 +672,9 @@ toHaveAttribute(attr: string, value?: any)
 ```
 
 This allows you to check whether the given element has an attribute or not. You
-can also optionally check that the attribute has a specific expected value or partial match using [expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp)
+can also optionally check that the attribute has a specific expected value or
+partial match using
+[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp)
 
 #### Examples
 
@@ -626,7 +692,7 @@ expect(button).toHaveAttribute('type', 'submit')
 expect(button).not.toHaveAttribute('type', 'button')
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const button = getByTestId(container, 'ok-button')
@@ -647,8 +713,8 @@ expect(button).toHaveAttribute('type', expect.not.stringContaining('but'))
 toHaveClass(...classNames: string[])
 ```
 
-This allows you to check whether the given element has certain classes within its
-`class` attribute.
+This allows you to check whether the given element has certain classes within
+its `class` attribute.
 
 You must provide at least one class, unless you are asserting that an element
 does not have any classes.
@@ -676,7 +742,7 @@ expect(deleteButton).not.toHaveClass('btn-link')
 expect(noClasses).not.toHaveClass()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const deleteButton = getByTestId(container, 'delete-button')
@@ -718,7 +784,7 @@ input.blur()
 expect(input).not.toHaveFocus()
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const input = queryByTestId(container, 'element-to-focus')
@@ -789,10 +855,12 @@ control to using a group of radio buttons. Or to switch from a multi select
 control, to using a group of checkboxes. The resulting set of form values used
 by this matcher to compare against would be the same.
 
-[selected options]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/selectedOptions
+[selected options]:
+  https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/selectedOptions
 [form]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
 [fieldset]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLFieldSetElement
-[.elements]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements
+[.elements]:
+  https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements
 
 #### Examples
 
@@ -847,7 +915,7 @@ expect(button).not.toHaveStyle(`
 `)
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const button = getByTestId(container, 'delete-button')
@@ -877,9 +945,11 @@ toHaveTextContent(text: string | RegExp, options?: {normalizeWhitespace: boolean
 
 This allows you to check whether the given element has a text content or not.
 
-When a `string` argument is passed through, it will perform a partial case-sensitive match to the element content.
+When a `string` argument is passed through, it will perform a partial
+case-sensitive match to the element content.
 
-To perform a case-insensitive match, you can use a `RegExp` with the `/i` modifier.
+To perform a case-insensitive match, you can use a `RegExp` with the `/i`
+modifier.
 
 If you want to match the whole content, you can use a `RegExp` to do it.
 
@@ -900,7 +970,7 @@ expect(element).toHaveTextContent(/content$/i) // to use case-insentive match
 expect(element).not.toHaveTextContent('content')
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const element = getByTestId(container, 'text-content')
@@ -921,11 +991,11 @@ toHaveValue(value: string | string[] | number)
 
 This allows you to check whether the given form element has the specified value.
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
-of `<input type="checkbox">` and `<input type="radio">`, which can be meaningfully
-matched only using [`toHaveFormValue`](#tohaveformvalues).
+of `<input type="checkbox">` and `<input type="radio">`, which can be
+meaningfully matched only using [`toHaveFormValue`](#tohaveformvalues).
 
-For all other form elements, the value is matched using the same algorithm
-as in [`toHaveFormValue`](#tohaveformvalues) does.
+For all other form elements, the value is matched using the same algorithm as in
+[`toHaveFormValue`](#tohaveformvalues) does.
 
 #### Examples
 
@@ -954,7 +1024,7 @@ expect(emptyInput).not.toHaveValue()
 expect(selectInput).not.toHaveValue(['second', 'third'])
 ```
 
-##### Using dom-testing-library
+##### Using DOM Testing Library
 
 ```javascript
 const {getByTestId} = render(/* Rendered HTML */)
@@ -988,9 +1058,9 @@ This is the main reason why this matcher is deprecated, and will be removed in
 the next major release. You can follow the discussion around this decision in
 more detail [here](https://github.com/testing-library/jest-dom/issues/34).
 
-As an alternative, you can use [`toBeInTheDocument`](#tobeinthedocument)
-or [`toContainElement`](#tocontainelement). Or if you just want to check if a
-value is indeed an `HTMLElement` you can always use some of
+As an alternative, you can use [`toBeInTheDocument`](#tobeinthedocument) or
+[`toContainElement`](#tocontainelement). Or if you just want to check if a value
+is indeed an `HTMLElement` you can always use some of
 [jest's built-in matchers](https://jestjs.io/docs/en/expect#tobeinstanceofclass):
 
 ```js
@@ -1006,8 +1076,8 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 
 ## Inspiration
 
-This whole library was extracted out of Kent C. Dodds' [dom-testing-library][],
-which was in turn extracted out of [react-testing-library][].
+This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][],
+which was in turn extracted out of [React Testing Library][].
 
 The intention is to make this available to be used independently of these other
 libraries, and also to make it more clear that these other libraries are
@@ -1020,11 +1090,11 @@ here!
 
 ## Guiding Principles
 
-> [The more your tests resemble the way your software is used, the more confidence they can give you.][guiding-principle]
+> [The more your tests resemble the way your software is used, the more
+> confidence they can give you.][guiding-principle]
 
-This library follows the same guiding principles as its mother library [dom-testing-library][].
-Go [check them out](https://github.com/kentcdodds/dom-testing-library#guiding-principles)
-for more details.
+This library follows the same guiding principles as its mother library [DOM
+Testing Library][]. Go [check them out][guiding-principle] for more details.
 
 Additionally, with respect to custom DOM matchers, this library aims to maintain
 a minimal but useful set of them, while avoiding bloating itself with merely
@@ -1038,12 +1108,48 @@ more verbose, less clear in its intent, and/or harder to read.
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;" alt="Kent C. Dodds"/><br /><sub><b>Kent C. Dodds</b></sub>](https://kentcdodds.com)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=kentcdodds "Code") [📖](https://github.com/testing-library/jest-dom/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/testing-library/jest-dom/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/2430381?v=4" width="100px;" alt="Ryan Castner"/><br /><sub><b>Ryan Castner</b></sub>](http://audiolion.github.io)<br />[📖](https://github.com/testing-library/jest-dom/commits?author=audiolion "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/8008023?v=4" width="100px;" alt="Daniel Sandiego"/><br /><sub><b>Daniel Sandiego</b></sub>](https://www.dnlsandiego.com)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=dnlsandiego "Code") | [<img src="https://avatars2.githubusercontent.com/u/12592677?v=4" width="100px;" alt="Paweł Mikołajczyk"/><br /><sub><b>Paweł Mikołajczyk</b></sub>](https://github.com/Miklet)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=Miklet "Code") | [<img src="https://avatars3.githubusercontent.com/u/464978?v=4" width="100px;" alt="Alejandro Ñáñez Ortiz"/><br /><sub><b>Alejandro Ñáñez Ortiz</b></sub>](http://co.linkedin.com/in/alejandronanez/)<br />[📖](https://github.com/testing-library/jest-dom/commits?author=alejandronanez "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/1402095?v=4" width="100px;" alt="Matt Parrish"/><br /><sub><b>Matt Parrish</b></sub>](https://github.com/pbomb)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Apbomb "Bug reports") [💻](https://github.com/testing-library/jest-dom/commits?author=pbomb "Code") [📖](https://github.com/testing-library/jest-dom/commits?author=pbomb "Documentation") [⚠️](https://github.com/testing-library/jest-dom/commits?author=pbomb "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;" alt="Justin Hall"/><br /><sub><b>Justin Hall</b></sub>](https://github.com/wKovacs64)<br />[📦](#platform-wKovacs64 "Packaging/porting to new platform") |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| [<img src="https://avatars1.githubusercontent.com/u/1241511?s=460&v=4" width="100px;" alt="Anto Aravinth"/><br /><sub><b>Anto Aravinth</b></sub>](https://github.com/antoaravinth)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=antoaravinth "Code") [⚠️](https://github.com/testing-library/jest-dom/commits?author=antoaravinth "Tests") [📖](https://github.com/testing-library/jest-dom/commits?author=antoaravinth "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/3462296?v=4" width="100px;" alt="Jonah Moses"/><br /><sub><b>Jonah Moses</b></sub>](https://github.com/JonahMoses)<br />[📖](https://github.com/testing-library/jest-dom/commits?author=JonahMoses "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/4002543?v=4" width="100px;" alt="Łukasz Gandecki"/><br /><sub><b>Łukasz Gandecki</b></sub>](http://team.thebrain.pro)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=lgandecki "Code") [⚠️](https://github.com/testing-library/jest-dom/commits?author=lgandecki "Tests") [📖](https://github.com/testing-library/jest-dom/commits?author=lgandecki "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/498274?v=4" width="100px;" alt="Ivan Babak"/><br /><sub><b>Ivan Babak</b></sub>](https://sompylasar.github.io)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Asompylasar "Bug reports") [🤔](#ideas-sompylasar "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/4439618?v=4" width="100px;" alt="Jesse Day"/><br /><sub><b>Jesse Day</b></sub>](https://github.com/jday3)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=jday3 "Code") | [<img src="https://avatars0.githubusercontent.com/u/15199?v=4" width="100px;" alt="Ernesto García"/><br /><sub><b>Ernesto García</b></sub>](http://gnapse.github.io)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=gnapse "Code") [📖](https://github.com/testing-library/jest-dom/commits?author=gnapse "Documentation") [⚠️](https://github.com/testing-library/jest-dom/commits?author=gnapse "Tests") | [<img src="https://avatars0.githubusercontent.com/u/79312?v=4" width="100px;" alt="Mark Volkmann"/><br /><sub><b>Mark Volkmann</b></sub>](http://ociweb.com/mark/)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Amvolkmann "Bug reports") [💻](https://github.com/testing-library/jest-dom/commits?author=mvolkmann "Code") |
-| [<img src="https://avatars1.githubusercontent.com/u/1659099?v=4" width="100px;" alt="smacpherson64"/><br /><sub><b>smacpherson64</b></sub>](https://github.com/smacpherson64)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=smacpherson64 "Code") [📖](https://github.com/testing-library/jest-dom/commits?author=smacpherson64 "Documentation") [⚠️](https://github.com/testing-library/jest-dom/commits?author=smacpherson64 "Tests") | [<img src="https://avatars2.githubusercontent.com/u/132233?v=4" width="100px;" alt="John Gozde"/><br /><sub><b>John Gozde</b></sub>](https://github.com/jgoz)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Ajgoz "Bug reports") [💻](https://github.com/testing-library/jest-dom/commits?author=jgoz "Code") | [<img src="https://avatars2.githubusercontent.com/u/7830590?v=4" width="100px;" alt="Iwona"/><br /><sub><b>Iwona</b></sub>](https://github.com/callada)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=callada "Code") [📖](https://github.com/testing-library/jest-dom/commits?author=callada "Documentation") [⚠️](https://github.com/testing-library/jest-dom/commits?author=callada "Tests") | [<img src="https://avatars0.githubusercontent.com/u/840609?v=4" width="100px;" alt="Lewis"/><br /><sub><b>Lewis</b></sub>](https://github.com/6ewis)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=6ewis "Code") | [<img src="https://avatars3.githubusercontent.com/u/2339362?v=4" width="100px;" alt="Leandro Lourenci"/><br /><sub><b>Leandro Lourenci</b></sub>](https://blog.lourenci.com/)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Alourenci "Bug reports") [📖](https://github.com/testing-library/jest-dom/commits?author=lourenci "Documentation") [💻](https://github.com/testing-library/jest-dom/commits?author=lourenci "Code") [⚠️](https://github.com/testing-library/jest-dom/commits?author=lourenci "Tests") | [<img src="https://avatars1.githubusercontent.com/u/626420?v=4" width="100px;" alt="Shukhrat Mukimov"/><br /><sub><b>Shukhrat Mukimov</b></sub>](https://github.com/mufasa71)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Amufasa71 "Bug reports") | [<img src="https://avatars3.githubusercontent.com/u/1481264?v=4" width="100px;" alt="Roman Usherenko"/><br /><sub><b>Roman Usherenko</b></sub>](https://github.com/dreyks)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=dreyks "Code") [⚠️](https://github.com/testing-library/jest-dom/commits?author=dreyks "Tests") |
-| [<img src="https://avatars1.githubusercontent.com/u/648?v=4" width="100px;" alt="Joe Hsu"/><br /><sub><b>Joe Hsu</b></sub>](http://josephhsu.com)<br />[📖](https://github.com/testing-library/jest-dom/commits?author=jhsu "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/3068563?v=4" width="100px;" alt="Haz"/><br /><sub><b>Haz</b></sub>](https://twitter.com/diegohaz)<br />[🐛](https://github.com/testing-library/jest-dom/issues?q=author%3Adiegohaz "Bug reports") [💻](https://github.com/testing-library/jest-dom/commits?author=diegohaz "Code") | [<img src="https://avatars3.githubusercontent.com/u/463904?v=4" width="100px;" alt="Revath S Kumar"/><br /><sub><b>Revath S Kumar</b></sub>](https://blog.revathskumar.com)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=revathskumar "Code") | [<img src="https://avatars0.githubusercontent.com/u/4989733?v=4" width="100px;" alt="hiwelo."/><br /><sub><b>hiwelo.</b></sub>](https://raccoon.studio)<br />[💻](https://github.com/testing-library/jest-dom/commits?author=hiwelo "Code") [🤔](#ideas-hiwelo "Ideas, Planning, & Feedback") [⚠️](https://github.com/testing-library/jest-dom/commits?author=hiwelo "Tests") | [<img src="https://avatars3.githubusercontent.com/u/1201711?v=4" width="100px;" alt="Łukasz Fiszer"/><br /><sub><b>Łukasz Fiszer</b></sub>](https://github.com/lukaszfiszer)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=lukaszfiszer "Code") | [<img src="https://avatars3.githubusercontent.com/u/1201711?v=4" width="100px;" alt="Łukasz Fiszer"/><br /><sub><b>Łukasz Fiszer</b></sub>](https://github.com/lukaszfiszer)<br />[💻](https://github.com/gnapse/jest-dom/commits?author=lukaszfiszer "Code") |
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://kentcdodds.com"><img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;" alt="Kent C. Dodds"/><br /><sub><b>Kent C. Dodds</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Documentation">📖</a> <a href="#infra-kentcdodds" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://audiolion.github.io"><img src="https://avatars1.githubusercontent.com/u/2430381?v=4" width="100px;" alt="Ryan Castner"/><br /><sub><b>Ryan Castner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=audiolion" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://www.dnlsandiego.com"><img src="https://avatars0.githubusercontent.com/u/8008023?v=4" width="100px;" alt="Daniel Sandiego"/><br /><sub><b>Daniel Sandiego</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=dnlsandiego" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Miklet"><img src="https://avatars2.githubusercontent.com/u/12592677?v=4" width="100px;" alt="Paweł Mikołajczyk"/><br /><sub><b>Paweł Mikołajczyk</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=Miklet" title="Code">💻</a></td>
+    <td align="center"><a href="http://co.linkedin.com/in/alejandronanez/"><img src="https://avatars3.githubusercontent.com/u/464978?v=4" width="100px;" alt="Alejandro Ñáñez Ortiz"/><br /><sub><b>Alejandro Ñáñez Ortiz</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=alejandronanez" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/pbomb"><img src="https://avatars0.githubusercontent.com/u/1402095?v=4" width="100px;" alt="Matt Parrish"/><br /><sub><b>Matt Parrish</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Apbomb" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=pbomb" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=pbomb" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=pbomb" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/wKovacs64"><img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;" alt="Justin Hall"/><br /><sub><b>Justin Hall</b></sub></a><br /><a href="#platform-wKovacs64" title="Packaging/porting to new platform">📦</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/antoaravinth"><img src="https://avatars1.githubusercontent.com/u/1241511?s=460&v=4" width="100px;" alt="Anto Aravinth"/><br /><sub><b>Anto Aravinth</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=antoaravinth" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=antoaravinth" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=antoaravinth" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/JonahMoses"><img src="https://avatars2.githubusercontent.com/u/3462296?v=4" width="100px;" alt="Jonah Moses"/><br /><sub><b>Jonah Moses</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=JonahMoses" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://team.thebrain.pro"><img src="https://avatars1.githubusercontent.com/u/4002543?v=4" width="100px;" alt="Łukasz Gandecki"/><br /><sub><b>Łukasz Gandecki</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lgandecki" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lgandecki" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lgandecki" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://sompylasar.github.io"><img src="https://avatars2.githubusercontent.com/u/498274?v=4" width="100px;" alt="Ivan Babak"/><br /><sub><b>Ivan Babak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Asompylasar" title="Bug reports">🐛</a> <a href="#ideas-sompylasar" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/jday3"><img src="https://avatars3.githubusercontent.com/u/4439618?v=4" width="100px;" alt="Jesse Day"/><br /><sub><b>Jesse Day</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jday3" title="Code">💻</a></td>
+    <td align="center"><a href="http://gnapse.github.io"><img src="https://avatars0.githubusercontent.com/u/15199?v=4" width="100px;" alt="Ernesto García"/><br /><sub><b>Ernesto García</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=gnapse" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=gnapse" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=gnapse" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://ociweb.com/mark/"><img src="https://avatars0.githubusercontent.com/u/79312?v=4" width="100px;" alt="Mark Volkmann"/><br /><sub><b>Mark Volkmann</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Amvolkmann" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=mvolkmann" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/smacpherson64"><img src="https://avatars1.githubusercontent.com/u/1659099?v=4" width="100px;" alt="smacpherson64"/><br /><sub><b>smacpherson64</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=smacpherson64" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=smacpherson64" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=smacpherson64" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/jgoz"><img src="https://avatars2.githubusercontent.com/u/132233?v=4" width="100px;" alt="John Gozde"/><br /><sub><b>John Gozde</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ajgoz" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jgoz" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/callada"><img src="https://avatars2.githubusercontent.com/u/7830590?v=4" width="100px;" alt="Iwona"/><br /><sub><b>Iwona</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=callada" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=callada" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=callada" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/6ewis"><img src="https://avatars0.githubusercontent.com/u/840609?v=4" width="100px;" alt="Lewis"/><br /><sub><b>Lewis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=6ewis" title="Code">💻</a></td>
+    <td align="center"><a href="https://blog.lourenci.com/"><img src="https://avatars3.githubusercontent.com/u/2339362?v=4" width="100px;" alt="Leandro Lourenci"/><br /><sub><b>Leandro Lourenci</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Alourenci" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lourenci" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lourenci" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lourenci" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/mufasa71"><img src="https://avatars1.githubusercontent.com/u/626420?v=4" width="100px;" alt="Shukhrat Mukimov"/><br /><sub><b>Shukhrat Mukimov</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Amufasa71" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/dreyks"><img src="https://avatars3.githubusercontent.com/u/1481264?v=4" width="100px;" alt="Roman Usherenko"/><br /><sub><b>Roman Usherenko</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=dreyks" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=dreyks" title="Tests">⚠️</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://josephhsu.com"><img src="https://avatars1.githubusercontent.com/u/648?v=4" width="100px;" alt="Joe Hsu"/><br /><sub><b>Joe Hsu</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jhsu" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://twitter.com/diegohaz"><img src="https://avatars3.githubusercontent.com/u/3068563?v=4" width="100px;" alt="Haz"/><br /><sub><b>Haz</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Adiegohaz" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=diegohaz" title="Code">💻</a></td>
+    <td align="center"><a href="https://blog.revathskumar.com"><img src="https://avatars3.githubusercontent.com/u/463904?v=4" width="100px;" alt="Revath S Kumar"/><br /><sub><b>Revath S Kumar</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=revathskumar" title="Code">💻</a></td>
+    <td align="center"><a href="https://raccoon.studio"><img src="https://avatars0.githubusercontent.com/u/4989733?v=4" width="100px;" alt="hiwelo."/><br /><sub><b>hiwelo.</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Code">💻</a> <a href="#ideas-hiwelo" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/lukaszfiszer"><img src="https://avatars3.githubusercontent.com/u/1201711?v=4" width="100px;" alt="Łukasz Fiszer"/><br /><sub><b>Łukasz Fiszer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lukaszfiszer" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jeanchung"><img src="https://avatars0.githubusercontent.com/u/10778036?v=4" width="100px;" alt="Jean Chung"/><br /><sub><b>Jean Chung</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Tests">⚠️</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
@@ -1055,31 +1161,43 @@ Contributions of any kind welcome!
 MIT
 
 [jest]: https://facebook.github.io/jest/
-[dom-testing-library]: https://github.com/kentcdodds/dom-testing-library
-[react-testing-library]: https://github.com/kentcdodds/react-testing-library
+[dom-testing-library]: https://github.com/testing-library/dom-testing-library
+[react-testing-library]:
+  https://github.com/testing-library/react-testing-library
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/travis/testing-library/jest-dom.svg?style=flat-square
+[build-badge]:
+  https://img.shields.io/travis/testing-library/jest-dom.svg?style=flat-square
 [build]: https://travis-ci.org/testing-library/jest-dom
-[coverage-badge]: https://img.shields.io/codecov/c/github/testing-library/jest-dom.svg?style=flat-square
+[coverage-badge]:
+  https://img.shields.io/codecov/c/github/testing-library/jest-dom.svg?style=flat-square
 [coverage]: https://codecov.io/github/testing-library/jest-dom
-[version-badge]: https://img.shields.io/npm/v/jest-dom.svg?style=flat-square
-[package]: https://www.npmjs.com/package/jest-dom
-[downloads-badge]: https://img.shields.io/npm/dm/jest-dom.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/jest-dom
-[license-badge]: https://img.shields.io/npm/l/jest-dom.svg?style=flat-square
+[version-badge]:
+  https://img.shields.io/npm/v/@testing-library/jest-dom.svg?style=flat-square
+[package]: https://www.npmjs.com/package/@testing-library/jest-dom
+[downloads-badge]:
+  https://img.shields.io/npm/dm/@testing-library/jest-dom.svg?style=flat-square
+[npmtrends]: http://www.npmtrends.com/@testing-library/jest-dom
+[license-badge]:
+  https://img.shields.io/npm/l/@testing-library/jest-dom.svg?style=flat-square
 [license]: https://github.com/testing-library/jest-dom/blob/master/LICENSE
-[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+[prs-badge]:
+  https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
-[donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
-[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/testing-library/jest-dom/blob/master/other/CODE_OF_CONDUCT.md
-[github-watch-badge]: https://img.shields.io/github/watchers/testing-library/jest-dom.svg?style=social
+[coc-badge]:
+  https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
+[coc]:
+  https://github.com/testing-library/jest-dom/blob/master/other/CODE_OF_CONDUCT.md
+[github-watch-badge]:
+  https://img.shields.io/github/watchers/testing-library/jest-dom.svg?style=social
 [github-watch]: https://github.com/testing-library/jest-dom/watchers
-[github-star-badge]: https://img.shields.io/github/stars/testing-library/jest-dom.svg?style=social
+[github-star-badge]:
+  https://img.shields.io/github/stars/testing-library/jest-dom.svg?style=social
 [github-star]: https://github.com/testing-library/jest-dom/stargazers
-[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20jest-dom%20by%20%40gnapse%20https%3A%2F%2Fgithub.com%2Ftesting-library%2Fjest-dom%20%F0%9F%91%8D
-[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/testing-library/jest-dom.svg?style=social
-[emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
-[all-contributors]: https://github.com/kentcdodds/all-contributors
-[guiding-principle]: https://twitter.com/kentcdodds/status/977018512689455106
+[twitter]:
+  https://twitter.com/intent/tweet?text=Check%20out%20jest-dom%20by%20%40gnapse%20https%3A%2F%2Fgithub.com%2Ftesting-library%2Fjest-dom%20%F0%9F%91%8D
+[twitter-badge]:
+  https://img.shields.io/twitter/url/https/github.com/testing-library/jest-dom.svg?style=social
+[emojis]: https://allcontributors.org/docs/en/emoji-key
+[all-contributors]: https://github.com/all-contributors/all-contributors
+[guiding-principle]: https://testing-library.com/docs/guiding-principles

@@ -18,9 +18,9 @@ tutorial to learn how: http://kcd.im/pull-request
 
 -->
 
-* `jest-dom` version:
-* `node` version:
-* `npm` (or `yarn`) version:
+- `@testing-library/jest-dom` version:
+- `node` version:
+- `npm` (or `yarn`) version:
 
 <!--
 * `dom-testing-library` version: (if applicable)

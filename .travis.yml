@@ -1,5 +1,7 @@
 sudo: false
 language: node_js
+env:
+  - FORCE_COLOR=true
 cache:
   directories:
     - ~/.npm
