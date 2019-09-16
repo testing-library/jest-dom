@@ -106,9 +106,8 @@ import {toBeInTheDocument, toHaveClass} from '@testing-library/jest-dom'
 expect.extend({toBeInTheDocument, toHaveClass})
 ```
 
-> Note: when using TypeScript, this way of importing matchers won't provide the
-> necessary type definitions. More on this
-> [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
+**Note** If you're using Typescript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
+
 
 ## Custom matchers
 
