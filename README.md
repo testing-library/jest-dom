@@ -93,6 +93,10 @@ Import `@testing-library/jest-dom/extend-expect` once (for instance in your
 [tests setup file]:
   https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
 
+
+> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
+
+
 ```javascript
 import '@testing-library/jest-dom/extend-expect'
 ```
@@ -106,8 +110,7 @@ import {toBeInTheDocument, toHaveClass} from '@testing-library/jest-dom'
 expect.extend({toBeInTheDocument, toHaveClass})
 ```
 
-> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
-
+> Note: when using TypeScript, this way of importing matchers won't provide the necessary type definitions. More on this [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
 
 ## Custom matchers
 
