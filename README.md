@@ -93,13 +93,11 @@ Import `@testing-library/jest-dom/extend-expect` once (for instance in your
 [tests setup file]:
   https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
 
-
-> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
-
-
 ```javascript
 import '@testing-library/jest-dom/extend-expect'
 ```
+
+> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
 
 Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
