@@ -42,7 +42,7 @@ test('.toHaveAttribute', () => {
     expect({thisIsNot: 'an html element'}).not.toHaveAttribute(),
   ).toThrowError()
 
-  // Asymettic matchers
+  // Asymmetric matchers
   expect(queryByTestId('ok-button')).toHaveAttribute(
     'type',
     expect.stringContaining('sub'),
