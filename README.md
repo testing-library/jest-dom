@@ -21,7 +21,7 @@
 [![version][version-badge]][package] [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
 [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
@@ -97,7 +97,8 @@ Import `@testing-library/jest-dom/extend-expect` once (for instance in your
 import '@testing-library/jest-dom/extend-expect'
 ```
 
-> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
+> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
+> a `.js` to include the necessary types.
 
 Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
@@ -108,7 +109,9 @@ import {toBeInTheDocument, toHaveClass} from '@testing-library/jest-dom'
 expect.extend({toBeInTheDocument, toHaveClass})
 ```
 
-> Note: when using TypeScript, this way of importing matchers won't provide the necessary type definitions. More on this [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
+> Note: when using TypeScript, this way of importing matchers won't provide the
+> necessary type definitions. More on this
+> [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
 
 ## Custom matchers
 
@@ -1072,6 +1075,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://raccoon.studio"><img src="https://avatars0.githubusercontent.com/u/4989733?v=4" width="100px;" alt="hiwelo."/><br /><sub><b>hiwelo.</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Code">💻</a> <a href="#ideas-hiwelo" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/lukaszfiszer"><img src="https://avatars3.githubusercontent.com/u/1201711?v=4" width="100px;" alt="Łukasz Fiszer"/><br /><sub><b>Łukasz Fiszer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lukaszfiszer" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/jeanchung"><img src="https://avatars0.githubusercontent.com/u/10778036?v=4" width="100px;" alt="Jean Chung"/><br /><sub><b>Jean Chung</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/YardenShoham"><img src="https://avatars3.githubusercontent.com/u/20454870?v=4" width="100px;" alt="Yarden Shoham"/><br /><sub><b>Yarden Shoham</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=YardenShoham" title="Documentation">📖</a></td>
   </tr>
 </table>
 
