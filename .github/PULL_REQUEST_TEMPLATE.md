@@ -39,5 +39,6 @@ merge of your pull request!
 - [ ] Updated Type Definitions
 - [ ] Ready to be merged
       <!-- In your opinion, is this ready to be merged as soon as it's reviewed? -->
+- [ ] Added myself to the contributors list
 
 <!-- feel free to add additional comments -->
