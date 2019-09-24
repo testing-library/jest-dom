@@ -5,6 +5,5 @@ module.exports = {
   projects: [
     require.resolve('jest-watch-select-projects'),
     require.resolve('./tests/jest.config.dom'),
-    require.resolve('./tests/jest.config.node'),
   ],
 }
