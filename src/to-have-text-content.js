@@ -12,8 +12,10 @@ export function toHaveTextContent(
     ? normalize(htmlElement.textContent)
     : htmlElement.textContent.replace(/\u00a0/g, ' ') // Replace &nbsp; with normal spaces
 
+  const checkingWithEmptyString = checkWith === ''
+
   return {
-    pass: matches(textContent, checkWith),
+    pass: !checkingWithEmptyString && matches(textContent, checkWith),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
       return getMessage(
@@ -22,7 +24,9 @@ export function toHaveTextContent(
           'element',
           '',
         ),
-        `Expected element ${to} have text content`,
+        checkingWithEmptyString
+          ? `Checking with empty string will always match, use .toBeEmpty() instead`
+          : `Expected element ${to} have text content`,
         checkWith,
         'Received',
         textContent,

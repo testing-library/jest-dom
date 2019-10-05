@@ -69,11 +69,6 @@ describe('.toHaveTextContent', () => {
     expect(container.querySelector('#parent')).toHaveTextContent('Step 1 of 4')
   })
 
-  test('does not throw error with empty content', () => {
-    const {container} = render(`<span></span>`)
-    expect(container.querySelector('span')).toHaveTextContent('')
-  })
-
   test('is case-sensitive', () => {
     const {container} = render('<span>Sensitive text</span>')
 
@@ -81,5 +76,14 @@ describe('.toHaveTextContent', () => {
     expect(container.querySelector('span')).not.toHaveTextContent(
       'sensitive text',
     )
+  })
+
+  test('when matching with empty string suggest using toBeEmpty instead', () => {
+    // https://github.com/testing-library/jest-dom/issues/104
+    const {container} = render('<span></span>')
+
+    expect(() =>
+      expect(container.querySelector('span')).toHaveTextContent(''),
+    ).toThrowError(/toBeEmpty()/)
   })
 })
