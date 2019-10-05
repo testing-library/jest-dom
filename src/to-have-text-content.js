@@ -12,7 +12,7 @@ export function toHaveTextContent(
     ? normalize(htmlElement.textContent)
     : htmlElement.textContent.replace(/\u00a0/g, ' ') // Replace &nbsp; with normal spaces
 
-  const checkingWithEmptyString = checkWith === ''
+  const checkingWithEmptyString = textContent !== '' && checkWith === ''
 
   return {
     pass: !checkingWithEmptyString && matches(textContent, checkWith),
