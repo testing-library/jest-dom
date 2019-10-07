@@ -1003,8 +1003,8 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 
 ## Inspiration
 
-This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][],
-which was in turn extracted out of [React Testing Library][].
+This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][dom-testing-library],
+which was in turn extracted out of [React Testing Library][react-testing-library].
 
 The intention is to make this available to be used independently of these other
 libraries, and also to make it more clear that these other libraries are
@@ -1021,7 +1021,7 @@ here!
 > confidence they can give you.][guiding-principle]
 
 This library follows the same guiding principles as its mother library [DOM
-Testing Library][]. Go [check them out][guiding-principle] for more details.
+Testing Library][dom-testing-library]. Go [check them out][guiding-principle] for more details.
 
 Additionally, with respect to custom DOM matchers, this library aims to maintain
 a minimal but useful set of them, while avoiding bloating itself with merely
