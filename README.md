@@ -1003,8 +1003,8 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 
 ## Inspiration
 
-This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][],
-which was in turn extracted out of [React Testing Library][].
+This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][dom-testing-library],
+which was in turn extracted out of [React Testing Library][react-testing-library].
 
 The intention is to make this available to be used independently of these other
 libraries, and also to make it more clear that these other libraries are
@@ -1021,7 +1021,7 @@ here!
 > confidence they can give you.][guiding-principle]
 
 This library follows the same guiding principles as its mother library [DOM
-Testing Library][]. Go [check them out][guiding-principle] for more details.
+Testing Library][dom-testing-library]. Go [check them out][guiding-principle] for more details.
 
 Additionally, with respect to custom DOM matchers, this library aims to maintain
 a minimal but useful set of them, while avoiding bloating itself with merely
@@ -1072,6 +1072,9 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/lukaszfiszer"><img src="https://avatars3.githubusercontent.com/u/1201711?v=4" width="100px;" alt="Łukasz Fiszer"/><br /><sub><b>Łukasz Fiszer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lukaszfiszer" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/jeanchung"><img src="https://avatars0.githubusercontent.com/u/10778036?v=4" width="100px;" alt="Jean Chung"/><br /><sub><b>Jean Chung</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/YardenShoham"><img src="https://avatars3.githubusercontent.com/u/20454870?v=4" width="100px;" alt="Yarden Shoham"/><br /><sub><b>Yarden Shoham</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=YardenShoham" title="Documentation">📖</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://jagascript.com"><img src="https://avatars0.githubusercontent.com/u/4562878?v=4" width="100px;" alt="Jaga Santagostino"/><br /><sub><b>Jaga Santagostino</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Akandros" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Documentation">📖</a></td>
   </tr>
 </table>
 
