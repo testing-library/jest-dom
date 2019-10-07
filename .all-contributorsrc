@@ -294,7 +294,8 @@
       "profile": "http://jagascript.com",
       "contributions": [
         "bug",
-        "test"
+        "test",
+        "doc"
       ]
     }
   ],
