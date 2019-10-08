@@ -24,5 +24,6 @@ declare namespace jest {
       options?: {normalizeWhitespace: boolean},
     ): R
     toHaveValue(value?: string | string[] | number): R
+    toBeChecked(): R
   }
 }

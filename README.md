@@ -66,6 +66,7 @@ clear to read and to maintain.
   - [`toHaveStyle`](#tohavestyle)
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveValue`](#tohavevalue)
+  - [`toBeChecked`](#tobechecked)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
 - [Inspiration](#inspiration)
@@ -97,7 +98,8 @@ Import `@testing-library/jest-dom/extend-expect` once (for instance in your
 import '@testing-library/jest-dom/extend-expect'
 ```
 
-> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
+> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
+> a `.js` to include the necessary types.
 
 Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
@@ -108,7 +110,9 @@ import {toBeInTheDocument, toHaveClass} from '@testing-library/jest-dom'
 expect.extend({toBeInTheDocument, toHaveClass})
 ```
 
-> Note: when using TypeScript, this way of importing matchers won't provide the necessary type definitions. More on this [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
+> Note: when using TypeScript, this way of importing matchers won't provide the
+> necessary type definitions. More on this
+> [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
 
 ## Custom matchers
 
@@ -920,6 +924,7 @@ This allows you to check whether the given form element has the specified value.
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
 of `<input type="checkbox">` and `<input type="radio">`, which can be
 meaningfully matched only using [`toHaveFormValue`](#tohaveformvalues).
+`<input type="checkbox>` can also be matched with ['toBeChecked'](#tobechecked).
 
 For all other form elements, the value is matched using the same algorithm as in
 [`toHaveFormValue`](#tohaveformvalues) does.
@@ -967,6 +972,46 @@ expect(emptyInput).not.toHaveValue()
 expect(selectInput).not.toHaveValue(['second', 'third'])
 ```
 
+<hr />
+
+### `toBeChecked`
+
+```typescript
+toBeChecked()
+```
+
+This allows you to check whether the input checkbox element is checked. It
+accepts `<input type="checkbox">` only.
+
+#### Examples
+
+```html
+<input type="checked" checked data-testid="input-checked" />
+<input type="checked" data-testid="input-empty" />
+```
+
+##### Using document.querySelector
+
+```javascript
+const checkedInput = document.querySelector('[data-testid="input-checked"]')
+const emptyInput = document.querySelector('[data-testid="input-empty"]')
+
+expect(checkedInput).toBeChecked()
+expect(emptyInput).not.toBeChecked()
+```
+
+##### Using DOM Testing Library
+
+```javascript
+const {getByTestId} = render(/* Rendered HTML */)
+
+const checkedInput = getByTestId('input-text')
+const emptyInput = getByTestId('input-empty')
+
+expect(checkedInput).toBeChecked()
+expect(emptyInput).not.toBeChecked()
+```
+
 ## Deprecated matchers
 
 ### `toBeInTheDOM`
@@ -1003,8 +1048,9 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 
 ## Inspiration
 
-This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][dom-testing-library],
-which was in turn extracted out of [React Testing Library][react-testing-library].
+This whole library was extracted out of Kent C. Dodds' [DOM Testing
+Library][dom-testing-library], which was in turn extracted out of [React Testing
+Library][react-testing-library].
 
 The intention is to make this available to be used independently of these other
 libraries, and also to make it more clear that these other libraries are
@@ -1021,7 +1067,8 @@ here!
 > confidence they can give you.][guiding-principle]
 
 This library follows the same guiding principles as its mother library [DOM
-Testing Library][dom-testing-library]. Go [check them out][guiding-principle] for more details.
+Testing Library][dom-testing-library]. Go [check them out][guiding-principle]
+for more details.
 
 Additionally, with respect to custom DOM matchers, this library aims to maintain
 a minimal but useful set of them, while avoiding bloating itself with merely
