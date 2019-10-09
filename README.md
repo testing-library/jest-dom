@@ -97,6 +97,8 @@ Import `@testing-library/jest-dom/extend-expect` once (for instance in your
 import '@testing-library/jest-dom/extend-expect'
 ```
 
+> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
+
 Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
 
@@ -106,9 +108,7 @@ import {toBeInTheDocument, toHaveClass} from '@testing-library/jest-dom'
 expect.extend({toBeInTheDocument, toHaveClass})
 ```
 
-> Note: when using TypeScript, this way of importing matchers won't provide the
-> necessary type definitions. More on this
-> [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
+> Note: when using TypeScript, this way of importing matchers won't provide the necessary type definitions. More on this [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
 
 ## Custom matchers
 
@@ -1003,8 +1003,8 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 
 ## Inspiration
 
-This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][],
-which was in turn extracted out of [React Testing Library][].
+This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][dom-testing-library],
+which was in turn extracted out of [React Testing Library][react-testing-library].
 
 The intention is to make this available to be used independently of these other
 libraries, and also to make it more clear that these other libraries are
@@ -1021,7 +1021,7 @@ here!
 > confidence they can give you.][guiding-principle]
 
 This library follows the same guiding principles as its mother library [DOM
-Testing Library][]. Go [check them out][guiding-principle] for more details.
+Testing Library][dom-testing-library]. Go [check them out][guiding-principle] for more details.
 
 Additionally, with respect to custom DOM matchers, this library aims to maintain
 a minimal but useful set of them, while avoiding bloating itself with merely
@@ -1035,8 +1035,7 @@ more verbose, less clear in its intent, and/or harder to read.
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
+<!-- prettier-ignore -->
 <table>
   <tr>
     <td align="center"><a href="https://kentcdodds.com"><img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;" alt="Kent C. Dodds"/><br /><sub><b>Kent C. Dodds</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Documentation">📖</a> <a href="#infra-kentcdodds" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Tests">⚠️</a></td>
@@ -1072,12 +1071,13 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://raccoon.studio"><img src="https://avatars0.githubusercontent.com/u/4989733?v=4" width="100px;" alt="hiwelo."/><br /><sub><b>hiwelo.</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Code">💻</a> <a href="#ideas-hiwelo" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/lukaszfiszer"><img src="https://avatars3.githubusercontent.com/u/1201711?v=4" width="100px;" alt="Łukasz Fiszer"/><br /><sub><b>Łukasz Fiszer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lukaszfiszer" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/jeanchung"><img src="https://avatars0.githubusercontent.com/u/10778036?v=4" width="100px;" alt="Jean Chung"/><br /><sub><b>Jean Chung</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/YardenShoham"><img src="https://avatars3.githubusercontent.com/u/20454870?v=4" width="100px;" alt="Yarden Shoham"/><br /><sub><b>Yarden Shoham</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=YardenShoham" title="Documentation">📖</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://jagascript.com"><img src="https://avatars0.githubusercontent.com/u/4562878?v=4" width="100px;" alt="Jaga Santagostino"/><br /><sub><b>Jaga Santagostino</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Akandros" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/CarlaTeo"><img src="https://avatars2.githubusercontent.com/u/9220147?s=460&v=4" width="100px;" alt="Carla Teodoro"/><br /><sub><b>Carla Teodoro</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Tests">⚠️</a></td>
   </tr>
 </table>
-
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
