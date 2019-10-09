@@ -1,26 +1,40 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement, getSingleElementValue} from './utils'
+import {checkHtmlElement} from './utils'
 
 export function toBeChecked(element) {
   checkHtmlElement(element, toBeChecked, this)
 
-  if (
-    element.tagName.toLowerCase() !== 'input' ||
-    element.type !== 'checkbox'
-  ) {
+  const isValidInput = () => {
+    return (
+      element.tagName.toLowerCase() === 'input' &&
+      ['checkbox', 'radio'].includes(element.type)
+    )
+  }
+
+  const isValidAriaElement = () => {
+    return (
+      ['checkbox', 'radio'].includes(element.getAttribute('role')) &&
+      ['true', 'false'].includes(element.getAttribute('aria-checked'))
+    )
+  }
+
+  if (!isValidInput() && !isValidAriaElement()) {
     return {
       pass: false,
       message: () =>
-        'only inputs with type=checkbox can be used with .toBeChecked(). Use .toHaveFormValues() instead',
+        'only inputs with type="checkbox" or type="radio" or elements with role="checkbox" or role="radio" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
     }
   }
 
-  const isChecked = getSingleElementValue(element)
+  const isChecked = () => {
+    if (isValidInput()) return element.checked
+    return element.getAttribute('aria-checked') === 'true'
+  }
 
   return {
-    pass: isChecked,
+    pass: isChecked(),
     message: () => {
-      const is = isChecked ? 'is' : 'is not'
+      const is = isChecked() ? 'is' : 'is not'
       return [
         matcherHint(`${this.isNot ? '.not' : ''}.toBeChecked`, 'element', ''),
         '',

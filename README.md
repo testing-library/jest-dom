@@ -923,8 +923,8 @@ toHaveValue(value: string | string[] | number)
 This allows you to check whether the given form element has the specified value.
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
 of `<input type="checkbox">` and `<input type="radio">`, which can be
-meaningfully matched only using [`toHaveFormValue`](#tohaveformvalues).
-`<input type="checkbox>` can also be matched with ['toBeChecked'](#tobechecked).
+meaningfully matched only using [`toBeChecked`](#tobechecked) or
+[`toHaveFormValue`](#tohaveformvalues).
 
 For all other form elements, the value is matched using the same algorithm as in
 [`toHaveFormValue`](#tohaveformvalues) does.
@@ -980,24 +980,64 @@ expect(selectInput).not.toHaveValue(['second', 'third'])
 toBeChecked()
 ```
 
-This allows you to check whether the input checkbox element is checked. It
-accepts `<input type="checkbox">` only.
+This allows you to check whether the given element is checked. It accepts an
+`input` of type `checkbox` or `radio` and elements with a `role` of `checkbox`
+or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
 
 #### Examples
 
 ```html
-<input type="checked" checked data-testid="input-checked" />
-<input type="checked" data-testid="input-empty" />
+<input type="checkbox" checked data-testid="input-checkbox-checked" />
+<input type="checkbox" data-testid="input-checkbox-unchecked" />
+<div role="checkbox" aria-checked="true" data-testid="aria-checkbox-checked" />
+<div
+  role="checkbox"
+  aria-checked="false"
+  data-testid="aria-checkbox-unchecked"
+/>
+
+<input type="radio" checked value="foo" data-testid="input-radio-checked" />
+<input type="radio" value="foo" data-testid="input-radio-unchecked" />
+<div role="radio" aria-checked="true" data-testid="aria-radio-checked" />
+<div role="radio" aria-checked="false" data-testid="aria-radio-unchecked" />
 ```
 
 ##### Using document.querySelector
 
 ```javascript
-const checkedInput = document.querySelector('[data-testid="input-checked"]')
-const emptyInput = document.querySelector('[data-testid="input-empty"]')
+const inputCheckboxChecked = document.querySelector(
+  '[data-testid="input-checkbox-checked"]',
+)
+const inputCheckboxUnchecked = document.querySelector(
+  '[data-testid="input-checkbox-unchecked"]',
+)
+const ariaCheckboxChecked = document.querySelector(
+  '[data-testid="aria-checkbox-checked"]',
+)
+const ariaCheckboxUnchecked = document.querySelector(
+  '[data-testid="aria-checkbox-unchecked"]',
+)
+expect(inputCheckboxChecked).toBeChecked()
+expect(inputCheckboxUnchecked).not.toBeChecked()
+expect(ariaCheckboxChecked).toBeChecked()
+expect(ariaCheckboxUnchecked).not.toBeChecked()
 
-expect(checkedInput).toBeChecked()
-expect(emptyInput).not.toBeChecked()
+const inputRadioChecked = document.querySelector(
+  '[data-testid="input-radio-checked"]',
+)
+const inputRadioUnchecked = document.querySelector(
+  '[data-testid="input-radio-unchecked"]',
+)
+const ariaRadioChecked = document.querySelector(
+  '[data-testid="aria-radio-checked"]',
+)
+const ariaRadioUnchecked = document.querySelector(
+  '[data-testid="aria-radio-unchecked"]',
+)
+expect(inputRadioChecked).toBeChecked()
+expect(inputRadioUnchecked).not.toBeChecked()
+expect(ariaRadioChecked).toBeChecked()
+expect(ariaRadioUnchecked).not.toBeChecked()
 ```
 
 ##### Using DOM Testing Library
@@ -1005,11 +1045,23 @@ expect(emptyInput).not.toBeChecked()
 ```javascript
 const {getByTestId} = render(/* Rendered HTML */)
 
-const checkedInput = getByTestId('input-text')
-const emptyInput = getByTestId('input-empty')
+const inputCheckboxChecked = getByTestId('input-checkbox-checked')
+const inputCheckboxUnchecked = getByTestId('input-checkbox-unchecked')
+const ariaCheckboxChecked = getByTestId('aria-checkbox-checked')
+const ariaCheckboxUnchecked = getByTestId('aria-checkbox-unchecked')
+expect(inputCheckboxChecked).toBeChecked()
+expect(inputCheckboxUnchecked).not.toBeChecked()
+expect(ariaCheckboxChecked).toBeChecked()
+expect(ariaCheckboxUnchecked).not.toBeChecked()
 
-expect(checkedInput).toBeChecked()
-expect(emptyInput).not.toBeChecked()
+const inputRadioChecked = getByTestId('input-radio-checked')
+const inputRadioUnchecked = getByTestId('input-radio-unchecked')
+const ariaRadioChecked = getByTestId('aria-radio-checked')
+const ariaRadioUnchecked = getByTestId('aria-radio-unchecked')
+expect(inputRadioChecked).toBeChecked()
+expect(inputRadioUnchecked).not.toBeChecked()
+expect(ariaRadioChecked).toBeChecked()
+expect(ariaRadioUnchecked).not.toBeChecked()
 ```
 
 ## Deprecated matchers
