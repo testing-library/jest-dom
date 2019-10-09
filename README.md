@@ -21,7 +21,7 @@
 [![version][version-badge]][package] [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
 [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
@@ -1075,6 +1075,7 @@ Thanks goes to these people ([emoji key][emojis]):
   </tr>
   <tr>
     <td align="center"><a href="http://jagascript.com"><img src="https://avatars0.githubusercontent.com/u/4562878?v=4" width="100px;" alt="Jaga Santagostino"/><br /><sub><b>Jaga Santagostino</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Akandros" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/CarlaTeo"><img src="https://avatars2.githubusercontent.com/u/9220147?s=460&v=4" width="100px;" alt="Carla Teodoro"/><br /><sub><b>Carla Teodoro</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
