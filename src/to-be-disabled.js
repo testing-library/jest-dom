@@ -41,6 +41,10 @@ function isElementDisabled(element) {
   return FORM_TAGS.includes(getTag(element)) && element.hasAttribute('disabled')
 }
 
+function hasAriaDisabled(element) {
+  return element.getAttribute('aria-disabled') === 'true'
+}
+
 function isAncestorDisabled(element) {
   const parent = element.parentElement
   return (
@@ -52,7 +56,10 @@ function isAncestorDisabled(element) {
 export function toBeDisabled(element) {
   checkHtmlElement(element, toBeDisabled, this)
 
-  const isDisabled = isElementDisabled(element) || isAncestorDisabled(element)
+  const isDisabled =
+    hasAriaDisabled(element) ||
+    isElementDisabled(element) ||
+    isAncestorDisabled(element)
 
   return {
     pass: isDisabled,
@@ -71,7 +78,11 @@ export function toBeDisabled(element) {
 export function toBeEnabled(element) {
   checkHtmlElement(element, toBeEnabled, this)
 
-  const isEnabled = !(isElementDisabled(element) || isAncestorDisabled(element))
+  const isEnabled = !(
+    hasAriaDisabled(element) ||
+    isElementDisabled(element) ||
+    isAncestorDisabled(element)
+  )
 
   return {
     pass: isEnabled,

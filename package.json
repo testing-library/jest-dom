@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "jest-watch-select-projects": "^0.1.2",
-    "jsdom": "^15.1.0",
+    "jsdom": "^15.1.1",
     "kcd-scripts": "^1.4.0"
   },
   "eslintConfig": {

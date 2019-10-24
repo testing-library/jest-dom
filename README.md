@@ -97,7 +97,8 @@ Import `@testing-library/jest-dom/extend-expect` once (for instance in your
 import '@testing-library/jest-dom/extend-expect'
 ```
 
-> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
+> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
+> a `.js` to include the necessary types.
 
 Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
@@ -108,7 +109,9 @@ import {toBeInTheDocument, toHaveClass} from '@testing-library/jest-dom'
 expect.extend({toBeInTheDocument, toHaveClass})
 ```
 
-> Note: when using TypeScript, this way of importing matchers won't provide the necessary type definitions. More on this [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
+> Note: when using TypeScript, this way of importing matchers won't provide the
+> necessary type definitions. More on this
+> [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
 
 ## Custom matchers
 
@@ -127,12 +130,12 @@ toBeDisabled()
 This allows you to check whether an element is disabled from the user's
 perspective.
 
-It matches if the element is a form control and the `disabled` attribute is
+It matches if the element has either `aria-disabled` set to `true` or is a form control and the `disabled` attribute is
 specified on this element or the element is a descendant of a form element with
 a `disabled` attribute.
 
 According to the specification, the following elements can be
-[actually disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
+[actually disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements) (using `disabled` attribute):
 `button`, `input`, `select`, `textarea`, `optgroup`, `option`, `fieldset`.
 
 #### Examples
@@ -1003,8 +1006,9 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 
 ## Inspiration
 
-This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][dom-testing-library],
-which was in turn extracted out of [React Testing Library][react-testing-library].
+This whole library was extracted out of Kent C. Dodds' [DOM Testing
+Library][dom-testing-library], which was in turn extracted out of [React Testing
+Library][react-testing-library].
 
 The intention is to make this available to be used independently of these other
 libraries, and also to make it more clear that these other libraries are
@@ -1021,7 +1025,8 @@ here!
 > confidence they can give you.][guiding-principle]
 
 This library follows the same guiding principles as its mother library [DOM
-Testing Library][dom-testing-library]. Go [check them out][guiding-principle] for more details.
+Testing Library][dom-testing-library]. Go [check them out][guiding-principle]
+for more details.
 
 Additionally, with respect to custom DOM matchers, this library aims to maintain
 a minimal but useful set of them, while avoiding bloating itself with merely

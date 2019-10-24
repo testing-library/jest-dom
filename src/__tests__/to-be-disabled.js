@@ -28,6 +28,8 @@ test('.toBeDisabled', () => {
       </fieldset>
 
       <a href="http://github.com" disabled={true} data-testid="a-element">x</a>
+      <a href="http://github.com" aria-disabled="true" data-testid="a-element-aria-disabled">x</a>
+      <a href="http://github.com" aria-disabled="false" data-testid="a-element-aria-disabled-false">x</a>
     </div>
     `)
 
@@ -51,6 +53,9 @@ test('.toBeDisabled', () => {
 
   expect(queryByTestId('a-element')).not.toBeDisabled()
   expect(() => expect(queryByTestId('a-element')).toBeDisabled()).toThrowError()
+
+  expect(queryByTestId('a-element-aria-disabled')).toBeDisabled()
+  expect(queryByTestId('a-element-aria-disabled-false')).not.toBeDisabled()
 })
 
 test('.toBeDisabled fieldset>legend', () => {
@@ -132,6 +137,8 @@ test('.toBeEnabled', () => {
       </fieldset>
 
       <a href="http://github.com" disabled={true} data-testid="a-element">x</a>
+      <a href="http://github.com" aria-disabled="true" data-testid="a-element-aria-disabled">x</a>
+      <a href="http://github.com" aria-disabled="false" data-testid="a-element-aria-disabled-false">x</a>
     </div>
     `)
 
@@ -173,6 +180,9 @@ test('.toBeEnabled', () => {
   expect(() =>
     expect(queryByTestId('a-element')).not.toBeEnabled(),
   ).toThrowError()
+
+  expect(queryByTestId('a-element-aria-disabled')).not.toBeEnabled()
+  expect(queryByTestId('a-element-aria-disabled-false')).toBeEnabled()
 })
 
 test('.toBeEnabled fieldset>legend', () => {
