@@ -66,6 +66,7 @@ clear to read and to maintain.
   - [`toHaveStyle`](#tohavestyle)
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveValue`](#tohavevalue)
+  - [`toBeChecked`](#tobechecked)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
 - [Inspiration](#inspiration)
@@ -97,7 +98,8 @@ Import `@testing-library/jest-dom/extend-expect` once (for instance in your
 import '@testing-library/jest-dom/extend-expect'
 ```
 
-> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
+> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
+> a `.js` to include the necessary types.
 
 Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
@@ -108,7 +110,9 @@ import {toBeInTheDocument, toHaveClass} from '@testing-library/jest-dom'
 expect.extend({toBeInTheDocument, toHaveClass})
 ```
 
-> Note: when using TypeScript, this way of importing matchers won't provide the necessary type definitions. More on this [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
+> Note: when using TypeScript, this way of importing matchers won't provide the
+> necessary type definitions. More on this
+> [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
 
 ## Custom matchers
 
@@ -919,7 +923,8 @@ toHaveValue(value: string | string[] | number)
 This allows you to check whether the given form element has the specified value.
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
 of `<input type="checkbox">` and `<input type="radio">`, which can be
-meaningfully matched only using [`toHaveFormValue`](#tohaveformvalues).
+meaningfully matched only using [`toBeChecked`](#tobechecked) or
+[`toHaveFormValue`](#tohaveformvalues).
 
 For all other form elements, the value is matched using the same algorithm as in
 [`toHaveFormValue`](#tohaveformvalues) does.
@@ -967,6 +972,98 @@ expect(emptyInput).not.toHaveValue()
 expect(selectInput).not.toHaveValue(['second', 'third'])
 ```
 
+<hr />
+
+### `toBeChecked`
+
+```typescript
+toBeChecked()
+```
+
+This allows you to check whether the given element is checked. It accepts an
+`input` of type `checkbox` or `radio` and elements with a `role` of `checkbox`
+or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
+
+#### Examples
+
+```html
+<input type="checkbox" checked data-testid="input-checkbox-checked" />
+<input type="checkbox" data-testid="input-checkbox-unchecked" />
+<div role="checkbox" aria-checked="true" data-testid="aria-checkbox-checked" />
+<div
+  role="checkbox"
+  aria-checked="false"
+  data-testid="aria-checkbox-unchecked"
+/>
+
+<input type="radio" checked value="foo" data-testid="input-radio-checked" />
+<input type="radio" value="foo" data-testid="input-radio-unchecked" />
+<div role="radio" aria-checked="true" data-testid="aria-radio-checked" />
+<div role="radio" aria-checked="false" data-testid="aria-radio-unchecked" />
+```
+
+##### Using document.querySelector
+
+```javascript
+const inputCheckboxChecked = document.querySelector(
+  '[data-testid="input-checkbox-checked"]',
+)
+const inputCheckboxUnchecked = document.querySelector(
+  '[data-testid="input-checkbox-unchecked"]',
+)
+const ariaCheckboxChecked = document.querySelector(
+  '[data-testid="aria-checkbox-checked"]',
+)
+const ariaCheckboxUnchecked = document.querySelector(
+  '[data-testid="aria-checkbox-unchecked"]',
+)
+expect(inputCheckboxChecked).toBeChecked()
+expect(inputCheckboxUnchecked).not.toBeChecked()
+expect(ariaCheckboxChecked).toBeChecked()
+expect(ariaCheckboxUnchecked).not.toBeChecked()
+
+const inputRadioChecked = document.querySelector(
+  '[data-testid="input-radio-checked"]',
+)
+const inputRadioUnchecked = document.querySelector(
+  '[data-testid="input-radio-unchecked"]',
+)
+const ariaRadioChecked = document.querySelector(
+  '[data-testid="aria-radio-checked"]',
+)
+const ariaRadioUnchecked = document.querySelector(
+  '[data-testid="aria-radio-unchecked"]',
+)
+expect(inputRadioChecked).toBeChecked()
+expect(inputRadioUnchecked).not.toBeChecked()
+expect(ariaRadioChecked).toBeChecked()
+expect(ariaRadioUnchecked).not.toBeChecked()
+```
+
+##### Using DOM Testing Library
+
+```javascript
+const {getByTestId} = render(/* Rendered HTML */)
+
+const inputCheckboxChecked = getByTestId('input-checkbox-checked')
+const inputCheckboxUnchecked = getByTestId('input-checkbox-unchecked')
+const ariaCheckboxChecked = getByTestId('aria-checkbox-checked')
+const ariaCheckboxUnchecked = getByTestId('aria-checkbox-unchecked')
+expect(inputCheckboxChecked).toBeChecked()
+expect(inputCheckboxUnchecked).not.toBeChecked()
+expect(ariaCheckboxChecked).toBeChecked()
+expect(ariaCheckboxUnchecked).not.toBeChecked()
+
+const inputRadioChecked = getByTestId('input-radio-checked')
+const inputRadioUnchecked = getByTestId('input-radio-unchecked')
+const ariaRadioChecked = getByTestId('aria-radio-checked')
+const ariaRadioUnchecked = getByTestId('aria-radio-unchecked')
+expect(inputRadioChecked).toBeChecked()
+expect(inputRadioUnchecked).not.toBeChecked()
+expect(ariaRadioChecked).toBeChecked()
+expect(ariaRadioUnchecked).not.toBeChecked()
+```
+
 ## Deprecated matchers
 
 ### `toBeInTheDOM`
@@ -1003,8 +1100,9 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 
 ## Inspiration
 
-This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][dom-testing-library],
-which was in turn extracted out of [React Testing Library][react-testing-library].
+This whole library was extracted out of Kent C. Dodds' [DOM Testing
+Library][dom-testing-library], which was in turn extracted out of [React Testing
+Library][react-testing-library].
 
 The intention is to make this available to be used independently of these other
 libraries, and also to make it more clear that these other libraries are
@@ -1021,7 +1119,8 @@ here!
 > confidence they can give you.][guiding-principle]
 
 This library follows the same guiding principles as its mother library [DOM
-Testing Library][dom-testing-library]. Go [check them out][guiding-principle] for more details.
+Testing Library][dom-testing-library]. Go [check them out][guiding-principle]
+for more details.
 
 Additionally, with respect to custom DOM matchers, this library aims to maintain
 a minimal but useful set of them, while avoiding bloating itself with merely
