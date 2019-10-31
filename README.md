@@ -924,10 +924,10 @@ This allows you to check whether the given form element has the specified value.
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
 of `<input type="checkbox">` and `<input type="radio">`, which can be
 meaningfully matched only using [`toBeChecked`](#tobechecked) or
-[`toHaveFormValue`](#tohaveformvalues).
+[`toHaveFormValues`](#tohaveformvalues).
 
 For all other form elements, the value is matched using the same algorithm as in
-[`toHaveFormValue`](#tohaveformvalues) does.
+[`toHaveFormValues`](#tohaveformvalues) does.
 
 #### Examples
 
