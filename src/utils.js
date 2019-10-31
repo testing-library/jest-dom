@@ -79,7 +79,7 @@ class InvalidCSSError extends Error {
   }
 }
 
-function checkValidCSS(css, ...args) {
+function parseCSS(css, ...args) {
   const ast = parse(`selector { ${css} }`, {silent: true}).stylesheet
 
   if (ast.parsingErrors && ast.parsingErrors.length > 0) {
@@ -93,6 +93,14 @@ function checkValidCSS(css, ...args) {
       ...args,
     )
   }
+
+  const parsedRules = ast.rules[0].declarations
+    .filter(d => d.type === 'declaration')
+    .reduce(
+      (obj, {property, value}) => Object.assign(obj, {[property]: value}),
+      {},
+    )
+  return parsedRules
 }
 
 function display(value) {
@@ -187,7 +195,7 @@ function compareArraysAsSet(a, b) {
 export {
   HtmlElementTypeError,
   checkHtmlElement,
-  checkValidCSS,
+  parseCSS,
   deprecate,
   getMessage,
   matches,

@@ -15,7 +15,7 @@ export function toHaveValue(htmlElement, expectedValue) {
     ['checkbox', 'radio'].includes(htmlElement.type)
   ) {
     throw new Error(
-      'input with type=checkbox or type=radio cannot be used with .toHaveValue(). Use .toHaveFormValues() instead',
+      'input with type=checkbox or type=radio cannot be used with .toHaveValue(). Use .toBeChecked() for type=checkbox or .toHaveFormValues() instead',
     )
   }
 

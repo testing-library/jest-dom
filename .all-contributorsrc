@@ -279,6 +279,16 @@
       ]
     },
     {
+      "login": "CarlaTeo",
+      "name": "CarlaTeo",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/9220147?v=4",
+      "profile": "https://github.com/CarlaTeo",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
       "login": "YardenShoham",
       "name": "Yarden Shoham",
       "avatar_url": "https://avatars3.githubusercontent.com/u/20454870?v=4",
@@ -294,6 +304,17 @@
       "profile": "http://jagascript.com",
       "contributions": [
         "bug",
+        "test",
+        "doc"
+      ]
+    },
+    {
+      "login": "connormeredith",
+      "name": "Connor Meredith",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/4907463?v=4",
+      "profile": "https://github.com/connormeredith",
+      "contributions": [
+        "code",
         "test",
         "doc"
       ]
