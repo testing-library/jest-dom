@@ -1,4 +1,5 @@
 import {render} from './helpers/test-utils'
+import document from './helpers/document'
 
 test('.toHaveFocus', () => {
   const {container} = render(`
@@ -11,6 +12,7 @@ test('.toHaveFocus', () => {
   const focused = container.querySelector('#focused')
   const notFocused = container.querySelector('#not-focused')
 
+  document.body.appendChild(container)
   focused.focus()
 
   expect(focused).toHaveFocus()
