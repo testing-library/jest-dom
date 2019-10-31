@@ -12,6 +12,7 @@ describe('.toHaveStyle', () => {
     const style = document.createElement('style')
     style.innerHTML = `
           .label {
+            align-items: center;
             background-color: black;
             color: white;
             float: left;
@@ -44,6 +45,10 @@ describe('.toHaveStyle', () => {
           color: white;
           font-weight: bold;
         `)
+
+    expect(container.querySelector('.label')).toHaveStyle(`
+        Align-items: center;
+      `)
   })
 
   test('handles negative test cases', () => {
