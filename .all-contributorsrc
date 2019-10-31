@@ -276,7 +276,8 @@
       "contributions": [
         "code",
         "test"
-      ],
+      ]
+    },
     {
       "login": "CarlaTeo",
       "name": "CarlaTeo",
@@ -303,6 +304,17 @@
       "profile": "http://jagascript.com",
       "contributions": [
         "bug",
+        "test",
+        "doc"
+      ]
+    },
+    {
+      "login": "connormeredith",
+      "name": "Connor Meredith",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/4907463?v=4",
+      "profile": "https://github.com/connormeredith",
+      "contributions": [
+        "code",
         "test",
         "doc"
       ]

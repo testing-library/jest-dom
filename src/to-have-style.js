@@ -18,7 +18,9 @@ function getStyleDeclaration(document, css) {
 
 function isSubset(styles, computedStyle) {
   return Object.entries(styles).every(
-    ([prop, value]) => computedStyle.getPropertyValue(prop) === value,
+    ([prop, value]) =>
+      computedStyle.getPropertyValue(prop.toLowerCase()) ===
+      value.toLowerCase(),
   )
 }
 
