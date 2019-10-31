@@ -86,6 +86,11 @@ should be installed as one of your project's `devDependencies`:
 npm install --save-dev @testing-library/jest-dom
 ```
 
+>Note: We also recommend installing the jest-dom eslint plugin which provides auto-fixabale lint rules 
+>that prevent false positive tests and improves test readability by ensuring you are using the right
+matchers in your tests.  More details can be found be
+>found at [eslint-plugin-jest](https://github.com/testing-library/eslint-plugin-jest-dom).
+
 ## Usage
 
 Import `@testing-library/jest-dom/extend-expect` once (for instance in your
@@ -1097,6 +1102,7 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 > will likely cause unintended consequences in your tests. Please make sure when
 > replacing `toBeInTheDOM` to read through the documentation of the proposed
 > alternatives to see which use case works better for your needs.
+
 
 ## Inspiration
 
