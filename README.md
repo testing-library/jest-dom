@@ -86,10 +86,10 @@ should be installed as one of your project's `devDependencies`:
 npm install --save-dev @testing-library/jest-dom
 ```
 
->Note: We also recommend installing the jest-dom eslint plugin which provides auto-fixabale lint rules 
->that prevent false positive tests and improves test readability by ensuring you are using the right
-matchers in your tests.  More details can be found be
->found at [eslint-plugin-jest-dom](https://github.com/testing-library/eslint-plugin-jest-dom).
+> Note: We also recommend installing the jest-dom eslint plugin which provides auto-fixable lint rules 
+> that prevent false positive tests and improve test readability by ensuring you are using the right
+> matchers in your tests.  More details can be found at
+> [eslint-plugin-jest-dom](https://github.com/testing-library/eslint-plugin-jest-dom).
 
 ## Usage
 
