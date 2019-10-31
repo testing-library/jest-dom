@@ -66,6 +66,7 @@ clear to read and to maintain.
   - [`toHaveStyle`](#tohavestyle)
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveValue`](#tohavevalue)
+  - [`toBeChecked`](#tobechecked)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
 - [Inspiration](#inspiration)
@@ -922,10 +923,11 @@ toHaveValue(value: string | string[] | number)
 This allows you to check whether the given form element has the specified value.
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
 of `<input type="checkbox">` and `<input type="radio">`, which can be
-meaningfully matched only using [`toHaveFormValue`](#tohaveformvalues).
+meaningfully matched only using [`toBeChecked`](#tobechecked) or
+[`toHaveFormValues`](#tohaveformvalues).
 
 For all other form elements, the value is matched using the same algorithm as in
-[`toHaveFormValue`](#tohaveformvalues) does.
+[`toHaveFormValues`](#tohaveformvalues) does.
 
 #### Examples
 
@@ -968,6 +970,98 @@ expect(textInput).toHaveValue('text')
 expect(numberInput).toHaveValue(5)
 expect(emptyInput).not.toHaveValue()
 expect(selectInput).not.toHaveValue(['second', 'third'])
+```
+
+<hr />
+
+### `toBeChecked`
+
+```typescript
+toBeChecked()
+```
+
+This allows you to check whether the given element is checked. It accepts an
+`input` of type `checkbox` or `radio` and elements with a `role` of `checkbox`
+or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
+
+#### Examples
+
+```html
+<input type="checkbox" checked data-testid="input-checkbox-checked" />
+<input type="checkbox" data-testid="input-checkbox-unchecked" />
+<div role="checkbox" aria-checked="true" data-testid="aria-checkbox-checked" />
+<div
+  role="checkbox"
+  aria-checked="false"
+  data-testid="aria-checkbox-unchecked"
+/>
+
+<input type="radio" checked value="foo" data-testid="input-radio-checked" />
+<input type="radio" value="foo" data-testid="input-radio-unchecked" />
+<div role="radio" aria-checked="true" data-testid="aria-radio-checked" />
+<div role="radio" aria-checked="false" data-testid="aria-radio-unchecked" />
+```
+
+##### Using document.querySelector
+
+```javascript
+const inputCheckboxChecked = document.querySelector(
+  '[data-testid="input-checkbox-checked"]',
+)
+const inputCheckboxUnchecked = document.querySelector(
+  '[data-testid="input-checkbox-unchecked"]',
+)
+const ariaCheckboxChecked = document.querySelector(
+  '[data-testid="aria-checkbox-checked"]',
+)
+const ariaCheckboxUnchecked = document.querySelector(
+  '[data-testid="aria-checkbox-unchecked"]',
+)
+expect(inputCheckboxChecked).toBeChecked()
+expect(inputCheckboxUnchecked).not.toBeChecked()
+expect(ariaCheckboxChecked).toBeChecked()
+expect(ariaCheckboxUnchecked).not.toBeChecked()
+
+const inputRadioChecked = document.querySelector(
+  '[data-testid="input-radio-checked"]',
+)
+const inputRadioUnchecked = document.querySelector(
+  '[data-testid="input-radio-unchecked"]',
+)
+const ariaRadioChecked = document.querySelector(
+  '[data-testid="aria-radio-checked"]',
+)
+const ariaRadioUnchecked = document.querySelector(
+  '[data-testid="aria-radio-unchecked"]',
+)
+expect(inputRadioChecked).toBeChecked()
+expect(inputRadioUnchecked).not.toBeChecked()
+expect(ariaRadioChecked).toBeChecked()
+expect(ariaRadioUnchecked).not.toBeChecked()
+```
+
+##### Using DOM Testing Library
+
+```javascript
+const {getByTestId} = render(/* Rendered HTML */)
+
+const inputCheckboxChecked = getByTestId('input-checkbox-checked')
+const inputCheckboxUnchecked = getByTestId('input-checkbox-unchecked')
+const ariaCheckboxChecked = getByTestId('aria-checkbox-checked')
+const ariaCheckboxUnchecked = getByTestId('aria-checkbox-unchecked')
+expect(inputCheckboxChecked).toBeChecked()
+expect(inputCheckboxUnchecked).not.toBeChecked()
+expect(ariaCheckboxChecked).toBeChecked()
+expect(ariaCheckboxUnchecked).not.toBeChecked()
+
+const inputRadioChecked = getByTestId('input-radio-checked')
+const inputRadioUnchecked = getByTestId('input-radio-unchecked')
+const ariaRadioChecked = getByTestId('aria-radio-checked')
+const ariaRadioUnchecked = getByTestId('aria-radio-unchecked')
+expect(inputRadioChecked).toBeChecked()
+expect(inputRadioUnchecked).not.toBeChecked()
+expect(ariaRadioChecked).toBeChecked()
+expect(ariaRadioUnchecked).not.toBeChecked()
 ```
 
 ## Deprecated matchers
@@ -1076,11 +1170,12 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://raccoon.studio"><img src="https://avatars0.githubusercontent.com/u/4989733?v=4" width="100px;" alt="hiwelo."/><br /><sub><b>hiwelo.</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Code">💻</a> <a href="#ideas-hiwelo" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/lukaszfiszer"><img src="https://avatars3.githubusercontent.com/u/1201711?v=4" width="100px;" alt="Łukasz Fiszer"/><br /><sub><b>Łukasz Fiszer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lukaszfiszer" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/jeanchung"><img src="https://avatars0.githubusercontent.com/u/10778036?v=4" width="100px;" alt="Jean Chung"/><br /><sub><b>Jean Chung</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/YardenShoham"><img src="https://avatars3.githubusercontent.com/u/20454870?v=4" width="100px;" alt="Yarden Shoham"/><br /><sub><b>Yarden Shoham</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=YardenShoham" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/CarlaTeo"><img src="https://avatars3.githubusercontent.com/u/9220147?v=4" width="100px;" alt="CarlaTeo"/><br /><sub><b>CarlaTeo</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Tests">⚠️</a></td>
   </tr>
   <tr>
+    <td align="center"><a href="https://github.com/YardenShoham"><img src="https://avatars3.githubusercontent.com/u/20454870?v=4" width="100px;" alt="Yarden Shoham"/><br /><sub><b>Yarden Shoham</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=YardenShoham" title="Documentation">📖</a></td>
     <td align="center"><a href="http://jagascript.com"><img src="https://avatars0.githubusercontent.com/u/4562878?v=4" width="100px;" alt="Jaga Santagostino"/><br /><sub><b>Jaga Santagostino</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Akandros" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/CarlaTeo"><img src="https://avatars2.githubusercontent.com/u/9220147?s=460&v=4" width="100px;" alt="Carla Teodoro"/><br /><sub><b>Carla Teodoro</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/connormeredith"><img src="https://avatars0.githubusercontent.com/u/4907463?v=4" width="100px;" alt="Connor Meredith"/><br /><sub><b>Connor Meredith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Documentation">📖</a></td>
   </tr>
 </table>
 
