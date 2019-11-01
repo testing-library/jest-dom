@@ -13,6 +13,15 @@ export function toBeInTheDocument(element) {
   const pass =
     element === null ? false : element.ownerDocument.contains(element)
 
+  const errorFound = () => {
+    return `expected document not to contain element, found ${stringify(
+      element.cloneNode(true),
+    )} instead`
+  }
+  const errorNotFound = () => {
+    return `element could not be found in the document`
+  }
+
   return {
     pass,
     message: () => {
@@ -23,10 +32,7 @@ export function toBeInTheDocument(element) {
           '',
         ),
         '',
-        receivedColor(`${stringify(element.ownerDocument.cloneNode(false))} ${
-          this.isNot ? 'contains:' : 'does not contain:'
-        } ${stringify(element.cloneNode(false))}
-        `),
+        receivedColor(this.isNot ? errorFound() : errorNotFound()),
       ].join('\n')
     },
   }
