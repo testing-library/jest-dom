@@ -1,5 +1,5 @@
 declare namespace jest {
-  interface Matchers<R, T> {
+  interface Matchers<R> {
     /**
      * @deprecated
      */
