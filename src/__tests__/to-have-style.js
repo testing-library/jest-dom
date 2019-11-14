@@ -17,6 +17,7 @@ describe('.toHaveStyle', () => {
             color: white;
             float: left;
             transition: opacity 0.2s ease-out, top 0.3s cubic-bezier(1.175, 0.885, 0.32, 1.275);
+            transform: translateX(0px);
           }
         `
     document.body.appendChild(style)
@@ -49,6 +50,10 @@ describe('.toHaveStyle', () => {
     expect(container.querySelector('.label')).toHaveStyle(`
         Align-items: center;
       `)
+
+    expect(container.querySelector('.label')).toHaveStyle(`
+      transform: translateX(0px);
+    `)
   })
 
   test('handles negative test cases', () => {
