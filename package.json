@@ -50,6 +50,9 @@
     "jsdom": "^15.1.0",
     "kcd-scripts": "^1.4.0"
   },
+  "peerDependencies": {
+    "@types/jest": "^24.0.23"
+  },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
