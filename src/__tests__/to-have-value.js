@@ -10,16 +10,36 @@ describe('.toHaveValue', () => {
 
     expect(queryByTestId('value')).toHaveValue('foo')
     expect(queryByTestId('value')).toHaveValue()
+    expect(queryByTestId('value')).toHaveValue(expect.stringContaining('fo'))
+    expect(queryByTestId('value')).toHaveValue(expect.stringMatching(/^f.*/))
     expect(queryByTestId('value')).not.toHaveValue('bar')
     expect(queryByTestId('value')).not.toHaveValue('')
+    expect(queryByTestId('value')).not.toHaveValue(
+      expect.stringContaining('bar'),
+    )
+    expect(queryByTestId('value')).not.toHaveValue(expect.stringMatching(/bar/))
 
     expect(queryByTestId('empty')).toHaveValue('')
+    expect(queryByTestId('empty')).toHaveValue(expect.stringContaining(''))
+    expect(queryByTestId('empty')).toHaveValue(expect.stringMatching(/^$/))
     expect(queryByTestId('empty')).not.toHaveValue()
     expect(queryByTestId('empty')).not.toHaveValue('foo')
+    expect(queryByTestId('empty')).not.toHaveValue(
+      expect.stringContaining('foo'),
+    )
+    expect(queryByTestId('empty')).not.toHaveValue(expect.stringMatching(/foo/))
 
     expect(queryByTestId('without')).toHaveValue('')
+    expect(queryByTestId('without')).toHaveValue(expect.stringContaining(''))
+    expect(queryByTestId('without')).toHaveValue(expect.stringMatching(/^$/))
     expect(queryByTestId('without')).not.toHaveValue()
     expect(queryByTestId('without')).not.toHaveValue('foo')
+    expect(queryByTestId('without')).not.toHaveValue(
+      expect.stringContaining('foo'),
+    )
+    expect(queryByTestId('without')).not.toHaveValue(
+      expect.stringMatching(/foo/),
+    )
     queryByTestId('without').value = 'bar'
     expect(queryByTestId('without')).toHaveValue('bar')
   })
@@ -35,14 +55,21 @@ describe('.toHaveValue', () => {
     expect(queryByTestId('number')).toHaveValue()
     expect(queryByTestId('number')).not.toHaveValue(4)
     expect(queryByTestId('number')).not.toHaveValue('5')
+    expect(queryByTestId('number')).not.toHaveValue(
+      expect.stringContaining('5'),
+    )
 
     expect(queryByTestId('empty')).toHaveValue(null)
     expect(queryByTestId('empty')).not.toHaveValue()
     expect(queryByTestId('empty')).not.toHaveValue('5')
+    expect(queryByTestId('empty')).not.toHaveValue(expect.stringContaining('5'))
 
     expect(queryByTestId('without')).toHaveValue(null)
     expect(queryByTestId('without')).not.toHaveValue()
     expect(queryByTestId('without')).not.toHaveValue('10')
+    expect(queryByTestId('without')).not.toHaveValue(
+      expect.stringContaining('10'),
+    )
     queryByTestId('without').value = 10
     expect(queryByTestId('without')).toHaveValue(10)
   })
@@ -50,29 +77,34 @@ describe('.toHaveValue', () => {
   test('handles value of select element', () => {
     const {queryByTestId} = render(`
       <select data-testid="single">
-        <option value="first">First Value</option> 
+        <option value="first">First Value</option>
         <option value="second" selected>Second Value</option>
         <option value="third">Third Value</option>
       </select>
-      
+
       <select data-testid="multiple" multiple>
-        <option value="first">First Value</option> 
+        <option value="first">First Value</option>
         <option value="second" selected>Second Value</option>
         <option value="third" selected>Third Value</option>
       </select>
-      
+
       <select data-testid="not-selected" >
         <option value="" disabled selected>- Select some value - </option>
-        <option value="first">First Value</option> 
+        <option value="first">First Value</option>
         <option value="second">Second Value</option>
         <option value="third">Third Value</option>
       </select>
     `)
 
     expect(queryByTestId('single')).toHaveValue('second')
+    expect(queryByTestId('single')).toHaveValue(expect.stringContaining('sec'))
+    expect(queryByTestId('single')).toHaveValue(expect.stringMatching(/^sec/))
     expect(queryByTestId('single')).toHaveValue()
 
     expect(queryByTestId('multiple')).toHaveValue(['second', 'third'])
+    expect(queryByTestId('multiple')).toHaveValue(
+      expect.arrayContaining(['second', 'third']),
+    )
     expect(queryByTestId('multiple')).toHaveValue()
 
     expect(queryByTestId('not-selected')).not.toHaveValue()
@@ -87,6 +119,12 @@ describe('.toHaveValue', () => {
       <textarea data-testid="textarea">text value</textarea>
     `)
     expect(queryByTestId('textarea')).toHaveValue('text value')
+    expect(queryByTestId('textarea')).toHaveValue(
+      expect.stringContaining('text'),
+    )
+    expect(queryByTestId('textarea')).toHaveValue(
+      expect.stringMatching(/^text/),
+    )
   })
 
   test('throws when passed checkbox or radio', () => {
