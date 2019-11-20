@@ -21,7 +21,7 @@
 [![version][version-badge]][package] [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
 [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
@@ -66,6 +66,7 @@ clear to read and to maintain.
   - [`toHaveStyle`](#tohavestyle)
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveValue`](#tohavevalue)
+  - [`toBeChecked`](#tobechecked)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
 - [Inspiration](#inspiration)
@@ -85,6 +86,11 @@ should be installed as one of your project's `devDependencies`:
 npm install --save-dev @testing-library/jest-dom
 ```
 
+> Note: We also recommend installing the jest-dom eslint plugin which provides auto-fixable lint rules 
+> that prevent false positive tests and improve test readability by ensuring you are using the right
+> matchers in your tests.  More details can be found at
+> [eslint-plugin-jest-dom](https://github.com/testing-library/eslint-plugin-jest-dom).
+
 ## Usage
 
 Import `@testing-library/jest-dom/extend-expect` once (for instance in your
@@ -97,7 +103,8 @@ Import `@testing-library/jest-dom/extend-expect` once (for instance in your
 import '@testing-library/jest-dom/extend-expect'
 ```
 
-> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js` to include the necessary types.
+> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
+> a `.js` to include the necessary types.
 
 Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
@@ -108,7 +115,9 @@ import {toBeInTheDocument, toHaveClass} from '@testing-library/jest-dom'
 expect.extend({toBeInTheDocument, toHaveClass})
 ```
 
-> Note: when using TypeScript, this way of importing matchers won't provide the necessary type definitions. More on this [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
+> Note: when using TypeScript, this way of importing matchers won't provide the
+> necessary type definitions. More on this
+> [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
 
 ## Custom matchers
 
@@ -919,10 +928,11 @@ toHaveValue(value: string | string[] | number)
 This allows you to check whether the given form element has the specified value.
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
 of `<input type="checkbox">` and `<input type="radio">`, which can be
-meaningfully matched only using [`toHaveFormValue`](#tohaveformvalues).
+meaningfully matched only using [`toBeChecked`](#tobechecked) or
+[`toHaveFormValues`](#tohaveformvalues).
 
 For all other form elements, the value is matched using the same algorithm as in
-[`toHaveFormValue`](#tohaveformvalues) does.
+[`toHaveFormValues`](#tohaveformvalues) does.
 
 #### Examples
 
@@ -967,6 +977,98 @@ expect(emptyInput).not.toHaveValue()
 expect(selectInput).not.toHaveValue(['second', 'third'])
 ```
 
+<hr />
+
+### `toBeChecked`
+
+```typescript
+toBeChecked()
+```
+
+This allows you to check whether the given element is checked. It accepts an
+`input` of type `checkbox` or `radio` and elements with a `role` of `checkbox`
+or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
+
+#### Examples
+
+```html
+<input type="checkbox" checked data-testid="input-checkbox-checked" />
+<input type="checkbox" data-testid="input-checkbox-unchecked" />
+<div role="checkbox" aria-checked="true" data-testid="aria-checkbox-checked" />
+<div
+  role="checkbox"
+  aria-checked="false"
+  data-testid="aria-checkbox-unchecked"
+/>
+
+<input type="radio" checked value="foo" data-testid="input-radio-checked" />
+<input type="radio" value="foo" data-testid="input-radio-unchecked" />
+<div role="radio" aria-checked="true" data-testid="aria-radio-checked" />
+<div role="radio" aria-checked="false" data-testid="aria-radio-unchecked" />
+```
+
+##### Using document.querySelector
+
+```javascript
+const inputCheckboxChecked = document.querySelector(
+  '[data-testid="input-checkbox-checked"]',
+)
+const inputCheckboxUnchecked = document.querySelector(
+  '[data-testid="input-checkbox-unchecked"]',
+)
+const ariaCheckboxChecked = document.querySelector(
+  '[data-testid="aria-checkbox-checked"]',
+)
+const ariaCheckboxUnchecked = document.querySelector(
+  '[data-testid="aria-checkbox-unchecked"]',
+)
+expect(inputCheckboxChecked).toBeChecked()
+expect(inputCheckboxUnchecked).not.toBeChecked()
+expect(ariaCheckboxChecked).toBeChecked()
+expect(ariaCheckboxUnchecked).not.toBeChecked()
+
+const inputRadioChecked = document.querySelector(
+  '[data-testid="input-radio-checked"]',
+)
+const inputRadioUnchecked = document.querySelector(
+  '[data-testid="input-radio-unchecked"]',
+)
+const ariaRadioChecked = document.querySelector(
+  '[data-testid="aria-radio-checked"]',
+)
+const ariaRadioUnchecked = document.querySelector(
+  '[data-testid="aria-radio-unchecked"]',
+)
+expect(inputRadioChecked).toBeChecked()
+expect(inputRadioUnchecked).not.toBeChecked()
+expect(ariaRadioChecked).toBeChecked()
+expect(ariaRadioUnchecked).not.toBeChecked()
+```
+
+##### Using DOM Testing Library
+
+```javascript
+const {getByTestId} = render(/* Rendered HTML */)
+
+const inputCheckboxChecked = getByTestId('input-checkbox-checked')
+const inputCheckboxUnchecked = getByTestId('input-checkbox-unchecked')
+const ariaCheckboxChecked = getByTestId('aria-checkbox-checked')
+const ariaCheckboxUnchecked = getByTestId('aria-checkbox-unchecked')
+expect(inputCheckboxChecked).toBeChecked()
+expect(inputCheckboxUnchecked).not.toBeChecked()
+expect(ariaCheckboxChecked).toBeChecked()
+expect(ariaCheckboxUnchecked).not.toBeChecked()
+
+const inputRadioChecked = getByTestId('input-radio-checked')
+const inputRadioUnchecked = getByTestId('input-radio-unchecked')
+const ariaRadioChecked = getByTestId('aria-radio-checked')
+const ariaRadioUnchecked = getByTestId('aria-radio-unchecked')
+expect(inputRadioChecked).toBeChecked()
+expect(inputRadioUnchecked).not.toBeChecked()
+expect(ariaRadioChecked).toBeChecked()
+expect(ariaRadioUnchecked).not.toBeChecked()
+```
+
 ## Deprecated matchers
 
 ### `toBeInTheDOM`
@@ -1001,10 +1103,12 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 > replacing `toBeInTheDOM` to read through the documentation of the proposed
 > alternatives to see which use case works better for your needs.
 
+
 ## Inspiration
 
-This whole library was extracted out of Kent C. Dodds' [DOM Testing Library][],
-which was in turn extracted out of [React Testing Library][].
+This whole library was extracted out of Kent C. Dodds' [DOM Testing
+Library][dom-testing-library], which was in turn extracted out of [React Testing
+Library][react-testing-library].
 
 The intention is to make this available to be used independently of these other
 libraries, and also to make it more clear that these other libraries are
@@ -1021,7 +1125,8 @@ here!
 > confidence they can give you.][guiding-principle]
 
 This library follows the same guiding principles as its mother library [DOM
-Testing Library][]. Go [check them out][guiding-principle] for more details.
+Testing Library][dom-testing-library]. Go [check them out][guiding-principle]
+for more details.
 
 Additionally, with respect to custom DOM matchers, this library aims to maintain
 a minimal but useful set of them, while avoiding bloating itself with merely
@@ -1071,7 +1176,13 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://raccoon.studio"><img src="https://avatars0.githubusercontent.com/u/4989733?v=4" width="100px;" alt="hiwelo."/><br /><sub><b>hiwelo.</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Code">💻</a> <a href="#ideas-hiwelo" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/lukaszfiszer"><img src="https://avatars3.githubusercontent.com/u/1201711?v=4" width="100px;" alt="Łukasz Fiszer"/><br /><sub><b>Łukasz Fiszer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lukaszfiszer" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/jeanchung"><img src="https://avatars0.githubusercontent.com/u/10778036?v=4" width="100px;" alt="Jean Chung"/><br /><sub><b>Jean Chung</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/CarlaTeo"><img src="https://avatars3.githubusercontent.com/u/9220147?v=4" width="100px;" alt="CarlaTeo"/><br /><sub><b>CarlaTeo</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Tests">⚠️</a></td>
+  </tr>
+  <tr>
     <td align="center"><a href="https://github.com/YardenShoham"><img src="https://avatars3.githubusercontent.com/u/20454870?v=4" width="100px;" alt="Yarden Shoham"/><br /><sub><b>Yarden Shoham</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=YardenShoham" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://jagascript.com"><img src="https://avatars0.githubusercontent.com/u/4562878?v=4" width="100px;" alt="Jaga Santagostino"/><br /><sub><b>Jaga Santagostino</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Akandros" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/connormeredith"><img src="https://avatars0.githubusercontent.com/u/4907463?v=4" width="100px;" alt="Connor Meredith"/><br /><sub><b>Connor Meredith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/pwolaq"><img src="https://avatars3.githubusercontent.com/u/10261750?v=4" width="100px;" alt="Pawel Wolak"/><br /><sub><b>Pawel Wolak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=pwolaq" title="Tests">⚠️</a></td>
   </tr>
 </table>
 

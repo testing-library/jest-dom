@@ -1,22 +1,25 @@
 import {matcherHint} from 'jest-matcher-utils'
 import jestDiff from 'jest-diff'
 import chalk from 'chalk'
-import {checkHtmlElement, checkValidCSS} from './utils'
+import {checkHtmlElement, parseCSS} from './utils'
 
 function getStyleDeclaration(document, css) {
-  const copy = document.createElement('div')
-  copy.style = css
-  const styles = copy.style
+  const styles = {}
 
-  return Array.from(styles).reduce(
-    (acc, name) => ({...acc, [name]: styles[name]}),
-    {},
-  )
+  // The next block is necessary to normalize colors
+  const copy = document.createElement('div')
+  Object.keys(css).forEach(property => {
+    copy.style[property] = css[property]
+    styles[property] = copy.style[property]
+  })
+
+  return styles
 }
 
 function isSubset(styles, computedStyle) {
   return Object.entries(styles).every(
-    ([prop, value]) => computedStyle.getPropertyValue(prop) === value,
+    ([prop, value]) =>
+      computedStyle.getPropertyValue(prop.toLowerCase()) === value,
   )
 }
 
@@ -47,10 +50,10 @@ function expectedDiff(expected, computedStyles) {
 
 export function toHaveStyle(htmlElement, css) {
   checkHtmlElement(htmlElement, toHaveStyle, this)
-  checkValidCSS(css, toHaveStyle, this)
+  const parsedCSS = parseCSS(css, toHaveStyle, this)
   const {getComputedStyle} = htmlElement.ownerDocument.defaultView
 
-  const expected = getStyleDeclaration(htmlElement.ownerDocument, css)
+  const expected = getStyleDeclaration(htmlElement.ownerDocument, parsedCSS)
   const received = getComputedStyle(htmlElement)
 
   return {
