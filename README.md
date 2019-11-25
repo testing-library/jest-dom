@@ -298,13 +298,13 @@ is `false`.
 ##### Using document.querySelector
 
 ```javascript
-expect(queryByTestId('no-aria-invalid')).not.toBeInvalid()
-expect(queryByTestId('aria-invalid')).toBeInvalid()
-expect(queryByTestId('aria-invalid-value')).toBeInvalid()
-expect(queryByTestId('aria-invalid-false')).not.toBeInvalid()
+expect(document.querySelector('[data-testid="no-aria-invalid"]')).not.toBeInvalid()
+expect(document.querySelector('[data-testid="aria-invalid"]')).toBeInvalid()
+expect(document.querySelector('[data-testid="aria-invalid-value"]')).toBeInvalid()
+expect(document.querySelector('[data-testid="aria-invalid-false"]')).not.toBeInvalid()
 
-expect(queryByTestId('valid-form')).not.toBeInvalid()
-expect(queryByTestId('invalid-form')).toBeInvalid()
+expect(document.querySelector('[data-testid="valid-form"]')).not.toBeInvalid()
+expect(document.querySelector('[data-testid="invalid-form"]')).toBeInvalid()
 ```
 
 ##### Using DOM Testing Library
@@ -425,13 +425,13 @@ must also be `true`.
 ##### Using document.querySelector
 
 ```javascript
-expect(queryByTestId('no-aria-invalid')).toBeValid()
-expect(queryByTestId('aria-invalid')).not.toBeValid()
-expect(queryByTestId('aria-invalid-value')).not.toBeValid()
-expect(queryByTestId('aria-invalid-false')).toBeValid()
+expect(document.querySelector('[data-testid="no-aria-invalid"]')).toBeValid()
+expect(document.querySelector('[data-testid="aria-invalid"]')).not.toBeValid()
+expect(document.querySelector('[data-testid="aria-invalid-value"]')).not.toBeValid()
+expect(document.querySelector('[data-testid="aria-invalid-false"]')).toBeValid()
 
-expect(queryByTestId('valid-form')).toBeValid()
-expect(queryByTestId('invalid-form')).not.toBeValid()
+expect(document.querySelector('[data-testid="valid-form"]')).toBeValid()
+expect(document.querySelector('[data-testid="invalid-form"]')).not.toBeValid()
 ```
 
 ##### Using DOM Testing Library
