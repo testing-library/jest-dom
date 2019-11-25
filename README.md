@@ -46,6 +46,7 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
@@ -86,9 +87,10 @@ should be installed as one of your project's `devDependencies`:
 npm install --save-dev @testing-library/jest-dom
 ```
 
-> Note: We also recommend installing the jest-dom eslint plugin which provides auto-fixable lint rules 
-> that prevent false positive tests and improve test readability by ensuring you are using the right
-> matchers in your tests.  More details can be found at
+> Note: We also recommend installing the jest-dom eslint plugin which provides
+> auto-fixable lint rules that prevent false positive tests and improve test
+> readability by ensuring you are using the right matchers in your tests. More
+> details can be found at
 > [eslint-plugin-jest-dom](https://github.com/testing-library/eslint-plugin-jest-dom).
 
 ## Usage
@@ -610,7 +612,7 @@ toHaveAttribute(attr: string, value?: any)
 This allows you to check whether the given element has an attribute or not. You
 can also optionally check that the attribute has a specific expected value or
 partial match using
-[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp)
+[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp).
 
 #### Examples
 
@@ -922,10 +924,12 @@ expect(element).not.toHaveTextContent('content')
 ### `toHaveValue`
 
 ```typescript
-toHaveValue(value: string | string[] | number)
+toHaveValue(value?: any)
 ```
 
-This allows you to check whether the given form element has the specified value.
+This allows you to check whether the given form element has the specified value
+or partial value using
+[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp).
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
 of `<input type="checkbox">` and `<input type="radio">`, which can be
 meaningfully matched only using [`toBeChecked`](#tobechecked) or
@@ -1102,7 +1106,6 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 > will likely cause unintended consequences in your tests. Please make sure when
 > replacing `toBeInTheDOM` to read through the documentation of the proposed
 > alternatives to see which use case works better for your needs.
-
 
 ## Inspiration
 
