@@ -327,6 +327,17 @@
       "contributions": [
         "test"
       ]
+    },
+    {
+      "login": "Kiarash-Z",
+      "name": "Kiarash Zarinmehr",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/20098648?s=400&v=4",
+      "profile": "https://github.com/Kiarash-Z",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",

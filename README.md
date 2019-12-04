@@ -67,6 +67,7 @@ clear to read and to maintain.
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveValue`](#tohavevalue)
   - [`toBeChecked`](#tobechecked)
+  - [`toBeSelected`](#tobeselected)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
 - [Inspiration](#inspiration)
@@ -86,9 +87,10 @@ should be installed as one of your project's `devDependencies`:
 npm install --save-dev @testing-library/jest-dom
 ```
 
-> Note: We also recommend installing the jest-dom eslint plugin which provides auto-fixable lint rules 
-> that prevent false positive tests and improve test readability by ensuring you are using the right
-> matchers in your tests.  More details can be found at
+> Note: We also recommend installing the jest-dom eslint plugin which provides
+> auto-fixable lint rules that prevent false positive tests and improve test
+> readability by ensuring you are using the right matchers in your tests. More
+> details can be found at
 > [eslint-plugin-jest-dom](https://github.com/testing-library/eslint-plugin-jest-dom).
 
 ## Usage
@@ -298,10 +300,16 @@ is `false`.
 ##### Using document.querySelector
 
 ```javascript
-expect(document.querySelector('[data-testid="no-aria-invalid"]')).not.toBeInvalid()
+expect(
+  document.querySelector('[data-testid="no-aria-invalid"]'),
+).not.toBeInvalid()
 expect(document.querySelector('[data-testid="aria-invalid"]')).toBeInvalid()
-expect(document.querySelector('[data-testid="aria-invalid-value"]')).toBeInvalid()
-expect(document.querySelector('[data-testid="aria-invalid-false"]')).not.toBeInvalid()
+expect(
+  document.querySelector('[data-testid="aria-invalid-value"]'),
+).toBeInvalid()
+expect(
+  document.querySelector('[data-testid="aria-invalid-false"]'),
+).not.toBeInvalid()
 
 expect(document.querySelector('[data-testid="valid-form"]')).not.toBeInvalid()
 expect(document.querySelector('[data-testid="invalid-form"]')).toBeInvalid()
@@ -427,7 +435,9 @@ must also be `true`.
 ```javascript
 expect(document.querySelector('[data-testid="no-aria-invalid"]')).toBeValid()
 expect(document.querySelector('[data-testid="aria-invalid"]')).not.toBeValid()
-expect(document.querySelector('[data-testid="aria-invalid-value"]')).not.toBeValid()
+expect(
+  document.querySelector('[data-testid="aria-invalid-value"]'),
+).not.toBeValid()
 expect(document.querySelector('[data-testid="aria-invalid-false"]')).toBeValid()
 
 expect(document.querySelector('[data-testid="valid-form"]')).toBeValid()
@@ -1069,6 +1079,40 @@ expect(ariaRadioChecked).toBeChecked()
 expect(ariaRadioUnchecked).not.toBeChecked()
 ```
 
+<hr />
+
+### `toBeSelected`
+
+```typescript
+toBeSelected()
+```
+
+This allows you to assert whether an element has `aria-selected="true"` or not.
+
+#### Examples
+
+```html
+<div data-testid="selected" aria-selected="true"></div>
+<div data-testid="not-selected" aria-selected="false"></div>
+<div data-testid="not-selected-defined"></div>
+```
+
+##### Using document.querySelector
+
+```javascript
+expect(document.querySelector('[data-testid="selected"]').toBeSelected()
+expect(document.querySelector('[data-testid="not-selected"]').not.toBeSelected()
+expect(document.querySelector('[data-testid="not-selected-defined"]').not.toBeSelected()
+```
+
+##### Using DOM Testing Library
+
+```javascript
+expect(queryByTestId(container, 'selected')).toBeSelected()
+expect(queryByTestId(container, 'not-selected')).not.toBeSelected()
+expect(queryByTestId(container, 'not-selected-defined')).not.toBeSelected()
+```
+
 ## Deprecated matchers
 
 ### `toBeInTheDOM`
@@ -1102,7 +1146,6 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 > will likely cause unintended consequences in your tests. Please make sure when
 > replacing `toBeInTheDOM` to read through the documentation of the proposed
 > alternatives to see which use case works better for your needs.
-
 
 ## Inspiration
 

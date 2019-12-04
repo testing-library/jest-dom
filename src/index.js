@@ -15,6 +15,7 @@ import {toBeRequired} from './to-be-required'
 import {toBeInvalid, toBeValid} from './to-be-invalid'
 import {toHaveValue} from './to-have-value'
 import {toBeChecked} from './to-be-checked'
+import {toBeSelected} from './to-be-selected'
 
 export {
   toBeInTheDOM,
@@ -36,4 +37,5 @@ export {
   toBeValid,
   toHaveValue,
   toBeChecked,
+  toBeSelected,
 }
