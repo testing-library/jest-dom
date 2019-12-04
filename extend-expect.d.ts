@@ -25,6 +25,6 @@ declare namespace jest {
     ): R
     toHaveValue(value?: string | string[] | number): R
     toBeChecked(): R
-    toBeEmpty(): R
+    toBeSelected(): R
   }
 }
