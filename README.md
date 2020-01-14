@@ -327,7 +327,7 @@ expect(getByTestId(container, 'invalid-form')).toBeInvalid()
 toBeRequired()
 ```
 
-This allows you to check if an form element is currently required.
+This allows you to check if a form element is currently required.
 
 An element is required if it is having a `required` or `aria-required="true"`
 attribute.
