@@ -14,10 +14,16 @@ function isStyleVisible(element) {
   )
 }
 
+function hasElementAVisibleAttribute(element) {
+  return element.nodeName === 'DETAILS'
+    ? element.hasAttribute('open')
+    : !element.hasAttribute('hidden')
+}
+
 function isElementVisible(element) {
   return (
     isStyleVisible(element) &&
-    !element.hasAttribute('hidden') &&
+    hasElementAVisibleAttribute(element) &&
     (!element.parentElement || isElementVisible(element.parentElement))
   )
 }

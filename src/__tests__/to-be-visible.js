@@ -1,7 +1,7 @@
 import {render} from './helpers/test-utils'
 
 test('.toBeVisible', () => {
-  const {container} = render(`
+  const {container, queryByTestId} = render(`
     <div>
       <header>
         <h1 style="display: none">Main title</h1>
@@ -14,6 +14,14 @@ test('.toBeVisible', () => {
       <section style="display: block; visibility: hidden">
         <p>Hello <strong>World</strong></p>
       </section>
+      <details data-testid="hidden-details">
+        <summary>Title of hidden</summary>
+        <div>Hidden details</div>
+      </details>
+      <details open data-testid="visible-details">
+        <summary>Title of visible</summary>
+        <div>Visible details</div>
+      </details>
     </div>
   `)
 
@@ -32,4 +40,9 @@ test('.toBeVisible', () => {
   expect(() =>
     expect(container.querySelector('p')).toBeVisible(),
   ).toThrowError()
+
+  expect(queryByTestId('visible-details').querySelector('div')).toBeVisible()
+  // expect(queryByTestId('visible-details').querySelector('summary')).toBeVisible()
+  // expect(queryByTestId('hidden-details').querySelector('summary')).toBeVisible()
+  expect(queryByTestId('hidden-details').querySelector('div')).not.toBeVisible()
 })
