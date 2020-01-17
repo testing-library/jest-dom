@@ -732,18 +732,6 @@ input.blur()
 expect(input).not.toHaveFocus()
 ```
 
-##### Using DOM Testing Library
-
-```javascript
-const input = queryByTestId(container, 'element-to-focus')
-
-fireEvent.focus(input)
-expect(input).toHaveFocus()
-
-fireEvent.blur(input)
-expect(input).not.toHaveFocus()
-```
-
 <hr />
 
 ### `toHaveFormValues`
