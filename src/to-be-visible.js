@@ -15,9 +15,10 @@ function isStyleVisible(element) {
 }
 
 function hasElementAVisibleAttribute(element) {
-  return element.nodeName === 'DETAILS'
-    ? element.hasAttribute('open')
-    : !element.hasAttribute('hidden')
+  return (
+    !element.hasAttribute('hidden') &&
+    (element.nodeName === 'DETAILS' ? element.hasAttribute('open') : true)
+  )
 }
 
 function isElementVisible(element) {

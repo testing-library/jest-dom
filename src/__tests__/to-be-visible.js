@@ -87,5 +87,20 @@ describe('.toBeVisible', () => {
         })
       })
     })
+
+    describe('when the details is opened but it is hidden', () => {
+      beforeEach(() => {
+        subject = render(`
+          <details open hidden>
+            <summary>Title of visible</summary>
+            <div>Visible details</div>
+          </details>
+        `)
+      })
+
+      it('returns false', () => {
+        expect(subject.container.querySelector('div')).not.toBeVisible()
+      })
+    })
   })
 })
