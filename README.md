@@ -46,6 +46,7 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
@@ -478,6 +479,7 @@ An element is visible if **all** the following conditions are met:
 - it does not have the
   [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden)
   attribute
+- if `<details />` it has the `open` attribute
 
 #### Examples
 
