@@ -52,15 +52,23 @@ describe('.toBeVisible', () => {
         `)
       })
 
-      it('returns true', () => {
+      it('returns true to the details content', () => {
         expect(subject.container.querySelector('div')).toBeVisible()
+      })
+
+      it('returns true to the details summary', () => {
+        expect(subject.container.querySelector('summary')).toBeVisible()
       })
 
       describe('when the user clicks on the summary', () => {
         beforeEach(() => subject.container.querySelector('summary').click())
 
-        it('returns false', () => {
+        it('returns false to the details content', () => {
           expect(subject.container.querySelector('div')).not.toBeVisible()
+        })
+
+        it('returns true to the details summary', () => {
+          expect(subject.container.querySelector('summary')).toBeVisible()
         })
       })
     })
@@ -75,15 +83,23 @@ describe('.toBeVisible', () => {
         `)
       })
 
-      it('returns false', () => {
+      it('returns false to the details content', () => {
         expect(subject.container.querySelector('div')).not.toBeVisible()
+      })
+
+      it('returns true to the summary content', () => {
+        expect(subject.container.querySelector('summary')).toBeVisible()
       })
 
       describe('when the user clicks on the summary', () => {
         beforeEach(() => subject.container.querySelector('summary').click())
 
-        it('returns true', () => {
+        it('returns true to the details content', () => {
           expect(subject.container.querySelector('div')).toBeVisible()
+        })
+
+        it('returns true to the details summary', () => {
+          expect(subject.container.querySelector('summary')).toBeVisible()
         })
       })
     })
@@ -98,8 +114,12 @@ describe('.toBeVisible', () => {
         `)
       })
 
-      it('returns false', () => {
+      it('returns false to the details content', () => {
         expect(subject.container.querySelector('div')).not.toBeVisible()
+      })
+
+      it('returns false to the details summary', () => {
+        expect(subject.container.querySelector('summary')).not.toBeVisible()
       })
     })
   })

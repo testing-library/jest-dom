@@ -14,18 +14,20 @@ function isStyleVisible(element) {
   )
 }
 
-function hasElementAVisibleAttribute(element) {
+function hasElementAVisibleAttribute(element, childElement) {
   return (
     !element.hasAttribute('hidden') &&
-    (element.nodeName === 'DETAILS' ? element.hasAttribute('open') : true)
+    (element.nodeName === 'DETAILS' && childElement.nodeName !== 'SUMMARY'
+      ? element.hasAttribute('open')
+      : true)
   )
 }
 
-function isElementVisible(element) {
+function isElementVisible(element, childElement) {
   return (
     isStyleVisible(element) &&
-    hasElementAVisibleAttribute(element) &&
-    (!element.parentElement || isElementVisible(element.parentElement))
+    hasElementAVisibleAttribute(element, childElement) &&
+    (!element.parentElement || isElementVisible(element.parentElement, element))
   )
 }
 
