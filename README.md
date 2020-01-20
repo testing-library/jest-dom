@@ -86,21 +86,22 @@ should be installed as one of your project's `devDependencies`:
 npm install --save-dev @testing-library/jest-dom
 ```
 
-> Note: We also recommend installing the jest-dom eslint plugin which provides auto-fixable lint rules 
-> that prevent false positive tests and improve test readability by ensuring you are using the right
-> matchers in your tests.  More details can be found at
+> Note: We also recommend installing the jest-dom eslint plugin which provides
+> auto-fixable lint rules that prevent false positive tests and improve test
+> readability by ensuring you are using the right matchers in your tests. More
+> details can be found at
 > [eslint-plugin-jest-dom](https://github.com/testing-library/eslint-plugin-jest-dom).
 
 ## Usage
 
-Import `@testing-library/jest-dom/extend-expect` once (for instance in your
-[tests setup file][]) and you're good to go:
+Import `@testing-library/jest-dom` once (for instance in your [tests setup
+file][]) and you're good to go:
 
 [tests setup file]:
   https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
 
 ```javascript
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 ```
 
 > Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
@@ -110,7 +111,10 @@ Alternatively, you can selectively import only the matchers you intend to use,
 and extend jest's `expect` yourself:
 
 ```javascript
-import {toBeInTheDocument, toHaveClass} from '@testing-library/jest-dom'
+import {
+  toBeInTheDocument,
+  toHaveClass,
+} from '@testing-library/jest-dom/matchers'
 
 expect.extend({toBeInTheDocument, toHaveClass})
 ```
@@ -298,10 +302,16 @@ is `false`.
 ##### Using document.querySelector
 
 ```javascript
-expect(document.querySelector('[data-testid="no-aria-invalid"]')).not.toBeInvalid()
+expect(
+  document.querySelector('[data-testid="no-aria-invalid"]'),
+).not.toBeInvalid()
 expect(document.querySelector('[data-testid="aria-invalid"]')).toBeInvalid()
-expect(document.querySelector('[data-testid="aria-invalid-value"]')).toBeInvalid()
-expect(document.querySelector('[data-testid="aria-invalid-false"]')).not.toBeInvalid()
+expect(
+  document.querySelector('[data-testid="aria-invalid-value"]'),
+).toBeInvalid()
+expect(
+  document.querySelector('[data-testid="aria-invalid-false"]'),
+).not.toBeInvalid()
 
 expect(document.querySelector('[data-testid="valid-form"]')).not.toBeInvalid()
 expect(document.querySelector('[data-testid="invalid-form"]')).toBeInvalid()
@@ -427,7 +437,9 @@ must also be `true`.
 ```javascript
 expect(document.querySelector('[data-testid="no-aria-invalid"]')).toBeValid()
 expect(document.querySelector('[data-testid="aria-invalid"]')).not.toBeValid()
-expect(document.querySelector('[data-testid="aria-invalid-value"]')).not.toBeValid()
+expect(
+  document.querySelector('[data-testid="aria-invalid-value"]'),
+).not.toBeValid()
 expect(document.querySelector('[data-testid="aria-invalid-false"]')).toBeValid()
 
 expect(document.querySelector('[data-testid="valid-form"]')).toBeValid()
@@ -717,18 +729,6 @@ input.focus()
 expect(input).toHaveFocus()
 
 input.blur()
-expect(input).not.toHaveFocus()
-```
-
-##### Using DOM Testing Library
-
-```javascript
-const input = queryByTestId(container, 'element-to-focus')
-
-fireEvent.focus(input)
-expect(input).toHaveFocus()
-
-fireEvent.blur(input)
 expect(input).not.toHaveFocus()
 ```
 
@@ -1102,7 +1102,6 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 > will likely cause unintended consequences in your tests. Please make sure when
 > replacing `toBeInTheDOM` to read through the documentation of the proposed
 > alternatives to see which use case works better for your needs.
-
 
 ## Inspiration
 
