@@ -338,7 +338,7 @@ expect(getByTestId(container, 'invalid-form')).toBeInvalid()
 toBeRequired()
 ```
 
-This allows you to check if an form element is currently required.
+This allows you to check if a form element is currently required.
 
 An element is required if it is having a `required` or `aria-required="true"`
 attribute.
@@ -731,18 +731,6 @@ input.focus()
 expect(input).toHaveFocus()
 
 input.blur()
-expect(input).not.toHaveFocus()
-```
-
-##### Using DOM Testing Library
-
-```javascript
-const input = queryByTestId(container, 'element-to-focus')
-
-fireEvent.focus(input)
-expect(input).toHaveFocus()
-
-fireEvent.blur(input)
 expect(input).not.toHaveFocus()
 ```
 
