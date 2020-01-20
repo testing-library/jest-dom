@@ -129,7 +129,7 @@ describe('.toBeVisible', () => {
       })
     })
 
-    describe('when there is a nested <details />', () => {
+    describe('with a nested <details /> element', () => {
       describe('when the nested <details /> is opened', () => {
         beforeEach(() => {
           subject = render(`
