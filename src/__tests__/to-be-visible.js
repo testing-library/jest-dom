@@ -193,7 +193,7 @@ describe('.toBeVisible', () => {
           ).toBeVisible()
         })
 
-        it('returns true to the nested details content', () => {
+        it('returns true to the outer details content', () => {
           expect(subject.container.querySelector('details > div')).toBeVisible()
         })
 
