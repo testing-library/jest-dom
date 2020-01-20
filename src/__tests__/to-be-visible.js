@@ -1,5 +1,6 @@
 import {render} from './helpers/test-utils'
 
+// eslint-disable-next-line max-lines-per-function
 describe('.toBeVisible', () => {
   it('returns the visibility of an element', () => {
     const {container} = render(`
@@ -35,6 +36,7 @@ describe('.toBeVisible', () => {
     ).toThrowError()
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('with a <details /> element', () => {
     let subject
 
@@ -47,13 +49,17 @@ describe('.toBeVisible', () => {
         subject = render(`
           <details open>
             <summary>Title of visible</summary>
-            <div>Visible details</div>
+            <div>Visible <small>details</small></div>
           </details>
         `)
       })
 
       it('returns true to the details content', () => {
         expect(subject.container.querySelector('div')).toBeVisible()
+      })
+
+      it('returns true to the most inner details content', () => {
+        expect(subject.container.querySelector('small')).toBeVisible()
       })
 
       it('returns true to the details summary', () => {
@@ -120,6 +126,121 @@ describe('.toBeVisible', () => {
 
       it('returns false to the details summary', () => {
         expect(subject.container.querySelector('summary')).not.toBeVisible()
+      })
+    })
+
+    describe('when there is a nested <details />', () => {
+      describe('when the nested <details /> is opened', () => {
+        beforeEach(() => {
+          subject = render(`
+            <details open>
+              <summary>Title of visible</summary>
+              <div>Outer content</div>
+              <details open>
+                <summary>Title of nested details</summary>
+                <div>Inner content</div>
+              </details>
+            </details>
+          `)
+        })
+
+        it('returns true to the nested details content', () => {
+          expect(
+            subject.container.querySelector('details > details > div'),
+          ).toBeVisible()
+        })
+
+        it('returns true to the nested details summary', () => {
+          expect(
+            subject.container.querySelector('details > details > summary'),
+          ).toBeVisible()
+        })
+
+        it('returns true to the outer details content', () => {
+          expect(subject.container.querySelector('details > div')).toBeVisible()
+        })
+
+        it('returns true to the outer details summary', () => {
+          expect(
+            subject.container.querySelector('details > summary'),
+          ).toBeVisible()
+        })
+      })
+
+      describe('when the nested <details /> is not opened', () => {
+        beforeEach(() => {
+          subject = render(`
+            <details open>
+              <summary>Title of visible</summary>
+              <div>Outer content</div>
+              <details>
+                <summary>Title of nested details</summary>
+                <div>Inner content</div>
+              </details>
+            </details>
+          `)
+        })
+
+        it('returns false to the nested details content', () => {
+          expect(
+            subject.container.querySelector('details > details > div'),
+          ).not.toBeVisible()
+        })
+
+        it('returns true to the nested details summary', () => {
+          expect(
+            subject.container.querySelector('details > details > summary'),
+          ).toBeVisible()
+        })
+
+        it('returns true to the nested details content', () => {
+          expect(subject.container.querySelector('details > div')).toBeVisible()
+        })
+
+        it('returns true to the outer details summary', () => {
+          expect(
+            subject.container.querySelector('details > summary'),
+          ).toBeVisible()
+        })
+      })
+
+      describe('when the outer <details /> is not opened and the nested one is opened', () => {
+        beforeEach(() => {
+          subject = render(`
+            <details>
+              <summary>Title of visible</summary>
+              <div>Outer content</div>
+              <details open>
+                <summary>Title of nested details</summary>
+                <div>Inner content</div>
+              </details>
+            </details>
+          `)
+        })
+
+        it('returns false to the nested details content', () => {
+          expect(
+            subject.container.querySelector('details > details > div'),
+          ).not.toBeVisible()
+        })
+
+        it('returns false to the nested details summary', () => {
+          expect(
+            subject.container.querySelector('details > details > summary'),
+          ).not.toBeVisible()
+        })
+
+        it('returns false to the outer details content', () => {
+          expect(
+            subject.container.querySelector('details > div'),
+          ).not.toBeVisible()
+        })
+
+        it('returns true to the outer details summary', () => {
+          expect(
+            subject.container.querySelector('details > summary'),
+          ).toBeVisible()
+        })
       })
     })
   })
