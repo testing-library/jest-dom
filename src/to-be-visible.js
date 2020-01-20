@@ -14,19 +14,19 @@ function isStyleVisible(element) {
   )
 }
 
-function hasElementAVisibleAttribute(element, childElement) {
+function isAttributeVisible(element, previousElement) {
   return (
     !element.hasAttribute('hidden') &&
-    (element.nodeName === 'DETAILS' && childElement.nodeName !== 'SUMMARY'
+    (element.nodeName === 'DETAILS' && previousElement.nodeName !== 'SUMMARY'
       ? element.hasAttribute('open')
       : true)
   )
 }
 
-function isElementVisible(element, childElement) {
+function isElementVisible(element, previousElement) {
   return (
     isStyleVisible(element) &&
-    hasElementAVisibleAttribute(element, childElement) &&
+    isAttributeVisible(element, previousElement) &&
     (!element.parentElement || isElementVisible(element.parentElement, element))
   )
 }
