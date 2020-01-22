@@ -127,10 +127,9 @@ expect.extend({toBeInTheDocument, toHaveClass})
 ## Custom matchers
 
 `@testing-library/jest-dom` can work with any library or framework that returns
-DOM elements from queries. The custom matcher examples below demonstrate using
-`document.querySelector` and
-[DOM Testing Library](https://github.com/testing-library/dom-testing-library)
-for querying DOM elements.
+DOM elements from queries. The custom matcher examples below are written using
+matchers from `@testing-library`'s suite of libraries (e.g. `getByTestId`,
+`queryByTestId`, `getByText`, etc.)
 
 ### `toBeDisabled`
 
@@ -157,20 +156,10 @@ According to the specification, the following elements can be
 <a href="..." disabled>link</a>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-expect(document.querySelector('[data-testid="button"]')).toBeDisabled()
-expect(document.querySelector('[data-testid="input"]')).toBeDisabled()
-expect(document.querySelector('a')).not.toBeDisabled()
-```
-
-##### Using DOM Testing Library
-
-```javascript
-expect(getByTestId(container, 'button')).toBeDisabled()
-expect(getByTestId(container, 'input')).toBeDisabled()
-expect(getByText(container, 'link')).not.toBeDisabled()
+expect(getByTestId('button')).toBeDisabled()
+expect(getByTestId('input')).toBeDisabled()
+expect(getByText('link')).not.toBeDisabled()
 ```
 
 <hr />
@@ -203,18 +192,9 @@ This allows you to assert whether an element has content or not.
 <span data-testid="not-empty"><span data-testid="empty"></span></span>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-expect(document.querySelector('[data-testid="empty"]').toBeEmpty()
-expect(document.querySelector('[data-testid="not-empty"]').not.toBeEmpty()
-```
-
-##### Using DOM Testing Library
-
-```javascript
-expect(queryByTestId(container, 'empty')).toBeEmpty()
-expect(queryByTestId(container, 'not-empty')).not.toBeEmpty()
+expect(getByTestId('empty')).toBeEmpty()
+expect(getByTestId('not-empty')).not.toBeEmpty()
 ```
 
 <hr />
@@ -233,22 +213,6 @@ This allows you to assert whether an element is present in the document or not.
 <span data-testid="html-element"><span>Html Element</span></span>
 <svg data-testid="svg-element"></svg>
 ```
-
-##### Using document.querySelector
-
-```javascript
-const htmlElement = document.querySelector('[data-testid="html-element"]')
-const svgElement = document.querySelector('[data-testid="svg-element"]')
-const nonExistantElement = document.querySelector('does-not-exist')
-const detachedElement = document.createElement('div')
-
-expect(htmlElement).toBeInTheDocument()
-expect(svgElement).toBeInTheDocument()
-expect(nonExistantElement).not.toBeInTheDocument()
-expect(detachedElement).not.toBeInTheDocument()
-```
-
-##### Using DOM Testing Library
 
 ```javascript
 expect(
@@ -300,34 +264,14 @@ is `false`.
 </form>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-expect(
-  document.querySelector('[data-testid="no-aria-invalid"]'),
-).not.toBeInvalid()
-expect(document.querySelector('[data-testid="aria-invalid"]')).toBeInvalid()
-expect(
-  document.querySelector('[data-testid="aria-invalid-value"]'),
-).toBeInvalid()
-expect(
-  document.querySelector('[data-testid="aria-invalid-false"]'),
-).not.toBeInvalid()
+expect(getByTestId('no-aria-invalid')).not.toBeInvalid()
+expect(getByTestId('aria-invalid')).toBeInvalid()
+expect(getByTestId('aria-invalid-value')).toBeInvalid()
+expect(getByTestId('aria-invalid-false')).not.toBeInvalid()
 
-expect(document.querySelector('[data-testid="valid-form"]')).not.toBeInvalid()
-expect(document.querySelector('[data-testid="invalid-form"]')).toBeInvalid()
-```
-
-##### Using DOM Testing Library
-
-```javascript
-expect(getByTestId(container, 'no-aria-invalid')).not.toBeInvalid()
-expect(getByTestId(container, 'aria-invalid')).toBeInvalid()
-expect(getByTestId(container, 'aria-invalid-value')).toBeInvalid()
-expect(getByTestId(container, 'aria-invalid-false')).not.toBeInvalid()
-
-expect(getByTestId(container, 'valid-form')).not.toBeInvalid()
-expect(getByTestId(container, 'invalid-form')).toBeInvalid()
+expect(getByTestId('valid-form')).not.toBeInvalid()
+expect(getByTestId('invalid-form')).toBeInvalid()
 ```
 
 <hr />
@@ -358,45 +302,17 @@ attribute.
 <div data-testid="supported-role-aria" role="tree" aria-required="true"></div>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-expect(document.querySelector('[data-testid="required-input"]')).toBeRequired()
-expect(
-  document.querySelector('[data-testid="aria-required-input"]'),
-).toBeRequired()
-expect(
-  document.querySelector('[data-testid="conflicted-input"]'),
-).toBeRequired()
-expect(
-  document.querySelector('[data-testid="aria-not-required-input"]'),
-).not.toBeRequired()
-expect(
-  document.querySelector('[data-testid="unsupported-type"]'),
-).not.toBeRequired()
-expect(document.querySelector('[data-testid="select"]')).toBeRequired()
-expect(document.querySelector('[data-testid="textarea"]')).toBeRequired()
-expect(
-  document.querySelector('[data-testid="supported-role"]'),
-).not.toBeRequired()
-expect(
-  document.querySelector('[data-testid="supported-role-aria"]'),
-).toBeRequired()
-```
-
-##### Using DOM Testing Library
-
-```javascript
-expect(getByTestId(container, 'required-input')).toBeRequired()
-expect(getByTestId(container, 'aria-required-input')).toBeRequired()
-expect(getByTestId(container, 'conflicted-input')).toBeRequired()
-expect(getByTestId(container, 'aria-not-required-input')).not.toBeRequired()
-expect(getByTestId(container, 'optional-input')).not.toBeRequired()
-expect(getByTestId(container, 'unsupported-type')).not.toBeRequired()
-expect(getByTestId(container, 'select')).toBeRequired()
-expect(getByTestId(container, 'textarea')).toBeRequired()
-expect(getByTestId(container, 'supported-role')).not.toBeRequired()
-expect(getByTestId(container, 'supported-role-aria')).toBeRequired()
+expect(getByTestId('required-input')).toBeRequired()
+expect(getByTestId('aria-required-input')).toBeRequired()
+expect(getByTestId('conflicted-input')).toBeRequired()
+expect(getByTestId('aria-not-required-input')).not.toBeRequired()
+expect(getByTestId('optional-input')).not.toBeRequired()
+expect(getByTestId('unsupported-type')).not.toBeRequired()
+expect(getByTestId('select')).toBeRequired()
+expect(getByTestId('textarea')).toBeRequired()
+expect(getByTestId('supported-role')).not.toBeRequired()
+expect(getByTestId('supported-role-aria')).toBeRequired()
 ```
 
 <hr />
@@ -433,30 +349,14 @@ must also be `true`.
 </form>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-expect(document.querySelector('[data-testid="no-aria-invalid"]')).toBeValid()
-expect(document.querySelector('[data-testid="aria-invalid"]')).not.toBeValid()
-expect(
-  document.querySelector('[data-testid="aria-invalid-value"]'),
-).not.toBeValid()
-expect(document.querySelector('[data-testid="aria-invalid-false"]')).toBeValid()
+expect(getByTestId('no-aria-invalid')).toBeValid()
+expect(getByTestId('aria-invalid')).not.toBeValid()
+expect(getByTestId('aria-invalid-value')).not.toBeValid()
+expect(getByTestId('aria-invalid-false')).toBeValid()
 
-expect(document.querySelector('[data-testid="valid-form"]')).toBeValid()
-expect(document.querySelector('[data-testid="invalid-form"]')).not.toBeValid()
-```
-
-##### Using DOM Testing Library
-
-```javascript
-expect(getByTestId(container, 'no-aria-invalid')).toBeValid()
-expect(getByTestId(container, 'aria-invalid')).not.toBeValid()
-expect(getByTestId(container, 'aria-invalid-value')).not.toBeValid()
-expect(getByTestId(container, 'aria-invalid-false')).toBeValid()
-
-expect(getByTestId(container, 'valid-form')).toBeValid()
-expect(getByTestId(container, 'invalid-form')).not.toBeValid()
+expect(getByTestId('valid-form')).toBeValid()
+expect(getByTestId('invalid-form')).not.toBeValid()
 ```
 
 <hr />
@@ -496,32 +396,13 @@ An element is visible if **all** the following conditions are met:
 <div data-testid="hidden-attribute" hidden>Hidden Attribute Example</div>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-expect(document.querySelector('[data-testid="zero-opacity"]')).not.toBeVisible()
-expect(
-  document.querySelector('[data-testid="visibility-hidden"]'),
-).not.toBeVisible()
-expect(document.querySelector('[data-testid="display-none"]')).not.toBeVisible()
-expect(
-  document.querySelector('[data-testid="hidden-parent"]'),
-).not.toBeVisible()
-expect(document.querySelector('[data-testid="visible"]')).toBeVisible()
-expect(
-  document.querySelector('[data-testid="hidden-attribute"]'),
-).not.toBeVisible()
-```
-
-##### Using DOM Testing Library
-
-```javascript
-expect(getByText(container, 'Zero Opacity Example')).not.toBeVisible()
-expect(getByText(container, 'Visibility Hidden Example')).not.toBeVisible()
-expect(getByText(container, 'Display None Example')).not.toBeVisible()
-expect(getByText(container, 'Hidden Parent Example')).not.toBeVisible()
-expect(getByText(container, 'Visible Example')).toBeVisible()
-expect(getByText(container, 'Hidden Attribute Example')).not.toBeVisible()
+expect(getByText('Zero Opacity Example')).not.toBeVisible()
+expect(getByText('Visibility Hidden Example')).not.toBeVisible()
+expect(getByText('Display None Example')).not.toBeVisible()
+expect(getByText('Hidden Parent Example')).not.toBeVisible()
+expect(getByText('Visible Example')).toBeVisible()
+expect(getByText('Hidden Attribute Example')).not.toBeVisible()
 ```
 
 <hr />
@@ -541,28 +422,10 @@ descendant or not.
 <span data-testid="ancestor"><span data-testid="descendant"></span></span>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-const ancestor = document.querySelector('[data-testid="ancestor"]')
-const descendant = document.querySelector('[data-testid="descendant"]')
-const nonExistantElement = document.querySelector(
-  '[data-testid="does-not-exist"]',
-)
-
-expect(ancestor).toContainElement(descendant)
-expect(descendant).not.toContainElement(ancestor)
-expect(ancestor).not.toContainElement(nonExistantElement)
-```
-
-##### Using DOM Testing Library
-
-```javascript
-const {queryByTestId} = render(/* Rendered HTML */)
-
-const ancestor = queryByTestId(container, 'ancestor')
-const descendant = queryByTestId(container, 'descendant')
-const nonExistantElement = queryByTestId(container, 'does-not-exist')
+const ancestor = getByTestId('ancestor')
+const descendant = getByTestId('descendant')
+const nonExistantElement = getByTestId('does-not-exist')
 
 expect(ancestor).toContainElement(descendant)
 expect(descendant).not.toContainElement(ancestor)
@@ -586,20 +449,8 @@ element:
 <span data-testid="parent"><span data-testid="child"></span></span>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-expect(document.querySelector('[data-testid="parent"]')).toContainHTML(
-  '<span data-testid="child"></span>',
-)
-```
-
-##### Using DOM Testing Library
-
-```javascript
-expect(getByTestId(container, 'parent')).toContainHTML(
-  '<span data-testid="child"></span>',
-)
+expect(getByTestId('parent')).toContainHTML('<span data-testid="child"></span>')
 ```
 
 > Chances are you probably do not need to use this matcher. We encourage testing
@@ -632,20 +483,8 @@ partial match using
 <button data-testid="ok-button" type="submit" disabled>ok</button>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-const button = document.querySelector('[data-testid="ok-button"]')
-
-expect(button).toHaveAttribute('disabled')
-expect(button).toHaveAttribute('type', 'submit')
-expect(button).not.toHaveAttribute('type', 'button')
-```
-
-##### Using DOM Testing Library
-
-```javascript
-const button = getByTestId(container, 'ok-button')
+const button = getByTestId('ok-button')
 
 expect(button).toHaveAttribute('disabled')
 expect(button).toHaveAttribute('type', 'submit')
@@ -678,25 +517,9 @@ does not have any classes.
 <button data-testid="no-classes">No Classes</button>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-const deleteButton = document.querySelector('[data-testid="delete-button"]')
-const noClasses = document.querySelector('[data-testid="no-classes"]')
-
-expect(deleteButton).toHaveClass('extra')
-expect(deleteButton).toHaveClass('btn-danger btn')
-expect(deleteButton).toHaveClass('btn-danger', 'btn')
-expect(deleteButton).not.toHaveClass('btn-link')
-
-expect(noClasses).not.toHaveClass()
-```
-
-##### Using DOM Testing Library
-
-```javascript
-const deleteButton = getByTestId(container, 'delete-button')
-const noClasses = getByTestId(container, 'no-classes')
+const deleteButton = getByTestId('delete-button')
+const noClasses = getByTestId('no-classes')
 
 expect(deleteButton).toHaveClass('extra')
 expect(deleteButton).toHaveClass('btn-danger btn')
@@ -722,10 +545,8 @@ This allows you to assert whether an element has focus or not.
 <div><input type="text" data-testid="element-to-focus" /></div>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-const input = document.querySelector(['data-testid="element-to-focus"'])
+const input = getByTestId('element-to-focus')
 
 input.focus()
 expect(input).toHaveFocus()
@@ -812,8 +633,7 @@ by this matcher to compare against would be the same.
 ```
 
 ```javascript
-const form = document.querySelector('[data-testid="login-form"]')
-expect(form).toHaveFormValues({
+expect(getByTestId('login-form')).toHaveFormValues({
   username: 'jane.doe',
   rememberMe: true,
 })
@@ -837,26 +657,8 @@ expected properties applied, not just some of them.
 </button>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-const button = document.querySelector(['data-testid="delete-button"'])
-
-expect(button).toHaveStyle('display: none')
-expect(button).toHaveStyle(`
-  color: red;
-  display: none;
-`)
-expect(button).not.toHaveStyle(`
-  color: blue;
-  display: none;
-`)
-```
-
-##### Using DOM Testing Library
-
-```javascript
-const button = getByTestId(container, 'delete-button')
+const button = getByTestId('delete-button')
 
 expect(button).toHaveStyle('display: none')
 expect(button).toHaveStyle(`
@@ -897,21 +699,8 @@ If you want to match the whole content, you can use a `RegExp` to do it.
 <span data-testid="text-content">Text Content</span>
 ```
 
-##### Using document.querySelector
-
 ```javascript
-const element = document.querySelector('[data-testid="text-content"]')
-
-expect(element).toHaveTextContent('Content')
-expect(element).toHaveTextContent(/^Text Content$/) // to match the whole content
-expect(element).toHaveTextContent(/content$/i) // to use case-insentive match
-expect(element).not.toHaveTextContent('content')
-```
-
-##### Using DOM Testing Library
-
-```javascript
-const element = getByTestId(container, 'text-content')
+const element = getByTestId('text-content')
 
 expect(element).toHaveTextContent('Content')
 expect(element).toHaveTextContent(/^Text Content$/) // to match the whole content
@@ -949,25 +738,9 @@ For all other form elements, the value is matched using the same algorithm as in
 </select>
 ```
 
-##### Using document.querySelector
-
-```javascript
-const textInput = document.querySelector('[data-testid="input-text"]')
-const numberInput = document.querySelector('[data-testid="input-number"]')
-const emptyInput = document.querySelector('[data-testid="input-empty"]')
-const selectInput = document.querySelector('[data-testid="select-number"]')
-
-expect(textInput).toHaveValue('text')
-expect(numberInput).toHaveValue(5)
-expect(emptyInput).not.toHaveValue()
-expect(selectInput).not.toHaveValue(['second', 'third'])
-```
-
 ##### Using DOM Testing Library
 
 ```javascript
-const {getByTestId} = render(/* Rendered HTML */)
-
 const textInput = getByTestId('input-text')
 const numberInput = getByTestId('input-number')
 const emptyInput = getByTestId('input-empty')
@@ -1009,49 +782,7 @@ or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
 <div role="radio" aria-checked="false" data-testid="aria-radio-unchecked" />
 ```
 
-##### Using document.querySelector
-
 ```javascript
-const inputCheckboxChecked = document.querySelector(
-  '[data-testid="input-checkbox-checked"]',
-)
-const inputCheckboxUnchecked = document.querySelector(
-  '[data-testid="input-checkbox-unchecked"]',
-)
-const ariaCheckboxChecked = document.querySelector(
-  '[data-testid="aria-checkbox-checked"]',
-)
-const ariaCheckboxUnchecked = document.querySelector(
-  '[data-testid="aria-checkbox-unchecked"]',
-)
-expect(inputCheckboxChecked).toBeChecked()
-expect(inputCheckboxUnchecked).not.toBeChecked()
-expect(ariaCheckboxChecked).toBeChecked()
-expect(ariaCheckboxUnchecked).not.toBeChecked()
-
-const inputRadioChecked = document.querySelector(
-  '[data-testid="input-radio-checked"]',
-)
-const inputRadioUnchecked = document.querySelector(
-  '[data-testid="input-radio-unchecked"]',
-)
-const ariaRadioChecked = document.querySelector(
-  '[data-testid="aria-radio-checked"]',
-)
-const ariaRadioUnchecked = document.querySelector(
-  '[data-testid="aria-radio-unchecked"]',
-)
-expect(inputRadioChecked).toBeChecked()
-expect(inputRadioUnchecked).not.toBeChecked()
-expect(ariaRadioChecked).toBeChecked()
-expect(ariaRadioUnchecked).not.toBeChecked()
-```
-
-##### Using DOM Testing Library
-
-```javascript
-const {getByTestId} = render(/* Rendered HTML */)
-
 const inputCheckboxChecked = getByTestId('input-checkbox-checked')
 const inputCheckboxUnchecked = getByTestId('input-checkbox-unchecked')
 const ariaCheckboxChecked = getByTestId('aria-checkbox-checked')

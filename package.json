@@ -36,6 +36,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.5.1",
+    "@types/testing-library__jest-dom": "^5.0.0",
     "chalk": "^2.4.1",
     "css": "^2.2.3",
     "css.escape": "^1.5.1",
