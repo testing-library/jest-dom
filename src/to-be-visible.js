@@ -14,11 +14,20 @@ function isStyleVisible(element) {
   )
 }
 
-function isElementVisible(element) {
+function isAttributeVisible(element, previousElement) {
+  return (
+    !element.hasAttribute('hidden') &&
+    (element.nodeName === 'DETAILS' && previousElement.nodeName !== 'SUMMARY'
+      ? element.hasAttribute('open')
+      : true)
+  )
+}
+
+function isElementVisible(element, previousElement) {
   return (
     isStyleVisible(element) &&
-    !element.hasAttribute('hidden') &&
-    (!element.parentElement || isElementVisible(element.parentElement))
+    isAttributeVisible(element, previousElement) &&
+    (!element.parentElement || isElementVisible(element.parentElement, element))
   )
 }
 
