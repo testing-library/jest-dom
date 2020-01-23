@@ -50,23 +50,14 @@
   "devDependencies": {
     "jest-environment-jsdom-sixteen": "^1.0.0",
     "jest-watch-select-projects": "^1.0.0",
+    "jsdom": "^16.0.1",
     "kcd-scripts": "^4.1.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
-      "babel/no-invalid-this": "off",
-      "import/no-unassigned-import": "off",
-      "import/prefer-default-export": "off"
-    },
-    "overrides": [
-      {
-        "files": ["**/__tests__/**/*.js"],
-        "rules": {
-          "import/no-extraneous-dependencies": "off"
-        }
-      }
-    ]
+      "babel/no-invalid-this": "off"
+    }
   },
   "eslintIgnore": [
     "node_modules",
