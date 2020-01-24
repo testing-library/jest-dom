@@ -336,6 +336,15 @@
       "contributions": [
         "infra"
       ]
+    },
+    {
+      "login": "jzarzeckis",
+      "name": "Jānis Zaržeckis",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/919350?v=4",
+      "profile": "https://github.com/jzarzeckis",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
