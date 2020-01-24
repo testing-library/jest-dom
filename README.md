@@ -918,6 +918,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/pwolaq"><img src="https://avatars3.githubusercontent.com/u/10261750?v=4" width="100px;" alt=""/><br /><sub><b>Pawel Wolak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=pwolaq" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://michaeldeboey.be"><img src="https://avatars3.githubusercontent.com/u/6643991?v=4" width="100px;" alt=""/><br /><sub><b>Michaël De Boey</b></sub></a><br /><a href="#infra-MichaelDeBoey" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     <td align="center"><a href="https://github.com/jzarzeckis"><img src="https://avatars3.githubusercontent.com/u/919350?v=4" width="100px;" alt=""/><br /><sub><b>Jānis Zaržeckis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jzarzeckis" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/koala-lava"><img src="https://avatars0.githubusercontent.com/u/15828770?v=4" width="100px;" alt=""/><br /><sub><b>koala-lava</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=koala-lava" title="Documentation">📖</a></td>
   </tr>
 </table>
 
