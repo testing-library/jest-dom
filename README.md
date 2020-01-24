@@ -920,6 +920,9 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/jzarzeckis"><img src="https://avatars3.githubusercontent.com/u/919350?v=4" width="100px;" alt=""/><br /><sub><b>Jānis Zaržeckis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jzarzeckis" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/koala-lava"><img src="https://avatars0.githubusercontent.com/u/15828770?v=4" width="100px;" alt=""/><br /><sub><b>koala-lava</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=koala-lava" title="Documentation">📖</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://jpblanco.dev"><img src="https://avatars1.githubusercontent.com/u/16567863?v=4" width="100px;" alt=""/><br /><sub><b>Juan Pablo Blanco</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=JPBlancoDB" title="Documentation">📖</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
