@@ -39,7 +39,8 @@ export function toBeValid(element) {
 
   const isValid =
     !isElementHavingAriaInvalid(element) &&
-    (FORM_TAGS.includes(getTag(element)) && !isElementInvalid(element))
+    FORM_TAGS.includes(getTag(element)) &&
+    !isElementInvalid(element)
 
   return {
     pass: isValid,

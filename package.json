@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "engines": {
     "node": ">=8",
-    "npm": ">=6"
+    "npm": ">=6",
+    "yarn": ">=1"
   },
   "scripts": {
     "format": "kcd-scripts format",
@@ -23,8 +24,7 @@
   },
   "files": [
     "dist",
-    "extend-expect.js",
-    "extend-expect.d.ts"
+    "extend-expect.js"
   ],
   "keywords": [
     "testing",
@@ -35,28 +35,27 @@
   "author": "Ernesto Garcia <gnapse@gmail.com> (http://gnapse.github.io/)",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "^7.5.1",
+    "@babel/runtime": "^7.8.3",
     "@types/testing-library__jest-dom": "^5.0.0",
-    "chalk": "^2.4.1",
-    "css": "^2.2.3",
+    "chalk": "^3.0.0",
+    "css": "^2.2.4",
     "css.escape": "^1.5.1",
-    "jest-diff": "^24.0.0",
-    "jest-matcher-utils": "^24.0.0",
-    "lodash": "^4.17.11",
-    "pretty-format": "^24.0.0",
+    "jest-diff": "^25.1.0",
+    "jest-matcher-utils": "^25.1.0",
+    "lodash": "^4.17.15",
+    "pretty-format": "^25.1.0",
     "redent": "^3.0.0"
   },
   "devDependencies": {
-    "jest-watch-select-projects": "^0.1.2",
-    "jsdom": "^15.1.0",
-    "kcd-scripts": "^1.4.0"
+    "jest-environment-jsdom-sixteen": "^1.0.0",
+    "jest-watch-select-projects": "^1.0.0",
+    "jsdom": "^16.0.1",
+    "kcd-scripts": "^4.1.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
-      "babel/no-invalid-this": "off",
-      "import/prefer-default-export": "off",
-      "import/no-unassigned-import": "off"
+      "babel/no-invalid-this": "off"
     }
   },
   "eslintIgnore": [

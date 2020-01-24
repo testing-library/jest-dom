@@ -54,7 +54,11 @@ describe('checkHtmlElement', () => {
 
   it('throws for function', () => {
     expect(() => {
-      checkHtmlElement(() => {}, () => {}, {})
+      checkHtmlElement(
+        () => {},
+        () => {},
+        {},
+      )
     }).toThrow(HtmlElementTypeError)
   })
 
