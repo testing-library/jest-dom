@@ -48,8 +48,19 @@ function expectedDiff(expected, computedStyles) {
   return diffOutput.replace(`${chalk.red('+ Received')}\n`, '')
 }
 
-export function toHaveStyle(htmlElement, css) {
+function getCss(document, css) {
+  if (typeof css === 'object') {
+    const sandboxElement = document.createElement('div')
+    Object.assign(sandboxElement.style, css)
+    return sandboxElement.style.cssText
+  }
+
+  return css
+}
+
+export function toHaveStyle(htmlElement, expectedCss) {
   checkHtmlElement(htmlElement, toHaveStyle, this)
+  const css = getCss(htmlElement.ownerDocument, expectedCss)
   const parsedCSS = parseCSS(css, toHaveStyle, this)
   const {getComputedStyle} = htmlElement.ownerDocument.defaultView
 
