@@ -1,7 +1,7 @@
 import {matcherHint} from 'jest-matcher-utils'
 import jestDiff from 'jest-diff'
 import chalk from 'chalk'
-import {checkHtmlElement, parseCSS} from './utils'
+import {checkHtmlElement, parseCSS, parseJStoCSS} from './utils'
 
 function getStyleDeclaration(document, css) {
   const styles = {}
@@ -17,9 +17,12 @@ function getStyleDeclaration(document, css) {
 }
 
 function isSubset(styles, computedStyle) {
-  return Object.entries(styles).every(
-    ([prop, value]) =>
-      computedStyle.getPropertyValue(prop.toLowerCase()) === value,
+  return (
+    !!Object.keys(styles).length &&
+    Object.entries(styles).every(
+      ([prop, value]) =>
+        computedStyle.getPropertyValue(prop.toLowerCase()) === value,
+    )
   )
 }
 
@@ -48,20 +51,14 @@ function expectedDiff(expected, computedStyles) {
   return diffOutput.replace(`${chalk.red('+ Received')}\n`, '')
 }
 
-function getCss(document, css) {
-  if (typeof css === 'object') {
-    const sandboxElement = document.createElement('div')
-    Object.assign(sandboxElement.style, css)
-    return sandboxElement.style.cssText
-  }
-
-  return css
+function getCSStoParse(document, css) {
+  return typeof css === 'object' ? parseJStoCSS(document, css) : css
 }
 
-export function toHaveStyle(htmlElement, expectedCss) {
+export function toHaveStyle(htmlElement, css) {
   checkHtmlElement(htmlElement, toHaveStyle, this)
-  const css = getCss(htmlElement.ownerDocument, expectedCss)
-  const parsedCSS = parseCSS(css, toHaveStyle, this)
+  const cssToParse = getCSStoParse(htmlElement.ownerDocument, css)
+  const parsedCSS = parseCSS(cssToParse, toHaveStyle, this)
   const {getComputedStyle} = htmlElement.ownerDocument.defaultView
 
   const expected = getStyleDeclaration(htmlElement.ownerDocument, parsedCSS)

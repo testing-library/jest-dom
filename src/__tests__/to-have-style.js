@@ -164,6 +164,8 @@ describe('.toHaveStyle', () => {
       backgroundColor: 'red',
       height: '100%',
     })
-    // expect(container.querySelector('.label')).not.toHaveStyle({ whatever: 'anything' })
+    expect(container.querySelector('.label')).not.toHaveStyle({
+      whatever: 'anything',
+    })
   })
 })
