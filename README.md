@@ -46,7 +46,6 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
@@ -642,7 +641,7 @@ expect(getByTestId('login-form')).toHaveFormValues({
 ### `toHaveStyle`
 
 ```typescript
-toHaveStyle(css: string)
+toHaveStyle(css: string | object)
 ```
 
 This allows you to check if a certain element has some specific css properties
@@ -652,7 +651,10 @@ expected properties applied, not just some of them.
 #### Examples
 
 ```html
-<button data-testid="delete-button" style="display: none; color: red">
+<button
+  data-testid="delete-button"
+  style="display: none; background-color: red"
+>
   Delete item
 </button>
 ```
@@ -661,14 +663,23 @@ expected properties applied, not just some of them.
 const button = getByTestId('delete-button')
 
 expect(button).toHaveStyle('display: none')
+expect(button).toHaveStyle({display: 'none'})
 expect(button).toHaveStyle(`
-  color: red;
+  background-color: red;
   display: none;
 `)
+expect(button).toHaveStyle({
+  backgroundColor: 'red',
+  display: 'none',
+})
 expect(button).not.toHaveStyle(`
-  color: blue;
+  background-color: blue;
   display: none;
 `)
+expect(button).not.toHaveStyle({
+  backgroundColor: 'blue',
+  display: 'none',
+})
 ```
 
 This also works with rules that are applied to the element via a class name for
@@ -928,6 +939,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.

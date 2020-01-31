@@ -1,6 +1,7 @@
 import {render} from './helpers/test-utils'
 import document from './helpers/document'
 
+// eslint-disable-next-line max-lines-per-function
 describe('.toHaveStyle', () => {
   test('handles positive test cases', () => {
     const {container} = render(`
@@ -143,5 +144,28 @@ describe('.toHaveStyle', () => {
     expect(container.querySelector('.label')).not.toHaveStyle(
       'whatever: anything',
     )
+  })
+
+  test('handles styles as object', () => {
+    const {container} = render(`
+      <div class="label" style="background-color: blue; height: 100%">
+        Hello World
+      </div>
+    `)
+
+    expect(container.querySelector('.label')).toHaveStyle({
+      backgroundColor: 'blue',
+    })
+    expect(container.querySelector('.label')).toHaveStyle({
+      backgroundColor: 'blue',
+      height: '100%',
+    })
+    expect(container.querySelector('.label')).not.toHaveStyle({
+      backgroundColor: 'red',
+      height: '100%',
+    })
+    expect(container.querySelector('.label')).not.toHaveStyle({
+      whatever: 'anything',
+    })
   })
 })
