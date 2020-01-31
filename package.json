@@ -56,7 +56,15 @@
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
       "babel/no-invalid-this": "off"
-    }
+    },
+    "overrides": [
+      {
+        "files": ["src/__tests__/*.js"],
+        "rules": {
+          "max-lines-per-function": "off"
+        }
+      }
+    ]
   },
   "eslintIgnore": [
     "node_modules",

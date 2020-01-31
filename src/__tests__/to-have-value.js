@@ -50,20 +50,20 @@ describe('.toHaveValue', () => {
   test('handles value of select element', () => {
     const {queryByTestId} = render(`
       <select data-testid="single">
-        <option value="first">First Value</option> 
+        <option value="first">First Value</option>
         <option value="second" selected>Second Value</option>
         <option value="third">Third Value</option>
       </select>
-      
+
       <select data-testid="multiple" multiple>
-        <option value="first">First Value</option> 
+        <option value="first">First Value</option>
         <option value="second" selected>Second Value</option>
         <option value="third" selected>Third Value</option>
       </select>
-      
+
       <select data-testid="not-selected" >
         <option value="" disabled selected>- Select some value - </option>
-        <option value="first">First Value</option> 
+        <option value="first">First Value</option>
         <option value="second">Second Value</option>
         <option value="third">Third Value</option>
       </select>
@@ -184,5 +184,3 @@ describe('.toHaveValue', () => {
     `)
   })
 })
-
-/* eslint max-lines-per-function:0 */
