@@ -1,1 +1,2 @@
-export * from './src/matchers'
+const matchers = require('./dist/matchers')
+module.exports = matchers
