@@ -46,6 +46,7 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
@@ -67,6 +68,8 @@ clear to read and to maintain.
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveValue`](#tohavevalue)
   - [`toBeChecked`](#tobechecked)
+  - [`toBeReadonly`](#tobereadonly)
+  - [`toBeWritable`](#tobewritable)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
 - [Inspiration](#inspiration)
@@ -812,6 +815,51 @@ expect(inputRadioUnchecked).not.toBeChecked()
 expect(ariaRadioChecked).toBeChecked()
 expect(ariaRadioUnchecked).not.toBeChecked()
 ```
+
+<hr />
+
+### `toBeReadonly`
+
+```typescript
+toBeReadonly()
+```
+
+This allows you to check whether an element is readonly from the user's
+perspective.
+
+It matches if the element is a form control and the `readonly` attribute is
+specified on this element.
+
+According to the specification, only
+[input](https://html.spec.whatwg.org/multipage/input.html) and
+[textarea](https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element)
+elements can be readonly.
+
+#### Examples
+
+```html
+<input data-testid="input" readonly type="text" />
+<textarea data-testid="textarea" readonly></textarea>
+```
+
+```javascript
+expect(getByTestId('input')).toBeReadonly()
+expect(getByTestId('textarea')).toBeReadonly()
+```
+
+<hr />
+
+### `toBeWritable`
+
+```typescript
+toBeWritable()
+```
+
+This allows you to check whether an element is writable (not readonly) from the
+user's perspective.
+
+It works like `not.toBeReadonly()`. Use this matcher to avoid double negation in
+your tests.
 
 ## Deprecated matchers
 
