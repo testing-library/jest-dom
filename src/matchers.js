@@ -15,6 +15,7 @@ import {toBeRequired} from './to-be-required'
 import {toBeInvalid, toBeValid} from './to-be-invalid'
 import {toHaveValue} from './to-have-value'
 import {toBeChecked} from './to-be-checked'
+import {toBeReadonly, toBeWritable} from './to-be-readonly'
 
 export {
   toBeInTheDOM,
@@ -36,4 +37,6 @@ export {
   toBeValid,
   toHaveValue,
   toBeChecked,
+  toBeReadonly,
+  toBeWritable,
 }
