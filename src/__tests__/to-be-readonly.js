@@ -20,4 +20,18 @@ test('.toBeReadonly', () => {
   expect(queryByTestId('input-text-element')).not.toBeWritable()
   expect(queryByTestId('input-text-element-writable')).toBeWritable()
   expect(queryByTestId('input-text-element-writable')).not.toBeReadonly()
+
+  expect(() =>
+    expect(queryByTestId('input-text-element')).not.toBeReadonly(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('input-text-element')).toBeWritable(),
+  ).toThrowError()
+
+  expect(() =>
+    expect(queryByTestId('input-text-element-writable')).toBeReadonly(),
+  ).toThrowError()
+  expect(() =>
+    expect(queryByTestId('input-text-element-writable')).not.toBeWritable(),
+  ).toThrowError()
 })
