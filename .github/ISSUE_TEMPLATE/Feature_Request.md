@@ -26,6 +26,15 @@ this free short video tutorial to learn how: http://kcd.im/pull-request
 <!--
 A clear and concise description of what you want to happen. Add any considered
 drawbacks.
+
+Note: if you're proposing a new custom matcher, please keep in mind jest-dom's
+guiding principles as stated here https://github.com/testing-library/jest-dom#guiding-principles
+
+In particular, keep this in mind:
+
+> the overall criteria for what is considered a useful custom matcher to add to
+> this library, is that doing the equivalent assertion on our own makes the test
+> code more verbose, less clear in its intent, and/or harder to read.
 -->
 
 ### Suggested implementation:
