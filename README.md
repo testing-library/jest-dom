@@ -824,8 +824,8 @@ toBeInTheDOM()
 This allows you to check whether a value is a DOM element, or not.
 
 Contrary to what its name implies, this matcher only checks that you passed to
-it a valid DOM element. It does not have a clear definition of that "the DOM"
-is. Therefore, it does not check wether that element is contained anywhere.
+it a valid DOM element. It does not have a clear definition of what "the DOM"
+is. Therefore, it does not check whether that element is contained anywhere.
 
 This is the main reason why this matcher is deprecated, and will be removed in
 the next major release. You can follow the discussion around this decision in
