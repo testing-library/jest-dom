@@ -372,6 +372,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "jeffbernst",
+      "name": "Jeff Bernstein",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6685560?v=4",
+      "profile": "http://jeffbernstein.io",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
