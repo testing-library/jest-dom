@@ -376,5 +376,5 @@
   ],
   "repoHost": "https://github.com",
   "contributorsPerLine": 7,
-  "skipCi": true
+  "skipCi": false
 }
