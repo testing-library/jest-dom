@@ -55,6 +55,26 @@ function getCSStoParse(document, css) {
   return typeof css === 'object' ? parseJStoCSS(document, css) : css
 }
 
+/* eslint-disable valid-jsdoc */
+/**
+ * @description Check if an element has specific css properties with specific values applied. only matches if the element has *all* the expected properties applied, not just some of them.
+ * @example
+ *    <button
+ *      data-test-id="submit-button"
+ *      style="background-color: green; display: none"
+ *    >
+ *      submit
+ *    </button>
+ *
+ *    const button = getByTestId('submit-button')
+ *    expect(button).toHaveStyle('background-color: green')
+ *    expect(button).toHaveStyle({
+ *      background-color: 'green',
+ *      display: none
+ *    })
+ * @see [github.com/testing-library/jest-dom#tohavestyle](https:github.com/testing-library/jest-dom#tohavestyle)
+ */
+/* eslint-enable valid-jsdoc */
 export function toHaveStyle(htmlElement, css) {
   checkHtmlElement(htmlElement, toHaveStyle, this)
   const cssToParse = getCSStoParse(htmlElement.ownerDocument, css)

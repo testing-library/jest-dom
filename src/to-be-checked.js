@@ -1,6 +1,26 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
+/* eslint-disable valid-jsdoc */
+/**
+ * @description Assert whether the given element is checked. it accepts an `input` of type `checkbox` or `radio` and elements with a `role` of `radio` with a valid `aria-checked` attribute of "true" or "false".
+ * @example
+ *  <input
+ *    type="checkbox"
+ *    checked
+ *    data-testid="input-checkbox" />
+ *  <input
+ *    type="radio"
+ *    value="foo"
+ *    data-testid="input-radio" />
+ *
+ *  const inputCheckbox = getByTestId('input-checkbox')
+ *  const inputRadio = getByTestId('input-radio')
+ *  expect(inputCheckbox).toBeChecked()
+ *  expect(inputRadio).not.toBeChecked()
+ * @see [github.com/testing-library/jest-dom#tobechecked](https:github.com/testing-library/jest-dom#tobechecked)
+ */
+/* eslint-enable valid-jsdoc */
 export function toBeChecked(element) {
   checkHtmlElement(element, toBeChecked, this)
 

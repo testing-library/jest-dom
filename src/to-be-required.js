@@ -47,6 +47,23 @@ function isElementRequiredByARIA(element) {
   )
 }
 
+/* eslint-disable valid-jsdoc */
+/**
+ * @description This allows you to check if a form element is currently required.
+ *
+ * An element is required if it is having a `required` or `aria-required="true"` attribute.
+ * @example
+ *  <input data-testid="required-input" required />
+ *  <div
+ *    data-testid="supported-role"
+ *    role="tree"
+ *    required />
+ *
+ *  expect(getByTestId('required-input')).toBeRequired()
+ *  expect(getByTestId('supported-role')).not.toBeRequired()
+ * @see [github.com/testing-library/jest-dom#toberequired](https:github.com/testing-library/jest-dom#toberequired)
+ */
+/* eslint-enable valid-jsdoc */
 export function toBeRequired(element) {
   checkHtmlElement(element, toBeRequired, this)
 

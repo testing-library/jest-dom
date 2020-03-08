@@ -12,6 +12,29 @@ function isSubset(subset, superset) {
   return subset.every(item => superset.includes(item))
 }
 
+/* eslint-disable valid-jsdoc */
+/**
+ * @description Check whether the given element has certain classes within its `class` attribute.
+ *
+ * You must provide at least one class, unless you are asserting that an element does not have any classes.
+ * @example
+ *  <button
+ *    data-testid="delete-button"
+ *    class="btn xs btn-danger"
+ *  >
+ *    delete item
+ *  </button>
+ *
+ *  <div data-testid="no-classes">no classes</div>
+ *
+ *  const deleteButton = getByTestId('delete-button')
+ *  const noClasses = getByTestId('no-classes')
+ *  expect(deleteButton).toHaveClass('btn')
+ *  expect(deleteButton).toHaveClass('btn-danger xs')
+ *  expect(noClasses).not.toHaveClass()
+ * @see [github.com/testing-library/jest-dom#tohaveclass](https:github.com/testing-library/jest-dom#tohaveclass)
+ */
+/* eslint-enable valid-jsdoc */
 export function toHaveClass(htmlElement, ...expectedClassNames) {
   checkHtmlElement(htmlElement, toHaveClass, this)
   const received = splitClassNames(htmlElement.getAttribute('class'))
