@@ -124,6 +124,48 @@ describe('.toHaveValue', () => {
     `)
   })
 
+  test('throws type information when the expected input (type=text) value has loose equality with received value', () => {
+    const {container} = render(`<input data-testid="one" value="8" />`)
+    const input = container.firstChild
+    let errorMessage
+    try {
+      expect(input).toHaveValue(8)
+    } catch (error) {
+      errorMessage = error.message
+    }
+
+    expect(errorMessage).toMatchInlineSnapshot(`
+      "<dim>expect(</><red>element</><dim>).toHaveValue(</><green>8</><dim>)</>
+
+      Expected the element to have value:
+      <green>  8 (number)</>
+      Received:
+      <red>  8 (string)</>"
+    `)
+  })
+
+  test('throws type information when the expected input (type=number) value has loose equality with received value', () => {
+    const {container} = render(
+      `<input type="number" data-testid="one" value=8 />`,
+    )
+    const input = container.firstChild
+    let errorMessage
+    try {
+      expect(input).toHaveValue('8')
+    } catch (error) {
+      errorMessage = error.message
+    }
+
+    expect(errorMessage).toMatchInlineSnapshot(`
+      "<dim>expect(</><red>element</><dim>).toHaveValue(</><green>8</><dim>)</>
+
+      Expected the element to have value:
+      <green>  8 (string)</>
+      Received:
+      <red>  8 (number)</>"
+    `)
+  })
+
   test('throws when using not but the expected input value does match', () => {
     const {container} = render(`<input data-testid="one" value="foo" />`)
     const input = container.firstChild
