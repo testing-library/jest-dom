@@ -10,7 +10,7 @@ function getExpectedClassNamesAndOptions(params) {
     options = lastParam
   } else {
     expectedClassNames = params.concat(lastParam)
-    options = {}
+    options = { exact: false }
   }
   return {expectedClassNames, options}
 }
