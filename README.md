@@ -66,6 +66,7 @@ clear to read and to maintain.
   - [`toHaveStyle`](#tohavestyle)
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveValue`](#tohavevalue)
+  - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
@@ -765,6 +766,44 @@ expect(selectInput).not.toHaveValue(['second', 'third'])
 
 <hr />
 
+### `toHaveDisplayValue`
+
+```typescript
+toHaveDisplayValue(value: string | string[])
+```
+
+This allows you to check whether the given `<select>` element has the specified
+value.
+
+#### Examples
+
+```html
+<select data-testid="input-select">
+  <option value="">Select a fruit...</option>
+  <option value="banana">Banana</option>
+  <option value="ananas">Ananas</option>
+  <option value="avocado">Avocado</option>
+</select>
+<select data-testid="input-multiple">
+  <option value="">Select a fruit...</option>
+  <option value="banana" selected>Banana</option>
+  <option value="ananas">Ananas</option>
+  <option value="avocado" selected>Avocado</option>
+</select>
+```
+
+##### Using DOM Testing Library
+
+```javascript
+const inputSelect = getByTestId('input-select')
+const inputMultiple = getByTestId('input-multiple')
+
+expect(inputSelect).toHaveDisplayValue('Select a fruit...')
+expect(inputMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
+```
+
+<hr />
+
 ### `toBeChecked`
 
 ```typescript
@@ -940,6 +979,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
