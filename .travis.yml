@@ -9,8 +9,16 @@ node_js:
   - 12
   - node
 install: npm install
-script: npm run validate
-after_success: kcd-scripts travis-after-success
+script:
+  - npm run validate
+  - npx codecov@3
 branches:
   only:
     - master
+    - beta
+
+jobs:
+  include:
+    - stage: release
+      node_js: 12
+      script: kcd-scripts travis-release
