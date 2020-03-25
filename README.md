@@ -778,13 +778,16 @@ value.
 #### Examples
 
 ```html
-<select data-testid="input-select">
+<label for="single-select-example">Fruit</label>
+<select id="single-select-example">
   <option value="">Select a fruit...</option>
   <option value="banana">Banana</option>
   <option value="ananas">Ananas</option>
   <option value="avocado">Avocado</option>
 </select>
-<select data-testid="input-multiple">
+
+<label for="mutiple-select-example">Fruits</label>
+<select id="multiple-select-example">
   <option value="">Select a fruit...</option>
   <option value="banana" selected>Banana</option>
   <option value="ananas">Ananas</option>
@@ -795,8 +798,8 @@ value.
 ##### Using DOM Testing Library
 
 ```javascript
-const inputSelect = getByTestId('input-select')
-const inputMultiple = getByTestId('input-multiple')
+const inputSelect = screen.getByLabelText('Fruit')
+const inputMultiple = screen.getByLabelText('Fruits')
 
 expect(inputSelect).toHaveDisplayValue('Select a fruit...')
 expect(inputMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
