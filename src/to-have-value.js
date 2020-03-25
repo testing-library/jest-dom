@@ -21,6 +21,14 @@ export function toHaveValue(htmlElement, expectedValue) {
 
   const receivedValue = getSingleElementValue(htmlElement)
   const expectsValue = expectedValue !== undefined
+
+  let expectedTypedValue = expectedValue
+  let receivedTypedValue = receivedValue
+  if (expectedValue == receivedValue && expectedValue !== receivedValue) {
+    expectedTypedValue = `${expectedValue} (${typeof expectedValue})`
+    receivedTypedValue = `${receivedValue} (${typeof receivedValue})`
+  }
+
   return {
     pass: expectsValue
       ? isEqualWith(receivedValue, expectedValue, compareArraysAsSet)
@@ -35,9 +43,9 @@ export function toHaveValue(htmlElement, expectedValue) {
       return getMessage(
         matcher,
         `Expected the element ${to} have value`,
-        expectsValue ? expectedValue : '(any)',
+        expectsValue ? expectedTypedValue : '(any)',
         'Received',
-        receivedValue,
+        receivedTypedValue,
       )
     },
   }
