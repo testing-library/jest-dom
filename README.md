@@ -46,6 +46,7 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
@@ -498,7 +499,7 @@ expect(button).toHaveAttribute('type', expect.not.stringContaining('but'))
 ### `toHaveClass`
 
 ```typescript
-toHaveClass(...classNames: string[])
+toHaveClass(...classNames: string[], options?: {exact: boolean})
 ```
 
 This allows you to check whether the given element has certain classes within
@@ -524,6 +525,9 @@ expect(deleteButton).toHaveClass('extra')
 expect(deleteButton).toHaveClass('btn-danger btn')
 expect(deleteButton).toHaveClass('btn-danger', 'btn')
 expect(deleteButton).not.toHaveClass('btn-link')
+
+expect(deleteButton).toHaveClass('btn-danger extra btn', {exact: true}) // to check if the element has EXACTLY a set of classes
+expect(deleteButton).not.toHaveClass('btn-danger extra', {exact: true}) // if it has more than expected it is going to fail
 
 expect(noClasses).not.toHaveClass()
 ```
@@ -940,6 +944,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
