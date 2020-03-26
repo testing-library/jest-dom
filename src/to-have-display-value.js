@@ -4,17 +4,27 @@ import {checkHtmlElement, getMessage} from './utils'
 
 export function toHaveDisplayValue(htmlElement, expectedValue) {
   checkHtmlElement(htmlElement, toHaveDisplayValue, this)
+  const tagName = htmlElement.tagName.toLowerCase()
 
-  if (htmlElement.tagName.toLowerCase() !== 'select') {
+  if (!['select', 'input', 'textarea'].includes(tagName)) {
     throw new Error(
-      '.toHaveDisplayValue() currently supports select elements only, try to use .toHaveValue() or .toBeChecked() instead.',
+      '.toHaveDisplayValue() currently supports only input, textarea or select elements, try with another matcher instead.',
     )
   }
 
-  const value = Array.from(htmlElement)
-    .filter(option => option.selected)
-    .map(option => option.textContent)
-    .toString()
+  if (tagName === 'input' && ['radio', 'checkbox'].includes(htmlElement.type)) {
+    throw new Error(
+      `.toHaveDisplayValue() currently does not support input[type="${htmlElement.type}"], try with another matcher instead.`,
+    )
+  }
+
+  const value =
+    tagName === 'select'
+      ? Array.from(htmlElement)
+          .filter(option => option.selected)
+          .map(option => option.textContent)
+          .toString()
+      : htmlElement.value
 
   return {
     pass: value === expectedValue.toString(),

@@ -44,19 +44,59 @@ test('it should work with select multiple', () => {
   ).toThrow()
 })
 
+test('it should work with input elements', () => {
+  const {queryByTestId} = render(`
+    <input type="text" data-testid="input" value="Luca" />
+  `)
+
+  expect(queryByTestId('input')).toHaveDisplayValue('Luca')
+})
+
+test('it should work with textarea elements', () => {
+  const {queryByTestId} = render(
+    '<textarea data-testid="textarea-example">An example description here.</textarea>',
+  )
+
+  expect(queryByTestId('textarea-example')).toHaveDisplayValue(
+    'An example description here.',
+  )
+})
+
 test('it should throw if element is not valid', () => {
   const {queryByTestId} = render(`
-    <input type="text" data-testid="input" value="Banana" />
+    <div data-testid="div">Banana</div>
+    <input type="radio" data-testid="radio" value="Something" />
+    <input type="checkbox" data-testid="checkbox" />
   `)
 
   let errorMessage
   try {
-    expect(queryByTestId('input')).toHaveDisplayValue('Banana')
+    expect(queryByTestId('div')).toHaveDisplayValue('Banana')
   } catch (err) {
     errorMessage = err.message
   }
 
   expect(errorMessage).toMatchInlineSnapshot(
-    `".toHaveDisplayValue() currently supports select elements only, try to use .toHaveValue() or .toBeChecked() instead."`,
+    `".toHaveDisplayValue() currently supports only input, textarea or select elements, try with another matcher instead."`,
+  )
+
+  try {
+    expect(queryByTestId('radio')).toHaveDisplayValue('Something')
+  } catch (err) {
+    errorMessage = err.message
+  }
+
+  expect(errorMessage).toMatchInlineSnapshot(
+    `".toHaveDisplayValue() currently does not support input[type=\\"radio\\"], try with another matcher instead."`,
+  )
+
+  try {
+    expect(queryByTestId('checkbox')).toHaveDisplayValue(true)
+  } catch (err) {
+    errorMessage = err.message
+  }
+
+  expect(errorMessage).toMatchInlineSnapshot(
+    `".toHaveDisplayValue() currently does not support input[type=\\"checkbox\\"], try with another matcher instead."`,
   )
 })
