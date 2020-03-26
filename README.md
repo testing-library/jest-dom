@@ -46,7 +46,6 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
@@ -782,6 +781,12 @@ value.
 #### Examples
 
 ```html
+<label for="input-example">First name</label>
+<input type="text" id="input-example" value="Luca" />
+
+<label for="textarea-example">Description</label>
+<textarea id="textarea-example">An example description here.</textarea>
+
 <label for="single-select-example">Fruit</label>
 <select id="single-select-example">
   <option value="">Select a fruit...</option>
@@ -802,9 +807,13 @@ value.
 ##### Using DOM Testing Library
 
 ```javascript
+const input = screen.getByLabelText('First name')
+const textarea = screen.getByLabelText('Description')
 const inputSelect = screen.getByLabelText('Fruit')
 const inputMultiple = screen.getByLabelText('Fruits')
 
+expect(input).toHaveDisplayValue('Luca')
+expect(textarea).toHaveDisplayValue('An example description here.')
 expect(inputSelect).toHaveDisplayValue('Select a fruit...')
 expect(inputMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
 ```
