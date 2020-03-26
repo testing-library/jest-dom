@@ -57,6 +57,6 @@ test('it should throw if element is not valid', () => {
   }
 
   expect(errorMessage).toMatchInlineSnapshot(
-    `".toHaveDisplayValue() currently supports select elements only, try to use .toHaveValue() or toBeChecked() instead."`,
+    `".toHaveDisplayValue() currently supports select elements only, try to use .toHaveValue() or .toBeChecked() instead."`,
   )
 })

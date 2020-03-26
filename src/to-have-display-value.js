@@ -7,7 +7,7 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
 
   if (htmlElement.tagName.toLowerCase() !== 'select') {
     throw new Error(
-      '.toHaveDisplayValue() currently supports select elements only, try to use .toHaveValue() or toBeChecked() instead.',
+      '.toHaveDisplayValue() currently supports select elements only, try to use .toHaveValue() or .toBeChecked() instead.',
     )
   }
 
