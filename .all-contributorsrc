@@ -381,6 +381,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "SergiCL",
+      "name": "Sergi",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/41625166?v=4",
+      "profile": "https://github.com/SergiCL",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
