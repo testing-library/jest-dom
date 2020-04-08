@@ -46,7 +46,6 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
@@ -776,8 +775,9 @@ toBeChecked()
 ```
 
 This allows you to check whether the given element is checked. It accepts an
-`input` of type `checkbox` or `radio` and elements with a `role` of `checkbox`
-or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
+`input` of type `checkbox` or `radio` and elements with a `role` of `checkbox`,
+`radio` or `switch` with a valid `aria-checked` attribute of `"true"` or
+`"false"`.
 
 #### Examples
 
@@ -795,6 +795,8 @@ or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
 <input type="radio" value="foo" data-testid="input-radio-unchecked" />
 <div role="radio" aria-checked="true" data-testid="aria-radio-checked" />
 <div role="radio" aria-checked="false" data-testid="aria-radio-unchecked" />
+<div role="switch" aria-checked="true" data-testid="aria-switch-checked" />
+<div role="switch" aria-checked="false" data-testid="aria-switch-unchecked" />
 ```
 
 ```javascript
@@ -815,6 +817,11 @@ expect(inputRadioChecked).toBeChecked()
 expect(inputRadioUnchecked).not.toBeChecked()
 expect(ariaRadioChecked).toBeChecked()
 expect(ariaRadioUnchecked).not.toBeChecked()
+
+const ariaSwitchChecked = getByTestId('aria-switch-checked')
+const ariaSwitchUnchecked = getByTestId('aria-switch-unchecked')
+expect(ariaSwitchChecked).toBeChecked()
+expect(ariaSwitchUnchecked).not.toBeChecked()
 ```
 
 ## Deprecated matchers
@@ -867,8 +874,8 @@ I'm not aware of any, if you are please [make a pull request][prs] and add it
 here!
 
 If you would like to further test the accessibility and validity of the DOM
-consider [`jest-axe`](https://github.com/nickcolley/jest-axe). It doesn't 
-overlap with `jest-dom` but can complement it for more in-depth accessibility 
+consider [`jest-axe`](https://github.com/nickcolley/jest-axe). It doesn't
+overlap with `jest-dom` but can complement it for more in-depth accessibility
 checking (eg: validating `aria` attributes or ensuring unique id attributes).
 
 ## Guiding Principles
@@ -951,6 +958,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
