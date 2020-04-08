@@ -391,6 +391,25 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "skovy",
+      "name": "Spencer Miskoviak",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5247455?v=4",
+      "profile": "https://skovy.dev",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "jonrimmer",
+      "name": "Jon Rimmer",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/183786?v=4",
+      "profile": "https://twitter.com/jonrimmer",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",

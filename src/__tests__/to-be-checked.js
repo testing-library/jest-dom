@@ -41,6 +41,16 @@ describe('.toBeChecked', () => {
     expect(queryByTestId('aria-radio-unchecked')).not.toBeChecked()
   })
 
+  test('handles element with role="switch"', () => {
+    const {queryByTestId} = render(`
+        <div role="switch" aria-checked="true" data-testid="aria-switch-checked" />
+        <div role="switch" aria-checked="false" data-testid="aria-switch-unchecked" />
+    `)
+
+    expect(queryByTestId('aria-switch-checked')).toBeChecked()
+    expect(queryByTestId('aria-switch-unchecked')).not.toBeChecked()
+  })
+
   test('throws when checkbox input is checked but expected not to be', () => {
     const {queryByTestId} = render(
       `<input type="checkbox" checked data-testid="input-checked" />`,
@@ -121,6 +131,26 @@ describe('.toBeChecked', () => {
     ).toThrowError()
   })
 
+  test('throws when element with role="switch" is checked but expected not to be', () => {
+    const {queryByTestId} = render(
+      `<div role="switch" aria-checked="true" data-testid="aria-switch-checked" />`,
+    )
+
+    expect(() =>
+      expect(queryByTestId('aria-switch-checked')).not.toBeChecked(),
+    ).toThrowError()
+  })
+
+  test('throws when element with role="switch" is not checked but expected to be', () => {
+    const {queryByTestId} = render(
+      `<div role="switch" aria-checked="false" data-testid="aria-switch-unchecked" />`,
+    )
+
+    expect(() =>
+      expect(queryByTestId('aria-switch-unchecked')).toBeChecked(),
+    ).toThrowError()
+  })
+
   test('throws when element with role="checkbox" has an invalid aria-checked attribute', () => {
     const {queryByTestId} = render(
       `<div role="checkbox" aria-checked="something" data-testid="aria-checkbox-invalid" />`,
@@ -129,7 +159,7 @@ describe('.toBeChecked', () => {
     expect(() =>
       expect(queryByTestId('aria-checkbox-invalid')).toBeChecked(),
     ).toThrowError(
-      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox" or role="radio" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
+      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox", role="radio" or role="switch" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
     )
   })
 
@@ -141,14 +171,26 @@ describe('.toBeChecked', () => {
     expect(() =>
       expect(queryByTestId('aria-radio-invalid')).toBeChecked(),
     ).toThrowError(
-      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox" or role="radio" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
+      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox", role="radio" or role="switch" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
+    )
+  })
+
+  test('throws when element with role="switch" has an invalid aria-checked attribute', () => {
+    const {queryByTestId} = render(
+      `<div role="switch" aria-checked="something" data-testid="aria-switch-invalid" />`,
+    )
+
+    expect(() =>
+      expect(queryByTestId('aria-switch-invalid')).toBeChecked(),
+    ).toThrowError(
+      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox", role="radio" or role="switch" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
     )
   })
 
   test('throws when the element is not an input', () => {
     const {queryByTestId} = render(`<select data-testid="select"></select>`)
     expect(() => expect(queryByTestId('select')).toBeChecked()).toThrowError(
-      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox" or role="radio" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
+      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox", role="radio" or role="switch" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
     )
   })
 })

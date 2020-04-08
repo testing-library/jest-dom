@@ -827,8 +827,9 @@ toBeChecked()
 ```
 
 This allows you to check whether the given element is checked. It accepts an
-`input` of type `checkbox` or `radio` and elements with a `role` of `checkbox`
-or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
+`input` of type `checkbox` or `radio` and elements with a `role` of `checkbox`,
+`radio` or `switch` with a valid `aria-checked` attribute of `"true"` or
+`"false"`.
 
 #### Examples
 
@@ -846,6 +847,8 @@ or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
 <input type="radio" value="foo" data-testid="input-radio-unchecked" />
 <div role="radio" aria-checked="true" data-testid="aria-radio-checked" />
 <div role="radio" aria-checked="false" data-testid="aria-radio-unchecked" />
+<div role="switch" aria-checked="true" data-testid="aria-switch-checked" />
+<div role="switch" aria-checked="false" data-testid="aria-switch-unchecked" />
 ```
 
 ```javascript
@@ -866,6 +869,11 @@ expect(inputRadioChecked).toBeChecked()
 expect(inputRadioUnchecked).not.toBeChecked()
 expect(ariaRadioChecked).toBeChecked()
 expect(ariaRadioUnchecked).not.toBeChecked()
+
+const ariaSwitchChecked = getByTestId('aria-switch-checked')
+const ariaSwitchUnchecked = getByTestId('aria-switch-unchecked')
+expect(ariaSwitchChecked).toBeChecked()
+expect(ariaSwitchUnchecked).not.toBeChecked()
 ```
 
 ## Deprecated matchers
@@ -916,6 +924,11 @@ independent from jest, and can be used with other tests runners as well.
 
 I'm not aware of any, if you are please [make a pull request][prs] and add it
 here!
+
+If you would like to further test the accessibility and validity of the DOM
+consider [`jest-axe`](https://github.com/nickcolley/jest-axe). It doesn't
+overlap with `jest-dom` but can complement it for more in-depth accessibility
+checking (eg: validating `aria` attributes or ensuring unique id attributes).
 
 ## Guiding Principles
 
@@ -991,6 +1004,8 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/benmonro"><img src="https://avatars3.githubusercontent.com/u/399236?v=4" width="100px;" alt=""/><br /><sub><b>Ben Monro</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=benmonro" title="Documentation">📖</a></td>
     <td align="center"><a href="http://jeffbernstein.io"><img src="https://avatars1.githubusercontent.com/u/6685560?v=4" width="100px;" alt=""/><br /><sub><b>Jeff Bernstein</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeffbernst" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/SergiCL"><img src="https://avatars3.githubusercontent.com/u/41625166?v=4" width="100px;" alt=""/><br /><sub><b>Sergi</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=SergiCL" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=SergiCL" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://skovy.dev"><img src="https://avatars1.githubusercontent.com/u/5247455?v=4" width="100px;" alt=""/><br /><sub><b>Spencer Miskoviak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=skovy" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://twitter.com/jonrimmer"><img src="https://avatars1.githubusercontent.com/u/183786?v=4" width="100px;" alt=""/><br /><sub><b>Jon Rimmer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jonrimmer" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jonrimmer" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
