@@ -733,8 +733,8 @@ toHaveValue(value: string | string[] | number)
 
 This allows you to check whether the given form element has the specified value.
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
-of `<input type="checkbox">` and `<input type="radio">`, which can be
-meaningfully matched only using [`toBeChecked`](#tobechecked) or
+`<input type="checkbox">` and `<input type="radio">`, which can be meaningfully
+matched only using [`toBeChecked`](#tobechecked) or
 [`toHaveFormValues`](#tohaveformvalues).
 
 For all other form elements, the value is matched using the same algorithm as in
@@ -775,8 +775,12 @@ expect(selectInput).not.toHaveValue(['second', 'third'])
 toHaveDisplayValue(value: string | string[])
 ```
 
-This allows you to check whether the given `<select>` element has the specified
-value.
+This allows you to check whether the given form element has the specified
+displayed value (the one the end user will see). It accepts `<input>`,
+`<select>` and `<textarea>` elements with the exception of
+`<input type="checkbox">` and `<input type="radio">`, which can be meaningfully
+matched only using [`toBeChecked`](#tobechecked) or
+[`toHaveFormValues`](#tohaveformvalues).
 
 #### Examples
 
