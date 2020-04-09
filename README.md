@@ -809,8 +809,8 @@ value.
 ```javascript
 const input = screen.getByLabelText('First name')
 const textarea = screen.getByLabelText('Description')
-const inputSelect = screen.getByLabelText('Fruit')
-const inputMultiple = screen.getByLabelText('Fruits')
+const selectSingle = screen.getByLabelText('Fruit')
+const selectMultiple = screen.getByLabelText('Fruits')
 
 expect(input).toHaveDisplayValue('Luca')
 expect(textarea).toHaveDisplayValue('An example description here.')
