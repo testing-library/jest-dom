@@ -66,6 +66,7 @@ clear to read and to maintain.
   - [`toHaveStyle`](#tohavestyle)
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveValue`](#tohavevalue)
+  - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
@@ -732,8 +733,8 @@ toHaveValue(value: string | string[] | number)
 
 This allows you to check whether the given form element has the specified value.
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
-of `<input type="checkbox">` and `<input type="radio">`, which can be
-meaningfully matched only using [`toBeChecked`](#tobechecked) or
+`<input type="checkbox">` and `<input type="radio">`, which can be meaningfully
+matched only using [`toBeChecked`](#tobechecked) or
 [`toHaveFormValues`](#tohaveformvalues).
 
 For all other form elements, the value is matched using the same algorithm as in
@@ -764,6 +765,61 @@ expect(textInput).toHaveValue('text')
 expect(numberInput).toHaveValue(5)
 expect(emptyInput).not.toHaveValue()
 expect(selectInput).not.toHaveValue(['second', 'third'])
+```
+
+<hr />
+
+### `toHaveDisplayValue`
+
+```typescript
+toHaveDisplayValue(value: string | string[])
+```
+
+This allows you to check whether the given form element has the specified
+displayed value (the one the end user will see). It accepts `<input>`,
+`<select>` and `<textarea>` elements with the exception of
+`<input type="checkbox">` and `<input type="radio">`, which can be meaningfully
+matched only using [`toBeChecked`](#tobechecked) or
+[`toHaveFormValues`](#tohaveformvalues).
+
+#### Examples
+
+```html
+<label for="input-example">First name</label>
+<input type="text" id="input-example" value="Luca" />
+
+<label for="textarea-example">Description</label>
+<textarea id="textarea-example">An example description here.</textarea>
+
+<label for="single-select-example">Fruit</label>
+<select id="single-select-example">
+  <option value="">Select a fruit...</option>
+  <option value="banana">Banana</option>
+  <option value="ananas">Ananas</option>
+  <option value="avocado">Avocado</option>
+</select>
+
+<label for="mutiple-select-example">Fruits</label>
+<select id="multiple-select-example" multiple>
+  <option value="">Select a fruit...</option>
+  <option value="banana" selected>Banana</option>
+  <option value="ananas">Ananas</option>
+  <option value="avocado" selected>Avocado</option>
+</select>
+```
+
+##### Using DOM Testing Library
+
+```javascript
+const input = screen.getByLabelText('First name')
+const textarea = screen.getByLabelText('Description')
+const selectSingle = screen.getByLabelText('Fruit')
+const selectMultiple = screen.getByLabelText('Fruits')
+
+expect(input).toHaveDisplayValue('Luca')
+expect(textarea).toHaveDisplayValue('An example description here.')
+expect(selectSingle).toHaveDisplayValue('Select a fruit...')
+expect(selectMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
 ```
 
 <hr />
@@ -959,6 +1015,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
