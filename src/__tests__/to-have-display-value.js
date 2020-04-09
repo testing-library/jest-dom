@@ -18,6 +18,9 @@ test('it should work as expected', () => {
   expect(() =>
     expect(queryByTestId('select')).toHaveDisplayValue('Ananas'),
   ).toThrow()
+
+  queryByTestId('select').value = 'banana'
+  expect(queryByTestId('select')).toHaveDisplayValue('Banana')
 })
 
 test('it should work with select multiple', () => {
@@ -42,6 +45,12 @@ test('it should work with select multiple', () => {
   expect(() =>
     expect(queryByTestId('select')).toHaveDisplayValue('Ananas'),
   ).toThrow()
+
+  Array.from(queryByTestId('select').options).forEach(option => {
+    option.selected = ['ananas', 'banana'].includes(option.value)
+  })
+
+  expect(queryByTestId('select')).toHaveDisplayValue(['Ananas', 'Banana'])
 })
 
 test('it should work with input elements', () => {
@@ -50,6 +59,9 @@ test('it should work with input elements', () => {
   `)
 
   expect(queryByTestId('input')).toHaveDisplayValue('Luca')
+
+  queryByTestId('input').value = 'Piero'
+  expect(queryByTestId('input')).toHaveDisplayValue('Piero')
 })
 
 test('it should work with textarea elements', () => {
@@ -59,6 +71,11 @@ test('it should work with textarea elements', () => {
 
   expect(queryByTestId('textarea-example')).toHaveDisplayValue(
     'An example description here.',
+  )
+
+  queryByTestId('textarea-example').value = 'Another example'
+  expect(queryByTestId('textarea-example')).toHaveDisplayValue(
+    'Another example',
   )
 })
 
