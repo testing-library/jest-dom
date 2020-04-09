@@ -814,8 +814,8 @@ const inputMultiple = screen.getByLabelText('Fruits')
 
 expect(input).toHaveDisplayValue('Luca')
 expect(textarea).toHaveDisplayValue('An example description here.')
-expect(inputSelect).toHaveDisplayValue('Select a fruit...')
-expect(inputMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
+expect(selectSingle).toHaveDisplayValue('Select a fruit...')
+expect(selectMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
 ```
 
 <hr />
