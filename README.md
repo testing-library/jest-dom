@@ -1012,6 +1012,9 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://twitter.com/jonrimmer"><img src="https://avatars1.githubusercontent.com/u/183786?v=4" width="100px;" alt=""/><br /><sub><b>Jon Rimmer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jonrimmer" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jonrimmer" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/cloud-walker"><img src="https://avatars3.githubusercontent.com/u/1144075?v=4" width="100px;" alt=""/><br /><sub><b>Luca Barone</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=cloud-walker" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=cloud-walker" title="Tests">⚠️</a> <a href="#ideas-cloud-walker" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/mfelmy"><img src="https://avatars2.githubusercontent.com/u/29504917?v=4" width="100px;" alt=""/><br /><sub><b>Malte Felmy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Tests">⚠️</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
