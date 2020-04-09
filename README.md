@@ -796,7 +796,7 @@ value.
 </select>
 
 <label for="mutiple-select-example">Fruits</label>
-<select id="multiple-select-example">
+<select id="multiple-select-example" multiple>
   <option value="">Select a fruit...</option>
   <option value="banana" selected>Banana</option>
   <option value="ananas">Ananas</option>
