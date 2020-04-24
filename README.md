@@ -86,6 +86,12 @@ should be installed as one of your project's `devDependencies`:
 ```
 npm install --save-dev @testing-library/jest-dom
 ```
+or 
+
+for installation with [yarn](https://yarnpkg.com/) package manager.
+```
+yarn add --dev @testing-library/jest-dom
+```
 
 > Note: We also recommend installing the jest-dom eslint plugin which provides
 > auto-fixable lint rules that prevent false positive tests and improve test
