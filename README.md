@@ -101,14 +101,14 @@ yarn add --dev @testing-library/jest-dom
 
 ## Usage
 
-Import `@testing-library/jest-dom` once (for instance in your [tests setup
+Import `@testing-library/jest-dom/extend-expect` once (for instance in your [tests setup
 file][]) and you're good to go:
 
 [tests setup file]:
   https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
 
 ```javascript
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom/extend-expect'
 ```
 
 > Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
