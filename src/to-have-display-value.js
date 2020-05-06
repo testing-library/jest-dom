@@ -17,22 +17,19 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
     )
   }
 
-  const value =
-    tagName === 'select'
-      ? Array.from(htmlElement)
-          .filter(option => option.selected)
-          .map(option => option.textContent)
-      : [htmlElement.value]
+  const values = getValues(tagName, htmlElement)
+  const expectedValues = getExpectedValues(expectedValue)
+  const qtyOfMatchesWithValues = getQtyOfMatchesBetweenArrays(
+    values,
+    expectedValues,
+  )
 
-  const expectedValueArray =
-    expectedValue instanceof Array ? expectedValue : [expectedValue]
-  const matchess = expectedValueArray.filter(
-    expected =>
-      value.filter(valueFilter => matches(valueFilter, expected)).length,
-  ).length
+  const matchedWithAllValues = qtyOfMatchesWithValues === values.length
+  const matchedWithAllExpectedValues =
+    qtyOfMatchesWithValues === expectedValues.length
 
   return {
-    pass: matchess === value.length && matchess === expectedValueArray.length,
+    pass: matchedWithAllValues && matchedWithAllExpectedValues,
     message: () =>
       getMessage(
         matcherHint(
@@ -43,7 +40,25 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
         `Expected element ${this.isNot ? 'not ' : ''}to have display value`,
         expectedValue,
         'Received',
-        value,
+        values,
       ),
   }
+}
+
+function getValues(tagName, htmlElement) {
+  return tagName === 'select'
+    ? Array.from(htmlElement)
+        .filter(option => option.selected)
+        .map(option => option.textContent)
+    : [htmlElement.value]
+}
+
+function getExpectedValues(expectedValue) {
+  return expectedValue instanceof Array ? expectedValue : [expectedValue]
+}
+
+function getQtyOfMatchesBetweenArrays(arrayBase, array) {
+  return array.filter(
+    expected => arrayBase.filter(value => matches(value, expected)).length,
+  ).length
 }
