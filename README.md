@@ -780,7 +780,7 @@ expect(selectInput).not.toHaveValue(['second', 'third'])
 ### `toHaveDisplayValue`
 
 ```typescript
-toHaveDisplayValue(value: string | (string|RegExp)[])
+toHaveDisplayValue(value: string | RegExp | (string|RegExp)[])
 ```
 
 This allows you to check whether the given form element has the specified
