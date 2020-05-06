@@ -1,7 +1,5 @@
 import {matcherHint} from 'jest-matcher-utils'
-import {matches,checkHtmlElement, getMessage} from './utils'
-
-
+import {matches, checkHtmlElement, getMessage} from './utils'
 
 export function toHaveDisplayValue(htmlElement, expectedValue) {
   checkHtmlElement(htmlElement, toHaveDisplayValue, this)
@@ -26,8 +24,12 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
           .map(option => option.textContent)
       : [htmlElement.value]
 
-  const expectedValueArray = expectedValue instanceof Array ? expectedValue : [expectedValue]
-  const matchess = expectedValueArray.filter(expected => value.filter(valueFilter => matches(valueFilter, expected)).length).length
+  const expectedValueArray =
+    expectedValue instanceof Array ? expectedValue : [expectedValue]
+  const matchess = expectedValueArray.filter(
+    expected =>
+      value.filter(valueFilter => matches(valueFilter, expected)).length,
+  ).length
 
   return {
     pass: matchess === value.length && matchess === expectedValueArray.length,
