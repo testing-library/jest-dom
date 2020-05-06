@@ -1,6 +1,6 @@
 import {render} from './helpers/test-utils'
 
-test('it should work as expected', () => {
+test.only('it should work as expected', () => {
   const {queryByTestId} = render(`
     <select id="fruits" data-testid="select">
       <option value="">Select a fruit...</option>
@@ -24,7 +24,7 @@ test('it should work as expected', () => {
   expect(queryByTestId('select')).toHaveDisplayValue(/[bB]ana/)
 })
 
-test('it should work with select multiple', () => {
+test.only('it should work with select multiple', () => {
   const {queryByTestId} = render(`
     <select id="fruits" data-testid="select" multiple>
       <option value="">Select a fruit...</option>
@@ -35,12 +35,15 @@ test('it should work with select multiple', () => {
   `)
 
   expect(queryByTestId('select')).toHaveDisplayValue(['Ananas', 'Avocado'])
+  expect(queryByTestId('select')).toHaveDisplayValue(['Avocado', 'Ananas'])
+  expect(queryByTestId('select')).toHaveDisplayValue([/[Aa]nanas/, 'Avocado'])
   expect(() =>
     expect(queryByTestId('select')).not.toHaveDisplayValue([
       'Ananas',
       'Avocado',
     ]),
   ).toThrow()
+  expect(queryByTestId('select')).not.toHaveDisplayValue(['Ananas', 'Avocado', 'Orange'])
 
   expect(queryByTestId('select')).not.toHaveDisplayValue('Ananas')
   expect(() =>

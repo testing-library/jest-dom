@@ -24,11 +24,13 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
       ? Array.from(htmlElement)
           .filter(option => option.selected)
           .map(option => option.textContent)
-          .toString()
-      : htmlElement.value
+      : [htmlElement.value]
+
+  const expectedValueArray = expectedValue instanceof Array ? expectedValue : [expectedValue]
+  const matchess = expectedValueArray.filter(expected => value.filter(valueFilter => matches(valueFilter, expected)).length).length
 
   return {
-    pass: matches(value, expectedValue),
+    pass: matchess === value.length && matchess === expectedValueArray.length,
     message: () =>
       getMessage(
         matcherHint(
