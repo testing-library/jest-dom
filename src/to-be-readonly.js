@@ -16,7 +16,7 @@ const SUPPORTED_INPUT_TYPES = [
   'number',
 ]
 
-const ARIA_FORM_TAGS = ['input', 'textarea', 'table', 'td', 'th']
+const SUPPORTED_ARIA_TAGS = ['input', 'textarea', 'table', 'td', 'th']
 
 const SUPPORTED_ARIA_ROLES = [
   'grid',
@@ -45,9 +45,9 @@ function isElementRequiredByARIA(element) {
   return (
     element.hasAttribute('aria-readonly') &&
     element.getAttribute('aria-readonly') === 'true' &&
-    (ARIA_FORM_TAGS.includes(getTag(element)) ||
-      (element.hasAttribute('role') &&
-        SUPPORTED_ARIA_ROLES.includes(element.getAttribute('role'))))
+    SUPPORTED_ARIA_TAGS.includes(getTag(element)) &&
+    element.hasAttribute('role') &&
+    SUPPORTED_ARIA_ROLES.includes(element.getAttribute('role'))
   )
 }
 

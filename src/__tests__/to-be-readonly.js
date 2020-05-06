@@ -120,6 +120,16 @@ test('handles number input', () => {
   expect(queryByTestId('number-input')).not.toBeReadonly()
 })
 
+test('handles input with no type', () => {
+  const {queryByTestId} = render(`
+    <input readonly data-testid="number-input-readonly" />
+    <input data-testid="number-input" />
+  `)
+
+  expect(queryByTestId('number-input-readonly')).toBeReadonly()
+  expect(queryByTestId('number-input')).not.toBeReadonly()
+})
+
 test('handles supported aria roles', () => {
   const {queryByTestId} = render(`
     <table role="grid">
