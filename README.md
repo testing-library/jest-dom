@@ -46,6 +46,7 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
@@ -830,7 +831,7 @@ expect(textarea).toHaveDisplayValue('An example description here.')
 expect(textarea).toHaveDisplayValue(/example/)
 expect(selectSingle).toHaveDisplayValue('Select a fruit...')
 expect(selectSingle).toHaveDisplayValue(/Select/)
-expect(selectMultiple).toHaveDisplayValue(['Banana', /Avocado/])
+expect(selectMultiple).toHaveDisplayValue([/Avocado/, 'Banana'])
 ```
 
 <hr />
