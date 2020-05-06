@@ -68,6 +68,7 @@ clear to read and to maintain.
   - [`toHaveValue`](#tohavevalue)
   - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
+  - [`toBeReadonly`](#tobereadonly)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
 - [Inspiration](#inspiration)
@@ -86,9 +87,11 @@ should be installed as one of your project's `devDependencies`:
 ```
 npm install --save-dev @testing-library/jest-dom
 ```
-or 
+
+or
 
 for installation with [yarn](https://yarnpkg.com/) package manager.
+
 ```
 yarn add --dev @testing-library/jest-dom
 ```
@@ -886,6 +889,63 @@ expect(ariaSwitchChecked).toBeChecked()
 expect(ariaSwitchUnchecked).not.toBeChecked()
 ```
 
+<hr />
+
+### `toBeReadonly`
+
+```typescript
+toBeReadonly()
+```
+
+This allows you to check if a form element is readonly.
+
+An element is readonly if it is having a `readonly` or `aria-readonly="true"`
+attribute.
+
+#### Examples
+
+```html
+<input data-testid="readonly-input" readonly />
+<input data-testid="aria-readonly-input" aria-readonly="true" />
+<input data-testid="conflicted-input" readonly aria-readonly="false" />
+<input data-testid="aria-not-readonly-input" aria-readonly="false" />
+<input data-testid="optional-input" />
+<input data-testid="unsupported-type" type="image" readonly />
+<textarea data-testid="textarea" readonly></textarea>
+<table role="grid">
+  <thead>
+    <tr>
+      <th
+        role="columnheader"
+        aria-readonly="true"
+        data-testid="supported-role-aria"
+      >
+        The table header
+      </th>
+      <th role="columnheader" data-testid="supported-role">The table header</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>The table body</td>
+      <td>The table body</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+```javascript
+expect(getByTestId('readonly-input')).toBeReadonly()
+expect(getByTestId('aria-readonly-input')).toBeReadonly()
+expect(getByTestId('conflicted-input')).toBeReadonly()
+expect(getByTestId('aria-not-readonly-input')).not.toBeReadonly()
+expect(getByTestId('optional-input')).not.toBeReadonly()
+expect(getByTestId('unsupported-type')).not.toBeReadonly()
+expect(getByTestId('textarea')).toBeReadonly()
+expect(getByTestId('supported-role')).not.toBeReadonly()
+expect(getByTestId('supported-role-aria')).toBeReadonly()
+```
+
 ## Deprecated matchers
 
 ### `toBeInTheDOM`
@@ -1026,6 +1086,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
