@@ -24,41 +24,68 @@ test('it should work as expected', () => {
   expect(queryByTestId('select')).toHaveDisplayValue(/[bB]ana/)
 })
 
-test('it should work with select multiple', () => {
-  const {queryByTestId} = render(`
-    <select id="fruits" data-testid="select" multiple>
-      <option value="">Select a fruit...</option>
-      <option value="ananas" selected>Ananas</option>
-      <option value="banana">Banana</option>
-      <option value="avocado" selected>Avocado</option>
-    </select>
-  `)
+describe('with multiple select', () => {
+  let subject
 
-  expect(queryByTestId('select')).toHaveDisplayValue(['Ananas', 'Avocado'])
-  expect(queryByTestId('select')).toHaveDisplayValue(['Avocado', 'Ananas'])
-  expect(queryByTestId('select')).toHaveDisplayValue([/[Aa]nanas/, 'Avocado'])
-  expect(() =>
-    expect(queryByTestId('select')).not.toHaveDisplayValue([
-      'Ananas',
-      'Avocado',
-    ]),
-  ).toThrow()
-  expect(queryByTestId('select')).not.toHaveDisplayValue([
-    'Ananas',
-    'Avocado',
-    'Orange',
-  ])
-
-  expect(queryByTestId('select')).not.toHaveDisplayValue('Ananas')
-  expect(() =>
-    expect(queryByTestId('select')).toHaveDisplayValue('Ananas'),
-  ).toThrow()
-
-  Array.from(queryByTestId('select').options).forEach(option => {
-    option.selected = ['ananas', 'banana'].includes(option.value)
+  afterEach(() => {
+    subject = undefined
   })
 
-  expect(queryByTestId('select')).toHaveDisplayValue(['Ananas', 'Banana'])
+  beforeEach(() => {
+    subject = render(`
+      <select id="fruits" data-testid="select" multiple>
+        <option value="">Select a fruit...</option>
+        <option value="ananas" selected>Ananas</option>
+        <option value="banana">Banana</option>
+        <option value="avocado" selected>Avocado</option>
+      </select>
+    `)
+  })
+
+  it('matches only when all the multiple selected values are equal to all the expected values', () => {
+    expect(subject.queryByTestId('select')).toHaveDisplayValue([
+      'Ananas',
+      'Avocado',
+    ])
+    expect(() =>
+      expect(subject.queryByTestId('select')).not.toHaveDisplayValue([
+        'Ananas',
+        'Avocado',
+      ]),
+    ).toThrow()
+    expect(subject.queryByTestId('select')).not.toHaveDisplayValue([
+      'Ananas',
+      'Avocado',
+      'Orange',
+    ])
+    expect(subject.queryByTestId('select')).not.toHaveDisplayValue('Ananas')
+    expect(() =>
+      expect(subject.queryByTestId('select')).toHaveDisplayValue('Ananas'),
+    ).toThrow()
+
+    Array.from(subject.queryByTestId('select').options).forEach(option => {
+      option.selected = ['ananas', 'banana'].includes(option.value)
+    })
+
+    expect(subject.queryByTestId('select')).toHaveDisplayValue([
+      'Ananas',
+      'Banana',
+    ])
+  })
+
+  it('matches even when the expected values are unordered', () => {
+    expect(subject.queryByTestId('select')).toHaveDisplayValue([
+      'Avocado',
+      'Ananas',
+    ])
+  })
+
+  it('matches with regex expected values', () => {
+    expect(subject.queryByTestId('select')).toHaveDisplayValue([
+      /[Aa]nanas/,
+      'Avocado',
+    ])
+  })
 })
 
 test('it should work with input elements', () => {
