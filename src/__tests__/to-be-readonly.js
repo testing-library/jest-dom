@@ -7,6 +7,9 @@ test('handles textarea', () => {
   `)
 
   expect(queryByTestId('textarea-element-readonly')).toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('textarea-element')).toBeReadonly(),
+  ).toThrowError()
   expect(queryByTestId('textarea-element')).not.toBeReadonly()
 })
 
@@ -17,6 +20,9 @@ test('handles text input', () => {
   `)
 
   expect(queryByTestId('text-input-readonly')).toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('text-input-readonly')).not.toBeReadonly(),
+  ).toThrowError()
   expect(queryByTestId('text-input')).not.toBeReadonly()
 })
 
@@ -28,6 +34,9 @@ test('handles search input', () => {
 
   expect(queryByTestId('search-input-readonly')).toBeReadonly()
   expect(queryByTestId('search-input')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('search-input')).toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles url input', () => {
@@ -38,6 +47,7 @@ test('handles url input', () => {
 
   expect(queryByTestId('url-input-readonly')).toBeReadonly()
   expect(queryByTestId('url-input')).not.toBeReadonly()
+  expect(() => expect(queryByTestId('url-input')).toBeReadonly()).toThrowError()
 })
 
 test('handles email input', () => {
@@ -48,6 +58,9 @@ test('handles email input', () => {
 
   expect(queryByTestId('email-input-readonly')).toBeReadonly()
   expect(queryByTestId('email-input')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('email-input')).toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles password input', () => {
@@ -58,6 +71,9 @@ test('handles password input', () => {
 
   expect(queryByTestId('password-input-readonly')).toBeReadonly()
   expect(queryByTestId('password-input')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('password-input-readonly')).not.toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles date input', () => {
@@ -68,6 +84,9 @@ test('handles date input', () => {
 
   expect(queryByTestId('date-input-readonly')).toBeReadonly()
   expect(queryByTestId('date-input')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('date-input')).toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles month input', () => {
@@ -78,6 +97,9 @@ test('handles month input', () => {
 
   expect(queryByTestId('month-input-readonly')).toBeReadonly()
   expect(queryByTestId('month-input')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('month-input')).toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles week input', () => {
@@ -88,6 +110,9 @@ test('handles week input', () => {
 
   expect(queryByTestId('week-input-readonly')).toBeReadonly()
   expect(queryByTestId('week-input')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('week-input')).toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles time input', () => {
@@ -98,6 +123,9 @@ test('handles time input', () => {
 
   expect(queryByTestId('time-input-readonly')).toBeReadonly()
   expect(queryByTestId('time-input')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('time-input')).toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles datetime-local input', () => {
@@ -108,6 +136,9 @@ test('handles datetime-local input', () => {
 
   expect(queryByTestId('datetime-local-input-readonly')).toBeReadonly()
   expect(queryByTestId('datetime-local-input')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('datetime-local-input')).toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles number input', () => {
@@ -118,6 +149,9 @@ test('handles number input', () => {
 
   expect(queryByTestId('number-input-readonly')).toBeReadonly()
   expect(queryByTestId('number-input')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('number-input')).toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles input with no type', () => {
@@ -128,6 +162,9 @@ test('handles input with no type', () => {
 
   expect(queryByTestId('number-input-readonly')).toBeReadonly()
   expect(queryByTestId('number-input')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('number-input')).toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles supported aria roles', () => {
@@ -150,6 +187,9 @@ test('handles supported aria roles', () => {
 
   expect(queryByTestId('supported-role-aria')).toBeReadonly()
   expect(queryByTestId('supported-role')).not.toBeReadonly()
+  expect(() =>
+    expect(queryByTestId('supported-role')).toBeReadonly(),
+  ).toThrowError()
 })
 
 test('handles an unsupported elements', () => {
@@ -157,6 +197,7 @@ test('handles an unsupported elements', () => {
     <div readonly data-testid="unsupported-element-type" />
   `)
 
+  expect(queryByTestId('unsupported-element-type')).not.toBeRequired()
   expect(() =>
     expect(queryByTestId('unsupported-element-type')).toBeRequired(),
   ).toThrowError()
@@ -167,6 +208,7 @@ test('handles an unsupported input type', () => {
     <input type="image" readonly data-testid="unsupported-input-type" />
   `)
 
+  expect(queryByTestId('unsupported-input-type')).not.toBeRequired()
   expect(() =>
     expect(queryByTestId('unsupported-input-type')).toBeRequired(),
   ).toThrowError()
