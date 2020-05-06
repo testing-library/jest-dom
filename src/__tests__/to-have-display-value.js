@@ -94,6 +94,7 @@ test('it should work with input elements', () => {
   `)
 
   expect(queryByTestId('input')).toHaveDisplayValue('Luca')
+  expect(queryByTestId('input')).toHaveDisplayValue(/Luc/)
 
   queryByTestId('input').value = 'Piero'
   expect(queryByTestId('input')).toHaveDisplayValue('Piero')
@@ -107,6 +108,7 @@ test('it should work with textarea elements', () => {
   expect(queryByTestId('textarea-example')).toHaveDisplayValue(
     'An example description here.',
   )
+  expect(queryByTestId('textarea-example')).toHaveDisplayValue(/example/)
 
   queryByTestId('textarea-example').value = 'Another example'
   expect(queryByTestId('textarea-example')).toHaveDisplayValue(

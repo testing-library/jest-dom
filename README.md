@@ -86,9 +86,11 @@ should be installed as one of your project's `devDependencies`:
 ```
 npm install --save-dev @testing-library/jest-dom
 ```
-or 
+
+or
 
 for installation with [yarn](https://yarnpkg.com/) package manager.
+
 ```
 yarn add --dev @testing-library/jest-dom
 ```
@@ -778,7 +780,7 @@ expect(selectInput).not.toHaveValue(['second', 'third'])
 ### `toHaveDisplayValue`
 
 ```typescript
-toHaveDisplayValue(value: string | string[])
+toHaveDisplayValue(value: string | (string|RegExp)[])
 ```
 
 This allows you to check whether the given form element has the specified
@@ -823,9 +825,12 @@ const selectSingle = screen.getByLabelText('Fruit')
 const selectMultiple = screen.getByLabelText('Fruits')
 
 expect(input).toHaveDisplayValue('Luca')
+expect(input).toHaveDisplayValue(/Luc/)
 expect(textarea).toHaveDisplayValue('An example description here.')
+expect(textarea).toHaveDisplayValue(/example/)
 expect(selectSingle).toHaveDisplayValue('Select a fruit...')
-expect(selectMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
+expect(selectSingle).toHaveDisplayValue(/Select/)
+expect(selectMultiple).toHaveDisplayValue(['Banana', /Avocado/])
 ```
 
 <hr />
@@ -1026,6 +1031,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
