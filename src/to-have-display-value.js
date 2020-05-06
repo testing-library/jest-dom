@@ -1,6 +1,7 @@
 import {matcherHint} from 'jest-matcher-utils'
+import {matches,checkHtmlElement, getMessage} from './utils'
 
-import {checkHtmlElement, getMessage} from './utils'
+
 
 export function toHaveDisplayValue(htmlElement, expectedValue) {
   checkHtmlElement(htmlElement, toHaveDisplayValue, this)
@@ -27,7 +28,7 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
       : htmlElement.value
 
   return {
-    pass: value === expectedValue.toString(),
+    pass: matches(value, expectedValue),
     message: () =>
       getMessage(
         matcherHint(

@@ -21,6 +21,7 @@ test('it should work as expected', () => {
 
   queryByTestId('select').value = 'banana'
   expect(queryByTestId('select')).toHaveDisplayValue('Banana')
+  expect(queryByTestId('select')).toHaveDisplayValue(/[bB]ana/)
 })
 
 test('it should work with select multiple', () => {
