@@ -68,6 +68,7 @@ clear to read and to maintain.
   - [`toHaveValue`](#tohavevalue)
   - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
+  - [`toHaveDescription`](#tohavedescription)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
 - [Inspiration](#inspiration)
@@ -86,9 +87,11 @@ should be installed as one of your project's `devDependencies`:
 ```
 npm install --save-dev @testing-library/jest-dom
 ```
-or 
+
+or
 
 for installation with [yarn](https://yarnpkg.com/) package manager.
+
 ```
 yarn add --dev @testing-library/jest-dom
 ```
@@ -725,7 +728,7 @@ const element = getByTestId('text-content')
 
 expect(element).toHaveTextContent('Content')
 expect(element).toHaveTextContent(/^Text Content$/) // to match the whole content
-expect(element).toHaveTextContent(/content$/i) // to use case-insentive match
+expect(element).toHaveTextContent(/content$/i) // to use case-insensitive match
 expect(element).not.toHaveTextContent('content')
 ```
 
@@ -886,6 +889,60 @@ expect(ariaSwitchChecked).toBeChecked()
 expect(ariaSwitchUnchecked).not.toBeChecked()
 ```
 
+<hr />
+
+### `toHaveDescription`
+
+```typescript
+toHaveDescription(text: string | RegExp)
+```
+
+This allows you to check whether the given element has a description or not.
+
+An element gets its description via the
+[`aria-describedby` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute).
+Set this to the `id` of one or more other elements. These elements may be nested
+inside, be outside, or a sibling of the passed in element.
+
+Whitespace is normalized. Using multiple ids will
+[join the referenced elements’ text content separated by a space](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_description).
+
+When a `string` argument is passed through, it will perform a whole
+case-sensitive match to the description text.
+
+To perform a case-insensitive match, you can use a `RegExp` with the `/i`
+modifier.
+
+To perform a partial match, you can pass a `RegExp` or use
+`expect.stringContaining("partial string")`.
+
+#### Examples
+
+```html
+<button aria-label="Close" aria-describedby="description-close">
+  X
+</button>
+<div id="description-close">
+  Closing will discard any changes
+</div>
+
+<button>Delete</button>
+```
+
+```javascript
+const closeButton = getByRole('button', {name: 'Close'})
+
+expect(closeButton).toHaveDescription('Closing will discard any changes')
+expect(closeButton).toHaveDescription(/will discard/) // to partially match
+expect(closeButton).toHaveDescription(expect.stringContaining('will discard')) // to partially match
+expect(closeButton).toHaveDescription(/^closing/i) // to use case-insensitive match
+expect(closeButton).not.toHaveDescription('Other description')
+
+const deleteButton = getByRole('button', {name: 'Delete'})
+expect(deleteButton).not.toHaveDescription()
+expect(deleteButton).toHaveDescription('') // Missing or empty description always becomes a blank string
+```
+
 ## Deprecated matchers
 
 ### `toBeInTheDOM`
@@ -1026,6 +1083,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
