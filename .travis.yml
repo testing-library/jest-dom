@@ -1,7 +1,6 @@
 language: node_js
 env:
   - FORCE_COLOR=true
-cache: npm
 notifications:
   email: false
 node_js:
