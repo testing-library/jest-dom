@@ -7,9 +7,9 @@ node_js:
   - 10.14
   - 12
   - node
-install: npm install
+install: yarn install
 script:
-  - npm run validate
+  - yarn validate
   - npx codecov@3
 branches:
   only:
