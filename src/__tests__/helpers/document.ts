@@ -1,3 +1,5 @@
+import * as extensions from '../../matchers'
+
 let document: Document
 
 const globalWithDocument = global as {
@@ -13,3 +15,11 @@ if (globalWithDocument.document) {
 }
 
 export default document
+
+type Extensions = typeof extensions
+
+declare global {
+  namespace jest {
+    interface Matchers<R, T> extends Extensions {}
+  }
+}
