@@ -372,9 +372,77 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "jeffbernst",
+      "name": "Jeff Bernstein",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6685560?v=4",
+      "profile": "http://jeffbernstein.io",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "SergiCL",
+      "name": "Sergi",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/41625166?v=4",
+      "profile": "https://github.com/SergiCL",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "skovy",
+      "name": "Spencer Miskoviak",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5247455?v=4",
+      "profile": "https://skovy.dev",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "jonrimmer",
+      "name": "Jon Rimmer",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/183786?v=4",
+      "profile": "https://twitter.com/jonrimmer",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "cloud-walker",
+      "name": "Luca Barone",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1144075?v=4",
+      "profile": "https://github.com/cloud-walker",
+      "contributions": [
+        "code",
+        "test",
+        "ideas"
+      ]
+    },
+    {
+      "login": "mfelmy",
+      "name": "Malte Felmy",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/29504917?v=4",
+      "profile": "https://github.com/mfelmy",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "Ishaan28malik",
+      "name": "Championrunner",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/27343592?v=4",
+      "profile": "https://ghuser.io/Ishaan28malik",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
   "contributorsPerLine": 7,
-  "skipCi": true
+  "skipCi": false
 }

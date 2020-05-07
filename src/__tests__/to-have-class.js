@@ -2,21 +2,25 @@
 
 import {render} from './helpers/test-utils'
 
+const renderElementWithClasses = () =>
+  render(`
+<div>
+  <button data-testid="delete-button" class="btn extra btn-danger">
+    Delete item
+  </button>
+  <button data-testid="cancel-button">
+    Cancel
+  </button>
+  <svg data-testid="svg-spinner" class="spinner clockwise">
+    <path />
+  </svg>
+  <div data-testid="only-one-class" class="alone"></div>
+  <div data-testid="no-classes"></div>
+</div>
+`)
+
 test('.toHaveClass', () => {
-  const {queryByTestId} = render(`
-    <div>
-      <button data-testid="delete-button" class="btn extra btn-danger">
-        Delete item
-      </button>
-      <button data-testid="cancel-button">
-        Cancel
-      </button>
-      <svg data-testid="svg-spinner" class="spinner clockwise">
-        <path />
-      </svg>
-      <div data-testid="no-classes"></div>
-    </div>
-  `)
+  const {queryByTestId} = renderElementWithClasses()
 
   expect(queryByTestId('delete-button')).toHaveClass('btn')
   expect(queryByTestId('delete-button')).toHaveClass('btn-danger')
@@ -90,4 +94,90 @@ test('.toHaveClass', () => {
   expect(() =>
     expect(queryByTestId('delete-button')).not.toHaveClass('  '),
   ).toThrowError(/(none)/)
+})
+
+test('.toHaveClass with exact mode option', () => {
+  const {queryByTestId} = renderElementWithClasses()
+
+  expect(queryByTestId('delete-button')).toHaveClass('btn extra btn-danger', {
+    exact: true,
+  })
+  expect(queryByTestId('delete-button')).not.toHaveClass('btn extra', {
+    exact: true,
+  })
+  expect(
+    queryByTestId('delete-button'),
+  ).not.toHaveClass('btn extra btn-danger foo', {exact: true})
+
+  expect(queryByTestId('delete-button')).toHaveClass('btn extra btn-danger', {
+    exact: false,
+  })
+  expect(queryByTestId('delete-button')).toHaveClass('btn extra', {
+    exact: false,
+  })
+  expect(
+    queryByTestId('delete-button'),
+  ).not.toHaveClass('btn extra btn-danger foo', {exact: false})
+
+  expect(queryByTestId('delete-button')).toHaveClass(
+    'btn',
+    'extra',
+    'btn-danger',
+    {exact: true},
+  )
+  expect(queryByTestId('delete-button')).not.toHaveClass('btn', 'extra', {
+    exact: true,
+  })
+  expect(queryByTestId('delete-button')).not.toHaveClass(
+    'btn',
+    'extra',
+    'btn-danger',
+    'foo',
+    {exact: true},
+  )
+
+  expect(queryByTestId('delete-button')).toHaveClass(
+    'btn',
+    'extra',
+    'btn-danger',
+    {exact: false},
+  )
+  expect(queryByTestId('delete-button')).toHaveClass('btn', 'extra', {
+    exact: false,
+  })
+  expect(queryByTestId('delete-button')).not.toHaveClass(
+    'btn',
+    'extra',
+    'btn-danger',
+    'foo',
+    {exact: false},
+  )
+
+  expect(queryByTestId('only-one-class')).toHaveClass('alone', {exact: true})
+  expect(queryByTestId('only-one-class')).not.toHaveClass('alone foo', {
+    exact: true,
+  })
+  expect(queryByTestId('only-one-class')).not.toHaveClass('alone', 'foo', {
+    exact: true,
+  })
+
+  expect(queryByTestId('only-one-class')).toHaveClass('alone', {exact: false})
+  expect(queryByTestId('only-one-class')).not.toHaveClass('alone foo', {
+    exact: false,
+  })
+  expect(queryByTestId('only-one-class')).not.toHaveClass('alone', 'foo', {
+    exact: false,
+  })
+
+  expect(() =>
+    expect(queryByTestId('only-one-class')).not.toHaveClass('alone', {
+      exact: true,
+    }),
+  ).toThrowError(/Expected the element not to have EXACTLY defined classes/)
+
+  expect(() =>
+    expect(queryByTestId('only-one-class')).toHaveClass('alone', 'foo', {
+      exact: true,
+    }),
+  ).toThrowError(/Expected the element to have EXACTLY defined classes/)
 })

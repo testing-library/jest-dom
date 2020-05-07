@@ -66,6 +66,7 @@ clear to read and to maintain.
   - [`toHaveStyle`](#tohavestyle)
   - [`toHaveTextContent`](#tohavetextcontent)
   - [`toHaveValue`](#tohavevalue)
+  - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
@@ -84,6 +85,12 @@ should be installed as one of your project's `devDependencies`:
 
 ```
 npm install --save-dev @testing-library/jest-dom
+```
+or 
+
+for installation with [yarn](https://yarnpkg.com/) package manager.
+```
+yarn add --dev @testing-library/jest-dom
 ```
 
 > Note: We also recommend installing the jest-dom eslint plugin which provides
@@ -498,7 +505,7 @@ expect(button).toHaveAttribute('type', expect.not.stringContaining('but'))
 ### `toHaveClass`
 
 ```typescript
-toHaveClass(...classNames: string[])
+toHaveClass(...classNames: string[], options?: {exact: boolean})
 ```
 
 This allows you to check whether the given element has certain classes within
@@ -524,6 +531,9 @@ expect(deleteButton).toHaveClass('extra')
 expect(deleteButton).toHaveClass('btn-danger btn')
 expect(deleteButton).toHaveClass('btn-danger', 'btn')
 expect(deleteButton).not.toHaveClass('btn-link')
+
+expect(deleteButton).toHaveClass('btn-danger extra btn', {exact: true}) // to check if the element has EXACTLY a set of classes
+expect(deleteButton).not.toHaveClass('btn-danger extra', {exact: true}) // if it has more than expected it is going to fail
 
 expect(noClasses).not.toHaveClass()
 ```
@@ -729,8 +739,8 @@ toHaveValue(value: string | string[] | number)
 
 This allows you to check whether the given form element has the specified value.
 It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
-of `<input type="checkbox">` and `<input type="radio">`, which can be
-meaningfully matched only using [`toBeChecked`](#tobechecked) or
+`<input type="checkbox">` and `<input type="radio">`, which can be meaningfully
+matched only using [`toBeChecked`](#tobechecked) or
 [`toHaveFormValues`](#tohaveformvalues).
 
 For all other form elements, the value is matched using the same algorithm as in
@@ -765,6 +775,61 @@ expect(selectInput).not.toHaveValue(['second', 'third'])
 
 <hr />
 
+### `toHaveDisplayValue`
+
+```typescript
+toHaveDisplayValue(value: string | string[])
+```
+
+This allows you to check whether the given form element has the specified
+displayed value (the one the end user will see). It accepts `<input>`,
+`<select>` and `<textarea>` elements with the exception of
+`<input type="checkbox">` and `<input type="radio">`, which can be meaningfully
+matched only using [`toBeChecked`](#tobechecked) or
+[`toHaveFormValues`](#tohaveformvalues).
+
+#### Examples
+
+```html
+<label for="input-example">First name</label>
+<input type="text" id="input-example" value="Luca" />
+
+<label for="textarea-example">Description</label>
+<textarea id="textarea-example">An example description here.</textarea>
+
+<label for="single-select-example">Fruit</label>
+<select id="single-select-example">
+  <option value="">Select a fruit...</option>
+  <option value="banana">Banana</option>
+  <option value="ananas">Ananas</option>
+  <option value="avocado">Avocado</option>
+</select>
+
+<label for="mutiple-select-example">Fruits</label>
+<select id="multiple-select-example" multiple>
+  <option value="">Select a fruit...</option>
+  <option value="banana" selected>Banana</option>
+  <option value="ananas">Ananas</option>
+  <option value="avocado" selected>Avocado</option>
+</select>
+```
+
+##### Using DOM Testing Library
+
+```javascript
+const input = screen.getByLabelText('First name')
+const textarea = screen.getByLabelText('Description')
+const selectSingle = screen.getByLabelText('Fruit')
+const selectMultiple = screen.getByLabelText('Fruits')
+
+expect(input).toHaveDisplayValue('Luca')
+expect(textarea).toHaveDisplayValue('An example description here.')
+expect(selectSingle).toHaveDisplayValue('Select a fruit...')
+expect(selectMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
+```
+
+<hr />
+
 ### `toBeChecked`
 
 ```typescript
@@ -772,8 +837,9 @@ toBeChecked()
 ```
 
 This allows you to check whether the given element is checked. It accepts an
-`input` of type `checkbox` or `radio` and elements with a `role` of `checkbox`
-or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
+`input` of type `checkbox` or `radio` and elements with a `role` of `checkbox`,
+`radio` or `switch` with a valid `aria-checked` attribute of `"true"` or
+`"false"`.
 
 #### Examples
 
@@ -791,6 +857,8 @@ or `radio` with a valid `aria-checked` attribute of `"true"` or `"false"`.
 <input type="radio" value="foo" data-testid="input-radio-unchecked" />
 <div role="radio" aria-checked="true" data-testid="aria-radio-checked" />
 <div role="radio" aria-checked="false" data-testid="aria-radio-unchecked" />
+<div role="switch" aria-checked="true" data-testid="aria-switch-checked" />
+<div role="switch" aria-checked="false" data-testid="aria-switch-unchecked" />
 ```
 
 ```javascript
@@ -811,6 +879,11 @@ expect(inputRadioChecked).toBeChecked()
 expect(inputRadioUnchecked).not.toBeChecked()
 expect(ariaRadioChecked).toBeChecked()
 expect(ariaRadioUnchecked).not.toBeChecked()
+
+const ariaSwitchChecked = getByTestId('aria-switch-checked')
+const ariaSwitchUnchecked = getByTestId('aria-switch-unchecked')
+expect(ariaSwitchChecked).toBeChecked()
+expect(ariaSwitchUnchecked).not.toBeChecked()
 ```
 
 ## Deprecated matchers
@@ -824,8 +897,8 @@ toBeInTheDOM()
 This allows you to check whether a value is a DOM element, or not.
 
 Contrary to what its name implies, this matcher only checks that you passed to
-it a valid DOM element. It does not have a clear definition of that "the DOM"
-is. Therefore, it does not check wether that element is contained anywhere.
+it a valid DOM element. It does not have a clear definition of what "the DOM"
+is. Therefore, it does not check whether that element is contained anywhere.
 
 This is the main reason why this matcher is deprecated, and will be removed in
 the next major release. You can follow the discussion around this decision in
@@ -861,6 +934,11 @@ independent from jest, and can be used with other tests runners as well.
 
 I'm not aware of any, if you are please [make a pull request][prs] and add it
 here!
+
+If you would like to further test the accessibility and validity of the DOM
+consider [`jest-axe`](https://github.com/nickcolley/jest-axe). It doesn't
+overlap with `jest-dom` but can complement it for more in-depth accessibility
+checking (eg: validating `aria` attributes or ensuring unique id attributes).
 
 ## Guiding Principles
 
@@ -934,12 +1012,20 @@ Thanks goes to these people ([emoji key][emojis]):
   <tr>
     <td align="center"><a href="https://jpblanco.dev"><img src="https://avatars1.githubusercontent.com/u/16567863?v=4" width="100px;" alt=""/><br /><sub><b>Juan Pablo Blanco</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=JPBlancoDB" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/benmonro"><img src="https://avatars3.githubusercontent.com/u/399236?v=4" width="100px;" alt=""/><br /><sub><b>Ben Monro</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=benmonro" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://jeffbernstein.io"><img src="https://avatars1.githubusercontent.com/u/6685560?v=4" width="100px;" alt=""/><br /><sub><b>Jeff Bernstein</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeffbernst" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/SergiCL"><img src="https://avatars3.githubusercontent.com/u/41625166?v=4" width="100px;" alt=""/><br /><sub><b>Sergi</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=SergiCL" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=SergiCL" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://skovy.dev"><img src="https://avatars1.githubusercontent.com/u/5247455?v=4" width="100px;" alt=""/><br /><sub><b>Spencer Miskoviak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=skovy" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://twitter.com/jonrimmer"><img src="https://avatars1.githubusercontent.com/u/183786?v=4" width="100px;" alt=""/><br /><sub><b>Jon Rimmer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jonrimmer" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jonrimmer" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/cloud-walker"><img src="https://avatars3.githubusercontent.com/u/1144075?v=4" width="100px;" alt=""/><br /><sub><b>Luca Barone</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=cloud-walker" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=cloud-walker" title="Tests">⚠️</a> <a href="#ideas-cloud-walker" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/mfelmy"><img src="https://avatars2.githubusercontent.com/u/29504917?v=4" width="100px;" alt=""/><br /><sub><b>Malte Felmy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://ghuser.io/Ishaan28malik"><img src="https://avatars3.githubusercontent.com/u/27343592?v=4" width="100px;" alt=""/><br /><sub><b>Championrunner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=Ishaan28malik" title="Documentation">📖</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.

@@ -13,7 +13,7 @@ export function toBeChecked(element) {
 
   const isValidAriaElement = () => {
     return (
-      ['checkbox', 'radio'].includes(element.getAttribute('role')) &&
+      ['checkbox', 'radio', 'switch'].includes(element.getAttribute('role')) &&
       ['true', 'false'].includes(element.getAttribute('aria-checked'))
     )
   }
@@ -22,7 +22,7 @@ export function toBeChecked(element) {
     return {
       pass: false,
       message: () =>
-        'only inputs with type="checkbox" or type="radio" or elements with role="checkbox" or role="radio" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
+        'only inputs with type="checkbox" or type="radio" or elements with role="checkbox", role="radio" or role="switch" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
     }
   }
 
