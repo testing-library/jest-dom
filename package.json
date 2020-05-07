@@ -23,7 +23,9 @@
   "files": [
     "dist",
     "extend-expect.js",
-    "matchers.js"
+    "extend-expect.d.ts",
+    "matchers.js",
+    "matchers.d.ts"
   ],
   "keywords": [
     "testing",
