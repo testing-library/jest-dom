@@ -46,6 +46,7 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
@@ -781,7 +782,7 @@ expect(selectInput).not.toHaveValue(['second', 'third'])
 ### `toHaveDisplayValue`
 
 ```typescript
-toHaveDisplayValue(value: string | string[])
+toHaveDisplayValue(value: string | RegExp | (string|RegExp)[])
 ```
 
 This allows you to check whether the given form element has the specified
@@ -826,9 +827,12 @@ const selectSingle = screen.getByLabelText('Fruit')
 const selectMultiple = screen.getByLabelText('Fruits')
 
 expect(input).toHaveDisplayValue('Luca')
+expect(input).toHaveDisplayValue(/Luc/)
 expect(textarea).toHaveDisplayValue('An example description here.')
+expect(textarea).toHaveDisplayValue(/example/)
 expect(selectSingle).toHaveDisplayValue('Select a fruit...')
-expect(selectMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
+expect(selectSingle).toHaveDisplayValue(/Select/)
+expect(selectMultiple).toHaveDisplayValue([/Avocado/, 'Banana'])
 ```
 
 <hr />
@@ -1084,6 +1088,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.

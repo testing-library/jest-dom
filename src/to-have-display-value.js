@@ -1,6 +1,5 @@
 import {matcherHint} from 'jest-matcher-utils'
-
-import {checkHtmlElement, getMessage} from './utils'
+import {matches, checkHtmlElement, getMessage} from './utils'
 
 export function toHaveDisplayValue(htmlElement, expectedValue) {
   checkHtmlElement(htmlElement, toHaveDisplayValue, this)
@@ -18,16 +17,19 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
     )
   }
 
-  const value =
-    tagName === 'select'
-      ? Array.from(htmlElement)
-          .filter(option => option.selected)
-          .map(option => option.textContent)
-          .toString()
-      : htmlElement.value
+  const values = getValues(tagName, htmlElement)
+  const expectedValues = getExpectedValues(expectedValue)
+  const numberOfMatchesWithValues = getNumberOfMatchesBetweenArrays(
+    values,
+    expectedValues,
+  )
+
+  const matchedWithAllValues = numberOfMatchesWithValues === values.length
+  const matchedWithAllExpectedValues =
+    numberOfMatchesWithValues === expectedValues.length
 
   return {
-    pass: value === expectedValue.toString(),
+    pass: matchedWithAllValues && matchedWithAllExpectedValues,
     message: () =>
       getMessage(
         matcherHint(
@@ -38,7 +40,25 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
         `Expected element ${this.isNot ? 'not ' : ''}to have display value`,
         expectedValue,
         'Received',
-        value,
+        values,
       ),
   }
+}
+
+function getValues(tagName, htmlElement) {
+  return tagName === 'select'
+    ? Array.from(htmlElement)
+        .filter(option => option.selected)
+        .map(option => option.textContent)
+    : [htmlElement.value]
+}
+
+function getExpectedValues(expectedValue) {
+  return expectedValue instanceof Array ? expectedValue : [expectedValue]
+}
+
+function getNumberOfMatchesBetweenArrays(arrayBase, array) {
+  return array.filter(
+    expected => arrayBase.filter(value => matches(value, expected)).length,
+  ).length
 }
