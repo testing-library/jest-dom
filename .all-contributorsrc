@@ -440,6 +440,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "BurntCaramel",
+      "name": "Patrick Smith",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/2635733?v=4",
+      "profile": "https://icing.space/",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
