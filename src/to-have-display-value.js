@@ -19,14 +19,14 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
 
   const values = getValues(tagName, htmlElement)
   const expectedValues = getExpectedValues(expectedValue)
-  const qtyOfMatchesWithValues = getQtyOfMatchesBetweenArrays(
+  const numberOfMatchesWithValues = getNumberOfMatchesBetweenArrays(
     values,
     expectedValues,
   )
 
-  const matchedWithAllValues = qtyOfMatchesWithValues === values.length
+  const matchedWithAllValues = numberOfMatchesWithValues === values.length
   const matchedWithAllExpectedValues =
-    qtyOfMatchesWithValues === expectedValues.length
+    numberOfMatchesWithValues === expectedValues.length
 
   return {
     pass: matchedWithAllValues && matchedWithAllExpectedValues,
@@ -57,7 +57,7 @@ function getExpectedValues(expectedValue) {
   return expectedValue instanceof Array ? expectedValue : [expectedValue]
 }
 
-function getQtyOfMatchesBetweenArrays(arrayBase, array) {
+function getNumberOfMatchesBetweenArrays(arrayBase, array) {
   return array.filter(
     expected => arrayBase.filter(value => matches(value, expected)).length,
   ).length

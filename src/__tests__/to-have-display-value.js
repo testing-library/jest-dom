@@ -25,14 +25,8 @@ test('it should work as expected', () => {
 })
 
 describe('with multiple select', () => {
-  let subject
-
-  afterEach(() => {
-    subject = undefined
-  })
-
-  beforeEach(() => {
-    subject = render(`
+  function mount() {
+    return render(`
       <select id="fruits" data-testid="select" multiple>
         <option value="">Select a fruit...</option>
         <option value="ananas" selected>Ananas</option>
@@ -40,9 +34,10 @@ describe('with multiple select', () => {
         <option value="avocado" selected>Avocado</option>
       </select>
     `)
-  })
+  }
 
   it('matches only when all the multiple selected values are equal to all the expected values', () => {
+    const subject = mount()
     expect(subject.queryByTestId('select')).toHaveDisplayValue([
       'Ananas',
       'Avocado',
@@ -74,6 +69,7 @@ describe('with multiple select', () => {
   })
 
   it('matches even when the expected values are unordered', () => {
+    const subject = mount()
     expect(subject.queryByTestId('select')).toHaveDisplayValue([
       'Avocado',
       'Ananas',
@@ -81,6 +77,7 @@ describe('with multiple select', () => {
   })
 
   it('matches with regex expected values', () => {
+    const subject = mount()
     expect(subject.queryByTestId('select')).toHaveDisplayValue([
       /[Aa]nanas/,
       'Avocado',
