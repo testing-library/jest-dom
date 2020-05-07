@@ -6,4 +6,8 @@ module.exports = {
   displayName: 'node',
   testEnvironment: 'node',
   ...config,
+  setupFilesAfterEnv: ['<rootDir>/tests/setup-env.ts'],
+  transform: {
+    '.ts': 'ts-jest',
+  },
 }
