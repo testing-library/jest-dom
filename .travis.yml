@@ -1,14 +1,13 @@
 language: node_js
 env:
   - FORCE_COLOR=true
-cache: npm
 notifications:
   email: false
 node_js:
   - 10.18
   - 12
   - node
-install: npm install
+install: yarn
 script:
   - npm run validate
   - npx codecov@3
