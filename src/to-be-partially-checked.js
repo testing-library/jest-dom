@@ -1,0 +1,54 @@
+import {matcherHint, printReceived} from 'jest-matcher-utils'
+import {checkHtmlElement} from './utils'
+
+export function toBePartiallyChecked(element) {
+  checkHtmlElement(element, toBePartiallyChecked, this)
+
+  const isValidInput = () => {
+    return (
+      element.tagName.toLowerCase() === 'input' && element.type === 'checkbox'
+    )
+  }
+
+  const isValidAriaElement = () => {
+    return (
+      element.getAttribute('role') === 'checkbox' &&
+      element.getAttribute('aria-checked') === 'mixed'
+    )
+  }
+
+  if (!isValidInput() && !isValidAriaElement()) {
+    return {
+      pass: false,
+      message: () =>
+        'only inputs with type="checkbox" or elements with role="checkbox" and a valid aria-checked attribute can be used with .toBePartiallyChecked(). Use .toHaveValue() instead',
+    }
+  }
+
+  const isPartiallyChecked = () => {
+    const isAriaMixed = element.getAttribute('aria-checked') === 'mixed'
+
+    if (isValidInput()) {
+      return element.indeterminate || isAriaMixed
+    }
+
+    return isAriaMixed
+  }
+
+  return {
+    pass: isPartiallyChecked(),
+    message: () => {
+      const is = isPartiallyChecked() ? 'is' : 'is not'
+      return [
+        matcherHint(
+          `${this.isNot ? '.not' : ''}.toBePartiallyChecked`,
+          'element',
+          '',
+        ),
+        '',
+        `Received element ${is} partially checked:`,
+        `  ${printReceived(element.cloneNode(false))}`,
+      ].join('\n')
+    },
+  }
+}
