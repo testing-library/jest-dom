@@ -11,10 +11,7 @@ export function toBePartiallyChecked(element) {
   }
 
   const isValidAriaElement = () => {
-    return (
-      element.getAttribute('role') === 'checkbox' &&
-      element.getAttribute('aria-checked') === 'mixed'
-    )
+    return element.getAttribute('role') === 'checkbox'
   }
 
   if (!isValidInput() && !isValidAriaElement()) {
