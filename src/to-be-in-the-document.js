@@ -1,8 +1,3 @@
-import {
-  matcherHint,
-  stringify,
-  RECEIVED_COLOR as receivedColor,
-} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
 export function toBeInTheDocument(element) {
@@ -14,7 +9,7 @@ export function toBeInTheDocument(element) {
     element === null ? false : element.ownerDocument.contains(element)
 
   const errorFound = () => {
-    return `expected document not to contain element, found ${stringify(
+    return `expected document not to contain element, found ${this.utils.stringify(
       element.cloneNode(true),
     )} instead`
   }
@@ -26,13 +21,14 @@ export function toBeInTheDocument(element) {
     pass,
     message: () => {
       return [
-        matcherHint(
+        this.utils.matcherHint(
           `${this.isNot ? '.not' : ''}.toBeInTheDocument`,
           'element',
           '',
         ),
         '',
-        receivedColor(this.isNot ? errorFound() : errorNotFound()),
+        // eslint-disable-next-line babel/new-cap
+        this.utils.RECEIVED_COLOR(this.isNot ? errorFound() : errorNotFound()),
       ].join('\n')
     },
   }

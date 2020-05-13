@@ -36,8 +36,6 @@
     "chalk": "^3.0.0",
     "css": "^2.2.4",
     "css.escape": "^1.5.1",
-    "jest-diff": "^25.1.0",
-    "jest-matcher-utils": "^25.1.0",
     "lodash": "^4.17.15",
     "redent": "^3.0.0"
   },

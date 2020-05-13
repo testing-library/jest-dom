@@ -1,5 +1,3 @@
-import {matcherHint} from 'jest-matcher-utils'
-import jestDiff from 'jest-diff'
 import isEqualWith from 'lodash/isEqualWith'
 import uniq from 'lodash/uniq'
 import escape from 'css.escape'
@@ -81,9 +79,9 @@ export function toHaveFormValues(formElement, expectedValues) {
         .filter(key => expectedValues.hasOwnProperty(key))
         .reduce((obj, key) => ({...obj, [key]: formValues[key]}), {})
       return [
-        matcherHint(matcher, 'element', ''),
+        this.utils.matcherHint(matcher, 'element', ''),
         `Expected the element ${to} have form values`,
-        jestDiff(expectedValues, commonKeyValues),
+        this.utils.diff(expectedValues, commonKeyValues),
       ].join('\n\n')
     },
   }

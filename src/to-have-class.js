@@ -1,4 +1,3 @@
-import {matcherHint, printExpected} from 'jest-matcher-utils'
 import {checkHtmlElement, getMessage} from './utils'
 
 function getExpectedClassNamesAndOptions(params) {
@@ -10,7 +9,7 @@ function getExpectedClassNamesAndOptions(params) {
     options = lastParam
   } else {
     expectedClassNames = params.concat(lastParam)
-    options = { exact: false }
+    options = {exact: false}
   }
   return {expectedClassNames, options}
 }
@@ -42,6 +41,7 @@ export function toHaveClass(htmlElement, ...params) {
       message: () => {
         const to = this.isNot ? 'not to' : 'to'
         return getMessage(
+          this,
           `Expected the element ${to} have EXACTLY defined classes`,
           expected.join(' '),
           'Received',
@@ -57,10 +57,11 @@ export function toHaveClass(htmlElement, ...params) {
         message: () => {
           const to = this.isNot ? 'not to' : 'to'
           return getMessage(
-            matcherHint(
+            this,
+            this.utils.matcherHint(
               `${this.isNot ? '.not' : ''}.toHaveClass`,
               'element',
-              printExpected(expected.join(' ')),
+              this.utils.printExpected(expected.join(' ')),
             ),
             `Expected the element ${to} have class`,
             expected.join(' '),
@@ -74,14 +75,15 @@ export function toHaveClass(htmlElement, ...params) {
         message: () =>
           this.isNot
             ? getMessage(
-                matcherHint('.not.toHaveClass', 'element', ''),
+                this,
+                this.utils.matcherHint('.not.toHaveClass', 'element', ''),
                 'Expected the element to have classes',
                 '(none)',
                 'Received',
                 received.join(' '),
               )
             : [
-                matcherHint(`.toHaveClass`, 'element'),
+                this.utils.matcherHint(`.toHaveClass`, 'element'),
                 'At least one expected class must be provided.',
               ].join('\n'),
       }
