@@ -1129,12 +1129,12 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/mfelmy"><img src="https://avatars2.githubusercontent.com/u/29504917?v=4" width="100px;" alt=""/><br /><sub><b>Malte Felmy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://ghuser.io/Ishaan28malik"><img src="https://avatars3.githubusercontent.com/u/27343592?v=4" width="100px;" alt=""/><br /><sub><b>Championrunner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=Ishaan28malik" title="Documentation">📖</a></td>
     <td align="center"><a href="https://icing.space/"><img src="https://avatars0.githubusercontent.com/u/2635733?v=4" width="100px;" alt=""/><br /><sub><b>Patrick Smith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://rubenmoya.dev"><img src="https://avatars3.githubusercontent.com/u/905225?v=4" width="100px;" alt=""/><br /><sub><b>Rubén Moya</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Documentation">📖</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
