@@ -1,6 +1,7 @@
 import {toBeInTheDOM} from './to-be-in-the-dom'
 import {toBeInTheDocument} from './to-be-in-the-document'
 import {toBeEmpty} from './to-be-empty'
+import {toBeEmptyDOMElement} from './to-be-empty-dom-element'
 import {toContainElement} from './to-contain-element'
 import {toContainHTML} from './to-contain-html'
 import {toHaveTextContent} from './to-have-text-content'
@@ -23,6 +24,7 @@ export {
   toBeInTheDOM,
   toBeInTheDocument,
   toBeEmpty,
+  toBeEmptyDOMElement,
   toContainElement,
   toContainHTML,
   toHaveTextContent,

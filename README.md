@@ -52,6 +52,7 @@ clear to read and to maintain.
   - [`toBeDisabled`](#tobedisabled)
   - [`toBeEnabled`](#tobeenabled)
   - [`toBeEmpty`](#tobeempty)
+  - [`toBeEmptyDOMElement`](#tobeemptydomelement)
   - [`toBeInTheDocument`](#tobeinthedocument)
   - [`toBeInvalid`](#tobeinvalid)
   - [`toBeRequired`](#toberequired)
@@ -205,6 +206,31 @@ This allows you to assert whether an element has content or not.
 ```javascript
 expect(getByTestId('empty')).toBeEmpty()
 expect(getByTestId('not-empty')).not.toBeEmpty()
+```
+
+> Note: This matcher is being deprecated due to a name clash with
+> `jest-extended`. See more info in #216. In the future, please use only:
+> [`toBeEmptyDOMElement`](#toBeEmptyDOMElement)
+
+<hr />
+
+### `toBeEmptyDOMElement`
+
+```typescript
+toBeEmptyDOMElement()
+```
+
+This allows you to assert whether an element has content or not.
+
+#### Examples
+
+```html
+<span data-testid="not-empty"><span data-testid="empty"></span></span>
+```
+
+```javascript
+expect(getByTestId('empty')).toBeEmptyDOMElement()
+expect(getByTestId('not-empty')).not.toBeEmptyDOMElement()
 ```
 
 <hr />
@@ -1135,6 +1161,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
