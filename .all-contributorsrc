@@ -462,6 +462,17 @@
         "test",
         "doc"
       ]
+    },
+    {
+      "login": "DanielaValero",
+      "name": "Daniela Valero",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1307954?v=4",
+      "profile": "https://danielavalero.com/",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
