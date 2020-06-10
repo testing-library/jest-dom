@@ -274,10 +274,9 @@ expect(
 toBeInvalid()
 ```
 
-This allows you to check if a form element, or the entire `form`, is currently
-invalid.
+This allows you to check if an element, is currently invalid.
 
-An `input`, `select`, `textarea`, or `form` element is invalid if it has an
+An element is invalid if it has an
 [`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
 with no value or a value of `"true"`, or if the result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
@@ -359,14 +358,13 @@ expect(getByTestId('supported-role-aria')).toBeRequired()
 toBeValid()
 ```
 
-This allows you to check if the value of a form element, or the entire `form`,
-is currently valid.
+This allows you to check if the value of an element, is currently valid.
 
-An `input`, `select`, `textarea`, or `form` element is valid if it has no
-[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
+An element is valid if it has no
+[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)s
 or an attribute value of `"false"`. The result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
-must also be `true`.
+must also be `true` if it's a form element.
 
 #### Examples
 
@@ -1162,6 +1160,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
