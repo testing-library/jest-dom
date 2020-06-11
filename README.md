@@ -1155,12 +1155,12 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://icing.space/"><img src="https://avatars0.githubusercontent.com/u/2635733?v=4" width="100px;" alt=""/><br /><sub><b>Patrick Smith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Documentation">📖</a></td>
     <td align="center"><a href="https://rubenmoya.dev"><img src="https://avatars3.githubusercontent.com/u/905225?v=4" width="100px;" alt=""/><br /><sub><b>Rubén Moya</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Documentation">📖</a></td>
     <td align="center"><a href="https://danielavalero.com/"><img src="https://avatars1.githubusercontent.com/u/1307954?v=4" width="100px;" alt=""/><br /><sub><b>Daniela Valero</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/missilev"><img src="https://avatars1.githubusercontent.com/u/33201468?v=4" width="100px;" alt=""/><br /><sub><b>Vladislav Katsura</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
