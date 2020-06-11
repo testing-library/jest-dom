@@ -473,6 +473,16 @@
         "test",
         "doc"
       ]
+    },
+    {
+      "login": "missilev",
+      "name": "Vladislav Katsura",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/33201468?v=4",
+      "profile": "https://github.com/missilev",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
