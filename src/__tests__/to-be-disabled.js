@@ -25,6 +25,7 @@ test('.toBeDisabled', () => {
             </optgroup>
           </select>
         </div>
+        <a href="http://github.com" data-testid="deep-a-element">x</a>
       </fieldset>
 
       <a href="http://github.com" disabled={true} data-testid="a-element">x</a>
@@ -50,7 +51,11 @@ test('.toBeDisabled', () => {
   expect(queryByTestId('deep-option-element')).toBeDisabled()
 
   expect(queryByTestId('a-element')).not.toBeDisabled()
+  expect(queryByTestId('deep-a-element')).not.toBeDisabled()
   expect(() => expect(queryByTestId('a-element')).toBeDisabled()).toThrowError()
+  expect(() =>
+    expect(queryByTestId('deep-a-element')).toBeDisabled(),
+  ).toThrowError()
 })
 
 test('.toBeDisabled fieldset>legend', () => {
@@ -129,6 +134,7 @@ test('.toBeEnabled', () => {
             </optgroup>
           </select>
         </div>
+        <a href="http://github.com" data-testid="deep-a-element">x</a>
       </fieldset>
 
       <a href="http://github.com" disabled={true} data-testid="a-element">x</a>
@@ -172,6 +178,10 @@ test('.toBeEnabled', () => {
   expect(queryByTestId('a-element')).toBeEnabled()
   expect(() =>
     expect(queryByTestId('a-element')).not.toBeEnabled(),
+  ).toThrowError()
+  expect(queryByTestId('deep-a-element')).toBeEnabled()
+  expect(() =>
+    expect(queryByTestId('deep-a-element')).not.toBeEnabled(),
   ).toThrowError()
 })
 
