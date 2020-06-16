@@ -274,10 +274,9 @@ expect(
 toBeInvalid()
 ```
 
-This allows you to check if a form element, or the entire `form`, is currently
-invalid.
+This allows you to check if an element, is currently invalid.
 
-An `input`, `select`, `textarea`, or `form` element is invalid if it has an
+An element is invalid if it has an
 [`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
 with no value or a value of `"true"`, or if the result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
@@ -359,14 +358,13 @@ expect(getByTestId('supported-role-aria')).toBeRequired()
 toBeValid()
 ```
 
-This allows you to check if the value of a form element, or the entire `form`,
-is currently valid.
+This allows you to check if the value of an element, is currently valid.
 
-An `input`, `select`, `textarea`, or `form` element is valid if it has no
-[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
+An element is valid if it has no
+[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)s
 or an attribute value of `"false"`. The result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
-must also be `true`.
+must also be `true` if it's a form element.
 
 #### Examples
 
@@ -1157,6 +1155,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://icing.space/"><img src="https://avatars0.githubusercontent.com/u/2635733?v=4" width="100px;" alt=""/><br /><sub><b>Patrick Smith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Documentation">📖</a></td>
     <td align="center"><a href="https://rubenmoya.dev"><img src="https://avatars3.githubusercontent.com/u/905225?v=4" width="100px;" alt=""/><br /><sub><b>Rubén Moya</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Documentation">📖</a></td>
     <td align="center"><a href="https://danielavalero.com/"><img src="https://avatars1.githubusercontent.com/u/1307954?v=4" width="100px;" alt=""/><br /><sub><b>Daniela Valero</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/missilev"><img src="https://avatars1.githubusercontent.com/u/33201468?v=4" width="100px;" alt=""/><br /><sub><b>Vladislav Katsura</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
