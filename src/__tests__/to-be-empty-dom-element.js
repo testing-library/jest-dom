@@ -1,8 +1,6 @@
 import {render} from './helpers/test-utils'
 
-test('.toBeEmpty', () => {
-  // @deprecated intentionally hiding warnings for test clarity
-  const spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
+test('.toBeEmptyDOMElement', () => {
   const {queryByTestId} = render(`
     <span data-testid="not-empty">
         <span data-testid="empty"></span>
@@ -15,21 +13,20 @@ test('.toBeEmpty', () => {
   const nonExistantElement = queryByTestId('not-exists')
   const fakeElement = {thisIsNot: 'an html element'}
 
-  expect(empty).toBeEmpty()
-  expect(svgEmpty).toBeEmpty()
-  expect(notEmpty).not.toBeEmpty()
+  expect(empty).toBeEmptyDOMElement()
+  expect(svgEmpty).toBeEmptyDOMElement()
+  expect(notEmpty).not.toBeEmptyDOMElement()
 
   // negative test cases wrapped in throwError assertions for coverage.
-  expect(() => expect(empty).not.toBeEmpty()).toThrowError()
+  expect(() => expect(empty).not.toBeEmptyDOMElement()).toThrowError()
 
-  expect(() => expect(svgEmpty).not.toBeEmpty()).toThrowError()
+  expect(() => expect(svgEmpty).not.toBeEmptyDOMElement()).toThrowError()
 
-  expect(() => expect(notEmpty).toBeEmpty()).toThrowError()
+  expect(() => expect(notEmpty).toBeEmptyDOMElement()).toThrowError()
 
-  expect(() => expect(fakeElement).toBeEmpty()).toThrowError()
+  expect(() => expect(fakeElement).toBeEmptyDOMElement()).toThrowError()
 
   expect(() => {
-    expect(nonExistantElement).toBeEmpty()
+    expect(nonExistantElement).toBeEmptyDOMElement()
   }).toThrowError()
-  spy.mockRestore()
 })

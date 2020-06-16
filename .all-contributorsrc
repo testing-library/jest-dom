@@ -451,6 +451,38 @@
         "test",
         "doc"
       ]
+    },
+    {
+      "login": "rubenmoya",
+      "name": "Rubén Moya",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/905225?v=4",
+      "profile": "https://rubenmoya.dev",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
+    },
+    {
+      "login": "DanielaValero",
+      "name": "Daniela Valero",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1307954?v=4",
+      "profile": "https://danielavalero.com/",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
+    },
+    {
+      "login": "missilev",
+      "name": "Vladislav Katsura",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/33201468?v=4",
+      "profile": "https://github.com/missilev",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",

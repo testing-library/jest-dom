@@ -32,7 +32,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.9.2",
-    "@types/testing-library__jest-dom": "^5.0.2",
+    "@types/testing-library__jest-dom": "^5.9.1",
     "chalk": "^3.0.0",
     "css": "^2.2.4",
     "css.escape": "^1.5.1",

@@ -46,13 +46,13 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
 - [Usage](#usage)
 - [Custom matchers](#custom-matchers)
   - [`toBeDisabled`](#tobedisabled)
   - [`toBeEnabled`](#tobeenabled)
   - [`toBeEmpty`](#tobeempty)
+  - [`toBeEmptyDOMElement`](#tobeemptydomelement)
   - [`toBeInTheDocument`](#tobeinthedocument)
   - [`toBeInvalid`](#tobeinvalid)
   - [`toBeRequired`](#toberequired)
@@ -69,6 +69,7 @@ clear to read and to maintain.
   - [`toHaveValue`](#tohavevalue)
   - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
+  - [`toBePartiallyChecked`](#tobepartiallychecked)
   - [`toHaveDescription`](#tohavedescription)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
@@ -207,6 +208,31 @@ expect(getByTestId('empty')).toBeEmpty()
 expect(getByTestId('not-empty')).not.toBeEmpty()
 ```
 
+> Note: This matcher is being deprecated due to a name clash with
+> `jest-extended`. See more info in #216. In the future, please use only:
+> [`toBeEmptyDOMElement`](#toBeEmptyDOMElement)
+
+<hr />
+
+### `toBeEmptyDOMElement`
+
+```typescript
+toBeEmptyDOMElement()
+```
+
+This allows you to assert whether an element has content or not.
+
+#### Examples
+
+```html
+<span data-testid="not-empty"><span data-testid="empty"></span></span>
+```
+
+```javascript
+expect(getByTestId('empty')).toBeEmptyDOMElement()
+expect(getByTestId('not-empty')).not.toBeEmptyDOMElement()
+```
+
 <hr />
 
 ### `toBeInTheDocument`
@@ -248,10 +274,9 @@ expect(
 toBeInvalid()
 ```
 
-This allows you to check if a form element, or the entire `form`, is currently
-invalid.
+This allows you to check if an element, is currently invalid.
 
-An `input`, `select`, `textarea`, or `form` element is invalid if it has an
+An element is invalid if it has an
 [`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
 with no value or a value of `"true"`, or if the result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
@@ -333,14 +358,13 @@ expect(getByTestId('supported-role-aria')).toBeRequired()
 toBeValid()
 ```
 
-This allows you to check if the value of a form element, or the entire `form`,
-is currently valid.
+This allows you to check if the value of an element, is currently valid.
 
-An `input`, `select`, `textarea`, or `form` element is valid if it has no
-[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
+An element is valid if it has no
+[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)s
 or an attribute value of `"false"`. The result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
-must also be `true`.
+must also be `true` if it's a form element.
 
 #### Examples
 
@@ -895,6 +919,52 @@ expect(ariaSwitchUnchecked).not.toBeChecked()
 
 <hr />
 
+### `toBePartiallyChecked`
+
+```typescript
+toBePartiallyChecked()
+```
+
+This allows you to check whether the given element is partially checked. It
+accepts an `input` of type `checkbox` and elements with a `role` of `checkbox`
+with a `aria-checked="mixed"`, or `input` of type `checkbox` with
+`indeterminate` set to `true`
+
+#### Examples
+
+```html
+<input type="checkbox" aria-checked="mixed" data-testid="aria-checkbox-mixed" />
+<input type="checkbox" checked data-testid="input-checkbox-checked" />
+<input type="checkbox" data-testid="input-checkbox-unchecked" />
+<div role="checkbox" aria-checked="true" data-testid="aria-checkbox-checked" />
+<div
+  role="checkbox"
+  aria-checked="false"
+  data-testid="aria-checkbox-unchecked"
+/>
+<input type="checkbox" data-testid="input-checkbox-indeterminate" />
+```
+
+```javascript
+const ariaCheckboxMixed = getByTestId('aria-checkbox-mixed')
+const inputCheckboxChecked = getByTestId('input-checkbox-checked')
+const inputCheckboxUnchecked = getByTestId('input-checkbox-unchecked')
+const ariaCheckboxChecked = getByTestId('aria-checkbox-checked')
+const ariaCheckboxUnchecked = getByTestId('aria-checkbox-unchecked')
+const inputCheckboxIndeterminate = getByTestId('input-checkbox-indeterminate')
+
+expect(ariaCheckboxMixed).toBePartiallyChecked()
+expect(inputCheckboxChecked).not.toBePartiallyChecked()
+expect(inputCheckboxUnchecked).not.toBePartiallyChecked()
+expect(ariaCheckboxChecked).not.toBePartiallyChecked()
+expect(ariaCheckboxUnchecked).not.toBePartiallyChecked()
+
+inputCheckboxIndeterminate.indeterminate = true
+expect(inputCheckboxIndeterminate).toBePartiallyChecked()
+```
+
+<hr />
+
 ### `toHaveDescription`
 
 ```typescript
@@ -1083,12 +1153,14 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/mfelmy"><img src="https://avatars2.githubusercontent.com/u/29504917?v=4" width="100px;" alt=""/><br /><sub><b>Malte Felmy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://ghuser.io/Ishaan28malik"><img src="https://avatars3.githubusercontent.com/u/27343592?v=4" width="100px;" alt=""/><br /><sub><b>Championrunner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=Ishaan28malik" title="Documentation">📖</a></td>
     <td align="center"><a href="https://icing.space/"><img src="https://avatars0.githubusercontent.com/u/2635733?v=4" width="100px;" alt=""/><br /><sub><b>Patrick Smith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://rubenmoya.dev"><img src="https://avatars3.githubusercontent.com/u/905225?v=4" width="100px;" alt=""/><br /><sub><b>Rubén Moya</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://danielavalero.com/"><img src="https://avatars1.githubusercontent.com/u/1307954?v=4" width="100px;" alt=""/><br /><sub><b>Daniela Valero</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/missilev"><img src="https://avatars1.githubusercontent.com/u/33201468?v=4" width="100px;" alt=""/><br /><sub><b>Vladislav Katsura</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.

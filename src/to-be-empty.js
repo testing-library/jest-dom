@@ -1,7 +1,11 @@
 import {matcherHint, printReceived} from 'jest-matcher-utils'
-import {checkHtmlElement} from './utils'
+import {checkHtmlElement, deprecate} from './utils'
 
 export function toBeEmpty(element) {
+  deprecate(
+    'toBeEmpty',
+    'Please use instead toBeEmptyDOMElement for finding empty nodes in the DOM.',
+  )
   checkHtmlElement(element, toBeEmpty, this)
 
   return {
