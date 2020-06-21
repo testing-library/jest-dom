@@ -23,6 +23,7 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
 [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
+[![Discord][discord-badge]][discord]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
@@ -1211,3 +1212,5 @@ MIT
 [emojis]: https://allcontributors.org/docs/en/emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
 [guiding-principle]: https://testing-library.com/docs/guiding-principles
+[discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
+[discord]: https://discord.gg/c6JN9fM
