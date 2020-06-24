@@ -194,5 +194,3 @@ describe('.toBeChecked', () => {
     )
   })
 })
-
-/* eslint max-lines-per-function:0 */

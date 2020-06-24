@@ -349,5 +349,3 @@ function renderSelectMultiple(name, label, options, value = []) {
 function renderList(items, mapper) {
   return items.map(mapper).join('')
 }
-
-/* eslint max-lines-per-function:0 */
