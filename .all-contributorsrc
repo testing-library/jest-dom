@@ -483,6 +483,17 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "tf",
+      "name": "Tim Fischbach",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/26554?v=4",
+      "profile": "http://stderr.timfischbach.de",
+      "contributions": [
+        "code",
+        "test",
+        "ideas"
+      ]
     }
   ],
   "repoHost": "https://github.com",
