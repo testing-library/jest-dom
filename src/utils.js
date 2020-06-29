@@ -198,6 +198,15 @@ function parseJStoCSS(document, css) {
   return sandboxElement.style.cssText
 }
 
+function toSentence(
+  array,
+  {wordConnector = ', ', lastWordConnector = ' and '} = {},
+) {
+  return [array.slice(0, -1).join(wordConnector), array[array.length - 1]].join(
+    array.length > 1 ? lastWordConnector : '',
+  )
+}
+
 export {
   HtmlElementTypeError,
   checkHtmlElement,
@@ -210,4 +219,5 @@ export {
   getSingleElementValue,
   compareArraysAsSet,
   parseJStoCSS,
+  toSentence,
 }
