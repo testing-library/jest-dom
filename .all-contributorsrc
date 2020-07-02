@@ -494,6 +494,15 @@
         "test",
         "ideas"
       ]
+    },
+    {
+      "login": "kboedges",
+      "name": "Katie Boedges",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/8322476?v=4",
+      "profile": "http://katieboedges.com/",
+      "contributions": [
+        "infra"
+      ]
     }
   ],
   "repoHost": "https://github.com",
