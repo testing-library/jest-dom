@@ -1161,6 +1161,7 @@ Thanks goes to these people ([emoji key][emojis]):
   </tr>
   <tr>
     <td align="center"><a href="http://katieboedges.com/"><img src="https://avatars1.githubusercontent.com/u/8322476?v=4" width="100px;" alt=""/><br /><sub><b>Katie Boedges</b></sub></a><br /><a href="#infra-kboedges" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="https://github.com/brrianalexis"><img src="https://avatars2.githubusercontent.com/u/51463930?v=4" width="100px;" alt=""/><br /><sub><b>Brian Alexis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=brrianalexis" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
