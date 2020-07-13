@@ -503,6 +503,15 @@
       "contributions": [
         "infra"
       ]
+    },
+    {
+      "login": "brrianalexis",
+      "name": "Brian Alexis",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/51463930?v=4",
+      "profile": "https://github.com/brrianalexis",
+      "contributions": [
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
