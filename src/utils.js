@@ -192,12 +192,6 @@ function compareArraysAsSet(a, b) {
   return undefined
 }
 
-function parseJStoCSS(document, css) {
-  const sandboxElement = document.createElement('div')
-  Object.assign(sandboxElement.style, css)
-  return sandboxElement.style.cssText
-}
-
 function toSentence(
   array,
   {wordConnector = ', ', lastWordConnector = ' and '} = {},
@@ -218,6 +212,5 @@ export {
   getTag,
   getSingleElementValue,
   compareArraysAsSet,
-  parseJStoCSS,
   toSentence,
 }

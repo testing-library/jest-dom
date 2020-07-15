@@ -146,26 +146,55 @@ describe('.toHaveStyle', () => {
     )
   })
 
-  test('handles styles as object', () => {
-    const {container} = render(`
-      <div class="label" style="background-color: blue; height: 100%">
-        Hello World
-      </div>
-    `)
+  describe('object syntax', () => {
+    test('handles styles as object', () => {
+      const {container} = render(`
+        <div class="label" style="background-color: blue; height: 100%">
+          Hello World
+        </div>
+      `)
 
-    expect(container.querySelector('.label')).toHaveStyle({
-      backgroundColor: 'blue',
+      expect(container.querySelector('.label')).toHaveStyle({
+        backgroundColor: 'blue',
+      })
+      expect(container.querySelector('.label')).toHaveStyle({
+        backgroundColor: 'blue',
+        height: '100%',
+      })
+      expect(container.querySelector('.label')).not.toHaveStyle({
+        backgroundColor: 'red',
+        height: '100%',
+      })
+      expect(container.querySelector('.label')).not.toHaveStyle({
+        whatever: 'anything',
+      })
     })
-    expect(container.querySelector('.label')).toHaveStyle({
-      backgroundColor: 'blue',
-      height: '100%',
+
+    test('supports dash-cased property names', () => {
+      const {container} = render(`
+        <div class="label" style="background-color: blue; height: 100%">
+          Hello World
+        </div>
+      `)
+      expect(container.querySelector('.label')).toHaveStyle({
+        'background-color': 'blue',
+      })
     })
-    expect(container.querySelector('.label')).not.toHaveStyle({
-      backgroundColor: 'red',
-      height: '100%',
-    })
-    expect(container.querySelector('.label')).not.toHaveStyle({
-      whatever: 'anything',
+
+    test('requires strict empty properties matching', () => {
+      const {container} = render(`
+        <div class="label" style="width: 100%;height: 100%">
+          Hello World
+        </div>
+      `)
+      expect(container.querySelector('.label')).not.toHaveStyle({
+        width: '100%',
+        height: '',
+      })
+      expect(container.querySelector('.label')).not.toHaveStyle({
+        width: '',
+        height: '',
+      })
     })
   })
 })

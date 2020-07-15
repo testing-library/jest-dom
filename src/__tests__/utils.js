@@ -2,7 +2,6 @@ import {
   deprecate,
   checkHtmlElement,
   HtmlElementTypeError,
-  parseJStoCSS,
   toSentence,
 } from '../utils'
 import document from './helpers/document'
@@ -81,40 +80,6 @@ describe('checkHtmlElement', () => {
         {},
       )
     }).toThrow(HtmlElementTypeError)
-  })
-})
-
-describe('parseJStoCSS', () => {
-  describe('when all the styles are valid', () => {
-    it('returns the JS parsed as CSS text', () => {
-      expect(
-        parseJStoCSS(document, {
-          backgroundColor: 'blue',
-          height: '100%',
-        }),
-      ).toBe('background-color: blue; height: 100%;')
-    })
-  })
-
-  describe('when some style is invalid', () => {
-    it('returns the JS parsed as CSS text without the invalid style', () => {
-      expect(
-        parseJStoCSS(document, {
-          backgroundColor: 'blue',
-          whatever: 'anything',
-        }),
-      ).toBe('background-color: blue;')
-    })
-  })
-
-  describe('when all the styles are invalid', () => {
-    it('returns an empty string', () => {
-      expect(
-        parseJStoCSS(document, {
-          whatever: 'anything',
-        }),
-      ).toBe('')
-    })
   })
 })
 
