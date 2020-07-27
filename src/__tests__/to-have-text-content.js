@@ -83,7 +83,7 @@ describe('.toHaveTextContent', () => {
     )
   })
 
-  test('when matching with empty string and element with content suggest using toBeEmpty instead', () => {
+  test('when matching with empty string and element with content, suggest using toBeEmptyDOMElement instead', () => {
     // https://github.com/testing-library/jest-dom/issues/104
     const {container} = render('<span>not empty</span>')
 
