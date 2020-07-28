@@ -25,7 +25,7 @@ export function toHaveTextContent(
           '',
         ),
         checkingWithEmptyString
-          ? `Checking with empty string will always match, use .toBeEmpty() instead`
+          ? `Checking with empty string will always match, use .toBeEmptyDOMElement() instead`
           : `Expected element ${to} have text content`,
         checkWith,
         'Received',
