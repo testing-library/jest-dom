@@ -89,6 +89,6 @@ describe('.toHaveTextContent', () => {
 
     expect(() =>
       expect(container.querySelector('span')).toHaveTextContent(''),
-    ).toThrowError(/toBeEmpty()/)
+    ).toThrowError(/toBeEmptyDOMElement\(\)/)
   })
 })
