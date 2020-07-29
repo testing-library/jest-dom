@@ -202,7 +202,7 @@ describe('.toHaveStyle', () => {
 
     test("doesn't consider the unit if it isn't explicitly set ", () => {
       const {queryByTestId} = render(`
-      <span data-testid="color-example" style="font-size: 12rem">Hello World</span>
+      <span data-testid="color-example" style="font-size: 12px">Hello World</span>
     `)
       expect(queryByTestId('color-example')).toHaveStyle({
         fontSize: 12
