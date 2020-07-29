@@ -200,7 +200,7 @@ describe('.toHaveStyle', () => {
       })
     })
 
-    test("doesn't consider the unit if it isn't explicitly set ", () => {
+    test("Uses px as the default unit", () => {
       const {queryByTestId} = render(`
       <span data-testid="color-example" style="font-size: 12px">Hello World</span>
     `)
