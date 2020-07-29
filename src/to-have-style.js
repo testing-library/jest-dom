@@ -22,7 +22,7 @@ function isSubset(styles, computedStyle) {
     Object.entries(styles).every(
       ([prop, value]) =>
         computedStyle[prop] === value ||
-        computedStyle[prop.toLowerCase()] === value,
+        computedStyle.getPropertyValue(prop.toLowerCase()) === value,
     )
   )
 }
