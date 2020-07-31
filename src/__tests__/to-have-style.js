@@ -126,7 +126,7 @@ describe('.toHaveStyle', () => {
     expect(queryByTestId('color-example')).toHaveStyle('--color: blue')
   })
 
-  test('handles global customer properties', () => {
+  test('handles global custom properties', () => {
     const style = document.createElement('style')
     style.innerHTML = `
       div {
