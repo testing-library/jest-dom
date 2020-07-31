@@ -202,8 +202,8 @@ describe('.toHaveStyle', () => {
 
     test("Uses px as the default unit", () => {
       const {queryByTestId} = render(`
-      <span data-testid="color-example" style="font-size: 12px">Hello World</span>
-    `)
+        <span data-testid="color-example" style="font-size: 12px">Hello World</span>
+      `)
       expect(queryByTestId('color-example')).toHaveStyle({
         fontSize: 12
       })
