@@ -119,7 +119,7 @@ describe('.toHaveStyle', () => {
     )
   })
 
-  test('handles inline customer properties', () => {
+  test('handles inline custom properties', () => {
     const {queryByTestId} = render(`
     <span data-testid="color-example" style="--color: blue">Hello World</span>
   `)
