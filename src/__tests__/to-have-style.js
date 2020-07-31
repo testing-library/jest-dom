@@ -211,8 +211,8 @@ describe('.toHaveStyle', () => {
 
     test("Fails with an invalid unit", () => {
       const {queryByTestId} = render(`
-      <span data-testid="color-example" style="font-size: 12rem">Hello World</span>
-    `)
+        <span data-testid="color-example" style="font-size: 12rem">Hello World</span>
+      `)
       expect(() => {
         expect(queryByTestId('color-example')).toHaveStyle({ fontSize: '12px' })
       }).toThrowError()
