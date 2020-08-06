@@ -3,6 +3,7 @@
   "version": "0.0.0-semantically-released",
   "description": "Custom jest matchers to test the state of the DOM",
   "main": "dist/index.js",
+  "types": "extend-expect.d.ts",
   "engines": {
     "node": ">=8",
     "npm": ">=6",
