@@ -253,10 +253,10 @@ This allows you to assert whether an element is present in the document or not.
 
 ```javascript
 expect(
-  queryByTestId(document.documentElement, 'html-element'),
+  getByTestId(document.documentElement, 'html-element'),
 ).toBeInTheDocument()
 expect(
-  queryByTestId(document.documentElement, 'svg-element'),
+  getByTestId(document.documentElement, 'svg-element'),
 ).toBeInTheDocument()
 expect(
   queryByTestId(document.documentElement, 'does-not-exist'),
