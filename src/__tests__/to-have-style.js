@@ -245,4 +245,14 @@ describe('.toHaveStyle', () => {
       })
     })
   })
+
+  test('position -9999', () => {
+    const {container} = render(`
+      <input type='submit' style="position: absolute; left: -9999px;" />
+    `)
+    expect(container.querySelector('input')).toHaveStyle({
+      position: 'absolute',
+      left: -9999,
+    })
+  })
 })
