@@ -200,7 +200,7 @@ describe('.toHaveStyle', () => {
       })
     })
 
-    test("Uses px as the default unit", () => {
+    test('Uses px as the default unit', () => {
       const {queryByTestId} = render(`
         <span data-testid="color-example" style="font-size: 12px">Hello World</span>
       `)
@@ -209,7 +209,7 @@ describe('.toHaveStyle', () => {
       })
     })
 
-    test("Fails with an invalid unit", () => {
+    test('Fails with an invalid unit', () => {
       const {queryByTestId} = render(`
         <span data-testid="color-example" style="font-size: 12rem">Hello World</span>
       `)
