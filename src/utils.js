@@ -7,7 +7,7 @@ import {
   printReceived,
   stringify,
 } from 'jest-matcher-utils'
-import {parse} from 'css'
+import parse from 'css/lib/parse'
 import isEqual from 'lodash/isEqual'
 
 class HtmlElementTypeError extends Error {
