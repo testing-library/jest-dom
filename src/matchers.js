@@ -1,6 +1,7 @@
 import {toBeInTheDOM} from './to-be-in-the-dom'
 import {toBeInTheDocument} from './to-be-in-the-document'
 import {toBeEmpty} from './to-be-empty'
+import {toBeEmptyDOMElement} from './to-be-empty-dom-element'
 import {toContainElement} from './to-contain-element'
 import {toContainHTML} from './to-contain-html'
 import {toHaveTextContent} from './to-have-text-content'
@@ -16,12 +17,14 @@ import {toBeInvalid, toBeValid} from './to-be-invalid'
 import {toHaveValue} from './to-have-value'
 import {toHaveDisplayValue} from './to-have-display-value'
 import {toBeChecked} from './to-be-checked'
+import {toBePartiallyChecked} from './to-be-partially-checked'
 import {toHaveDescription} from './to-have-description'
 
 export {
   toBeInTheDOM,
   toBeInTheDocument,
   toBeEmpty,
+  toBeEmptyDOMElement,
   toContainElement,
   toContainHTML,
   toHaveTextContent,
@@ -39,5 +42,6 @@ export {
   toHaveValue,
   toHaveDisplayValue,
   toBeChecked,
+  toBePartiallyChecked,
   toHaveDescription,
 }

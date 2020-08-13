@@ -1,6 +1,5 @@
 import {render} from './helpers/test-utils'
 
-// eslint-disable-next-line max-lines-per-function
 describe('.toBeVisible', () => {
   it('returns the visibility of an element', () => {
     const {container} = render(`
@@ -36,7 +35,6 @@ describe('.toBeVisible', () => {
     ).toThrowError()
   })
 
-  // eslint-disable-next-line max-lines-per-function
   describe('with a <details /> element', () => {
     let subject
 

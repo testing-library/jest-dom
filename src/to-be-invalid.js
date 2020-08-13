@@ -9,15 +9,23 @@ function isElementHavingAriaInvalid(element) {
   )
 }
 
+function isSupportsValidityMethod(element) {
+  return FORM_TAGS.includes(getTag(element))
+}
+
 function isElementInvalid(element) {
-  return !element.checkValidity()
+  const isHaveAriaInvalid = isElementHavingAriaInvalid(element)
+  if (isSupportsValidityMethod(element)) {
+    return isHaveAriaInvalid || !element.checkValidity()
+  } else {
+    return isHaveAriaInvalid
+  }
 }
 
 export function toBeInvalid(element) {
   checkHtmlElement(element, toBeInvalid, this)
 
-  const isInvalid =
-    isElementHavingAriaInvalid(element) || isElementInvalid(element)
+  const isInvalid = isElementInvalid(element)
 
   return {
     pass: isInvalid,
@@ -40,10 +48,7 @@ export function toBeInvalid(element) {
 export function toBeValid(element) {
   checkHtmlElement(element, toBeValid, this)
 
-  const isValid =
-    !isElementHavingAriaInvalid(element) &&
-    FORM_TAGS.includes(getTag(element)) &&
-    !isElementInvalid(element)
+  const isValid = !isElementInvalid(element)
 
   return {
     pass: isValid,

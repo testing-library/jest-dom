@@ -451,6 +451,78 @@
         "test",
         "doc"
       ]
+    },
+    {
+      "login": "rubenmoya",
+      "name": "Rubén Moya",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/905225?v=4",
+      "profile": "https://rubenmoya.dev",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
+    },
+    {
+      "login": "DanielaValero",
+      "name": "Daniela Valero",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1307954?v=4",
+      "profile": "https://danielavalero.com/",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
+    },
+    {
+      "login": "missilev",
+      "name": "Vladislav Katsura",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/33201468?v=4",
+      "profile": "https://github.com/missilev",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "tf",
+      "name": "Tim Fischbach",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/26554?v=4",
+      "profile": "http://stderr.timfischbach.de",
+      "contributions": [
+        "code",
+        "test",
+        "ideas"
+      ]
+    },
+    {
+      "login": "kboedges",
+      "name": "Katie Boedges",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/8322476?v=4",
+      "profile": "http://katieboedges.com/",
+      "contributions": [
+        "infra"
+      ]
+    },
+    {
+      "login": "brrianalexis",
+      "name": "Brian Alexis",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/51463930?v=4",
+      "profile": "https://github.com/brrianalexis",
+      "contributions": [
+        "test"
+      ]
+    },
+    {
+      "login": "just-boris",
+      "name": "Boris Serdiuk",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/812240?v=4",
+      "profile": "https://twitter.com/boriscoder",
+      "contributions": [
+        "bug",
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",

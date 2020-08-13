@@ -2,7 +2,7 @@ import {
   deprecate,
   checkHtmlElement,
   HtmlElementTypeError,
-  parseJStoCSS,
+  toSentence,
 } from '../utils'
 import document from './helpers/document'
 
@@ -95,36 +95,28 @@ describe('checkHtmlElement', () => {
   })
 })
 
-describe('parseJStoCSS', () => {
-  describe('when all the styles are valid', () => {
-    it('returns the JS parsed as CSS text', () => {
-      expect(
-        parseJStoCSS(document, {
-          backgroundColor: 'blue',
-          height: '100%',
-        }),
-      ).toBe('background-color: blue; height: 100%;')
-    })
+describe('toSentence', () => {
+  it('turns array into string of comma separated list with default last word connector', () => {
+    expect(toSentence(['one', 'two', 'three'])).toBe('one, two and three')
   })
 
-  describe('when some style is invalid', () => {
-    it('returns the JS parsed as CSS text without the invalid style', () => {
-      expect(
-        parseJStoCSS(document, {
-          backgroundColor: 'blue',
-          whatever: 'anything',
-        }),
-      ).toBe('background-color: blue;')
-    })
+  it('supports custom word connector', () => {
+    expect(toSentence(['one', 'two', 'three'], {wordConnector: '; '})).toBe(
+      'one; two and three',
+    )
   })
 
-  describe('when all the styles are invalid', () => {
-    it('returns an empty string', () => {
-      expect(
-        parseJStoCSS(document, {
-          whatever: 'anything',
-        }),
-      ).toBe('')
-    })
+  it('supports custom last word connector', () => {
+    expect(
+      toSentence(['one', 'two', 'three'], {lastWordConnector: ' or '}),
+    ).toBe('one, two or three')
+  })
+
+  it('turns one element array into string containing first element', () => {
+    expect(toSentence(['one'])).toBe('one')
+  })
+
+  it('turns empty array into empty string', () => {
+    expect(toSentence([])).toBe('')
   })
 })

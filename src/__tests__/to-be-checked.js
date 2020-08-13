@@ -51,6 +51,16 @@ describe('.toBeChecked', () => {
     expect(queryByTestId('aria-switch-unchecked')).not.toBeChecked()
   })
 
+  test('handles element with role="menuitemcheckbox"', () => {
+    const {queryByTestId} = render(`
+        <div role="menuitemcheckbox" aria-checked="true" data-testid="aria-menuitemcheckbox-checked" />
+        <div role="menuitemcheckbox" aria-checked="false" data-testid="aria-menuitemcheckbox-unchecked" />
+    `)
+
+    expect(queryByTestId('aria-menuitemcheckbox-checked')).toBeChecked()
+    expect(queryByTestId('aria-menuitemcheckbox-unchecked')).not.toBeChecked()
+  })
+
   test('throws when checkbox input is checked but expected not to be', () => {
     const {queryByTestId} = render(
       `<input type="checkbox" checked data-testid="input-checked" />`,
@@ -159,7 +169,7 @@ describe('.toBeChecked', () => {
     expect(() =>
       expect(queryByTestId('aria-checkbox-invalid')).toBeChecked(),
     ).toThrowError(
-      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox", role="radio" or role="switch" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
+      /only inputs with .* a valid aria-checked attribute can be used/,
     )
   })
 
@@ -171,7 +181,7 @@ describe('.toBeChecked', () => {
     expect(() =>
       expect(queryByTestId('aria-radio-invalid')).toBeChecked(),
     ).toThrowError(
-      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox", role="radio" or role="switch" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
+      /only inputs with .* a valid aria-checked attribute can be used/,
     )
   })
 
@@ -183,16 +193,14 @@ describe('.toBeChecked', () => {
     expect(() =>
       expect(queryByTestId('aria-switch-invalid')).toBeChecked(),
     ).toThrowError(
-      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox", role="radio" or role="switch" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
+      /only inputs with .* a valid aria-checked attribute can be used/,
     )
   })
 
   test('throws when the element is not an input', () => {
     const {queryByTestId} = render(`<select data-testid="select"></select>`)
     expect(() => expect(queryByTestId('select')).toBeChecked()).toThrowError(
-      'only inputs with type="checkbox" or type="radio" or elements with role="checkbox", role="radio" or role="switch" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
+      /only inputs with type="checkbox" or type="radio" or elements with.* role="checkbox".* role="menuitemcheckbox".* role="radio".* role="switch" .* can be used/,
     )
   })
 })
-
-/* eslint max-lines-per-function:0 */

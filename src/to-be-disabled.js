@@ -36,8 +36,12 @@ function isElementDisabledByParent(element, parent) {
   )
 }
 
+function canElementBeDisabled(element) {
+  return FORM_TAGS.includes(getTag(element))
+}
+
 function isElementDisabled(element) {
-  return FORM_TAGS.includes(getTag(element)) && element.hasAttribute('disabled')
+  return canElementBeDisabled(element) && element.hasAttribute('disabled')
 }
 
 function isAncestorDisabled(element) {
@@ -48,10 +52,17 @@ function isAncestorDisabled(element) {
   )
 }
 
+function isElementOrAncestorDisabled(element) {
+  return (
+    canElementBeDisabled(element) &&
+    (isElementDisabled(element) || isAncestorDisabled(element))
+  )
+}
+
 export function toBeDisabled(element) {
   checkHtmlElement(element, toBeDisabled, this)
 
-  const isDisabled = isElementDisabled(element) || isAncestorDisabled(element)
+  const isDisabled = isElementOrAncestorDisabled(element)
 
   return {
     pass: isDisabled,
@@ -74,7 +85,7 @@ export function toBeDisabled(element) {
 export function toBeEnabled(element) {
   checkHtmlElement(element, toBeEnabled, this)
 
-  const isEnabled = !(isElementDisabled(element) || isAncestorDisabled(element))
+  const isEnabled = !isElementOrAncestorDisabled(element)
 
   return {
     pass: isEnabled,

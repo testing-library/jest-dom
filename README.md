@@ -23,6 +23,7 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
 [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc]
+[![Discord][discord-badge]][discord]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
@@ -52,6 +53,7 @@ clear to read and to maintain.
   - [`toBeDisabled`](#tobedisabled)
   - [`toBeEnabled`](#tobeenabled)
   - [`toBeEmpty`](#tobeempty)
+  - [`toBeEmptyDOMElement`](#tobeemptydomelement)
   - [`toBeInTheDocument`](#tobeinthedocument)
   - [`toBeInvalid`](#tobeinvalid)
   - [`toBeRequired`](#toberequired)
@@ -68,6 +70,7 @@ clear to read and to maintain.
   - [`toHaveValue`](#tohavevalue)
   - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
+  - [`toBePartiallyChecked`](#tobepartiallychecked)
   - [`toHaveDescription`](#tohavedescription)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeInTheDOM`](#tobeinthedom)
@@ -206,6 +209,31 @@ expect(getByTestId('empty')).toBeEmpty()
 expect(getByTestId('not-empty')).not.toBeEmpty()
 ```
 
+> Note: This matcher is being deprecated due to a name clash with
+> `jest-extended`. See more info in #216. In the future, please use only:
+> [`toBeEmptyDOMElement`](#toBeEmptyDOMElement)
+
+<hr />
+
+### `toBeEmptyDOMElement`
+
+```typescript
+toBeEmptyDOMElement()
+```
+
+This allows you to assert whether an element has content or not.
+
+#### Examples
+
+```html
+<span data-testid="not-empty"><span data-testid="empty"></span></span>
+```
+
+```javascript
+expect(getByTestId('empty')).toBeEmptyDOMElement()
+expect(getByTestId('not-empty')).not.toBeEmptyDOMElement()
+```
+
 <hr />
 
 ### `toBeInTheDocument`
@@ -225,10 +253,10 @@ This allows you to assert whether an element is present in the document or not.
 
 ```javascript
 expect(
-  queryByTestId(document.documentElement, 'html-element'),
+  getByTestId(document.documentElement, 'html-element'),
 ).toBeInTheDocument()
 expect(
-  queryByTestId(document.documentElement, 'svg-element'),
+  getByTestId(document.documentElement, 'svg-element'),
 ).toBeInTheDocument()
 expect(
   queryByTestId(document.documentElement, 'does-not-exist'),
@@ -247,10 +275,9 @@ expect(
 toBeInvalid()
 ```
 
-This allows you to check if a form element, or the entire `form`, is currently
-invalid.
+This allows you to check if an element, is currently invalid.
 
-An `input`, `select`, `textarea`, or `form` element is invalid if it has an
+An element is invalid if it has an
 [`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
 with no value or a value of `"true"`, or if the result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
@@ -332,14 +359,13 @@ expect(getByTestId('supported-role-aria')).toBeRequired()
 toBeValid()
 ```
 
-This allows you to check if the value of a form element, or the entire `form`,
-is currently valid.
+This allows you to check if the value of an element, is currently valid.
 
-An `input`, `select`, `textarea`, or `form` element is valid if it has no
-[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
+An element is valid if it has no
+[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)s
 or an attribute value of `"false"`. The result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
-must also be `true`.
+must also be `true` if it's a form element.
 
 #### Examples
 
@@ -894,6 +920,52 @@ expect(ariaSwitchUnchecked).not.toBeChecked()
 
 <hr />
 
+### `toBePartiallyChecked`
+
+```typescript
+toBePartiallyChecked()
+```
+
+This allows you to check whether the given element is partially checked. It
+accepts an `input` of type `checkbox` and elements with a `role` of `checkbox`
+with a `aria-checked="mixed"`, or `input` of type `checkbox` with
+`indeterminate` set to `true`
+
+#### Examples
+
+```html
+<input type="checkbox" aria-checked="mixed" data-testid="aria-checkbox-mixed" />
+<input type="checkbox" checked data-testid="input-checkbox-checked" />
+<input type="checkbox" data-testid="input-checkbox-unchecked" />
+<div role="checkbox" aria-checked="true" data-testid="aria-checkbox-checked" />
+<div
+  role="checkbox"
+  aria-checked="false"
+  data-testid="aria-checkbox-unchecked"
+/>
+<input type="checkbox" data-testid="input-checkbox-indeterminate" />
+```
+
+```javascript
+const ariaCheckboxMixed = getByTestId('aria-checkbox-mixed')
+const inputCheckboxChecked = getByTestId('input-checkbox-checked')
+const inputCheckboxUnchecked = getByTestId('input-checkbox-unchecked')
+const ariaCheckboxChecked = getByTestId('aria-checkbox-checked')
+const ariaCheckboxUnchecked = getByTestId('aria-checkbox-unchecked')
+const inputCheckboxIndeterminate = getByTestId('input-checkbox-indeterminate')
+
+expect(ariaCheckboxMixed).toBePartiallyChecked()
+expect(inputCheckboxChecked).not.toBePartiallyChecked()
+expect(inputCheckboxUnchecked).not.toBePartiallyChecked()
+expect(ariaCheckboxChecked).not.toBePartiallyChecked()
+expect(ariaCheckboxUnchecked).not.toBePartiallyChecked()
+
+inputCheckboxIndeterminate.indeterminate = true
+expect(inputCheckboxIndeterminate).toBePartiallyChecked()
+```
+
+<hr />
+
 ### `toHaveDescription`
 
 ```typescript
@@ -1082,12 +1154,20 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/mfelmy"><img src="https://avatars2.githubusercontent.com/u/29504917?v=4" width="100px;" alt=""/><br /><sub><b>Malte Felmy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://ghuser.io/Ishaan28malik"><img src="https://avatars3.githubusercontent.com/u/27343592?v=4" width="100px;" alt=""/><br /><sub><b>Championrunner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=Ishaan28malik" title="Documentation">📖</a></td>
     <td align="center"><a href="https://icing.space/"><img src="https://avatars0.githubusercontent.com/u/2635733?v=4" width="100px;" alt=""/><br /><sub><b>Patrick Smith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://rubenmoya.dev"><img src="https://avatars3.githubusercontent.com/u/905225?v=4" width="100px;" alt=""/><br /><sub><b>Rubén Moya</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://danielavalero.com/"><img src="https://avatars1.githubusercontent.com/u/1307954?v=4" width="100px;" alt=""/><br /><sub><b>Daniela Valero</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/missilev"><img src="https://avatars1.githubusercontent.com/u/33201468?v=4" width="100px;" alt=""/><br /><sub><b>Vladislav Katsura</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://stderr.timfischbach.de"><img src="https://avatars3.githubusercontent.com/u/26554?v=4" width="100px;" alt=""/><br /><sub><b>Tim Fischbach</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=tf" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=tf" title="Tests">⚠️</a> <a href="#ideas-tf" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://katieboedges.com/"><img src="https://avatars1.githubusercontent.com/u/8322476?v=4" width="100px;" alt=""/><br /><sub><b>Katie Boedges</b></sub></a><br /><a href="#infra-kboedges" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="https://github.com/brrianalexis"><img src="https://avatars2.githubusercontent.com/u/51463930?v=4" width="100px;" alt=""/><br /><sub><b>Brian Alexis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=brrianalexis" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://twitter.com/boriscoder"><img src="https://avatars2.githubusercontent.com/u/812240?v=4" width="100px;" alt=""/><br /><sub><b>Boris Serdiuk</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ajust-boris" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=just-boris" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=just-boris" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
@@ -1138,3 +1218,5 @@ MIT
 [emojis]: https://allcontributors.org/docs/en/emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
 [guiding-principle]: https://testing-library.com/docs/guiding-principles
+[discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
+[discord]: https://discord.gg/c6JN9fM

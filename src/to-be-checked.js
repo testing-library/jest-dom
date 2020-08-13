@@ -1,4 +1,5 @@
-import {checkHtmlElement} from './utils'
+import {roles} from 'aria-query'
+import {checkHtmlElement, toSentence} from './utils'
 
 export function toBeChecked(element) {
   checkHtmlElement(element, toBeChecked, this)
@@ -12,7 +13,7 @@ export function toBeChecked(element) {
 
   const isValidAriaElement = () => {
     return (
-      ['checkbox', 'radio', 'switch'].includes(element.getAttribute('role')) &&
+      roleSupportsChecked(element.getAttribute('role')) &&
       ['true', 'false'].includes(element.getAttribute('aria-checked'))
     )
   }
@@ -21,7 +22,7 @@ export function toBeChecked(element) {
     return {
       pass: false,
       message: () =>
-        'only inputs with type="checkbox" or type="radio" or elements with role="checkbox", role="radio" or role="switch" and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead',
+        `only inputs with type="checkbox" or type="radio" or elements with ${supportedRolesSentence()} and a valid aria-checked attribute can be used with .toBeChecked(). Use .toHaveValue() instead`,
     }
   }
 
@@ -46,4 +47,19 @@ export function toBeChecked(element) {
       ].join('\n')
     },
   }
+}
+
+function supportedRolesSentence() {
+  return toSentence(
+    supportedRoles().map(role => `role="${role}"`),
+    {lastWordConnector: ' or '},
+  )
+}
+
+function supportedRoles() {
+  return Array.from(roles.keys()).filter(roleSupportsChecked)
+}
+
+function roleSupportsChecked(role) {
+  return roles.get(role)?.props['aria-checked'] !== undefined
 }
