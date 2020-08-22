@@ -1,4 +1,3 @@
-import {matcherHint} from 'jest-matcher-utils'
 import {matches, checkHtmlElement, getMessage} from './utils'
 
 export function toHaveDisplayValue(htmlElement, expectedValue) {
@@ -32,7 +31,8 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
     pass: matchedWithAllValues && matchedWithAllExpectedValues,
     message: () =>
       getMessage(
-        matcherHint(
+        this,
+        this.utils.matcherHint(
           `${this.isNot ? '.not' : ''}.toHaveDisplayValue`,
           'element',
           '',

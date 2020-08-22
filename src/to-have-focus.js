@@ -1,4 +1,3 @@
-import {matcherHint, printReceived, printExpected} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
 export function toHaveFocus(element) {
@@ -8,12 +7,16 @@ export function toHaveFocus(element) {
     pass: element.ownerDocument.activeElement === element,
     message: () => {
       return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toHaveFocus`, 'element', ''),
+        this.utils.matcherHint(
+          `${this.isNot ? '.not' : ''}.toHaveFocus`,
+          'element',
+          '',
+        ),
         '',
         'Expected',
-        `  ${printExpected(element)}`,
+        `  ${this.utils.printExpected(element)}`,
         'Received:',
-        `  ${printReceived(element.ownerDocument.activeElement)}`,
+        `  ${this.utils.printReceived(element.ownerDocument.activeElement)}`,
       ].join('\n')
     },
   }

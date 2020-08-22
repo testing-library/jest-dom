@@ -1,4 +1,3 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement, deprecate} from './utils'
 
 export function toBeInTheDOM(element, container) {
@@ -19,10 +18,16 @@ export function toBeInTheDOM(element, container) {
     pass: container ? container.contains(element) : !!element,
     message: () => {
       return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toBeInTheDOM`, 'element', ''),
+        this.utils.matcherHint(
+          `${this.isNot ? '.not' : ''}.toBeInTheDOM`,
+          'element',
+          '',
+        ),
         '',
         'Received:',
-        `  ${printReceived(element ? element.cloneNode(false) : element)}`,
+        `  ${this.utils.printReceived(
+          element ? element.cloneNode(false) : element,
+        )}`,
       ].join('\n')
     },
   }

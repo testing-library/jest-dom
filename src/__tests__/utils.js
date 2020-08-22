@@ -22,10 +22,22 @@ test('deprecate', () => {
 })
 
 describe('checkHtmlElement', () => {
+  let assertionContext
+  beforeAll(() => {
+    expect.extend({
+      fakeMatcher() {
+        assertionContext = this
+
+        return {pass: true}
+      },
+    })
+
+    expect(true).fakeMatcher(true)
+  })
   it('does not throw an error for correct html element', () => {
     expect(() => {
       const element = document.createElement('p')
-      checkHtmlElement(element, () => {}, {})
+      checkHtmlElement(element, () => {}, assertionContext)
     }).not.toThrow()
   })
 
@@ -35,25 +47,25 @@ describe('checkHtmlElement', () => {
         'http://www.w3.org/2000/svg',
         'rect',
       )
-      checkHtmlElement(element, () => {}, {})
+      checkHtmlElement(element, () => {}, assertionContext)
     }).not.toThrow()
   })
 
   it('does not throw for body', () => {
     expect(() => {
-      checkHtmlElement(document.body, () => {}, {})
+      checkHtmlElement(document.body, () => {}, assertionContext)
     }).not.toThrow()
   })
 
   it('throws for undefined', () => {
     expect(() => {
-      checkHtmlElement(undefined, () => {}, {})
+      checkHtmlElement(undefined, () => {}, assertionContext)
     }).toThrow(HtmlElementTypeError)
   })
 
   it('throws for document', () => {
     expect(() => {
-      checkHtmlElement(document, () => {}, {})
+      checkHtmlElement(document, () => {}, assertionContext)
     }).toThrow(HtmlElementTypeError)
   })
 
@@ -62,7 +74,7 @@ describe('checkHtmlElement', () => {
       checkHtmlElement(
         () => {},
         () => {},
-        {},
+        assertionContext,
       )
     }).toThrow(HtmlElementTypeError)
   })
@@ -77,7 +89,7 @@ describe('checkHtmlElement', () => {
           },
         },
         () => {},
-        {},
+        assertionContext,
       )
     }).toThrow(HtmlElementTypeError)
   })

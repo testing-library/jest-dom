@@ -1,4 +1,3 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement, getTag} from './utils'
 
 // form elements that support 'required'
@@ -60,10 +59,14 @@ export function toBeRequired(element) {
     message: () => {
       const is = isRequired ? 'is' : 'is not'
       return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toBeRequired`, 'element', ''),
+        this.utils.matcherHint(
+          `${this.isNot ? '.not' : ''}.toBeRequired`,
+          'element',
+          '',
+        ),
         '',
         `Received element ${is} required:`,
-        `  ${printReceived(element.cloneNode(false))}`,
+        `  ${this.utils.printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
   }

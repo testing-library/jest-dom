@@ -1,4 +1,3 @@
-import {matcherHint} from 'jest-matcher-utils'
 import {checkHtmlElement, getMessage, matches, normalize} from './utils'
 
 export function toHaveTextContent(
@@ -19,7 +18,8 @@ export function toHaveTextContent(
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
       return getMessage(
-        matcherHint(
+        this,
+        this.utils.matcherHint(
           `${this.isNot ? '.not' : ''}.toHaveTextContent`,
           'element',
           '',

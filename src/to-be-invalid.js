@@ -1,4 +1,3 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement, getTag} from './utils'
 
 const FORM_TAGS = ['form', 'input', 'select', 'textarea']
@@ -33,10 +32,14 @@ export function toBeInvalid(element) {
     message: () => {
       const is = isInvalid ? 'is' : 'is not'
       return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toBeInvalid`, 'element', ''),
+        this.utils.matcherHint(
+          `${this.isNot ? '.not' : ''}.toBeInvalid`,
+          'element',
+          '',
+        ),
         '',
         `Received element ${is} currently invalid:`,
-        `  ${printReceived(element.cloneNode(false))}`,
+        `  ${this.utils.printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
   }
@@ -52,10 +55,14 @@ export function toBeValid(element) {
     message: () => {
       const is = isValid ? 'is' : 'is not'
       return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toBeValid`, 'element', ''),
+        this.utils.matcherHint(
+          `${this.isNot ? '.not' : ''}.toBeValid`,
+          'element',
+          '',
+        ),
         '',
         `Received element ${is} currently valid:`,
-        `  ${printReceived(element.cloneNode(false))}`,
+        `  ${this.utils.printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
   }

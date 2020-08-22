@@ -1,4 +1,3 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
 export function toContainHTML(container, htmlText) {
@@ -8,10 +7,14 @@ export function toContainHTML(container, htmlText) {
     pass: container.outerHTML.includes(htmlText),
     message: () => {
       return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toContainHTML`, 'element', ''),
+        this.utils.matcherHint(
+          `${this.isNot ? '.not' : ''}.toContainHTML`,
+          'element',
+          '',
+        ),
         '',
         'Received:',
-        `  ${printReceived(container.cloneNode(true))}`,
+        `  ${this.utils.printReceived(container.cloneNode(true))}`,
       ].join('\n')
     },
   }
