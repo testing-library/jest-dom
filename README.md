@@ -781,7 +781,7 @@ For all other form elements, the value is matched using the same algorithm as in
 <input type="text" value="text" data-testid="input-text" />
 <input type="number" value="5" data-testid="input-number" />
 <input type="text" data-testid="input-empty" />
-<select data-testid="multiple" multiple data-testid="select-number">
+<select multiple data-testid="select-number">
   <option value="first">First Value</option>
   <option value="second" selected>Second Value</option>
   <option value="third" selected>Third Value</option>
