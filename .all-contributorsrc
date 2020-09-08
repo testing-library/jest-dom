@@ -523,6 +523,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "danawoodman",
+      "name": "Dana Woodman",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/157695?v=4",
+      "profile": "http://danawoodman.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
