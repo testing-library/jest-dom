@@ -120,22 +120,6 @@ import '@testing-library/jest-dom'
 > Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
 > a `.js` to include the necessary types.
 
-Alternatively, you can selectively import only the matchers you intend to use,
-and extend jest's `expect` yourself:
-
-```javascript
-import {
-  toBeInTheDocument,
-  toHaveClass,
-} from '@testing-library/jest-dom/matchers'
-
-expect.extend({toBeInTheDocument, toHaveClass})
-```
-
-> Note: when using TypeScript, this way of importing matchers won't provide the
-> necessary type definitions. More on this
-> [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
-
 ## Custom matchers
 
 `@testing-library/jest-dom` can work with any library or framework that returns
