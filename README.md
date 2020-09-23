@@ -1148,6 +1148,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/brrianalexis"><img src="https://avatars2.githubusercontent.com/u/51463930?v=4" width="100px;" alt=""/><br /><sub><b>Brian Alexis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=brrianalexis" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://twitter.com/boriscoder"><img src="https://avatars2.githubusercontent.com/u/812240?v=4" width="100px;" alt=""/><br /><sub><b>Boris Serdiuk</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ajust-boris" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=just-boris" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=just-boris" title="Tests">⚠️</a></td>
     <td align="center"><a href="http://danawoodman.com"><img src="https://avatars1.githubusercontent.com/u/157695?v=4" width="100px;" alt=""/><br /><sub><b>Dana Woodman</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=danawoodman" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/MoSattler"><img src="https://avatars2.githubusercontent.com/u/64152453?v=4" width="100px;" alt=""/><br /><sub><b>Mo Sattler</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=MoSattler" title="Documentation">📖</a></td>
   </tr>
 </table>
 
