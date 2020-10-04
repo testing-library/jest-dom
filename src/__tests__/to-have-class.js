@@ -56,9 +56,6 @@ test('.toHaveClass', () => {
     expect(queryByTestId('delete-button')).toHaveClass('xtra'),
   ).toThrowError()
   expect(() =>
-    expect(queryByTestId('delete-button')).toHaveClass('xtra'),
-  ).toThrowError()
-  expect(() =>
     expect(queryByTestId('delete-button')).toHaveClass('btn', 'extra xtra'),
   ).toThrowError()
   expect(() =>

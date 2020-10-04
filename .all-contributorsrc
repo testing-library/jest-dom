@@ -494,6 +494,53 @@
         "test",
         "ideas"
       ]
+    },
+    {
+      "login": "kboedges",
+      "name": "Katie Boedges",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/8322476?v=4",
+      "profile": "http://katieboedges.com/",
+      "contributions": [
+        "infra"
+      ]
+    },
+    {
+      "login": "brrianalexis",
+      "name": "Brian Alexis",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/51463930?v=4",
+      "profile": "https://github.com/brrianalexis",
+      "contributions": [
+        "test"
+      ]
+    },
+    {
+      "login": "just-boris",
+      "name": "Boris Serdiuk",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/812240?v=4",
+      "profile": "https://twitter.com/boriscoder",
+      "contributions": [
+        "bug",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "danawoodman",
+      "name": "Dana Woodman",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/157695?v=4",
+      "profile": "http://danawoodman.com",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "MoSattler",
+      "name": "Mo Sattler",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/64152453?v=4",
+      "profile": "https://github.com/MoSattler",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",

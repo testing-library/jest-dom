@@ -1,4 +1,3 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
 export function toBeEmptyDOMElement(element) {
@@ -8,14 +7,14 @@ export function toBeEmptyDOMElement(element) {
     pass: element.innerHTML === '',
     message: () => {
       return [
-        matcherHint(
+        this.utils.matcherHint(
           `${this.isNot ? '.not' : ''}.toBeEmptyDOMElement`,
           'element',
           '',
         ),
         '',
         'Received:',
-        `  ${printReceived(element.innerHTML)}`,
+        `  ${this.utils.printReceived(element.innerHTML)}`,
       ].join('\n')
     },
   }

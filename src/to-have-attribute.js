@@ -1,11 +1,10 @@
-import {matcherHint, stringify, printExpected} from 'jest-matcher-utils'
 import {checkHtmlElement, getMessage} from './utils'
 
-function printAttribute(name, value) {
+function printAttribute(stringify, name, value) {
   return value === undefined ? name : `${name}=${stringify(value)}`
 }
 
-function getAttributeComment(name, value) {
+function getAttributeComment(stringify, name, value) {
   return value === undefined
     ? `element.hasAttribute(${stringify(name)})`
     : `element.getAttribute(${stringify(name)}) === ${stringify(value)}`
@@ -23,23 +22,28 @@ export function toHaveAttribute(htmlElement, name, expectedValue) {
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
       const receivedAttribute = hasAttribute
-        ? printAttribute(name, receivedValue)
+        ? printAttribute(this.utils.stringify, name, receivedValue)
         : null
-      const matcher = matcherHint(
+      const matcher = this.utils.matcherHint(
         `${this.isNot ? '.not' : ''}.toHaveAttribute`,
         'element',
-        printExpected(name),
+        this.utils.printExpected(name),
         {
           secondArgument: isExpectedValuePresent
-            ? printExpected(expectedValue)
+            ? this.utils.printExpected(expectedValue)
             : undefined,
-          comment: getAttributeComment(name, expectedValue),
+          comment: getAttributeComment(
+            this.utils.stringify,
+            name,
+            expectedValue,
+          ),
         },
       )
       return getMessage(
+        this,
         matcher,
         `Expected the element ${to} have attribute`,
-        printAttribute(name, expectedValue),
+        printAttribute(this.utils.stringify, name, expectedValue),
         'Received',
         receivedAttribute,
       )

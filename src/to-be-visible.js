@@ -1,4 +1,3 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
 function isStyleVisible(element) {
@@ -39,10 +38,14 @@ export function toBeVisible(element) {
     message: () => {
       const is = isVisible ? 'is' : 'is not'
       return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toBeVisible`, 'element', ''),
+        this.utils.matcherHint(
+          `${this.isNot ? '.not' : ''}.toBeVisible`,
+          'element',
+          '',
+        ),
         '',
         `Received element ${is} visible:`,
-        `  ${printReceived(element.cloneNode(false))}`,
+        `  ${this.utils.printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
   }

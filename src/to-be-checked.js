@@ -1,5 +1,4 @@
 import {roles} from 'aria-query'
-import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement, toSentence} from './utils'
 
 export function toBeChecked(element) {
@@ -37,10 +36,14 @@ export function toBeChecked(element) {
     message: () => {
       const is = isChecked() ? 'is' : 'is not'
       return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toBeChecked`, 'element', ''),
+        this.utils.matcherHint(
+          `${this.isNot ? '.not' : ''}.toBeChecked`,
+          'element',
+          '',
+        ),
         '',
         `Received element ${is} checked:`,
-        `  ${printReceived(element.cloneNode(false))}`,
+        `  ${this.utils.printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
   }

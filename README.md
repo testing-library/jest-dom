@@ -120,22 +120,6 @@ import '@testing-library/jest-dom'
 > Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
 > a `.js` to include the necessary types.
 
-Alternatively, you can selectively import only the matchers you intend to use,
-and extend jest's `expect` yourself:
-
-```javascript
-import {
-  toBeInTheDocument,
-  toHaveClass,
-} from '@testing-library/jest-dom/matchers'
-
-expect.extend({toBeInTheDocument, toHaveClass})
-```
-
-> Note: when using TypeScript, this way of importing matchers won't provide the
-> necessary type definitions. More on this
-> [here](https://github.com/testing-library/jest-dom/pull/11#issuecomment-387817459).
-
 ## Custom matchers
 
 `@testing-library/jest-dom` can work with any library or framework that returns
@@ -253,10 +237,10 @@ This allows you to assert whether an element is present in the document or not.
 
 ```javascript
 expect(
-  queryByTestId(document.documentElement, 'html-element'),
+  getByTestId(document.documentElement, 'html-element'),
 ).toBeInTheDocument()
 expect(
-  queryByTestId(document.documentElement, 'svg-element'),
+  getByTestId(document.documentElement, 'svg-element'),
 ).toBeInTheDocument()
 expect(
   queryByTestId(document.documentElement, 'does-not-exist'),
@@ -781,7 +765,7 @@ For all other form elements, the value is matched using the same algorithm as in
 <input type="text" value="text" data-testid="input-text" />
 <input type="number" value="5" data-testid="input-number" />
 <input type="text" data-testid="input-empty" />
-<select data-testid="multiple" multiple data-testid="select-number">
+<select multiple data-testid="select-number">
   <option value="first">First Value</option>
   <option value="second" selected>Second Value</option>
   <option value="third" selected>Third Value</option>
@@ -1158,6 +1142,13 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://danielavalero.com/"><img src="https://avatars1.githubusercontent.com/u/1307954?v=4" width="100px;" alt=""/><br /><sub><b>Daniela Valero</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/missilev"><img src="https://avatars1.githubusercontent.com/u/33201468?v=4" width="100px;" alt=""/><br /><sub><b>Vladislav Katsura</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Tests">⚠️</a></td>
     <td align="center"><a href="http://stderr.timfischbach.de"><img src="https://avatars3.githubusercontent.com/u/26554?v=4" width="100px;" alt=""/><br /><sub><b>Tim Fischbach</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=tf" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=tf" title="Tests">⚠️</a> <a href="#ideas-tf" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://katieboedges.com/"><img src="https://avatars1.githubusercontent.com/u/8322476?v=4" width="100px;" alt=""/><br /><sub><b>Katie Boedges</b></sub></a><br /><a href="#infra-kboedges" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="https://github.com/brrianalexis"><img src="https://avatars2.githubusercontent.com/u/51463930?v=4" width="100px;" alt=""/><br /><sub><b>Brian Alexis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=brrianalexis" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://twitter.com/boriscoder"><img src="https://avatars2.githubusercontent.com/u/812240?v=4" width="100px;" alt=""/><br /><sub><b>Boris Serdiuk</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ajust-boris" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=just-boris" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=just-boris" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://danawoodman.com"><img src="https://avatars1.githubusercontent.com/u/157695?v=4" width="100px;" alt=""/><br /><sub><b>Dana Woodman</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=danawoodman" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/MoSattler"><img src="https://avatars2.githubusercontent.com/u/64152453?v=4" width="100px;" alt=""/><br /><sub><b>Mo Sattler</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=MoSattler" title="Documentation">📖</a></td>
   </tr>
 </table>
 

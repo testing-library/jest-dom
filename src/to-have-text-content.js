@@ -1,4 +1,3 @@
-import {matcherHint} from 'jest-matcher-utils'
 import {checkHtmlElement, getMessage, matches, normalize} from './utils'
 
 export function toHaveTextContent(
@@ -19,13 +18,14 @@ export function toHaveTextContent(
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
       return getMessage(
-        matcherHint(
+        this,
+        this.utils.matcherHint(
           `${this.isNot ? '.not' : ''}.toHaveTextContent`,
           'element',
           '',
         ),
         checkingWithEmptyString
-          ? `Checking with empty string will always match, use .toBeEmpty() instead`
+          ? `Checking with empty string will always match, use .toBeEmptyDOMElement() instead`
           : `Expected element ${to} have text content`,
         checkWith,
         'Received',

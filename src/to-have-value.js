@@ -1,4 +1,3 @@
-import {matcherHint} from 'jest-matcher-utils'
 import isEqualWith from 'lodash/isEqualWith'
 import {
   checkHtmlElement,
@@ -35,12 +34,13 @@ export function toHaveValue(htmlElement, expectedValue) {
       : Boolean(receivedValue),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
-      const matcher = matcherHint(
+      const matcher = this.utils.matcherHint(
         `${this.isNot ? '.not' : ''}.toHaveValue`,
         'element',
         expectedValue,
       )
       return getMessage(
+        this,
         matcher,
         `Expected the element ${to} have value`,
         expectsValue ? expectedTypedValue : '(any)',

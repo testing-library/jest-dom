@@ -1,7 +1,5 @@
-import {matcherHint} from 'jest-matcher-utils'
-import jestDiff from 'jest-diff'
 import chalk from 'chalk'
-import {checkHtmlElement, parseCSS, parseJStoCSS} from './utils'
+import {checkHtmlElement, parseCSS} from './utils'
 
 function getStyleDeclaration(document, css) {
   const styles = {}
@@ -21,6 +19,7 @@ function isSubset(styles, computedStyle) {
     !!Object.keys(styles).length &&
     Object.entries(styles).every(
       ([prop, value]) =>
+        computedStyle[prop] === value ||
         computedStyle.getPropertyValue(prop.toLowerCase()) === value,
     )
   )
@@ -35,30 +34,23 @@ function printoutStyles(styles) {
 
 // Highlights only style rules that were expected but were not found in the
 // received computed styles
-function expectedDiff(expected, computedStyles) {
+function expectedDiff(diffFn, expected, computedStyles) {
   const received = Array.from(computedStyles)
-    .filter(prop => expected[prop])
+    .filter(prop => expected[prop] !== undefined)
     .reduce(
       (obj, prop) =>
         Object.assign(obj, {[prop]: computedStyles.getPropertyValue(prop)}),
       {},
     )
-  const diffOutput = jestDiff(
-    printoutStyles(expected),
-    printoutStyles(received),
-  )
+  const diffOutput = diffFn(printoutStyles(expected), printoutStyles(received))
   // Remove the "+ Received" annotation because this is a one-way diff
   return diffOutput.replace(`${chalk.red('+ Received')}\n`, '')
 }
 
-function getCSStoParse(document, css) {
-  return typeof css === 'object' ? parseJStoCSS(document, css) : css
-}
-
 export function toHaveStyle(htmlElement, css) {
   checkHtmlElement(htmlElement, toHaveStyle, this)
-  const cssToParse = getCSStoParse(htmlElement.ownerDocument, css)
-  const parsedCSS = parseCSS(cssToParse, toHaveStyle, this)
+  const parsedCSS =
+    typeof css === 'object' ? css : parseCSS(css, toHaveStyle, this)
   const {getComputedStyle} = htmlElement.ownerDocument.defaultView
 
   const expected = getStyleDeclaration(htmlElement.ownerDocument, parsedCSS)
@@ -69,8 +61,8 @@ export function toHaveStyle(htmlElement, css) {
     message: () => {
       const matcher = `${this.isNot ? '.not' : ''}.toHaveStyle`
       return [
-        matcherHint(matcher, 'element', ''),
-        expectedDiff(expected, received),
+        this.utils.matcherHint(matcher, 'element', ''),
+        expectedDiff(this.utils.diff, expected, received),
       ].join('\n\n')
     },
   }

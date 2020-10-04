@@ -2,7 +2,6 @@ import {
   deprecate,
   checkHtmlElement,
   HtmlElementTypeError,
-  parseJStoCSS,
   toSentence,
 } from '../utils'
 import document from './helpers/document'
@@ -23,10 +22,22 @@ test('deprecate', () => {
 })
 
 describe('checkHtmlElement', () => {
+  let assertionContext
+  beforeAll(() => {
+    expect.extend({
+      fakeMatcher() {
+        assertionContext = this
+
+        return {pass: true}
+      },
+    })
+
+    expect(true).fakeMatcher(true)
+  })
   it('does not throw an error for correct html element', () => {
     expect(() => {
       const element = document.createElement('p')
-      checkHtmlElement(element, () => {}, {})
+      checkHtmlElement(element, () => {}, assertionContext)
     }).not.toThrow()
   })
 
@@ -36,25 +47,25 @@ describe('checkHtmlElement', () => {
         'http://www.w3.org/2000/svg',
         'rect',
       )
-      checkHtmlElement(element, () => {}, {})
+      checkHtmlElement(element, () => {}, assertionContext)
     }).not.toThrow()
   })
 
   it('does not throw for body', () => {
     expect(() => {
-      checkHtmlElement(document.body, () => {}, {})
+      checkHtmlElement(document.body, () => {}, assertionContext)
     }).not.toThrow()
   })
 
   it('throws for undefined', () => {
     expect(() => {
-      checkHtmlElement(undefined, () => {}, {})
+      checkHtmlElement(undefined, () => {}, assertionContext)
     }).toThrow(HtmlElementTypeError)
   })
 
   it('throws for document', () => {
     expect(() => {
-      checkHtmlElement(document, () => {}, {})
+      checkHtmlElement(document, () => {}, assertionContext)
     }).toThrow(HtmlElementTypeError)
   })
 
@@ -63,7 +74,7 @@ describe('checkHtmlElement', () => {
       checkHtmlElement(
         () => {},
         () => {},
-        {},
+        assertionContext,
       )
     }).toThrow(HtmlElementTypeError)
   })
@@ -78,43 +89,9 @@ describe('checkHtmlElement', () => {
           },
         },
         () => {},
-        {},
+        assertionContext,
       )
     }).toThrow(HtmlElementTypeError)
-  })
-})
-
-describe('parseJStoCSS', () => {
-  describe('when all the styles are valid', () => {
-    it('returns the JS parsed as CSS text', () => {
-      expect(
-        parseJStoCSS(document, {
-          backgroundColor: 'blue',
-          height: '100%',
-        }),
-      ).toBe('background-color: blue; height: 100%;')
-    })
-  })
-
-  describe('when some style is invalid', () => {
-    it('returns the JS parsed as CSS text without the invalid style', () => {
-      expect(
-        parseJStoCSS(document, {
-          backgroundColor: 'blue',
-          whatever: 'anything',
-        }),
-      ).toBe('background-color: blue;')
-    })
-  })
-
-  describe('when all the styles are invalid', () => {
-    it('returns an empty string', () => {
-      expect(
-        parseJStoCSS(document, {
-          whatever: 'anything',
-        }),
-      ).toBe('')
-    })
   })
 })
 

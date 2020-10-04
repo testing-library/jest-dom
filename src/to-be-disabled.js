@@ -1,4 +1,3 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement, getTag} from './utils'
 
 // form elements that support 'disabled'
@@ -70,10 +69,14 @@ export function toBeDisabled(element) {
     message: () => {
       const is = isDisabled ? 'is' : 'is not'
       return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toBeDisabled`, 'element', ''),
+        this.utils.matcherHint(
+          `${this.isNot ? '.not' : ''}.toBeDisabled`,
+          'element',
+          '',
+        ),
         '',
         `Received element ${is} disabled:`,
-        `  ${printReceived(element.cloneNode(false))}`,
+        `  ${this.utils.printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
   }
@@ -89,10 +92,14 @@ export function toBeEnabled(element) {
     message: () => {
       const is = isEnabled ? 'is' : 'is not'
       return [
-        matcherHint(`${this.isNot ? '.not' : ''}.toBeEnabled`, 'element', ''),
+        this.utils.matcherHint(
+          `${this.isNot ? '.not' : ''}.toBeEnabled`,
+          'element',
+          '',
+        ),
         '',
         `Received element ${is} enabled:`,
-        `  ${printReceived(element.cloneNode(false))}`,
+        `  ${this.utils.printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
   }

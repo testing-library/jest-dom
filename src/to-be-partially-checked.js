@@ -1,4 +1,3 @@
-import {matcherHint, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement} from './utils'
 
 export function toBePartiallyChecked(element) {
@@ -37,14 +36,14 @@ export function toBePartiallyChecked(element) {
     message: () => {
       const is = isPartiallyChecked() ? 'is' : 'is not'
       return [
-        matcherHint(
+        this.utils.matcherHint(
           `${this.isNot ? '.not' : ''}.toBePartiallyChecked`,
           'element',
           '',
         ),
         '',
         `Received element ${is} partially checked:`,
-        `  ${printReceived(element.cloneNode(false))}`,
+        `  ${this.utils.printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
   }

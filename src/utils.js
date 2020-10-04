@@ -1,12 +1,4 @@
 import redent from 'redent'
-import {
-  RECEIVED_COLOR as receivedColor,
-  EXPECTED_COLOR as expectedColor,
-  matcherHint,
-  printWithType,
-  printReceived,
-  stringify,
-} from 'jest-matcher-utils'
 import {parse} from 'css'
 import isEqual from 'lodash/isEqual'
 
@@ -20,19 +12,24 @@ class HtmlElementTypeError extends Error {
     }
     let withType = ''
     try {
-      withType = printWithType('Received', received, printReceived)
+      withType = context.utils.printWithType(
+        'Received',
+        received,
+        context.utils.printReceived,
+      )
     } catch (e) {
       // Can throw for Document:
       // https://github.com/jsdom/jsdom/issues/2304
     }
     this.message = [
-      matcherHint(
+      context.utils.matcherHint(
         `${context.isNot ? '.not' : ''}.${matcherFn.name}`,
         'received',
         '',
       ),
       '',
-      `${receivedColor(
+      // eslint-disable-next-line babel/new-cap
+      `${context.utils.RECEIVED_COLOR(
         'received',
       )} value must be an HTMLElement or an SVGElement.`,
       withType,
@@ -63,7 +60,7 @@ function checkHtmlElement(htmlElement, ...args) {
 }
 
 class InvalidCSSError extends Error {
-  constructor(received, matcherFn) {
+  constructor(received, matcherFn, context) {
     super()
 
     /* istanbul ignore next */
@@ -73,8 +70,10 @@ class InvalidCSSError extends Error {
     this.message = [
       received.message,
       '',
-      receivedColor(`Failing css:`),
-      receivedColor(`${received.css}`),
+      // eslint-disable-next-line babel/new-cap
+      context.utils.RECEIVED_COLOR(`Failing css:`),
+      // eslint-disable-next-line babel/new-cap
+      context.utils.RECEIVED_COLOR(`${received.css}`),
     ].join('\n')
   }
 }
@@ -103,11 +102,12 @@ function parseCSS(css, ...args) {
   return parsedRules
 }
 
-function display(value) {
-  return typeof value === 'string' ? value : stringify(value)
+function display(context, value) {
+  return typeof value === 'string' ? value : context.utils.stringify(value)
 }
 
 function getMessage(
+  context,
   matcher,
   expectedLabel,
   expectedValue,
@@ -116,8 +116,14 @@ function getMessage(
 ) {
   return [
     `${matcher}\n`,
-    `${expectedLabel}:\n${expectedColor(redent(display(expectedValue), 2))}`,
-    `${receivedLabel}:\n${receivedColor(redent(display(receivedValue), 2))}`,
+    // eslint-disable-next-line babel/new-cap
+    `${expectedLabel}:\n${context.utils.EXPECTED_COLOR(
+      redent(display(context, expectedValue), 2),
+    )}`,
+    // eslint-disable-next-line babel/new-cap
+    `${receivedLabel}:\n${context.utils.RECEIVED_COLOR(
+      redent(display(context, receivedValue), 2),
+    )}`,
   ].join('\n')
 }
 
@@ -192,12 +198,6 @@ function compareArraysAsSet(a, b) {
   return undefined
 }
 
-function parseJStoCSS(document, css) {
-  const sandboxElement = document.createElement('div')
-  Object.assign(sandboxElement.style, css)
-  return sandboxElement.style.cssText
-}
-
 function toSentence(
   array,
   {wordConnector = ', ', lastWordConnector = ' and '} = {},
@@ -218,6 +218,5 @@ export {
   getTag,
   getSingleElementValue,
   compareArraysAsSet,
-  parseJStoCSS,
   toSentence,
 }

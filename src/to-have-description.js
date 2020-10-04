@@ -1,4 +1,3 @@
-import {matcherHint, printExpected, printReceived} from 'jest-matcher-utils'
 import {checkHtmlElement, getMessage, normalize} from './utils'
 
 // See algoritm: https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_description
@@ -27,15 +26,16 @@ export function toHaveDescription(htmlElement, checkWith) {
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
       return getMessage(
-        matcherHint(
+        this,
+        this.utils.matcherHint(
           `${this.isNot ? '.not' : ''}.toHaveDescription`,
           'element',
           '',
         ),
         `Expected the element ${to} have description`,
-        printExpected(checkWith),
+        this.utils.printExpected(checkWith),
         'Received',
-        printReceived(description),
+        this.utils.printReceived(description),
       )
     },
   }
