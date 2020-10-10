@@ -43,6 +43,7 @@
   "devDependencies": {
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-watch-select-projects": "^2.0.0",
+    "jest-matcher-utils": "^26.5.2",
     "jsdom": "^16.2.1",
     "kcd-scripts": "^5.6.0",
     "pretty-format": "^25.1.0"
