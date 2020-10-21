@@ -541,6 +541,18 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "geoffrich",
+      "name": "Geoff Rich",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4992896?v=4",
+      "profile": "https://github.com/geoffrich",
+      "contributions": [
+        "code",
+        "test",
+        "ideas",
+        "bug"
+      ]
     }
   ],
   "repoHost": "https://github.com",
