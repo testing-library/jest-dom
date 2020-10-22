@@ -138,7 +138,9 @@ perspective.
 
 It matches if the element is a form control and the `disabled` attribute is
 specified on this element or the element is a descendant of a form element with
-a `disabled` attribute.
+a `disabled` attribute. It also matches if `aria-disabled` attribute of `"true"`
+is specified on the element or the element is a descendant of any element with
+`aria-disabled="true"` and the element itself is a form control.
 
 According to the specification, the following elements can be
 [actually disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
@@ -150,12 +152,18 @@ According to the specification, the following elements can be
 <button data-testid="button" type="submit" disabled>submit</button>
 <fieldset disabled><input type="text" data-testid="input" /></fieldset>
 <a href="..." disabled>link</a>
+<div aria-disabled="true" data-testid="generic">generic</div>
+<div aria-disabled="true"><input type="text" data-testid="child-input" /></div>
+<div aria-disabled="true"><div data-testid="non-focusable-child" /></div>
 ```
 
 ```javascript
 expect(getByTestId('button')).toBeDisabled()
 expect(getByTestId('input')).toBeDisabled()
 expect(getByText('link')).not.toBeDisabled()
+expect(getByText('generic')).not.toBeDisabled()
+expect(getByTestId('child-input')).toBeDisabled()
+expect(getByTestId('non-focusable-child')).not.toBeDisabled()
 ```
 
 <hr />
@@ -239,9 +247,7 @@ This allows you to assert whether an element is present in the document or not.
 expect(
   getByTestId(document.documentElement, 'html-element'),
 ).toBeInTheDocument()
-expect(
-  getByTestId(document.documentElement, 'svg-element'),
-).toBeInTheDocument()
+expect(getByTestId(document.documentElement, 'svg-element')).toBeInTheDocument()
 expect(
   queryByTestId(document.documentElement, 'does-not-exist'),
 ).not.toBeInTheDocument()
@@ -1155,6 +1161,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
@@ -1205,5 +1212,6 @@ MIT
 [emojis]: https://allcontributors.org/docs/en/emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
 [guiding-principle]: https://testing-library.com/docs/guiding-principles
-[discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
+[discord-badge]:
+  https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
 [discord]: https://discord.gg/c6JN9fM
