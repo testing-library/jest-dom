@@ -158,6 +158,8 @@ expect(getByTestId('input')).toBeDisabled()
 expect(getByText('link')).not.toBeDisabled()
 ```
 
+> This custom matcher does not take into account the presence or absence of the `aria-disabled` attribute. For more on why this is the case, check [#144](https://github.com/testing-library/jest-dom/issues/144).
+
 <hr />
 
 ### `toBeEnabled`
@@ -171,6 +173,8 @@ perspective.
 
 It works like `not.toBeDisabled()`. Use this matcher to avoid double negation in
 your tests.
+
+> This custom matcher does not take into account the presence or absence of the `aria-disabled` attribute. For more on why this is the case, check [#144](https://github.com/testing-library/jest-dom/issues/144).
 
 <hr />
 
