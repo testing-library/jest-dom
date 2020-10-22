@@ -161,7 +161,7 @@ According to the specification, the following elements can be
 expect(getByTestId('button')).toBeDisabled()
 expect(getByTestId('input')).toBeDisabled()
 expect(getByText('link')).not.toBeDisabled()
-expect(getByText('generic')).not.toBeDisabled()
+expect(getByText('generic')).toBeDisabled()
 expect(getByTestId('child-input')).toBeDisabled()
 expect(getByTestId('non-focusable-child')).not.toBeDisabled()
 ```
