@@ -1,4 +1,5 @@
-import {checkHtmlElement, getTag} from './utils'
+import {roles} from 'aria-query'
+import {checkHtmlElement, getTag, toSentence} from './utils'
 
 // form elements that support 'disabled'
 const FORM_TAGS = [
@@ -36,12 +37,37 @@ function isElementDisabledByParent(element, parent) {
   )
 }
 
+function roleSupportsDisabled(role) {
+  return roles.get(role)?.props['aria-disabled'] !== undefined
+}
+
+function supportedRoles() {
+  return Array.from(roles.keys()).filter(roleSupportsDisabled)
+}
+
+function supportedRolesSentence() {
+  return toSentence(
+    supportedRoles().map(role => `role="${role}"`),
+    {lastWordConnector: ' or '},
+  )
+}
+
+function isAriaDisableable(element) {
+  return roleSupportsDisabled(element.getAttribute('role'))
+}
+
 function canElementBeDisabled(element) {
   return FORM_TAGS.includes(getTag(element))
 }
 
 function isElementDisabled(element) {
-  return canElementBeDisabled(element) && element.hasAttribute('disabled')
+  if (canElementBeDisabled(element)) {
+    return element.hasAttribute('disabled')
+  } else if (isAriaDisableable(element)) {
+    return element.getAttribute('aria-disabled') === 'true'
+  } else {
+    return false
+  }
 }
 
 function isAncestorDisabled(element) {
@@ -53,14 +79,19 @@ function isAncestorDisabled(element) {
 }
 
 function isElementOrAncestorDisabled(element) {
-  return (
-    canElementBeDisabled(element) &&
-    (isElementDisabled(element) || isAncestorDisabled(element))
-  )
+  return isElementDisabled(element) || isAncestorDisabled(element)
 }
 
 export function toBeDisabled(element) {
   checkHtmlElement(element, toBeDisabled, this)
+
+  if (!canElementBeDisabled(element) && !isAriaDisableable(element)) {
+    return {
+      pass: this.isNot,
+      message: () =>
+        `only focusable form elements or elements with ${supportedRolesSentence()} can be used with .toBeDisabled().`,
+    }
+  }
 
   const isDisabled = isElementOrAncestorDisabled(element)
 
@@ -84,6 +115,14 @@ export function toBeDisabled(element) {
 
 export function toBeEnabled(element) {
   checkHtmlElement(element, toBeEnabled, this)
+
+  if (!canElementBeDisabled(element) && !isAriaDisableable(element)) {
+    return {
+      pass: this.isNot,
+      message: () =>
+        `only focusable form elements or elements with ${supportedRolesSentence()} can be used with .toBeEnabled().`,
+    }
+  }
 
   const isEnabled = !isElementOrAncestorDisabled(element)
 
