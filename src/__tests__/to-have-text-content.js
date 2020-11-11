@@ -10,6 +10,14 @@ describe('.toHaveTextContent', () => {
     expect(queryByTestId('count-value')).not.toHaveTextContent('21')
   })
 
+  test('handles non-element nodes', () => {
+    const {container} = render(`<span>example</span>`)
+
+    expect(container.querySelector('span').firstChild).toHaveTextContent(
+      'example',
+    )
+  })
+
   test('handles negative test cases', () => {
     const {queryByTestId} = render(`<span data-testid="count-value">2</span>`)
 

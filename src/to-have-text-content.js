@@ -1,11 +1,15 @@
-import {checkHtmlElement, getMessage, matches, normalize} from './utils'
+import {getMessage, HtmlElementTypeError, matches, normalize} from './utils'
 
 export function toHaveTextContent(
   htmlElement,
   checkWith,
   options = {normalizeWhitespace: true},
 ) {
-  checkHtmlElement(htmlElement, toHaveTextContent, this)
+  const window = htmlElement.ownerDocument.defaultView
+
+  if (!(htmlElement instanceof window.Node)) {
+    throw new HtmlElementTypeError(toHaveTextContent, this)
+  }
 
   const textContent = options.normalizeWhitespace
     ? normalize(htmlElement.textContent)
