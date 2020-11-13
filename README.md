@@ -1154,6 +1154,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="http://danawoodman.com"><img src="https://avatars1.githubusercontent.com/u/157695?v=4" width="100px;" alt=""/><br /><sub><b>Dana Woodman</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=danawoodman" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/MoSattler"><img src="https://avatars2.githubusercontent.com/u/64152453?v=4" width="100px;" alt=""/><br /><sub><b>Mo Sattler</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=MoSattler" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/geoffrich"><img src="https://avatars2.githubusercontent.com/u/4992896?v=4" width="100px;" alt=""/><br /><sub><b>Geoff Rich</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=geoffrich" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=geoffrich" title="Tests">⚠️</a> <a href="#ideas-geoffrich" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ageoffrich" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/syneva-runyan"><img src="https://avatars0.githubusercontent.com/u/20505588?v=4" width="100px;" alt=""/><br /><sub><b>Syneva</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=syneva-runyan" title="Code">💻</a></td>
   </tr>
 </table>
 
