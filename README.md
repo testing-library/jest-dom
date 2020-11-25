@@ -16,6 +16,7 @@
 
 ---
 
+<!-- prettier-ignore-start -->
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
 [![version][version-badge]][package] [![downloads][downloads-badge]][npmtrends]
@@ -28,6 +29,7 @@
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
+<!-- prettier-ignore-end -->
 
 ## The problem
 
@@ -158,7 +160,9 @@ expect(getByTestId('input')).toBeDisabled()
 expect(getByText('link')).not.toBeDisabled()
 ```
 
-> This custom matcher does not take into account the presence or absence of the `aria-disabled` attribute. For more on why this is the case, check [#144](https://github.com/testing-library/jest-dom/issues/144).
+> This custom matcher does not take into account the presence or absence of the
+> `aria-disabled` attribute. For more on why this is the case, check
+> [#144](https://github.com/testing-library/jest-dom/issues/144).
 
 <hr />
 
@@ -174,7 +178,9 @@ perspective.
 It works like `not.toBeDisabled()`. Use this matcher to avoid double negation in
 your tests.
 
-> This custom matcher does not take into account the presence or absence of the `aria-disabled` attribute. For more on why this is the case, check [#144](https://github.com/testing-library/jest-dom/issues/144).
+> This custom matcher does not take into account the presence or absence of the
+> `aria-disabled` attribute. For more on why this is the case, check
+> [#144](https://github.com/testing-library/jest-dom/issues/144).
 
 <hr />
 
@@ -243,9 +249,7 @@ This allows you to assert whether an element is present in the document or not.
 expect(
   getByTestId(document.documentElement, 'html-element'),
 ).toBeInTheDocument()
-expect(
-  getByTestId(document.documentElement, 'svg-element'),
-).toBeInTheDocument()
+expect(getByTestId(document.documentElement, 'svg-element')).toBeInTheDocument()
 expect(
   queryByTestId(document.documentElement, 'does-not-exist'),
 ).not.toBeInTheDocument()
@@ -1160,6 +1164,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
@@ -1169,33 +1174,33 @@ Contributions of any kind welcome!
 
 MIT
 
+<!-- prettier-ignore-start -->
 [jest]: https://facebook.github.io/jest/
 [dom-testing-library]: https://github.com/testing-library/dom-testing-library
 [react-testing-library]:
   https://github.com/testing-library/react-testing-library
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]:
-  https://img.shields.io/travis/testing-library/jest-dom.svg?style=flat-square
-[build]: https://travis-ci.org/testing-library/jest-dom
-[coverage-badge]:
+[build-badge]: https://img.shields.io/github/workflow/status/testing-library/jest-dom/validate?logo=github&style=flat-square
+[build]: https://github.com/testing-library/jest-dom/actions?query=workflow%3Avalidate
+[coverage-badge]: 
   https://img.shields.io/codecov/c/github/testing-library/jest-dom.svg?style=flat-square
 [coverage]: https://codecov.io/github/testing-library/jest-dom
 [version-badge]:
-  https://img.shields.io/npm/v/@testing-library/jest-dom.svg?style=flat-square
+ https://img.shields.io/npm/v/@testing-library/jest-dom.svg?style=flat-square
 [package]: https://www.npmjs.com/package/@testing-library/jest-dom
-[downloads-badge]:
+[downloads-badge]: 
   https://img.shields.io/npm/dm/@testing-library/jest-dom.svg?style=flat-square
 [npmtrends]: http://www.npmtrends.com/@testing-library/jest-dom
-[license-badge]:
+[license-badge]: 
   https://img.shields.io/npm/l/@testing-library/jest-dom.svg?style=flat-square
 [license]: https://github.com/testing-library/jest-dom/blob/master/LICENSE
-[prs-badge]:
+[prs-badge]: 
   https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
-[coc-badge]:
+[coc-badge]: 
   https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]:
+[coc]: 
   https://github.com/testing-library/jest-dom/blob/master/other/CODE_OF_CONDUCT.md
 [github-watch-badge]:
   https://img.shields.io/github/watchers/testing-library/jest-dom.svg?style=social
@@ -1207,8 +1212,11 @@ MIT
   https://twitter.com/intent/tweet?text=Check%20out%20jest-dom%20by%20%40gnapse%20https%3A%2F%2Fgithub.com%2Ftesting-library%2Fjest-dom%20%F0%9F%91%8D
 [twitter-badge]:
   https://img.shields.io/twitter/url/https/github.com/testing-library/jest-dom.svg?style=social
-[emojis]: https://allcontributors.org/docs/en/emoji-key
+[emojis]: https://github.com/all-contributors/all-contributors#emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
+[all-contributors-badge]: 
+  https://img.shields.io/github/all-contributors/testing-library/jest-dom?color=orange&style=flat-square
 [guiding-principle]: https://testing-library.com/docs/guiding-principles
 [discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
 [discord]: https://discord.gg/c6JN9fM
+<!-- prettier-ignore-end -->
