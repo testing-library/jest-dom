@@ -34,6 +34,8 @@ jobs:
 
       - name: ▶️ Run validate script
         run: npm run validate
+        env:
+          FORCE_COLOR: true
 
       - name: ⬆️ Upload coverage report
         uses: codecov/codecov-action@v1
