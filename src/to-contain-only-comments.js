@@ -21,8 +21,8 @@ export function toContainOnlyComments(element) {
 }
 
 function isEmptyAfterRemovingComments(element){
-  var innerHTMLWithoutComments = element.innerHTML.replace(/(<!--(.|\s)*-->)/g, '');
-  var innerHTMLWithoutCommentsAndTrim = innerHTMLWithoutComments.trim();
+  let innerHTMLWithoutComments = element.innerHTML.replace(/(<!--(.|\s)*-->)/g, '');
+  let innerHTMLWithoutCommentsAndTrim = innerHTMLWithoutComments.trim();
   return innerHTMLWithoutCommentsAndTrim === '';
 }
 
