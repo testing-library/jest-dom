@@ -63,6 +63,7 @@ clear to read and to maintain.
   - [`toBeVisible`](#tobevisible)
   - [`toContainElement`](#tocontainelement)
   - [`toContainHTML`](#tocontainhtml)
+  - [`toContainOnlyComments`](#tocontainonlycomments)
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
   - [`toHaveFocus`](#tohavefocus)
@@ -490,6 +491,26 @@ expect(getByTestId('parent')).toContainHTML('<span data-testid="child"></span>')
 >
 > It should not be used to check DOM structure that you control. Please use
 > [`toContainElement`](#tocontainelement) instead.
+
+<hr />
+
+### `toContainOnlyComments`
+
+```typescript
+toContainOnlyComments()
+```
+
+Assert whether a element only contains one or more comments:
+
+#### Examples
+
+```html
+<span data-testid="element"><!--Comment--></span>
+```
+
+```javascript
+expect(getByTestId('element')).toContainHTML('<span data-testid="child"></span>')
+```
 
 <hr />
 
