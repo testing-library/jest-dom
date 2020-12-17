@@ -4,7 +4,7 @@ export function toBeEmptyDOMElement(element) {
   checkHtmlElement(element, toBeEmptyDOMElement, this)
 
   return {
-    pass: element.innerHTML === '',
+    pass: isEmptyAfterRemovingComments(element),
     message: () => {
       return [
         this.utils.matcherHint(
@@ -18,4 +18,9 @@ export function toBeEmptyDOMElement(element) {
       ].join('\n')
     },
   }
+}
+
+function isEmptyAfterRemovingComments(element){
+  const innerHTMLWithoutComments = element.innerHTML.replace(/(<!--(.|\s)*-->)/g, '');
+  return innerHTMLWithoutComments === '';
 }

@@ -63,7 +63,6 @@ clear to read and to maintain.
   - [`toBeVisible`](#tobevisible)
   - [`toContainElement`](#tocontainelement)
   - [`toContainHTML`](#tocontainhtml)
-  - [`toContainOnlyComments`](#tocontainonlycomments)
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
   - [`toHaveFocus`](#tohavefocus)
@@ -216,17 +215,21 @@ expect(getByTestId('not-empty')).not.toBeEmpty()
 toBeEmptyDOMElement()
 ```
 
-This allows you to assert whether an element has content or not.
+This allows you to assert whether an element has no visible content for the user.
+It ignores comments but will fail if the element contains whitespaces.
 
 #### Examples
 
 ```html
 <span data-testid="not-empty"><span data-testid="empty"></span></span>
+<span data-testid="with-whitespace"> </span>
+<span data-testid="with-comment"><!-- comment --></span>
 ```
 
 ```javascript
 expect(getByTestId('empty')).toBeEmptyDOMElement()
 expect(getByTestId('not-empty')).not.toBeEmptyDOMElement()
+expect(getByTestId('with-whitespace')).not.toBeEmptyDOMElement()
 ```
 
 <hr />
@@ -491,26 +494,6 @@ expect(getByTestId('parent')).toContainHTML('<span data-testid="child"></span>')
 >
 > It should not be used to check DOM structure that you control. Please use
 > [`toContainElement`](#tocontainelement) instead.
-
-<hr />
-
-### `toContainOnlyComments`
-
-```typescript
-toContainOnlyComments()
-```
-
-Assert whether a element only contains one or more comments:
-
-#### Examples
-
-```html
-<span data-testid="element"><!--Comment--></span>
-```
-
-```javascript
-expect(getByTestId('element')).toContainHTML('<span data-testid="child"></span>')
-```
 
 <hr />
 

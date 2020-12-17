@@ -4,7 +4,6 @@ import {toBeEmpty} from './to-be-empty'
 import {toBeEmptyDOMElement} from './to-be-empty-dom-element'
 import {toContainElement} from './to-contain-element'
 import {toContainHTML} from './to-contain-html'
-import {toContainOnlyComments} from './to-contain-only-comments'
 import {toHaveTextContent} from './to-have-text-content'
 import {toHaveAttribute} from './to-have-attribute'
 import {toHaveClass} from './to-have-class'
@@ -28,7 +27,6 @@ export {
   toBeEmptyDOMElement,
   toContainElement,
   toContainHTML,
-  toContainOnlyComments,
   toHaveTextContent,
   toHaveAttribute,
   toHaveClass,
