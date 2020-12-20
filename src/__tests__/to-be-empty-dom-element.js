@@ -7,10 +7,11 @@ test('.toBeEmptyDOMElement', () => {
         <svg data-testid="svg-empty"></svg>
     </span>
     <span data-testid="with-comment"><!-- This Comment --></span>
-    <span data-testid="with-multiple-comments"><!-- Comment1 --> <!-- Comment2 --></span>
+    <span data-testid="with-multiple-comments"><!-- Comment1 --><!-- Comment2 --></span>
     <span data-testid="with-element"><span></span></span>
     <span data-testid="with-element-and-comment"><!--Comment--><span></span></span>
-    <span data-testid="with-whitespace"> </span>`)
+    <span data-testid="with-whitespace"> </span>
+    <span data-testid="with-whitespace">Text</span>`)
 
   const empty = queryByTestId('empty')
   const notEmpty = queryByTestId('not-empty')
