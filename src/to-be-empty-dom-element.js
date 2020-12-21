@@ -20,6 +20,14 @@ export function toBeEmptyDOMElement(element) {
   }
 }
 
+/**
+ * Identifies if a element doesn't contain child elements excluded comments
+ * ℹ Node.COMMENT_NODE can't be used because of the following issue 
+ * https://github.com/jsdom/jsdom/issues/2220
+ *
+ * @param {*} element an HtmlElement or SVGElement
+ * @return {*} true if the element only contains comments or none
+ */
 function isEmptyElement(element){
   const nonCommentChildNodes = [...element.childNodes].filter(node => node.nodeType !== 8);
   return nonCommentChildNodes.length === 0;
