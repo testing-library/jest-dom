@@ -22,7 +22,7 @@ export function toHaveDisplayValue(htmlElement, expectedValue) {
     values.some(value =>
       expected instanceof RegExp
         ? expected.test(value)
-        : this.equals(value, expected),
+        : this.equals(value, String(expected)),
     ),
   ).length
 

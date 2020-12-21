@@ -152,3 +152,13 @@ test('it should throw if element is not valid', () => {
     `".toHaveDisplayValue() currently does not support input[type=\\"checkbox\\"], try with another matcher instead."`,
   )
 })
+
+test('it should work with numbers', () => {
+  const {queryByTestId} = render(`
+    <select data-testid="select">
+      <option value="">1</option>
+    </select>
+  `)
+
+  expect(queryByTestId('select')).toHaveDisplayValue(1)
+})
