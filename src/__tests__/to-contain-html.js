@@ -1,7 +1,7 @@
 import {render} from './helpers/test-utils'
 
 /* eslint-disable max-statements */
-test('.toContainHTML', () => {
+describe('.toContainHTML', () => {
   const {queryByTestId} = render(`
     <span data-testid="grandparent">
       <span data-testid="parent">
@@ -76,4 +76,21 @@ test('.toContainHTML', () => {
   ).toThrowError()
   expect(() => expect(child).toContainHTML(incorrectStringHtml)).toThrowError()
   expect(() => expect(parent).toContainHTML(incorrectStringHtml)).toThrowError()
+
+  test('throws with an expected text', () => {
+    let errorMessage
+    try {
+      expect(child).toContainHTML(nonExistantString)
+    } catch (error) {
+      errorMessage = error.message
+    }
+
+    expect(errorMessage).toMatchInlineSnapshot(`
+      "<dim>expect(</><red>element</><dim>).toContainHTML()</>
+      Expected:
+        <green><span> Does not exists </span></>
+      Received:
+        <red><span data-testid=\\"child\\" /></>"
+    `)
+  })
 })
