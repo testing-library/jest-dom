@@ -1160,11 +1160,13 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/geoffrich"><img src="https://avatars2.githubusercontent.com/u/4992896?v=4" width="100px;" alt=""/><br /><sub><b>Geoff Rich</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=geoffrich" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=geoffrich" title="Tests">⚠️</a> <a href="#ideas-geoffrich" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ageoffrich" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/syneva-runyan"><img src="https://avatars0.githubusercontent.com/u/20505588?v=4" width="100px;" alt=""/><br /><sub><b>Syneva</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=syneva-runyan" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://nickmccurdy.com/"><img src="https://avatars0.githubusercontent.com/u/927220?v=4" width="100px;" alt=""/><br /><sub><b>Nick McCurdy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=nickmccurdy" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/issues?q=author%3Anickmccurdy" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=nickmccurdy" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
