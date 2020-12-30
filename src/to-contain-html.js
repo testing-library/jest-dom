@@ -12,7 +12,9 @@ export function toContainHTML(container, htmlText) {
           'element',
           '',
         ),
-        '',
+        'Expected:',
+        // eslint-disable-next-line babel/new-cap
+        `  ${this.utils.EXPECTED_COLOR(htmlText)}`,
         'Received:',
         `  ${this.utils.printReceived(container.cloneNode(true))}`,
       ].join('\n')
