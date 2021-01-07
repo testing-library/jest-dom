@@ -116,7 +116,19 @@ file][]) and you're good to go:
   https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
 
 ```javascript
+// In your own jest-setup.ts (or any other name) 
 import '@testing-library/jest-dom'
+
+// jest.config.js add:
+setupFilesAfterEnv: ["<rootDir>/jest-setup.ts"]
+
+// Include your jest-setup.ts if you havent already
+// tsconfig.json
+  "include": [
+    ...
+    "./jest-setup.ts"
+  ],
+
 ```
 
 > Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
