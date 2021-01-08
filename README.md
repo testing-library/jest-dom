@@ -119,7 +119,7 @@ file][]) and you're good to go:
 // In your own jest-setup.ts (or any other name) 
 import '@testing-library/jest-dom'
 
-// jest.config.js add:
+// In jest.config.js add (if you haven't already)
 setupFilesAfterEnv: ["<rootDir>/jest-setup.ts"]
 
 // Include your jest-setup.ts if you havent already
