@@ -6,7 +6,9 @@ export function toBeInTheDocument(element) {
   }
 
   const pass =
-    element === null ? false : element.ownerDocument.contains(element)
+    element === null
+      ? false
+      : element.ownerDocument === element.getRootNode({composed: true})
 
   const errorFound = () => {
     return `expected document not to contain element, found ${this.utils.stringify(

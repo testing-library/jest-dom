@@ -541,6 +541,38 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "geoffrich",
+      "name": "Geoff Rich",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4992896?v=4",
+      "profile": "https://github.com/geoffrich",
+      "contributions": [
+        "code",
+        "test",
+        "ideas",
+        "bug"
+      ]
+    },
+    {
+      "login": "syneva-runyan",
+      "name": "Syneva",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/20505588?v=4",
+      "profile": "https://github.com/syneva-runyan",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "nickmccurdy",
+      "name": "Nick McCurdy",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/927220?v=4",
+      "profile": "https://nickmccurdy.com/",
+      "contributions": [
+        "doc",
+        "bug",
+        "code"
+      ]
     }
   ],
   "repoHost": "https://github.com",

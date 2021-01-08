@@ -11,6 +11,7 @@ test('it should work as expected', () => {
   `)
 
   expect(queryByTestId('select')).toHaveDisplayValue('Select a fruit...')
+  expect(queryByTestId('select')).not.toHaveDisplayValue('Select')
   expect(queryByTestId('select')).not.toHaveDisplayValue('Banana')
   expect(() =>
     expect(queryByTestId('select')).not.toHaveDisplayValue('Select a fruit...'),
@@ -150,4 +151,14 @@ test('it should throw if element is not valid', () => {
   expect(errorMessage).toMatchInlineSnapshot(
     `".toHaveDisplayValue() currently does not support input[type=\\"checkbox\\"], try with another matcher instead."`,
   )
+})
+
+test('it should work with numbers', () => {
+  const {queryByTestId} = render(`
+    <select data-testid="select">
+      <option value="">1</option>
+    </select>
+  `)
+
+  expect(queryByTestId('select')).toHaveDisplayValue(1)
 })

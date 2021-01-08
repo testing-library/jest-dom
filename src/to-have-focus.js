@@ -13,9 +13,9 @@ export function toHaveFocus(element) {
           '',
         ),
         '',
-        'Expected',
+        'Expected element with focus:',
         `  ${this.utils.printExpected(element)}`,
-        'Received:',
+        'Received element with focus:',
         `  ${this.utils.printReceived(element.ownerDocument.activeElement)}`,
       ].join('\n')
     },
