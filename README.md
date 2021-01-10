@@ -116,11 +116,28 @@ file][]) and you're good to go:
   https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
 
 ```javascript
+// In your own jest-setup.js (or any other name)
 import '@testing-library/jest-dom'
+
+// In jest.config.js add (if you haven't already)
+setupFilesAfterEnv: ['<rootDir>/jest-setup.js']
 ```
 
-> Note: If you're using TypeScript, make sure your setup file is a `.ts` and not
-> a `.js` to include the necessary types.
+### With TypeScript
+
+If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js`
+to include the necessary types.
+
+You will also need to include your setup file in your `tsconfig.json` if you
+haven't already:
+
+```json
+  // In tsconfig.json
+  "include": [
+    ...
+    "./jest-setup.ts"
+  ],
+```
 
 ## Custom matchers
 
@@ -1167,6 +1184,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
