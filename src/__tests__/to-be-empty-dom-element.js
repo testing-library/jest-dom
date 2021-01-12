@@ -11,7 +11,7 @@ test('.toBeEmptyDOMElement', () => {
     <span data-testid="with-element"><span></span></span>
     <span data-testid="with-element-and-comment"><!--Comment--><span></span></span>
     <span data-testid="with-whitespace"> </span>
-    <span data-testid="with-whitespace">Text</span>`)
+    <span data-testid="with-text">Text</span>`)
 
   const empty = queryByTestId('empty')
   const notEmpty = queryByTestId('not-empty')
@@ -21,6 +21,7 @@ test('.toBeEmptyDOMElement', () => {
   const withElement = queryByTestId('with-element')
   const withElementAndComment = queryByTestId('with-element-and-comment')
   const withWhitespace = queryByTestId('with-whitespace')
+  const withText = queryByTestId('with-whitespace')
   const nonExistantElement = queryByTestId('not-exists')
   const fakeElement = {thisIsNot: 'an html element'}
 
@@ -32,6 +33,7 @@ test('.toBeEmptyDOMElement', () => {
   expect(withElement).not.toBeEmptyDOMElement()
   expect(withElementAndComment).not.toBeEmptyDOMElement()
   expect(withWhitespace).not.toBeEmptyDOMElement()
+  expect(withText).not.toBeEmptyDOMElement()
 
   // negative test cases wrapped in throwError assertions for coverage.
   expect(() => expect(empty).not.toBeEmptyDOMElement()).toThrowError()
@@ -49,6 +51,8 @@ test('.toBeEmptyDOMElement', () => {
   expect(() => expect(withElementAndComment).toBeEmptyDOMElement()).toThrowError()
 
   expect(() => expect(withWhitespace).toBeEmptyDOMElement()).toThrowError()
+
+  expect(() => expect(withText).toBeEmptyDOMElement()).toThrowError()
 
   expect(() => expect(fakeElement).toBeEmptyDOMElement()).toThrowError()
 

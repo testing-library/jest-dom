@@ -21,7 +21,7 @@ export function toBeEmptyDOMElement(element) {
 }
 
 /**
- * Identifies if a element doesn't contain child elements excluded comments
+ * Identifies if an element doesn't contain child nodes (excluding comments)
  * ℹ Node.COMMENT_NODE can't be used because of the following issue 
  * https://github.com/jsdom/jsdom/issues/2220
  *

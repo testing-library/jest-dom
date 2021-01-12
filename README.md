@@ -216,7 +216,7 @@ toBeEmptyDOMElement()
 ```
 
 This allows you to assert whether an element has no visible content for the user.
-It ignores comments but will fail if the element contains whitespaces.
+It ignores comments but will fail if the element contains white-space.
 
 #### Examples
 
