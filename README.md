@@ -232,17 +232,21 @@ expect(getByTestId('not-empty')).not.toBeEmpty()
 toBeEmptyDOMElement()
 ```
 
-This allows you to assert whether an element has content or not.
+This allows you to assert whether an element has no visible content for the user.
+It ignores comments but will fail if the element contains white-space.
 
 #### Examples
 
 ```html
 <span data-testid="not-empty"><span data-testid="empty"></span></span>
+<span data-testid="with-whitespace"> </span>
+<span data-testid="with-comment"><!-- comment --></span>
 ```
 
 ```javascript
 expect(getByTestId('empty')).toBeEmptyDOMElement()
 expect(getByTestId('not-empty')).not.toBeEmptyDOMElement()
+expect(getByTestId('with-whitespace')).not.toBeEmptyDOMElement()
 ```
 
 <hr />

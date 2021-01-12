@@ -4,7 +4,7 @@ export function toBeEmptyDOMElement(element) {
   checkHtmlElement(element, toBeEmptyDOMElement, this)
 
   return {
-    pass: element.innerHTML === '',
+    pass: isEmptyElement(element),
     message: () => {
       return [
         this.utils.matcherHint(
@@ -18,4 +18,17 @@ export function toBeEmptyDOMElement(element) {
       ].join('\n')
     },
   }
+}
+
+/**
+ * Identifies if an element doesn't contain child nodes (excluding comments)
+ * ℹ Node.COMMENT_NODE can't be used because of the following issue 
+ * https://github.com/jsdom/jsdom/issues/2220
+ *
+ * @param {*} element an HtmlElement or SVGElement
+ * @return {*} true if the element only contains comments or none
+ */
+function isEmptyElement(element){
+  const nonCommentChildNodes = [...element.childNodes].filter(node => node.nodeType !== 8);
+  return nonCommentChildNodes.length === 0;
 }
