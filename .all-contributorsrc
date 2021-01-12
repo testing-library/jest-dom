@@ -582,6 +582,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "marcelbarner",
+      "name": "Marcel Barner",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/12788744?v=4",
+      "profile": "https://github.com/marcelbarner",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
