@@ -562,6 +562,26 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "nickmccurdy",
+      "name": "Nick McCurdy",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/927220?v=4",
+      "profile": "https://nickmccurdy.com/",
+      "contributions": [
+        "doc",
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "obedparla",
+      "name": "Obed Marquez Parlapiano",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10674462?v=4",
+      "profile": "https://obedparla.com/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
