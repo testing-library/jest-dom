@@ -6,7 +6,7 @@
     height="80"
     width="80"
     alt="owl"
-    src="https://raw.githubusercontent.com/testing-library/jest-dom/master/other/owl.png"
+    src="https://raw.githubusercontent.com/testing-library/jest-dom/main/other/owl.png"
   />
 </a>
 
@@ -1220,14 +1220,14 @@ MIT
 [npmtrends]: http://www.npmtrends.com/@testing-library/jest-dom
 [license-badge]: 
   https://img.shields.io/npm/l/@testing-library/jest-dom.svg?style=flat-square
-[license]: https://github.com/testing-library/jest-dom/blob/master/LICENSE
+[license]: https://github.com/testing-library/jest-dom/blob/main/LICENSE
 [prs-badge]: 
   https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [coc-badge]: 
   https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
 [coc]: 
-  https://github.com/testing-library/jest-dom/blob/master/other/CODE_OF_CONDUCT.md
+  https://github.com/testing-library/jest-dom/blob/main/other/CODE_OF_CONDUCT.md
 [github-watch-badge]:
   https://img.shields.io/github/watchers/testing-library/jest-dom.svg?style=social
 [github-watch]: https://github.com/testing-library/jest-dom/watchers
