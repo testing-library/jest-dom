@@ -12,7 +12,7 @@ and feature requests so we recommend not using this medium to ask them here 😁
 
 ## ❓ Support Forums
 
-- Discord https://discord.gg/c6JN9fM
+- Discord https://discord.gg/testing-library
 - Stack Overflow https://stackoverflow.com/questions/tagged/jest-dom
 
 **ISSUES WHICH ARE QUESTIONS WILL BE CLOSED**

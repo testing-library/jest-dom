@@ -51,6 +51,7 @@ clear to read and to maintain.
 
 - [Installation](#installation)
 - [Usage](#usage)
+  - [With TypeScript](#with-typescript)
 - [Custom matchers](#custom-matchers)
   - [`toBeDisabled`](#tobedisabled)
   - [`toBeEnabled`](#tobeenabled)
@@ -232,8 +233,8 @@ expect(getByTestId('not-empty')).not.toBeEmpty()
 toBeEmptyDOMElement()
 ```
 
-This allows you to assert whether an element has no visible content for the user.
-It ignores comments but will fail if the element contains white-space.
+This allows you to assert whether an element has no visible content for the
+user. It ignores comments but will fail if the element contains white-space.
 
 #### Examples
 
@@ -1243,5 +1244,5 @@ MIT
   https://img.shields.io/github/all-contributors/testing-library/jest-dom?color=orange&style=flat-square
 [guiding-principle]: https://testing-library.com/docs/guiding-principles
 [discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square
-[discord]: https://discord.gg/c6JN9fM
+[discord]: https://discord.gg/testing-library
 <!-- prettier-ignore-end -->
