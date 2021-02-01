@@ -848,7 +848,7 @@ matched only using [`toBeChecked`](#tobechecked) or
   <option value="avocado">Avocado</option>
 </select>
 
-<label for="mutiple-select-example">Fruits</label>
+<label for="multiple-select-example">Fruits</label>
 <select id="multiple-select-example" multiple>
   <option value="">Select a fruit...</option>
   <option value="banana" selected>Banana</option>
