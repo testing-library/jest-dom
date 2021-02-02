@@ -582,6 +582,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "calebeby",
+      "name": "Caleb Eby",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13206945?v=4",
+      "profile": "https://github.com/calebeby",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
