@@ -1185,6 +1185,7 @@ Thanks goes to these people ([emoji key][emojis]):
   <tr>
     <td align="center"><a href="https://nickmccurdy.com/"><img src="https://avatars0.githubusercontent.com/u/927220?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nick McCurdy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=nickmccurdy" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/issues?q=author%3Anickmccurdy" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=nickmccurdy" title="Code">💻</a></td>
     <td align="center"><a href="https://obedparla.com/"><img src="https://avatars1.githubusercontent.com/u/10674462?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Obed Marquez Parlapiano</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=obedparla" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/calebeby"><img src="https://avatars.githubusercontent.com/u/13206945?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Caleb Eby</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=calebeby" title="Documentation">📖</a></td>
   </tr>
 </table>
 
