@@ -37,7 +37,7 @@
     "chalk": "^3.0.0",
     "css": "^3.0.0",
     "css.escape": "^1.5.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "redent": "^3.0.0"
   },
   "devDependencies": {
