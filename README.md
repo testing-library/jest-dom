@@ -49,6 +49,7 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
   - [With TypeScript](#with-typescript)
@@ -429,6 +430,7 @@ An element is visible if **all** the following conditions are met:
   [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden)
   attribute
 - if `<details />` it has the `open` attribute
+- it is present in the document
 
 #### Examples
 
