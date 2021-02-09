@@ -36,6 +36,12 @@ describe('.toBeVisible', () => {
     ).toThrowError()
   })
 
+  test('detached element is not visible', () => {
+    const subject = document.createElement('div')
+    expect(subject).not.toBeVisible()
+    expect(() => expect(subject).toBeVisible()).toThrowError()
+  })
+
   describe('with a <details /> element', () => {
     let subject
 
@@ -241,13 +247,6 @@ describe('.toBeVisible', () => {
           ).toBeVisible()
         })
       })
-    })
-  })
-  describe('element not in document', () => {
-    test('detached element is not visible', () => {
-      const subject = document.createElement('div')
-      expect(subject).not.toBeVisible()
-      expect(() => expect(subject).toBeVisible()).toThrowError()
     })
   })
 })
