@@ -49,7 +49,6 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
 - [Usage](#usage)
   - [With TypeScript](#with-typescript)
@@ -421,6 +420,7 @@ This allows you to check if an element is currently visible to the user.
 
 An element is visible if **all** the following conditions are met:
 
+- it is present in the document
 - it does not have its css property `display` set to `none`
 - it does not have its css property `visibility` set to either `hidden` or
   `collapse`
@@ -430,7 +430,6 @@ An element is visible if **all** the following conditions are met:
   [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden)
   attribute
 - if `<details />` it has the `open` attribute
-- it is present in the document
 
 #### Examples
 
