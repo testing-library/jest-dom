@@ -1,4 +1,5 @@
 import {render} from './helpers/test-utils'
+import document from './helpers/document'
 
 describe('.toBeVisible', () => {
   it('returns the visibility of an element', () => {
@@ -33,6 +34,12 @@ describe('.toBeVisible', () => {
     expect(() =>
       expect(container.querySelector('p')).toBeVisible(),
     ).toThrowError()
+  })
+
+  test('detached element is not visible', () => {
+    const subject = document.createElement('div')
+    expect(subject).not.toBeVisible()
+    expect(() => expect(subject).toBeVisible()).toThrowError()
   })
 
   describe('with a <details /> element', () => {

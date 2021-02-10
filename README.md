@@ -420,6 +420,7 @@ This allows you to check if an element is currently visible to the user.
 
 An element is visible if **all** the following conditions are met:
 
+- it is present in the document
 - it does not have its css property `display` set to `none`
 - it does not have its css property `visibility` set to either `hidden` or
   `collapse`
