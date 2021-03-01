@@ -573,6 +573,36 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "obedparla",
+      "name": "Obed Marquez Parlapiano",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10674462?v=4",
+      "profile": "https://obedparla.com/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "calebeby",
+      "name": "Caleb Eby",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13206945?v=4",
+      "profile": "https://github.com/calebeby",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "marcelbarner",
+      "name": "Marcel Barner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12788744?v=4",
+      "profile": "https://github.com/marcelbarner",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",

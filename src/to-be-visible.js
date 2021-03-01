@@ -32,7 +32,9 @@ function isElementVisible(element, previousElement) {
 
 export function toBeVisible(element) {
   checkHtmlElement(element, toBeVisible, this)
-  const isVisible = isElementVisible(element)
+  const isInDocument =
+    element.ownerDocument === element.getRootNode({composed: true})
+  const isVisible = isInDocument && isElementVisible(element)
   return {
     pass: isVisible,
     message: () => {
@@ -44,7 +46,9 @@ export function toBeVisible(element) {
           '',
         ),
         '',
-        `Received element ${is} visible:`,
+        `Received element ${is} visible${
+          isInDocument ? '' : ' (element is not in the document)'
+        }:`,
         `  ${this.utils.printReceived(element.cloneNode(false))}`,
       ].join('\n')
     },
