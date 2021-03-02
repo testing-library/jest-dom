@@ -33,8 +33,13 @@ test('.toBeInTheDocument', () => {
   expect(htmlElement).toBeInTheDocument()
   expect(svgElement).toBeInTheDocument()
   expect(customElementChild).toBeInTheDocument()
+
+  expect([htmlElement, svgElement, customElementChild]).toBeInTheDocument()
+
   expect(detachedElement).not.toBeInTheDocument()
   expect(nullElement).not.toBeInTheDocument()
+
+  expect([detachedElement, nullElement]).not.toBeInTheDocument()
 
   // negative test cases wrapped in throwError assertions for coverage.
   const expectToBe = /expect.*\.toBeInTheDocument/
@@ -60,4 +65,18 @@ test('.toBeInTheDocument', () => {
   expect(() => expect(undefinedElement).not.toBeInTheDocument()).toThrowError(
     HtmlElementTypeError,
   )
+  expect(() =>
+    expect([
+      htmlElement,
+      detachedElement /* a breach */,
+      svgElement,
+    ]).toBeInTheDocument(),
+  ).toThrowError(expectToBe)
+  expect(() =>
+    expect([
+      detachedElement,
+      htmlElement /* a breach */,
+      nullElement,
+    ]).not.toBeInTheDocument(),
+  ).toThrowError(expectNotToBe)
 })

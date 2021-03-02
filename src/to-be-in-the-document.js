@@ -1,6 +1,6 @@
 import {checkHtmlElement} from './utils'
 
-export function toBeInTheDocument(element) {
+function _toBeInTheDocument(element) {
   if (element !== null || !this.isNot) {
     checkHtmlElement(element, toBeInTheDocument, this)
   }
@@ -34,4 +34,20 @@ export function toBeInTheDocument(element) {
       ].join('\n')
     },
   }
+}
+
+export function toBeInTheDocument(elements) {
+  const elementArray = Array.isArray(elements) ? elements : [elements]
+
+  let expectResult
+  elementArray.some(e => {
+    expectResult = _toBeInTheDocument.call(this, e)
+    // return the result of first breach
+    if (expectResult.pass === this.isNot) {
+      return true
+    }
+    return false
+  })
+  // if no breaches found, return the last result
+  return expectResult
 }
