@@ -18,6 +18,7 @@ describe('.toContainHTML', () => {
     const nonExistantElement = queryByTestId('not-exists')
     const fakeElement = {thisIsNot: 'an html element'}
     const stringChildElement = '<span data-testid="child"></span>'
+    const stringChildElementSelfClosing = '<span data-testid="child" />'
     const incorrectStringHtml = '<span data-testid="child"></div>'
     const nonExistantString = '<span> Does not exists </span>'
     const svgElement = queryByTestId('svg-element')
@@ -25,14 +26,14 @@ describe('.toContainHTML', () => {
     expect(grandparent).toContainHTML(stringChildElement)
     expect(parent).toContainHTML(stringChildElement)
     expect(child).toContainHTML(stringChildElement)
+    expect(child).toContainHTML(stringChildElementSelfClosing)
     expect(grandparent).not.toContainHTML(nonExistantString)
     expect(parent).not.toContainHTML(nonExistantString)
     expect(child).not.toContainHTML(nonExistantString)
     expect(child).not.toContainHTML(nonExistantString)
-    expect(grandparent).not.toContainHTML(incorrectStringHtml)
-    expect(parent).not.toContainHTML(incorrectStringHtml)
-    expect(child).not.toContainHTML(incorrectStringHtml)
-    expect(child).not.toContainHTML(incorrectStringHtml)
+    expect(grandparent).toContainHTML(incorrectStringHtml)
+    expect(parent).toContainHTML(incorrectStringHtml)
+    expect(child).toContainHTML(incorrectStringHtml)
 
     // negative test cases wrapped in throwError assertions for coverage.
     expect(() =>
@@ -59,6 +60,9 @@ describe('.toContainHTML', () => {
     expect(() =>
       expect(child).not.toContainHTML(stringChildElement),
     ).toThrowError()
+    expect(() =>
+      expect(child).not.toContainHTML(stringChildElementSelfClosing),
+    ).toThrowError()
     expect(() => expect(child).toContainHTML(nonExistantString)).toThrowError()
     expect(() => expect(parent).toContainHTML(nonExistantString)).toThrowError()
     expect(() =>
@@ -72,16 +76,16 @@ describe('.toContainHTML', () => {
       expect(grandparent).toContainHTML(nonExistantElement),
     ).toThrowError()
     expect(() =>
-      expect(nonExistantElement).toContainHTML(incorrectStringHtml),
+      expect(nonExistantElement).not.toContainHTML(incorrectStringHtml),
     ).toThrowError()
     expect(() =>
-      expect(grandparent).toContainHTML(incorrectStringHtml),
+      expect(grandparent).not.toContainHTML(incorrectStringHtml),
     ).toThrowError()
     expect(() =>
-      expect(child).toContainHTML(incorrectStringHtml),
+      expect(child).not.toContainHTML(incorrectStringHtml),
     ).toThrowError()
     expect(() =>
-      expect(parent).toContainHTML(incorrectStringHtml),
+      expect(parent).not.toContainHTML(incorrectStringHtml),
     ).toThrowError()
   })
 
