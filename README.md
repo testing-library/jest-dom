@@ -119,6 +119,8 @@ file][]) and you're good to go:
 ```javascript
 // In your own jest-setup.js (or any other name)
 import '@testing-library/jest-dom'
+// Can include the extend-expect extension if needing to test components against the DOM
+import '@testing-library/jest-dom/extend-expect'
 
 // In jest.config.js add (if you haven't already)
 setupFilesAfterEnv: ['<rootDir>/jest-setup.js']
@@ -138,6 +140,16 @@ haven't already:
     ...
     "./jest-setup.ts"
   ],
+```
+
+### Extend Expect
+
+When testing your components against the DOM, you'll need certain extensions of 
+the `expect` assertion call. To access these methods, import the `extend-expect` module.
+```javascript
+// Can be used in your jest-setup.js (or any other name) file
+// Can also be used directly in your unit test file
+import '@testing-library/jest-dom/extend-expect'
 ```
 
 ## Custom matchers
