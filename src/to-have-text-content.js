@@ -1,15 +1,15 @@
-import {checkHtmlElement, getMessage, matches, normalize} from './utils'
+import {getMessage, checkNode, matches, normalize} from './utils'
 
 export function toHaveTextContent(
-  htmlElement,
+  node,
   checkWith,
   options = {normalizeWhitespace: true},
 ) {
-  checkHtmlElement(htmlElement, toHaveTextContent, this)
+  checkNode(node, toHaveTextContent, this)
 
   const textContent = options.normalizeWhitespace
-    ? normalize(htmlElement.textContent)
-    : htmlElement.textContent.replace(/\u00a0/g, ' ') // Replace &nbsp; with normal spaces
+    ? normalize(node.textContent)
+    : node.textContent.replace(/\u00a0/g, ' ') // Replace &nbsp; with normal spaces
 
   const checkingWithEmptyString = textContent !== '' && checkWith === ''
 

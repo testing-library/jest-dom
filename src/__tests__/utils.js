@@ -1,7 +1,9 @@
 import {
   deprecate,
   checkHtmlElement,
+  checkNode,
   HtmlElementTypeError,
+  NodeTypeError,
   toSentence,
 } from '../utils'
 import document from './helpers/document'
@@ -92,6 +94,94 @@ describe('checkHtmlElement', () => {
         assertionContext,
       )
     }).toThrow(HtmlElementTypeError)
+  })
+})
+
+describe('checkNode', () => {
+  let assertionContext
+  beforeAll(() => {
+    expect.extend({
+      fakeMatcher() {
+        assertionContext = this
+
+        return {pass: true}
+      },
+    })
+
+    expect(true).fakeMatcher(true)
+  })
+  it('does not throw an error for correct html element', () => {
+    expect(() => {
+      const element = document.createElement('p')
+      checkNode(element, () => {}, assertionContext)
+    }).not.toThrow()
+  })
+
+  it('does not throw an error for correct svg element', () => {
+    expect(() => {
+      const element = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'rect',
+      )
+      checkNode(element, () => {}, assertionContext)
+    }).not.toThrow()
+  })
+
+  it('does not throw an error for Document fragments', () => {
+    expect(() => {
+      const fragment = document.createDocumentFragment()
+      checkNode(fragment, () => {}, assertionContext)
+    }).not.toThrow()
+  })
+
+  it('does not throw an error for text nodes', () => {
+    expect(() => {
+      const text = document.createTextNode('foo')
+      checkNode(text, () => {}, assertionContext)
+    }).not.toThrow()
+  })
+
+  it('does not throw for body', () => {
+    expect(() => {
+      checkNode(document.body, () => {}, assertionContext)
+    }).not.toThrow()
+  })
+
+  it('throws for undefined', () => {
+    expect(() => {
+      checkNode(undefined, () => {}, assertionContext)
+    }).toThrow(NodeTypeError)
+  })
+
+  it('throws for document', () => {
+    expect(() => {
+      checkNode(document, () => {}, assertionContext)
+    }).toThrow(NodeTypeError)
+  })
+
+  it('throws for function', () => {
+    expect(() => {
+      checkNode(
+        () => {},
+        () => {},
+        assertionContext,
+      )
+    }).toThrow(NodeTypeError)
+  })
+
+  it('throws for almost element-like objects', () => {
+    class FakeObject {}
+    expect(() => {
+      checkNode(
+        {
+          ownerDocument: {
+            defaultView: {Node: FakeObject, SVGElement: FakeObject},
+          },
+        },
+        () => {},
+        assertionContext,
+      )
+    }).toThrow(NodeTypeError)
   })
 })
 
