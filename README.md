@@ -748,10 +748,11 @@ The usual rules of css precedence apply.
 toHaveTextContent(text: string | RegExp, options?: {normalizeWhitespace: boolean})
 ```
 
-This allows you to check whether the given element has a text content or not.
+This allows you to check whether the given node has a text content or not. This
+supports elements, but also text nodes and fragments.
 
 When a `string` argument is passed through, it will perform a partial
-case-sensitive match to the element content.
+case-sensitive match to the node content.
 
 To perform a case-insensitive match, you can use a `RegExp` with the `/i`
 modifier.

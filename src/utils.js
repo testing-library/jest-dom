@@ -2,8 +2,8 @@ import redent from 'redent'
 import {parse} from 'css'
 import isEqual from 'lodash/isEqual'
 
-class HtmlElementTypeError extends Error {
-  constructor(received, matcherFn, context) {
+class GenericTypeError extends Error {
+  constructor(expectedString, received, matcherFn, context) {
     super()
 
     /* istanbul ignore next */
@@ -31,24 +31,45 @@ class HtmlElementTypeError extends Error {
       // eslint-disable-next-line babel/new-cap
       `${context.utils.RECEIVED_COLOR(
         'received',
-      )} value must be an HTMLElement or an SVGElement.`,
+      )} value must ${expectedString}.`,
       withType,
     ].join('\n')
   }
 }
 
-function checkHasWindow(htmlElement, ...args) {
+class HtmlElementTypeError extends GenericTypeError {
+  constructor(...args) {
+    super('be an HTMLElement or an SVGElement', ...args)
+  }
+}
+
+class NodeTypeError extends GenericTypeError {
+  constructor(...args) {
+    super('be a Node', ...args)
+  }
+}
+
+function checkHasWindow(htmlElement, ErrorClass, ...args) {
   if (
     !htmlElement ||
     !htmlElement.ownerDocument ||
     !htmlElement.ownerDocument.defaultView
   ) {
-    throw new HtmlElementTypeError(htmlElement, ...args)
+    throw new ErrorClass(htmlElement, ...args)
+  }
+}
+
+function checkNode(node, ...args) {
+  checkHasWindow(node, NodeTypeError, ...args)
+  const window = node.ownerDocument.defaultView
+
+  if (!(node instanceof window.Node)) {
+    throw new NodeTypeError(node, ...args)
   }
 }
 
 function checkHtmlElement(htmlElement, ...args) {
-  checkHasWindow(htmlElement, ...args)
+  checkHasWindow(htmlElement, HtmlElementTypeError, ...args)
   const window = htmlElement.ownerDocument.defaultView
 
   if (
@@ -209,7 +230,9 @@ function toSentence(
 
 export {
   HtmlElementTypeError,
+  NodeTypeError,
   checkHtmlElement,
+  checkNode,
   parseCSS,
   deprecate,
   getMessage,
