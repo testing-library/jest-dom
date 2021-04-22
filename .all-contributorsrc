@@ -603,6 +603,16 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "julienw",
+      "name": "Julien Wajsberg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/454175?v=4",
+      "profile": "http://everlong.org/",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
