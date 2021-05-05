@@ -491,7 +491,7 @@ toContainHTML(htmlText: string)
 ```
 
 Assert whether a string representing a HTML element is contained in another
-element:
+element. The string should contain valid html, and not any substrings of html.
 
 #### Examples
 
@@ -501,6 +501,8 @@ element:
 
 ```javascript
 expect(getByTestId('parent')).toContainHTML('<span data-testid="child"></span>')
+expect(getByTestId('parent')).toContainHTML('<span data-testid="child" />')
+expect(getByTestId('parent')).not.toContainHTML('<br />')
 ```
 
 > Chances are you probably do not need to use this matcher. We encourage testing
