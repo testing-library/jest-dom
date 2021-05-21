@@ -1,4 +1,12 @@
+import document from './helpers/document'
 import {render} from './helpers/test-utils'
+
+const window = document.defaultView
+
+window.customElements.define(
+  'custom-element',
+  class extends window.HTMLElement {},
+)
 
 test('.toBeDisabled', () => {
   const {queryByTestId} = render(`
@@ -107,6 +115,23 @@ test('.toBeDisabled fieldset>legend', () => {
   expect(queryByTestId('second-legend-element')).toBeDisabled()
 
   expect(queryByTestId('outer-fieldset-element')).toBeDisabled()
+})
+
+test('.toBeDisabled custom element', () => {
+  const {queryByTestId} = render(`
+    <custom-element data-testid="disabled-custom-element" disabled="" />
+    <custom-element data-testid="enabled-custom-element" />
+  `)
+
+  expect(queryByTestId('disabled-custom-element')).toBeDisabled()
+  expect(() => {
+    expect(queryByTestId('disabled-custom-element')).not.toBeDisabled()
+  }).toThrowError('element is disabled')
+
+  expect(queryByTestId('enabled-custom-element')).not.toBeDisabled()
+  expect(() => {
+    expect(queryByTestId('enabled-custom-element')).toBeDisabled()
+  }).toThrowError('element is not disabled')
 })
 
 test('.toBeEnabled', () => {
@@ -240,4 +265,21 @@ test('.toBeEnabled fieldset>legend', () => {
   expect(() => {
     expect(queryByTestId('outer-fieldset-element')).toBeEnabled()
   }).toThrowError()
+})
+
+test('.toBeEnabled custom element', () => {
+  const {queryByTestId} = render(`
+    <custom-element data-testid="disabled-custom-element" disabled="" />
+    <custom-element data-testid="enabled-custom-element" />
+  `)
+
+  expect(queryByTestId('disabled-custom-element')).not.toBeEnabled()
+  expect(() => {
+    expect(queryByTestId('disabled-custom-element')).toBeEnabled()
+  }).toThrowError('element is not enabled')
+
+  expect(queryByTestId('enabled-custom-element')).toBeEnabled()
+  expect(() => {
+    expect(queryByTestId('enabled-custom-element')).not.toBeEnabled()
+  }).toThrowError('element is enabled')
 })
