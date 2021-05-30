@@ -4,42 +4,40 @@ import {render} from './helpers/test-utils'
 describe('.toHaveErrorMessage', () => {
   test('resolves for object with correct aria-errormessage reference', () => {
     const {queryByTestId} = render(`
-    <div id="errormessage">The errormessage</div>
-    <div data-testid="invalid" aria-errormessage="errormessage" aria-invalid="true"></div>
-    <div data-testid="implicitly_invalid" aria-errormessage="errormessage" aria-invalid></div>
+    <label for="startTime"> Please enter a start time for the meeting: </label>
+    <input data-testid="startTime" type="text" aria-errormessage="msgID" aria-invalid="true" value="11:30 PM" >
+    <span id="msgID" aria-live="assertive" style="visibility:visible"> Invalid time:  the time must be between 9:00 AM and 5:00 PM </span>
     `)
 
-    // element with aria-invalid="true"
-    expect(queryByTestId('invalid')).toHaveErrorMessage('The errormessage')
-    expect(queryByTestId('invalid')).toHaveErrorMessage(
-      expect.stringContaining('The'),
-    )
-    expect(queryByTestId('invalid')).toHaveErrorMessage(/The/)
-    expect(queryByTestId('invalid')).toHaveErrorMessage(
-      expect.stringMatching(/The/),
-    )
-    expect(queryByTestId('invalid')).toHaveErrorMessage(/errormessage/)
-    expect(queryByTestId('invalid')).not.toHaveErrorMessage('Something else')
-    expect(queryByTestId('invalid')).not.toHaveErrorMessage('The')
+    const timeInput = queryByTestId('startTime')
 
-    // element with aria-invalid attribute
-    expect(queryByTestId('implicitly_invalid')).toHaveErrorMessage(
-      'The errormessage',
+    expect(timeInput).toHaveErrorMessage(
+      'Invalid time: the time must be between 9:00 AM and 5:00 PM',
     )
-    expect(queryByTestId('implicitly_invalid')).toHaveErrorMessage(
-      expect.stringContaining('The'),
+    expect(timeInput).toHaveErrorMessage(/invalid time/i) // to partially match
+    expect(timeInput).toHaveErrorMessage(
+      expect.stringContaining('Invalid time'),
+    ) // to partially match
+    expect(timeInput).not.toHaveErrorMessage('Pikachu!')
+  })
+
+  test('works correctly on implicit invalid element', () => {
+    const {queryByTestId} = render(`
+    <label for="startTime"> Please enter a start time for the meeting: </label>
+    <input data-testid="startTime" type="text" aria-errormessage="msgID" aria-invalid value="11:30 PM" >
+    <span id="msgID" aria-live="assertive" style="visibility:visible"> Invalid time:  the time must be between 9:00 AM and 5:00 PM </span>
+    `)
+
+    const timeInput = queryByTestId('startTime')
+
+    expect(timeInput).toHaveErrorMessage(
+      'Invalid time: the time must be between 9:00 AM and 5:00 PM',
     )
-    expect(queryByTestId('implicitly_invalid')).toHaveErrorMessage(/The/)
-    expect(queryByTestId('implicitly_invalid')).toHaveErrorMessage(
-      expect.stringMatching(/The/),
-    )
-    expect(queryByTestId('implicitly_invalid')).toHaveErrorMessage(
-      /errormessage/,
-    )
-    expect(queryByTestId('implicitly_invalid')).not.toHaveErrorMessage(
-      'Something else',
-    )
-    expect(queryByTestId('implicitly_invalid')).not.toHaveErrorMessage('The')
+    expect(timeInput).toHaveErrorMessage(/invalid time/i) // to partially match
+    expect(timeInput).toHaveErrorMessage(
+      expect.stringContaining('Invalid time'),
+    ) // to partially match
+    expect(timeInput).not.toHaveErrorMessage('Pikachu!')
   })
 
   test('rejects for valid object', () => {
