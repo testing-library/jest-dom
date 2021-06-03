@@ -19,6 +19,7 @@ import {toHaveDisplayValue} from './to-have-display-value'
 import {toBeChecked} from './to-be-checked'
 import {toBePartiallyChecked} from './to-be-partially-checked'
 import {toHaveDescription} from './to-have-description'
+import {toHaveErrorMessage} from './to-have-errormessage'
 
 export {
   toBeInTheDOM,
@@ -44,4 +45,5 @@ export {
   toBeChecked,
   toBePartiallyChecked,
   toHaveDescription,
+  toHaveErrorMessage,
 }
