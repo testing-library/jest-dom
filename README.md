@@ -156,14 +156,15 @@ toBeDisabled()
 
 This allows you to check whether an element is disabled from the user's
 perspective.
-
-It matches if the element is a form control and the `disabled` attribute is
-specified on this element or the element is a descendant of a form element with
-a `disabled` attribute.
-
 According to the specification, the following elements can be
-[actually disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
+[disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
 `button`, `input`, `select`, `textarea`, `optgroup`, `option`, `fieldset`.
+
+This custom matcher considers an element as disabled if the element is among the
+types of elements that can be disabled (listed above), and the `disabled`
+attribute is present. It will also consider the element as disabled if it's
+inside a parent form element that supports being disabled and has the `disabled`
+attribute present.
 
 #### Examples
 
