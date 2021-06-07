@@ -1080,7 +1080,7 @@ To perform a partial match, you can pass a `RegExp` or use
   value="11:30 PM"
 />
 <span id="msgID" aria-live="assertive" style="visibility:visible">
-  Invalid time: the time must be between 9:00 AM and 5:00 PM"
+  Invalid time: the time must be between 9:00 AM and 5:00 PM
 </span>
 ```
 
