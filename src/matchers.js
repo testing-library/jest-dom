@@ -5,6 +5,7 @@ import {toBeEmptyDOMElement} from './to-be-empty-dom-element'
 import {toContainElement} from './to-contain-element'
 import {toContainHTML} from './to-contain-html'
 import {toHaveTextContent} from './to-have-text-content'
+import {toHaveAccessibleName} from './to-have-accessible-name'
 import {toHaveAttribute} from './to-have-attribute'
 import {toHaveClass} from './to-have-class'
 import {toHaveStyle} from './to-have-style'
@@ -29,6 +30,7 @@ export {
   toContainElement,
   toContainHTML,
   toHaveTextContent,
+  toHaveAccessibleName,
   toHaveAttribute,
   toHaveClass,
   toHaveStyle,
