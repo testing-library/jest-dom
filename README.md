@@ -49,13 +49,13 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
   - [With TypeScript](#with-typescript)
 - [Custom matchers](#custom-matchers)
   - [`toBeDisabled`](#tobedisabled)
   - [`toBeEnabled`](#tobeenabled)
-  - [`toBeEmpty`](#tobeempty)
   - [`toBeEmptyDOMElement`](#tobeemptydomelement)
   - [`toBeInTheDocument`](#tobeinthedocument)
   - [`toBeInvalid`](#tobeinvalid)
@@ -76,10 +76,11 @@ clear to read and to maintain.
   - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
   - [`toBePartiallyChecked`](#tobepartiallychecked)
-  - [`toHaveDescription`](#tohavedescription)
   - [`toHaveErrorMessage`](#tohaveerrormessage)
 - [Deprecated matchers](#deprecated-matchers)
+  - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDOM`](#tobeinthedom)
+  - [`toHaveDescription`](#tohavedescription)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Guiding Principles](#guiding-principles)
@@ -202,31 +203,6 @@ your tests.
 > This custom matcher does not take into account the presence or absence of the
 > `aria-disabled` attribute. For more on why this is the case, check
 > [#144](https://github.com/testing-library/jest-dom/issues/144).
-
-<hr />
-
-### `toBeEmpty`
-
-```typescript
-toBeEmpty()
-```
-
-This allows you to assert whether an element has content or not.
-
-#### Examples
-
-```html
-<span data-testid="not-empty"><span data-testid="empty"></span></span>
-```
-
-```javascript
-expect(getByTestId('empty')).toBeEmpty()
-expect(getByTestId('not-empty')).not.toBeEmpty()
-```
-
-> Note: This matcher is being deprecated due to a name clash with
-> `jest-extended`. See more info in #216. In the future, please use only:
-> [`toBeEmptyDOMElement`](#toBeEmptyDOMElement)
 
 <hr />
 
@@ -1081,58 +1057,6 @@ expect(inputCheckboxIndeterminate).toBePartiallyChecked()
 
 <hr />
 
-### `toHaveDescription`
-
-```typescript
-toHaveDescription(text: string | RegExp)
-```
-
-This allows you to check whether the given element has a description or not.
-
-An element gets its description via the
-[`aria-describedby` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute).
-Set this to the `id` of one or more other elements. These elements may be nested
-inside, be outside, or a sibling of the passed in element.
-
-Whitespace is normalized. Using multiple ids will
-[join the referenced elements’ text content separated by a space](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_description).
-
-When a `string` argument is passed through, it will perform a whole
-case-sensitive match to the description text.
-
-To perform a case-insensitive match, you can use a `RegExp` with the `/i`
-modifier.
-
-To perform a partial match, you can pass a `RegExp` or use
-`expect.stringContaining("partial string")`.
-
-#### Examples
-
-```html
-<button aria-label="Close" aria-describedby="description-close">
-  X
-</button>
-<div id="description-close">
-  Closing will discard any changes
-</div>
-
-<button>Delete</button>
-```
-
-```javascript
-const closeButton = getByRole('button', {name: 'Close'})
-
-expect(closeButton).toHaveDescription('Closing will discard any changes')
-expect(closeButton).toHaveDescription(/will discard/) // to partially match
-expect(closeButton).toHaveDescription(expect.stringContaining('will discard')) // to partially match
-expect(closeButton).toHaveDescription(/^closing/i) // to use case-insensitive match
-expect(closeButton).not.toHaveDescription('Other description')
-
-const deleteButton = getByRole('button', {name: 'Delete'})
-expect(deleteButton).not.toHaveDescription()
-expect(deleteButton).toHaveDescription('') // Missing or empty description always becomes a blank string
-```
-
 ### `toHaveErrorMessage`
 
 ```typescript
@@ -1187,7 +1111,35 @@ expect(timeInput).not.toHaveErrorMessage('Pikachu!')
 
 ## Deprecated matchers
 
+### `toBeEmpty`
+
+> Note: This matcher is being deprecated due to a name clash with
+> `jest-extended`. See more info in #216. In the future, please use only
+> [`toBeEmptyDOMElement`](#toBeEmptyDOMElement)
+
+```typescript
+toBeEmpty()
+```
+
+This allows you to assert whether an element has content or not.
+
+#### Examples
+
+```html
+<span data-testid="not-empty"><span data-testid="empty"></span></span>
+```
+
+```javascript
+expect(getByTestId('empty')).toBeEmpty()
+expect(getByTestId('not-empty')).not.toBeEmpty()
+```
+
+<hr />
+
 ### `toBeInTheDOM`
+
+> This custom matcher is deprecated. Prefer
+> [`toBeInTheDocument`](#tobeinthedocument) instead.
 
 ```typescript
 toBeInTheDOM()
@@ -1218,6 +1170,62 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 > will likely cause unintended consequences in your tests. Please make sure when
 > replacing `toBeInTheDOM` to read through the documentation of the proposed
 > alternatives to see which use case works better for your needs.
+
+### `toHaveDescription`
+
+> This custom matcher is deprecated. Prefer
+> [`toHaveAccessibleDescription`](#tohaveaccessibledescription) instead, which
+> is more comprehensive in implementing the official spec.
+
+```typescript
+toHaveDescription(text: string | RegExp)
+```
+
+This allows you to check whether the given element has a description or not.
+
+An element gets its description via the
+[`aria-describedby` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute).
+Set this to the `id` of one or more other elements. These elements may be nested
+inside, be outside, or a sibling of the passed in element.
+
+Whitespace is normalized. Using multiple ids will
+[join the referenced elements’ text content separated by a space](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_description).
+
+When a `string` argument is passed through, it will perform a whole
+case-sensitive match to the description text.
+
+To perform a case-insensitive match, you can use a `RegExp` with the `/i`
+modifier.
+
+To perform a partial match, you can pass a `RegExp` or use
+`expect.stringContaining("partial string")`.
+
+#### Examples
+
+```html
+<button aria-label="Close" aria-describedby="description-close">
+  X
+</button>
+<div id="description-close">
+  Closing will discard any changes
+</div>
+
+<button>Delete</button>
+```
+
+```javascript
+const closeButton = getByRole('button', {name: 'Close'})
+
+expect(closeButton).toHaveDescription('Closing will discard any changes')
+expect(closeButton).toHaveDescription(/will discard/) // to partially match
+expect(closeButton).toHaveDescription(expect.stringContaining('will discard')) // to partially match
+expect(closeButton).toHaveDescription(/^closing/i) // to use case-insensitive match
+expect(closeButton).not.toHaveDescription('Other description')
+
+const deleteButton = getByRole('button', {name: 'Delete'})
+expect(deleteButton).not.toHaveDescription()
+expect(deleteButton).toHaveDescription('') // Missing or empty description always becomes a blank string
+```
 
 ## Inspiration
 
