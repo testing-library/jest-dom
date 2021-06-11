@@ -1,6 +1,16 @@
 import {render} from './helpers/test-utils'
 
 describe('.toHaveDescription', () => {
+  let spy
+  beforeAll(() => {
+    // @deprecated intentionally hiding warnings for test clarity
+    spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
+  })
+
+  afterAll(() => {
+    spy.mockRestore()
+  })
+
   test('handles positive test cases', () => {
     const {queryByTestId} = render(`
     <div id="description">The description</div>
