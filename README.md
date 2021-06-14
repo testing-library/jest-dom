@@ -509,7 +509,7 @@ expect(getByTestId('parent')).toContainHTML('</span>')
 toHaveAccessibleDescription(expectedAccessibleDescription?: string | RegExp)
 ```
 
-This allows to assert that an element has the expected
+This allows you to assert that an element has the expected
 [accessible description](https://w3c.github.io/accname/).
 
 You can pass the exact string of the expected accessible description, or you can
@@ -557,7 +557,7 @@ expect(getByTestId('logo')).toHaveAccessibleDescription(
 toHaveAccessibleName(expectedAccessibleName?: string | RegExp)
 ```
 
-This allows to assert that an element is has the expected
+This allows you to assert that an element has the expected
 [accessible name](https://w3c.github.io/accname/). It is useful, for instance,
 to assert that form elements and buttons are properly labelled.
 
