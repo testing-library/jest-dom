@@ -509,7 +509,7 @@ expect(getByTestId('parent')).toContainHTML('</span>')
 toHaveAccessibleDescription(expectedAccessibleDescription?: string | RegExp)
 ```
 
-This allows to assert that an element has the expected
+This allows you to assert that an element has the expected
 [accessible description](https://w3c.github.io/accname/).
 
 You can pass the exact string of the expected accessible description, or you can
@@ -557,7 +557,7 @@ expect(getByTestId('logo')).toHaveAccessibleDescription(
 toHaveAccessibleName(expectedAccessibleName?: string | RegExp)
 ```
 
-This allows to assert that an element is has the expected
+This allows you to assert that an element has the expected
 [accessible name](https://w3c.github.io/accname/). It is useful, for instance,
 to assert that form elements and buttons are properly labelled.
 
@@ -1350,6 +1350,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/marcelbarner"><img src="https://avatars.githubusercontent.com/u/12788744?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcel Barner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=marcelbarner" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=marcelbarner" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/SevenOutman"><img src="https://avatars.githubusercontent.com/u/8225666?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Doma</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=SevenOutman" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=SevenOutman" title="Tests">⚠️</a></td>
     <td align="center"><a href="http://everlong.org/"><img src="https://avatars.githubusercontent.com/u/454175?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julien Wajsberg</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=julienw" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=julienw" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://lichess.org/@/StevenEmily"><img src="https://avatars.githubusercontent.com/u/58114641?v=4?s=100" width="100px;" alt=""/><br /><sub><b>steven nguyen</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=icecream17" title="Documentation">📖</a></td>
   </tr>
 </table>
 
