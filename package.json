@@ -51,7 +51,7 @@
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
-      "babel/no-invalid-this": "off"
+      "@babel/no-invalid-this": "off"
     },
     "overrides": [
       {
