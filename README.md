@@ -1352,6 +1352,9 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="http://everlong.org/"><img src="https://avatars.githubusercontent.com/u/454175?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julien Wajsberg</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=julienw" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=julienw" title="Tests">⚠️</a></td>
     <td align="center"><a href="http://lichess.org/@/StevenEmily"><img src="https://avatars.githubusercontent.com/u/58114641?v=4?s=100" width="100px;" alt=""/><br /><sub><b>steven nguyen</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=icecream17" title="Documentation">📖</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="http://tu4mo.com"><img src="https://avatars.githubusercontent.com/u/16735302?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tu4mo</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=tu4mo" title="Documentation">📖</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->
