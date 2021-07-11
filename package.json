@@ -4,7 +4,7 @@
   "description": "Custom jest matchers to test the state of the DOM",
   "main": "dist/index.js",
   "engines": {
-    "node": ">=8",
+    "node": ">=12",
     "npm": ">=6",
     "yarn": ">=1"
   },
