@@ -23,7 +23,7 @@ export function toContainHTML(container, htmlText) {
           '',
         ),
         'Expected:',
-        // eslint-disable-next-line babel/new-cap
+        // eslint-disable-next-line @babel/new-cap
         `  ${this.utils.EXPECTED_COLOR(htmlText)}`,
         'Received:',
         `  ${this.utils.printReceived(container.cloneNode(true))}`,
