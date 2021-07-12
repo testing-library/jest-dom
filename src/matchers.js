@@ -5,6 +5,8 @@ import {toBeEmptyDOMElement} from './to-be-empty-dom-element'
 import {toContainElement} from './to-contain-element'
 import {toContainHTML} from './to-contain-html'
 import {toHaveTextContent} from './to-have-text-content'
+import {toHaveAccessibleDescription} from './to-have-accessible-description'
+import {toHaveAccessibleName} from './to-have-accessible-name'
 import {toHaveAttribute} from './to-have-attribute'
 import {toHaveClass} from './to-have-class'
 import {toHaveStyle} from './to-have-style'
@@ -19,6 +21,7 @@ import {toHaveDisplayValue} from './to-have-display-value'
 import {toBeChecked} from './to-be-checked'
 import {toBePartiallyChecked} from './to-be-partially-checked'
 import {toHaveDescription} from './to-have-description'
+import {toHaveErrorMessage} from './to-have-errormessage'
 
 export {
   toBeInTheDOM,
@@ -28,6 +31,8 @@ export {
   toContainElement,
   toContainHTML,
   toHaveTextContent,
+  toHaveAccessibleDescription,
+  toHaveAccessibleName,
   toHaveAttribute,
   toHaveClass,
   toHaveStyle,
@@ -44,4 +49,5 @@ export {
   toBeChecked,
   toBePartiallyChecked,
   toHaveDescription,
+  toHaveErrorMessage,
 }

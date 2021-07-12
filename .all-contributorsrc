@@ -603,6 +603,44 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "SevenOutman",
+      "name": "Doma",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8225666?v=4",
+      "profile": "https://github.com/SevenOutman",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "julienw",
+      "name": "Julien Wajsberg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/454175?v=4",
+      "profile": "http://everlong.org/",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "icecream17",
+      "name": "steven nguyen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/58114641?v=4",
+      "profile": "http://lichess.org/@/StevenEmily",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "tu4mo",
+      "name": "tu4mo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16735302?v=4",
+      "profile": "http://tu4mo.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",

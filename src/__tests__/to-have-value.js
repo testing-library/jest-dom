@@ -138,13 +138,13 @@ describe('.toHaveValue', () => {
     }
 
     expect(errorMessage).toMatchInlineSnapshot(`
-      "<dim>expect(</><red>element</><dim>).toHaveValue(</><green>something else</><dim>)</>
+<dim>expect(</><red>element</><dim>).toHaveValue(</><green>something else</><dim>)</>
 
-      Expected the element to have value:
-      <green>  something else</>
-      Received:
-      <red>  foo</>"
-    `)
+Expected the element to have value:
+<green>  something else</>
+Received:
+<red>  foo</>
+`)
   })
 
   test('throws with type information when the expected text input value has loose equality with received value', () => {
@@ -158,13 +158,13 @@ describe('.toHaveValue', () => {
     }
 
     expect(errorMessage).toMatchInlineSnapshot(`
-      "<dim>expect(</><red>element</><dim>).toHaveValue(</><green>8</><dim>)</>
+<dim>expect(</><red>element</><dim>).toHaveValue(</><green>8</><dim>)</>
 
-      Expected the element to have value:
-      <green>  8 (number)</>
-      Received:
-      <red>  8 (string)</>"
-    `)
+Expected the element to have value:
+<green>  8 (number)</>
+Received:
+<red>  8 (string)</>
+`)
   })
 
   test('throws when using not but the expected input value does match', () => {
@@ -178,13 +178,13 @@ describe('.toHaveValue', () => {
       errorMessage = error.message
     }
     expect(errorMessage).toMatchInlineSnapshot(`
-      "<dim>expect(</><red>element</><dim>).not.toHaveValue(</><green>foo</><dim>)</>
+<dim>expect(</><red>element</><dim>).not.toHaveValue(</><green>foo</><dim>)</>
 
-      Expected the element not to have value:
-      <green>  foo</>
-      Received:
-      <red>  foo</>"
-    `)
+Expected the element not to have value:
+<green>  foo</>
+Received:
+<red>  foo</>
+`)
   })
 
   test('throws when the form has no a value but a value is expected', () => {
@@ -198,13 +198,13 @@ describe('.toHaveValue', () => {
       errorMessage = error.message
     }
     expect(errorMessage).toMatchInlineSnapshot(`
-      "<dim>expect(</><red>element</><dim>).toHaveValue(</><green>expected</><dim>)</>
+<dim>expect(</><red>element</><dim>).toHaveValue(</><green>expected</><dim>)</>
 
-      Expected the element to have value:
-      <green>  (any)</>
-      Received:
-      "
-    `)
+Expected the element to have value:
+<green>  (any)</>
+Received:
+
+`)
   })
 
   test('throws when the form has a value but none is expected', () => {
@@ -218,12 +218,12 @@ describe('.toHaveValue', () => {
       errorMessage = error.message
     }
     expect(errorMessage).toMatchInlineSnapshot(`
-      "<dim>expect(</><red>element</><dim>).not.toHaveValue(</><green>expected</><dim>)</>
+<dim>expect(</><red>element</><dim>).not.toHaveValue(</><green>expected</><dim>)</>
 
-      Expected the element not to have value:
-      <green>  (any)</>
-      Received:
-      <red>  foo</>"
-    `)
+Expected the element not to have value:
+<green>  (any)</>
+Received:
+<red>  foo</>
+`)
   })
 })

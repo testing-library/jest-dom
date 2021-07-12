@@ -49,13 +49,13 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
 - [Usage](#usage)
   - [With TypeScript](#with-typescript)
 - [Custom matchers](#custom-matchers)
   - [`toBeDisabled`](#tobedisabled)
   - [`toBeEnabled`](#tobeenabled)
-  - [`toBeEmpty`](#tobeempty)
   - [`toBeEmptyDOMElement`](#tobeemptydomelement)
   - [`toBeInTheDocument`](#tobeinthedocument)
   - [`toBeInvalid`](#tobeinvalid)
@@ -64,6 +64,8 @@ clear to read and to maintain.
   - [`toBeVisible`](#tobevisible)
   - [`toContainElement`](#tocontainelement)
   - [`toContainHTML`](#tocontainhtml)
+  - [`toHaveAccessibleDescription`](#tohaveaccessibledescription)
+  - [`toHaveAccessibleName`](#tohaveaccessiblename)
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
   - [`toHaveFocus`](#tohavefocus)
@@ -74,9 +76,11 @@ clear to read and to maintain.
   - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
   - [`toBePartiallyChecked`](#tobepartiallychecked)
-  - [`toHaveDescription`](#tohavedescription)
+  - [`toHaveErrorMessage`](#tohaveerrormessage)
 - [Deprecated matchers](#deprecated-matchers)
+  - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDOM`](#tobeinthedom)
+  - [`toHaveDescription`](#tohavedescription)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Guiding Principles](#guiding-principles)
@@ -154,15 +158,15 @@ toBeDisabled()
 ```
 
 This allows you to check whether an element is disabled from the user's
-perspective.
-
-It matches if the element is a form control and the `disabled` attribute is
-specified on this element or the element is a descendant of a form element with
-a `disabled` attribute.
-
-According to the specification, the following elements can be
-[actually disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
+perspective. According to the specification, the following elements can be
+[disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
 `button`, `input`, `select`, `textarea`, `optgroup`, `option`, `fieldset`.
+
+This custom matcher considers an element as disabled if the element is among the
+types of elements that can be disabled (listed above), and the `disabled`
+attribute is present. It will also consider the element as disabled if it's
+inside a parent form element that supports being disabled and has the `disabled`
+attribute present.
 
 #### Examples
 
@@ -199,31 +203,6 @@ your tests.
 > This custom matcher does not take into account the presence or absence of the
 > `aria-disabled` attribute. For more on why this is the case, check
 > [#144](https://github.com/testing-library/jest-dom/issues/144).
-
-<hr />
-
-### `toBeEmpty`
-
-```typescript
-toBeEmpty()
-```
-
-This allows you to assert whether an element has content or not.
-
-#### Examples
-
-```html
-<span data-testid="not-empty"><span data-testid="empty"></span></span>
-```
-
-```javascript
-expect(getByTestId('empty')).toBeEmpty()
-expect(getByTestId('not-empty')).not.toBeEmpty()
-```
-
-> Note: This matcher is being deprecated due to a name clash with
-> `jest-extended`. See more info in #216. In the future, please use only:
-> [`toBeEmptyDOMElement`](#toBeEmptyDOMElement)
 
 <hr />
 
@@ -491,7 +470,7 @@ toContainHTML(htmlText: string)
 ```
 
 Assert whether a string representing a HTML element is contained in another
-element:
+element. The string should contain valid html, and not any incomplete html.
 
 #### Examples
 
@@ -500,7 +479,15 @@ element:
 ```
 
 ```javascript
+// These are valid uses
 expect(getByTestId('parent')).toContainHTML('<span data-testid="child"></span>')
+expect(getByTestId('parent')).toContainHTML('<span data-testid="child" />')
+expect(getByTestId('parent')).not.toContainHTML('<br />')
+
+// These won't work
+expect(getByTestId('parent')).toContainHTML('data-testid="child"')
+expect(getByTestId('parent')).toContainHTML('data-testid')
+expect(getByTestId('parent')).toContainHTML('</span>')
 ```
 
 > Chances are you probably do not need to use this matcher. We encourage testing
@@ -513,6 +500,94 @@ expect(getByTestId('parent')).toContainHTML('<span data-testid="child"></span>')
 >
 > It should not be used to check DOM structure that you control. Please use
 > [`toContainElement`](#tocontainelement) instead.
+
+<hr />
+
+### `toHaveAccessibleDescription`
+
+```typescript
+toHaveAccessibleDescription(expectedAccessibleDescription?: string | RegExp)
+```
+
+This allows you to assert that an element has the expected
+[accessible description](https://w3c.github.io/accname/).
+
+You can pass the exact string of the expected accessible description, or you can
+make a partial match passing a regular expression, or by using
+[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp).
+
+#### Examples
+
+```html
+<a
+  data-testid="link"
+  href="/"
+  aria-label="Home page"
+  title="A link to start over"
+  >Start</a
+>
+<a data-testid="extra-link" href="/about" aria-label="About page">About</a>
+<img src="avatar.jpg" data-testid="avatar" alt="User profile pic" />
+<img
+  src="logo.jpg"
+  data-testid="logo"
+  alt="Company logo"
+  aria-describedby="t1"
+/>
+<span id="t1" role="presentation">The logo of Our Company</span>
+```
+
+```js
+expect(getByTestId('link')).toHaveAccessibleDescription()
+expect(getByTestId('link')).toHaveAccessibleDescription('A link to start over')
+expect(getByTestId('link')).not.toHaveAccessibleDescription('Home page')
+expect(getByTestId('extra-link')).not.toHaveAccessibleDescription()
+expect(getByTestId('avatar')).not.toHaveAccessibleDescription()
+expect(getByTestId('logo')).not.toHaveAccessibleDescription('Company logo')
+expect(getByTestId('logo')).toHaveAccessibleDescription(
+  'The logo of Our Company',
+)
+```
+
+<hr />
+
+### `toHaveAccessibleName`
+
+```typescript
+toHaveAccessibleName(expectedAccessibleName?: string | RegExp)
+```
+
+This allows you to assert that an element has the expected
+[accessible name](https://w3c.github.io/accname/). It is useful, for instance,
+to assert that form elements and buttons are properly labelled.
+
+You can pass the exact string of the expected accessible name, or you can make a
+partial match passing a regular expression, or by using
+[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp).
+
+#### Examples
+
+```html
+<img data-testid="img-alt" src="" alt="Test alt" />
+<img data-testid="img-empty-alt" src="" alt="" />
+<svg data-testid="svg-title"><title>Test title</title></svg>
+<button data-testid="button-img-alt"><img src="" alt="Test" /></button>
+<p><img data-testid="img-paragraph" src="" alt="" /> Test content</p>
+<button data-testid="svg-button"><svg><title>Test</title></svg></p>
+<div><svg data-testid="svg-without-title"></svg></div>
+<input data-testid="input-title" title="test" />
+```
+
+```javascript
+expect(getByTestId('img-alt')).toHaveAccessibleName('Test alt')
+expect(getByTestId('img-empty-alt')).not.toHaveAccessibleName()
+expect(getByTestId('svg-title')).toHaveAccessibleName('Test title')
+expect(getByTestId('button-img-alt')).toHaveAccessibleName()
+expect(getByTestId('img-paragraph')).not.toHaveAccessibleName()
+expect(getByTestId('svg-button')).toHaveAccessibleName()
+expect(getByTestId('svg-without-title')).not.toHaveAccessibleName()
+expect(getByTestId('input-title')).toHaveAccessibleName()
+```
 
 <hr />
 
@@ -985,7 +1060,125 @@ expect(inputCheckboxIndeterminate).toBePartiallyChecked()
 
 <hr />
 
+### `toHaveErrorMessage`
+
+```typescript
+toHaveErrorMessage(text: string | RegExp)
+```
+
+This allows you to check whether the given element has an
+[ARIA error message](https://www.w3.org/TR/wai-aria/#aria-errormessage) or not.
+
+Use the `aria-errormessage` attribute to reference another element that contains
+custom error message text. Multiple ids is **NOT** allowed. Authors MUST use
+`aria-invalid` in conjunction with `aria-errormessage`. Learn more from
+[`aria-errormessage` spec](https://www.w3.org/TR/wai-aria/#aria-errormessage).
+
+Whitespace is normalized.
+
+When a `string` argument is passed through, it will perform a whole
+case-sensitive match to the error message text.
+
+To perform a case-insensitive match, you can use a `RegExp` with the `/i`
+modifier.
+
+To perform a partial match, you can pass a `RegExp` or use
+`expect.stringContaining("partial string")`.
+
+#### Examples
+
+```html
+<label for="startTime"> Please enter a start time for the meeting: </label>
+<input
+  id="startTime"
+  type="text"
+  aria-errormessage="msgID"
+  aria-invalid="true"
+  value="11:30 PM"
+/>
+<span id="msgID" aria-live="assertive" style="visibility:visible">
+  Invalid time: the time must be between 9:00 AM and 5:00 PM
+</span>
+```
+
+```javascript
+const timeInput = getByLabel('startTime')
+
+expect(timeInput).toHaveErrorMessage(
+  'Invalid time: the time must be between 9:00 AM and 5:00 PM',
+)
+expect(timeInput).toHaveErrorMessage(/invalid time/i) // to partially match
+expect(timeInput).toHaveErrorMessage(expect.stringContaining('Invalid time')) // to partially match
+expect(timeInput).not.toHaveErrorMessage('Pikachu!')
+```
+
+## Deprecated matchers
+
+### `toBeEmpty`
+
+> Note: This matcher is being deprecated due to a name clash with
+> `jest-extended`. See more info in #216. In the future, please use only
+> [`toBeEmptyDOMElement`](#toBeEmptyDOMElement)
+
+```typescript
+toBeEmpty()
+```
+
+This allows you to assert whether an element has content or not.
+
+#### Examples
+
+```html
+<span data-testid="not-empty"><span data-testid="empty"></span></span>
+```
+
+```javascript
+expect(getByTestId('empty')).toBeEmpty()
+expect(getByTestId('not-empty')).not.toBeEmpty()
+```
+
+<hr />
+
+### `toBeInTheDOM`
+
+> This custom matcher is deprecated. Prefer
+> [`toBeInTheDocument`](#tobeinthedocument) instead.
+
+```typescript
+toBeInTheDOM()
+```
+
+This allows you to check whether a value is a DOM element, or not.
+
+Contrary to what its name implies, this matcher only checks that you passed to
+it a valid DOM element. It does not have a clear definition of what "the DOM"
+is. Therefore, it does not check whether that element is contained anywhere.
+
+This is the main reason why this matcher is deprecated, and will be removed in
+the next major release. You can follow the discussion around this decision in
+more detail [here](https://github.com/testing-library/jest-dom/issues/34).
+
+As an alternative, you can use [`toBeInTheDocument`](#tobeinthedocument) or
+[`toContainElement`](#tocontainelement). Or if you just want to check if a value
+is indeed an `HTMLElement` you can always use some of
+[jest's built-in matchers](https://jestjs.io/docs/en/expect#tobeinstanceofclass):
+
+```js
+expect(document.querySelector('.ok-button')).toBeInstanceOf(HTMLElement)
+expect(document.querySelector('.cancel-button')).toBeTruthy()
+```
+
+> Note: The differences between `toBeInTheDOM` and `toBeInTheDocument` are
+> significant. Replacing all uses of `toBeInTheDOM` with `toBeInTheDocument`
+> will likely cause unintended consequences in your tests. Please make sure when
+> replacing `toBeInTheDOM` to read through the documentation of the proposed
+> alternatives to see which use case works better for your needs.
+
 ### `toHaveDescription`
+
+> This custom matcher is deprecated. Prefer
+> [`toHaveAccessibleDescription`](#tohaveaccessibledescription) instead, which
+> is more comprehensive in implementing the official spec.
 
 ```typescript
 toHaveDescription(text: string | RegExp)
@@ -1036,40 +1229,6 @@ const deleteButton = getByRole('button', {name: 'Delete'})
 expect(deleteButton).not.toHaveDescription()
 expect(deleteButton).toHaveDescription('') // Missing or empty description always becomes a blank string
 ```
-
-## Deprecated matchers
-
-### `toBeInTheDOM`
-
-```typescript
-toBeInTheDOM()
-```
-
-This allows you to check whether a value is a DOM element, or not.
-
-Contrary to what its name implies, this matcher only checks that you passed to
-it a valid DOM element. It does not have a clear definition of what "the DOM"
-is. Therefore, it does not check whether that element is contained anywhere.
-
-This is the main reason why this matcher is deprecated, and will be removed in
-the next major release. You can follow the discussion around this decision in
-more detail [here](https://github.com/testing-library/jest-dom/issues/34).
-
-As an alternative, you can use [`toBeInTheDocument`](#tobeinthedocument) or
-[`toContainElement`](#tocontainelement). Or if you just want to check if a value
-is indeed an `HTMLElement` you can always use some of
-[jest's built-in matchers](https://jestjs.io/docs/en/expect#tobeinstanceofclass):
-
-```js
-expect(document.querySelector('.ok-button')).toBeInstanceOf(HTMLElement)
-expect(document.querySelector('.cancel-button')).toBeTruthy()
-```
-
-> Note: The differences between `toBeInTheDOM` and `toBeInTheDocument` are
-> significant. Replacing all uses of `toBeInTheDOM` with `toBeInTheDocument`
-> will likely cause unintended consequences in your tests. Please make sure when
-> replacing `toBeInTheDOM` to read through the documentation of the proposed
-> alternatives to see which use case works better for your needs.
 
 ## Inspiration
 
@@ -1192,6 +1351,12 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://obedparla.com/"><img src="https://avatars1.githubusercontent.com/u/10674462?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Obed Marquez Parlapiano</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=obedparla" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/calebeby"><img src="https://avatars.githubusercontent.com/u/13206945?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Caleb Eby</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=calebeby" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=calebeby" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=calebeby" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/marcelbarner"><img src="https://avatars.githubusercontent.com/u/12788744?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcel Barner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=marcelbarner" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=marcelbarner" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/SevenOutman"><img src="https://avatars.githubusercontent.com/u/8225666?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Doma</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=SevenOutman" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=SevenOutman" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://everlong.org/"><img src="https://avatars.githubusercontent.com/u/454175?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julien Wajsberg</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=julienw" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=julienw" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://lichess.org/@/StevenEmily"><img src="https://avatars.githubusercontent.com/u/58114641?v=4?s=100" width="100px;" alt=""/><br /><sub><b>steven nguyen</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=icecream17" title="Documentation">📖</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://tu4mo.com"><img src="https://avatars.githubusercontent.com/u/16735302?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tu4mo</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=tu4mo" title="Documentation">📖</a></td>
   </tr>
 </table>
 
