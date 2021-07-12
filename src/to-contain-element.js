@@ -17,7 +17,7 @@ export function toContainElement(container, element) {
           'element',
         ),
         '',
-        // eslint-disable-next-line babel/new-cap
+        // eslint-disable-next-line @babel/new-cap
         this.utils.RECEIVED_COLOR(`${this.utils.stringify(
           container.cloneNode(false),
         )} ${
