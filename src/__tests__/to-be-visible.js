@@ -247,6 +247,185 @@ describe('.toBeVisible', () => {
           ).toBeVisible()
         })
       })
+
+      describe('when the details inner text does not have an enclosing element', () => {
+        describe('when the details is not opened', () => {
+          beforeEach(() => {
+            subject = render(`
+              <details>
+                <summary>Title of hidden innerText</summary>
+                hidden innerText
+              </details>
+            `)
+          })
+
+          it('returns false to the details content', () => {
+            expect(subject.container.querySelector('details')).not.toBeVisible()
+          })
+
+          it('returns true to the details summary', () => {
+            expect(subject.container.querySelector('summary')).toBeVisible()
+          })
+
+          describe('when the user clicks on the summary', () => {
+            beforeEach(() => subject.container.querySelector('summary').click())
+
+            it('returns true to the details content', () => {
+              expect(subject.container.querySelector('details')).toBeVisible()
+            })
+
+            it('returns true to the details summary', () => {
+              expect(subject.container.querySelector('summary')).toBeVisible()
+            })
+          })
+        })
+
+        describe('when the details is opened', () => {
+          beforeEach(() => {
+            subject = render(`
+              <details open>
+                <summary>Title of visible innerText</summary>
+                visible <small>innerText</small>
+              </details>
+            `)
+          })
+
+          it('returns true to the details content', () => {
+            expect(subject.container.querySelector('details')).toBeVisible()
+          })
+
+          it('returns true to inner small content', () => {
+            expect(subject.container.querySelector('small')).toBeVisible()
+          })
+
+          describe('when the user clicks on the summary', () => {
+            beforeEach(() => subject.container.querySelector('summary').click())
+
+            it('returns false to the details content', () => {
+              expect(
+                subject.container.querySelector('details'),
+              ).not.toBeVisible()
+            })
+
+            it('returns false to the inner small content', () => {
+              expect(subject.container.querySelector('small')).not.toBeVisible()
+            })
+
+            it('returns true to the details summary', () => {
+              expect(subject.container.querySelector('summary')).toBeVisible()
+            })
+          })
+        })
+
+        describe('with nested details (unenclosed outer, enclosed inner)', () => {
+          describe('when both outer and inner are opened', () => {
+            beforeEach(() => {
+              subject = render(`
+                <details open>
+                  <summary>Title of outer unenclosed</summary>
+                  Unenclosed innerText
+                  <details open>
+                    <summary>Title of inner enclosed</summary>
+                    <div>Enclosed innerText</div>
+                  </details>
+                </details>
+              `)
+            })
+
+            it('returns true to outer unenclosed innerText', () => {
+              expect(subject.container.querySelector('details')).toBeVisible()
+            })
+
+            it('returns true to outer summary', () => {
+              expect(subject.container.querySelector('summary')).toBeVisible()
+            })
+
+            it('returns true to inner enclosed innerText', () => {
+              expect(
+                subject.container.querySelector('details > details > div'),
+              ).toBeVisible()
+            })
+
+            it('returns true to inner summary', () => {
+              expect(
+                subject.container.querySelector('details > details > summary'),
+              ).toBeVisible()
+            })
+          })
+
+          describe('when outer is opened and inner is not opened', () => {
+            beforeEach(() => {
+              subject = render(`
+                <details open>
+                  <summary>Title of outer unenclosed</summary>
+                  Unenclosed innerText
+                  <details>
+                    <summary>Title of inner enclosed</summary>
+                    <div>Enclosed innerText</div>
+                  </details>
+                </details>
+              `)
+            })
+
+            it('returns true to outer unenclosed innerText', () => {
+              expect(subject.container.querySelector('details')).toBeVisible()
+            })
+
+            it('returns true to outer summary', () => {
+              expect(subject.container.querySelector('summary')).toBeVisible()
+            })
+
+            it('returns false to inner enclosed innerText', () => {
+              expect(
+                subject.container.querySelector('details > details > div'),
+              ).not.toBeVisible()
+            })
+
+            it('returns true to inner summary', () => {
+              expect(
+                subject.container.querySelector('details > details > summary'),
+              ).toBeVisible()
+            })
+          })
+
+          describe('when outer is not opened and inner is opened', () => {
+            beforeEach(() => {
+              subject = render(`
+                <details>
+                  <summary>Title of outer unenclosed</summary>
+                  Unenclosed innerText
+                  <details open>
+                    <summary>Title of inner enclosed</summary>
+                    <div>Enclosed innerText</div>
+                  </details>
+                </details>
+              `)
+            })
+
+            it('returns true to outer unenclosed innerText', () => {
+              expect(
+                subject.container.querySelector('details'),
+              ).not.toBeVisible()
+            })
+
+            it('returns true to outer summary', () => {
+              expect(subject.container.querySelector('summary')).toBeVisible()
+            })
+
+            it('returns false to inner enclosed innerText', () => {
+              expect(
+                subject.container.querySelector('details > details > div'),
+              ).not.toBeVisible()
+            })
+
+            it('returns true to inner summary', () => {
+              expect(
+                subject.container.querySelector('details > details > summary'),
+              ).not.toBeVisible()
+            })
+          })
+        })
+      })
     })
   })
 })
