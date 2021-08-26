@@ -434,6 +434,11 @@ expect(getByText('Visible Example')).toBeVisible()
 expect(getByText('Hidden Attribute Example')).not.toBeVisible()
 ```
 
+> This custom matcher does not take into account the presence or absence of the
+> `aria-hidden` attribute. For more on why this is the case, check
+> [#162](https://github.com/testing-library/jest-dom/issues/162) and related
+> [#144](https://github.com/testing-library/jest-dom/issues/144).
+
 <hr />
 
 ### `toContainElement`
