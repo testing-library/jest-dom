@@ -102,9 +102,10 @@ test('.toHaveClass with exact mode option', () => {
   expect(queryByTestId('delete-button')).not.toHaveClass('btn extra', {
     exact: true,
   })
-  expect(
-    queryByTestId('delete-button'),
-  ).not.toHaveClass('btn extra btn-danger foo', {exact: true})
+  expect(queryByTestId('delete-button')).not.toHaveClass(
+    'btn extra btn-danger foo',
+    {exact: true},
+  )
 
   expect(queryByTestId('delete-button')).toHaveClass('btn extra btn-danger', {
     exact: false,
@@ -112,9 +113,10 @@ test('.toHaveClass with exact mode option', () => {
   expect(queryByTestId('delete-button')).toHaveClass('btn extra', {
     exact: false,
   })
-  expect(
-    queryByTestId('delete-button'),
-  ).not.toHaveClass('btn extra btn-danger foo', {exact: false})
+  expect(queryByTestId('delete-button')).not.toHaveClass(
+    'btn extra btn-danger foo',
+    {exact: false},
+  )
 
   expect(queryByTestId('delete-button')).toHaveClass(
     'btn',

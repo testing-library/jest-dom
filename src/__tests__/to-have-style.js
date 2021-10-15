@@ -205,7 +205,7 @@ describe('.toHaveStyle', () => {
         <span data-testid="color-example" style="font-size: 12px">Hello World</span>
       `)
       expect(queryByTestId('color-example')).toHaveStyle({
-        fontSize: 12
+        fontSize: 12,
       })
     })
 
@@ -214,7 +214,7 @@ describe('.toHaveStyle', () => {
         <span data-testid="color-example" style="font-size: 12rem">Hello World</span>
       `)
       expect(() => {
-        expect(queryByTestId('color-example')).toHaveStyle({ fontSize: '12px' })
+        expect(queryByTestId('color-example')).toHaveStyle({fontSize: '12px'})
       }).toThrowError()
     })
 
