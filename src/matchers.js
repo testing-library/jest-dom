@@ -22,6 +22,7 @@ import {toBeChecked} from './to-be-checked'
 import {toBePartiallyChecked} from './to-be-partially-checked'
 import {toHaveDescription} from './to-have-description'
 import {toHaveErrorMessage} from './to-have-errormessage'
+import {toHaveSelection} from './to-have-selection'
 
 export {
   toBeInTheDOM,
@@ -50,4 +51,5 @@ export {
   toBePartiallyChecked,
   toHaveDescription,
   toHaveErrorMessage,
+  toHaveSelection,
 }
