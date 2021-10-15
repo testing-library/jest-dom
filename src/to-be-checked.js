@@ -57,7 +57,7 @@ function supportedRolesSentence() {
 }
 
 function supportedRoles() {
-  return Array.from(roles.keys()).filter(roleSupportsChecked)
+  return roles.keys().filter(roleSupportsChecked)
 }
 
 function roleSupportsChecked(role) {
