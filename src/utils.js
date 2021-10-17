@@ -258,20 +258,25 @@ function getSelection(element) {
     // Element contains selection, nothing to do
   } else if (selection.containsNode(element, true)) {
     // Element is partially selected
-    const range = element.ownerDocument.getSelection().getRangeAt(0)
     const selectionStartsWithinElement =
-      element === range.startContainer || element.contains(range.startContainer)
+      element === originalRange.startContainer ||
+      element.contains(originalRange.startContainer)
     const selectionEndsWithinElement =
-      element === range.endContainer || element.contains(range.endContainer)
+      element === originalRange.endContainer ||
+      element.contains(originalRange.endContainer)
 
-    selection.removeAllRanges()
     temporaryRange.selectNodeContents(element)
 
     if (selectionStartsWithinElement) {
-      temporaryRange.setStart(range.startContainer, range.startOffset)
+      temporaryRange.setStart(
+        originalRange.startContainer,
+        originalRange.startOffset,
+      )
     } else if (selectionEndsWithinElement) {
-      temporaryRange.setEnd(range.endContainer, range.endOffset)
+      temporaryRange.setEnd(originalRange.endContainer, originalRange.endOffset)
     }
+
+    selection.removeAllRanges()
     selection.addRange(temporaryRange)
   }
 

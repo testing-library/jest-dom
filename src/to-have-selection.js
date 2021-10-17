@@ -9,18 +9,13 @@ import {
 export function toHaveSelection(htmlElement, expectedSelection) {
   checkHtmlElement(htmlElement, toHaveSelection, this)
 
-  const receivedSelection = getSelection(htmlElement)
   const expectsSelection = expectedSelection !== undefined
 
-  let expectedTypedSelection = expectedSelection
-  let receivedTypedSelection = receivedSelection
-  if (
-    expectedSelection == receivedSelection &&
-    expectedSelection !== receivedSelection
-  ) {
-    expectedTypedSelection = `${expectedSelection} (${typeof expectedSelection})`
-    receivedTypedSelection = `${receivedSelection} (${typeof receivedSelection})`
+  if (expectsSelection && typeof expectedSelection !== 'string') {
+    throw new Error(`expected selection must be a string or undefined`)
   }
+
+  const receivedSelection = getSelection(htmlElement)
 
   return {
     pass: expectsSelection
@@ -37,9 +32,9 @@ export function toHaveSelection(htmlElement, expectedSelection) {
         this,
         matcher,
         `Expected the element ${to} have selection`,
-        expectsSelection ? expectedTypedSelection : '(any)',
+        expectsSelection ? expectedSelection : '(any)',
         'Received',
-        receivedTypedSelection,
+        receivedSelection,
       )
     },
   }
