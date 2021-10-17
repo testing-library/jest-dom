@@ -228,66 +228,6 @@ function toSentence(
   )
 }
 
-function getSelection(element) {
-  const selection = element.ownerDocument.getSelection()
-
-  if (['input', 'textarea'].includes(element.tagName.toLowerCase())) {
-    if (['radio', 'checkbox'].includes(element.type)) return ''
-    return element.value
-      .toString()
-      .substring(element.selectionStart, element.selectionEnd)
-  }
-
-  if (selection.anchorNode === null || selection.focusNode === null) {
-    // No selection
-    return ''
-  }
-
-  const originalRange = selection.getRangeAt(0)
-  const temporaryRange = element.ownerDocument.createRange()
-
-  if (selection.containsNode(element, false)) {
-    // Whole element is inside selection
-    temporaryRange.selectNodeContents(element)
-    selection.removeAllRanges()
-    selection.addRange(temporaryRange)
-  } else if (
-    element.contains(selection.anchorNode) &&
-    element.contains(selection.focusNode)
-  ) {
-    // Element contains selection, nothing to do
-  } else if (selection.containsNode(element, true)) {
-    // Element is partially selected
-    const selectionStartsWithinElement =
-      element === originalRange.startContainer ||
-      element.contains(originalRange.startContainer)
-    const selectionEndsWithinElement =
-      element === originalRange.endContainer ||
-      element.contains(originalRange.endContainer)
-
-    temporaryRange.selectNodeContents(element)
-
-    if (selectionStartsWithinElement) {
-      temporaryRange.setStart(
-        originalRange.startContainer,
-        originalRange.startOffset,
-      )
-    } else if (selectionEndsWithinElement) {
-      temporaryRange.setEnd(originalRange.endContainer, originalRange.endOffset)
-    }
-
-    selection.removeAllRanges()
-    selection.addRange(temporaryRange)
-  }
-
-  const result = selection.toString()
-
-  selection.removeAllRanges()
-  selection.addRange(originalRange)
-
-  return result
-}
-
 export {
   HtmlElementTypeError,
   NodeTypeError,
@@ -302,5 +242,4 @@ export {
   getSingleElementValue,
   compareArraysAsSet,
   toSentence,
-  getSelection,
 }
