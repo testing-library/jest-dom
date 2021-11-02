@@ -1,5 +1,5 @@
 import redent from 'redent'
-import {parse} from 'css'
+import cssParse from 'css/lib/parse'
 import isEqual from 'lodash/isEqual'
 
 class GenericTypeError extends Error {
@@ -100,7 +100,7 @@ class InvalidCSSError extends Error {
 }
 
 function parseCSS(css, ...args) {
-  const ast = parse(`selector { ${css} }`, {silent: true}).stylesheet
+  const ast = cssParse(`selector { ${css} }`, {silent: true}).stylesheet
 
   if (ast.parsingErrors && ast.parsingErrors.length > 0) {
     const {reason, line} = ast.parsingErrors[0]
