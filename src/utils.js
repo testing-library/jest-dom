@@ -80,6 +80,34 @@ function checkHtmlElement(htmlElement, ...args) {
   }
 }
 
+function getValueWithValidRole(element) {
+  switch (element.getAttribute('role')) {
+    case 'listbox':
+      return getSelectValue({
+        // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable
+        multiple:
+          element.hasAttribute('aria-multiselectable') &&
+          element.getAttribute('aria-multiselectable') !== 'false',
+        // Transform the options array to an array of objects with the value and selected properties
+        options: Array.from(element.childNodes)
+          .filter(
+            node =>
+              node &&
+              node.getAttribute &&
+              node.getAttribute('role') === 'option',
+          )
+          .map(child => {
+            return {
+              selected: child.getAttribute('aria-selected') === 'true',
+              value: child.getAttribute('value'),
+            }
+          }),
+      })
+    default:
+      return element.value
+  }
+}
+
 class InvalidCSSError extends Error {
   constructor(received, matcherFn, context) {
     super()
@@ -208,7 +236,7 @@ function getSingleElementValue(element) {
     case 'select':
       return getSelectValue(element)
     default:
-      return element.value
+     return getValueWithValidRole(element)
   }
 }
 

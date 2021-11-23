@@ -82,6 +82,41 @@ describe('.toHaveValue', () => {
     expect(queryByTestId('single')).toHaveValue('first')
   })
 
+  test('handles values of custom select with role `listbox`', () => {
+   const {queryByTestId} = render(`
+     <div role="listbox" data-testid="single">
+       <div role="option" value="first">First Value</div>
+       <div role="option" value="second" aria-selected="true">Second Value</div>
+       <div role="option" value="third">Third Value</d>
+     </div>
+ 
+     <div role="listbox" data-testid="multiple" aria-multiselectable>
+       <div role="option" value="first">First Value</div>
+       <div role="option" value="second" aria-selected="true">Second Value</div>
+       <div role="option" value="third" aria-selected="true">Third Value</div>
+     </div>
+ 
+     <div role="listbox" data-testid="not-selected" >
+       <div role="option" value="" aria-disabled aria-selected="true">- Select some value - </div>
+       <div role="option" value="first">First Value</div>
+       <div role="option" value="second">Second Value</div>
+       <div role="option" value="third">Third Value</div>
+     </div>
+   `)
+ 
+   expect(queryByTestId('single')).toHaveValue('second')
+   expect(queryByTestId('single')).toHaveValue()
+ 
+   expect(queryByTestId('multiple')).toHaveValue(['second', 'third'])
+   expect(queryByTestId('multiple')).toHaveValue()
+ 
+   expect(queryByTestId('not-selected')).not.toHaveValue()
+   expect(queryByTestId('not-selected')).toHaveValue('')
+ 
+   queryByTestId('single').children[0].setAttribute('aria-selected', true)
+   expect(queryByTestId('single')).toHaveValue('first')
+  });
+
   test('handles value of textarea element', () => {
     const {queryByTestId} = render(`
       <textarea data-testid="textarea">text value</textarea>
