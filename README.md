@@ -1356,6 +1356,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="http://tu4mo.com"><img src="https://avatars.githubusercontent.com/u/16735302?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tu4mo</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=tu4mo" title="Documentation">📖</a></td>
     <td align="center"><a href="https://matan.io"><img src="https://avatars.githubusercontent.com/u/12711091?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matan Borenkraout</b></sub></a><br /><a href="#platform-MatanBobi" title="Packaging/porting to new platform">📦</a></td>
     <td align="center"><a href="https://github.com/yannbf"><img src="https://avatars.githubusercontent.com/u/1671563?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yann Braga</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=yannbf" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/IanVS"><img src="https://avatars.githubusercontent.com/u/4616705?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ian VanSchooten</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=IanVS" title="Code">💻</a></td>
   </tr>
 </table>
 
