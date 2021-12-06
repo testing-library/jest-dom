@@ -42,6 +42,11 @@ export function toHaveClass(htmlElement, ...params) {
         const to = this.isNot ? 'not to' : 'to'
         return getMessage(
           this,
+          this.utils.matcherHint(
+            `${this.isNot ? '.not' : ''}.toHaveClass`,
+            'element',
+            this.utils.printExpected(expected.join(' ')),
+          ),
           `Expected the element ${to} have EXACTLY defined classes`,
           expected.join(' '),
           'Received',
