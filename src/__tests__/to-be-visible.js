@@ -67,10 +67,22 @@ describe('.toBeVisible', () => {
         expect(container.querySelector('button')).toBeVisible(),
       ).toThrowError()
     })
+
+    it('does not allow child elements to override invisibility by changing their own display style', () => {
+      const {container} = render(`
+        <div style="display: none">
+          <button style="display: block">Click me</button>
+        </div>
+      `)
+      expect(container.querySelector('button')).not.toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).toBeVisible(),
+      ).toThrowError()
+    })
   })
 
   describe('visibility', () => {
-    it('considers "visibility: collapse" as visible', () => {
+    it('considers "visibility: visible" as visible', () => {
       const {container} = render(`
         <div style="visibility: visible">
           <button>Click me</button>
@@ -105,6 +117,18 @@ describe('.toBeVisible', () => {
         expect(container.querySelector('button')).toBeVisible(),
       ).toThrowError()
     })
+
+    it('allows child elements to override invisibility by changing their own visibility style', () => {
+      const {container} = render(`
+        <div style="visibility: hidden">
+          <button style="visibility: visible">Click me</button>
+        </div>
+      `)
+      expect(container.querySelector('button')).toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).not.toBeVisible(),
+      ).toThrowError()
+    })
   })
 
   describe('opacity', () => {
@@ -129,6 +153,18 @@ describe('.toBeVisible', () => {
       expect(container.querySelector('button')).toBeVisible()
       expect(() =>
         expect(container.querySelector('button')).not.toBeVisible(),
+      ).toThrowError()
+    })
+
+    it('does not allow child elements to override invisibility by increasing their own opacity', () => {
+      const {container} = render(`
+        <div style="opacity: 0">
+          <button style="opacity: 1">Click me</button>
+        </div>
+      `)
+      expect(container.querySelector('button')).not.toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).toBeVisible(),
       ).toThrowError()
     })
   })
