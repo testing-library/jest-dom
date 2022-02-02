@@ -890,7 +890,7 @@ const selectInput = getByTestId('select-number')
 expect(textInput).toHaveValue('text')
 expect(numberInput).toHaveValue(5)
 expect(emptyInput).not.toHaveValue()
-expect(selectInput).not.toHaveValue(['second', 'third'])
+expect(selectInput).toHaveValue(['second', 'third'])
 ```
 
 <hr />
