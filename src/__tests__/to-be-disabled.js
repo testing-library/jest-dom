@@ -119,8 +119,8 @@ test('.toBeDisabled fieldset>legend', () => {
 
 test('.toBeDisabled custom element', () => {
   const {queryByTestId} = render(`
-    <custom-element data-testid="disabled-custom-element" disabled="" />
-    <custom-element data-testid="enabled-custom-element" />
+    <custom-element data-testid="disabled-custom-element" disabled=""></custom-element>
+    <custom-element data-testid="enabled-custom-element"></custom-element>
   `)
 
   expect(queryByTestId('disabled-custom-element')).toBeDisabled()
@@ -269,8 +269,8 @@ test('.toBeEnabled fieldset>legend', () => {
 
 test('.toBeEnabled custom element', () => {
   const {queryByTestId} = render(`
-    <custom-element data-testid="disabled-custom-element" disabled="" />
-    <custom-element data-testid="enabled-custom-element" />
+    <custom-element data-testid="disabled-custom-element" disabled=""></custom-element>
+    <custom-element data-testid="enabled-custom-element"></custom-element>
   `)
 
   expect(queryByTestId('disabled-custom-element')).not.toBeEnabled()
