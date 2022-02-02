@@ -641,6 +641,42 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "MatanBobi",
+      "name": "Matan Borenkraout",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12711091?v=4",
+      "profile": "https://matan.io",
+      "contributions": [
+        "platform"
+      ]
+    },
+    {
+      "login": "yannbf",
+      "name": "Yann Braga",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1671563?v=4",
+      "profile": "https://github.com/yannbf",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "IanVS",
+      "name": "Ian VanSchooten",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4616705?v=4",
+      "profile": "https://github.com/IanVS",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "cbroeren",
+      "name": "Chantal Broeren",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7499806?v=4",
+      "profile": "http://chantalbroeren.nl",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
