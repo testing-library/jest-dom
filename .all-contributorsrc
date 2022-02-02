@@ -668,6 +668,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "cbroeren",
+      "name": "Chantal Broeren",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7499806?v=4",
+      "profile": "http://chantalbroeren.nl",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
