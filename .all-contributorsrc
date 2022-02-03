@@ -677,6 +677,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "astorije",
+      "name": "Jérémie Astori",
+      "avatar_url": "https://avatars.githubusercontent.com/u/113730?v=4",
+      "profile": "https://jeremie.astori.fr",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
     }
   ],
   "repoHost": "https://github.com",

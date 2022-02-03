@@ -1359,6 +1359,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="https://github.com/yannbf"><img src="https://avatars.githubusercontent.com/u/1671563?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yann Braga</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=yannbf" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/IanVS"><img src="https://avatars.githubusercontent.com/u/4616705?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ian VanSchooten</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=IanVS" title="Code">💻</a></td>
     <td align="center"><a href="http://chantalbroeren.nl"><img src="https://avatars.githubusercontent.com/u/7499806?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Chantal Broeren</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=cbroeren" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://jeremie.astori.fr"><img src="https://avatars.githubusercontent.com/u/113730?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jérémie Astori</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=astorije" title="Code">💻</a> <a href="#ideas-astorije" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
