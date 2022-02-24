@@ -2,14 +2,25 @@
   "name": "@testing-library/jest-dom",
   "version": "0.0.0-semantically-released",
   "description": "Custom jest matchers to test the state of the DOM",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js"
+    },
+    "./matchers": {
+      "require": "./dist/cjs/matchers.js",
+      "import": "./dist/esm/matchers.js"
+    }
+  },
   "engines": {
     "node": ">=8",
     "npm": ">=6",
     "yarn": ">=1"
   },
   "scripts": {
-    "build": "kcd-scripts build",
+    "build": "rollup -c",
     "format": "kcd-scripts format",
     "lint": "kcd-scripts lint",
     "setup": "npm install && npm run validate -s",
@@ -46,7 +57,8 @@
     "jest-watch-select-projects": "^2.0.0",
     "jsdom": "^16.2.1",
     "kcd-scripts": "^11.1.0",
-    "pretty-format": "^25.1.0"
+    "pretty-format": "^25.1.0",
+    "rollup": "^2.68.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
