@@ -2,44 +2,181 @@ import {render} from './helpers/test-utils'
 import document from './helpers/document'
 
 describe('.toBeVisible', () => {
-  it('returns the visibility of an element', () => {
+  it('considers elements to be visible by default', () => {
     const {container} = render(`
       <div>
         <header>
-          <h1 style="display: none">Main title</h1>
-          <h2 style="visibility: hidden">Secondary title</h2>
-          <h3 style="visibility: collapse">Secondary title</h3>
-          <h4 style="opacity: 0">Secondary title</h4>
-          <h5 style="opacity: 0.1">Secondary title</h5>
+          <h1>This is the title</h1>
         </header>
-        <button hidden>Hidden button</button>
-        <section style="display: block; visibility: hidden">
+        <button>Hidden button</button>
+        <section>
           <p>Hello <strong>World</strong></p>
         </section>
       </div>
     `)
 
     expect(container.querySelector('header')).toBeVisible()
-    expect(container.querySelector('h1')).not.toBeVisible()
-    expect(container.querySelector('h2')).not.toBeVisible()
-    expect(container.querySelector('h3')).not.toBeVisible()
-    expect(container.querySelector('h4')).not.toBeVisible()
-    expect(container.querySelector('h5')).toBeVisible()
-    expect(container.querySelector('button')).not.toBeVisible()
-    expect(container.querySelector('strong')).not.toBeVisible()
+    expect(container.querySelector('h1')).toBeVisible()
+    expect(container.querySelector('button')).toBeVisible()
+    expect(container.querySelector('strong')).toBeVisible()
 
     expect(() =>
       expect(container.querySelector('header')).not.toBeVisible(),
     ).toThrowError()
-    expect(() =>
-      expect(container.querySelector('p')).toBeVisible(),
-    ).toThrowError()
   })
 
-  test('detached element is not visible', () => {
-    const subject = document.createElement('div')
-    expect(subject).not.toBeVisible()
-    expect(() => expect(subject).toBeVisible()).toThrowError()
+  describe('with the "hidden" attribute', () => {
+    it('considers an element to not be visible', () => {
+      const {container} = render('<button hidden>Click me</button>')
+      expect(container.querySelector('button')).not.toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).toBeVisible(),
+      ).toThrowError()
+    })
+  })
+
+  describe('display', () => {
+    it.each([
+      ['inline'],
+      ['block'],
+      ['inline-block'],
+      ['flex'],
+      ['inline-flex'],
+      ['grid'],
+      ['inline-grid'],
+    ])('considers "display: %s" as visible', display => {
+      const {container} = render(`
+        <div style="display: ${display}">
+          <button>Click me</button>
+        </div>,
+      `)
+      expect(container.querySelector('button')).toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).not.toBeVisible(),
+      ).toThrowError()
+    })
+
+    it('considers "display: none" as not visible', () => {
+      const {container} = render(`
+        <div style="display: none">
+          <button>Click me</button>
+        </div>,
+      `)
+      expect(container.querySelector('button')).not.toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).toBeVisible(),
+      ).toThrowError()
+    })
+
+    it('does not allow child elements to override invisibility by changing their own display style', () => {
+      const {container} = render(`
+        <div style="display: none">
+          <button style="display: block">Click me</button>
+        </div>
+      `)
+      expect(container.querySelector('button')).not.toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).toBeVisible(),
+      ).toThrowError()
+    })
+  })
+
+  describe('visibility', () => {
+    it('considers "visibility: visible" as visible', () => {
+      const {container} = render(`
+        <div style="visibility: visible">
+          <button>Click me</button>
+        </div>,
+      `)
+      expect(container.querySelector('button')).toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).not.toBeVisible(),
+      ).toThrowError()
+    })
+
+    it('considers "visibility: hidden" as not visible', () => {
+      const {container} = render(`
+        <div style="visibility: hidden">
+          <button>Click me</button>
+        </div>,
+      `)
+      expect(container.querySelector('button')).not.toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).toBeVisible(),
+      ).toThrowError()
+    })
+
+    it('considers "visibility: collapse" as not visible', () => {
+      const {container} = render(`
+        <div style="visibility: hidden">
+          <button>Click me</button>
+        </div>,
+      `)
+      expect(container.querySelector('button')).not.toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).toBeVisible(),
+      ).toThrowError()
+    })
+
+    it('allows child elements to override invisibility by changing their own visibility style', () => {
+      const {container} = render(`
+        <div style="visibility: hidden">
+          <button style="visibility: visible">Click me</button>
+        </div>
+      `)
+      expect(container.querySelector('button')).toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).not.toBeVisible(),
+      ).toThrowError()
+    })
+  })
+
+  describe('opacity', () => {
+    it('considers "opacity: 0" as not visible', () => {
+      const {container} = render(`
+        <div style="opacity: 0">
+          <button>Click me</button>
+        </div>,
+      `)
+      expect(container.querySelector('button')).not.toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).toBeVisible(),
+      ).toThrowError()
+    })
+
+    it('considers "opacity > 0" as visible', () => {
+      const {container} = render(`
+        <div style="opacity: 0.1">
+          <button>Click me</button>
+        </div>,
+      `)
+      expect(container.querySelector('button')).toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).not.toBeVisible(),
+      ).toThrowError()
+    })
+
+    it('does not allow child elements to override invisibility by increasing their own opacity', () => {
+      const {container} = render(`
+        <div style="opacity: 0">
+          <button style="opacity: 1">Click me</button>
+        </div>
+      `)
+      expect(container.querySelector('button')).not.toBeVisible()
+      expect(() =>
+        expect(container.querySelector('button')).toBeVisible(),
+      ).toThrowError()
+    })
+  })
+
+  describe('detached element', () => {
+    it('is not visible', () => {
+      const subject = document.createElement('div')
+      expect(subject).not.toBeVisible()
+      expect(() => {
+        expect(subject).toBeVisible()
+      }).toThrowError()
+    })
   })
 
   describe('with a <details /> element', () => {
