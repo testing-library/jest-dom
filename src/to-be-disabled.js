@@ -36,8 +36,17 @@ function isElementDisabledByParent(element, parent) {
   )
 }
 
+function isCustomElement(tag) {
+  return tag.includes('-')
+}
+
+/*
+ * Only certain form elements and custom elements can actually be disabled:
+ * https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements
+ */
 function canElementBeDisabled(element) {
-  return FORM_TAGS.includes(getTag(element))
+  const tag = getTag(element)
+  return FORM_TAGS.includes(tag) || isCustomElement(tag)
 }
 
 function isElementDisabled(element) {
