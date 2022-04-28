@@ -1,19 +1,30 @@
-import path from 'path'
 import pkg from './package.json'
 
 export default [
   {
-    input: {
-      index: 'src/index.js',
-      matchers: 'src/matchers.js',
-    },
+    input: 'src/index.js',
     output: [
       {
-        dir: path.dirname(pkg.exports['./matchers'].import),
+        file: pkg.exports['.'].import,
         format: 'esm',
       },
       {
-        dir: path.dirname(pkg.exports['./matchers'].require),
+        file: pkg.exports['.'].require,
+        format: 'cjs',
+      },
+    ],
+    external: id =>
+      !id.startsWith('\0') && !id.startsWith('.') && !id.startsWith('/'),
+  },
+  {
+    input: 'src/matchers.js',
+    output: [
+      {
+        file: pkg.exports['./matchers'].import,
+        format: 'esm',
+      },
+      {
+        file: pkg.exports['./matchers'].require,
         format: 'cjs',
       },
     ],
