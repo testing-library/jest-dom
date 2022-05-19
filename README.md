@@ -129,6 +129,18 @@ setupFilesAfterEnv: ['<rootDir>/jest-setup.js']
 
 ### With TypeScript
 
+Install the Typescript types via your package manager.
+
+```sh
+# for npm
+npm install -D @types/testing-library__jest-dom
+```
+
+```sh
+# for yarn
+yarn add -D @types/testing-library__jest-dom
+```
+
 If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js`
 to include the necessary types.
 
