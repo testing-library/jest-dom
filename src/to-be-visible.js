@@ -14,12 +14,19 @@ function isStyleVisible(element) {
 }
 
 function isAttributeVisible(element, previousElement) {
-  return (
-    !element.hasAttribute('hidden') &&
-    (element.nodeName === 'DETAILS' && previousElement.nodeName !== 'SUMMARY'
-      ? element.hasAttribute('open')
-      : true)
-  )
+  let detailsVisibility
+
+  if (previousElement) {
+    detailsVisibility =
+      element.nodeName === 'DETAILS' && previousElement.nodeName !== 'SUMMARY'
+        ? element.hasAttribute('open')
+        : true
+  } else {
+    detailsVisibility =
+      element.nodeName === 'DETAILS' ? element.hasAttribute('open') : true
+  }
+
+  return !element.hasAttribute('hidden') && detailsVisibility
 }
 
 function isElementVisible(element, previousElement) {

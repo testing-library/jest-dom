@@ -49,7 +49,6 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
 - [Usage](#usage)
   - [With TypeScript](#with-typescript)
@@ -160,7 +159,8 @@ toBeDisabled()
 This allows you to check whether an element is disabled from the user's
 perspective. According to the specification, the following elements can be
 [disabled](https://html.spec.whatwg.org/multipage/semantics-other.html#disabled-elements):
-`button`, `input`, `select`, `textarea`, `optgroup`, `option`, `fieldset`.
+`button`, `input`, `select`, `textarea`, `optgroup`, `option`, `fieldset`, and
+custom elements.
 
 This custom matcher considers an element as disabled if the element is among the
 types of elements that can be disabled (listed above), and the `disabled`
@@ -423,6 +423,14 @@ An element is visible if **all** the following conditions are met:
 </div>
 <div data-testid="visible">Visible Example</div>
 <div data-testid="hidden-attribute" hidden>Hidden Attribute Example</div>
+<details>
+  <summary>Title of hidden text</summary>
+  Hidden Details Example
+</details>
+<details open>
+  <summary>Title of visible text</summary>
+  <div>Visible Details Example</div>
+</details>
 ```
 
 ```javascript
@@ -432,6 +440,8 @@ expect(getByText('Display None Example')).not.toBeVisible()
 expect(getByText('Hidden Parent Example')).not.toBeVisible()
 expect(getByText('Visible Example')).toBeVisible()
 expect(getByText('Hidden Attribute Example')).not.toBeVisible()
+expect(getByText('Hidden Details Example')).not.toBeVisible()
+expect(getByText('Visible Details Example')).toBeVisible()
 ```
 
 <hr />
@@ -893,7 +903,7 @@ expect(textInput).toHaveValue('text')
 expect(numberInput).toHaveValue(5)
 expect(rangeInput).toHaveValue(5)
 expect(emptyInput).not.toHaveValue()
-expect(selectInput).not.toHaveValue(['second', 'third'])
+expect(selectInput).toHaveValue(['second', 'third'])
 ```
 
 <hr />
@@ -1206,12 +1216,8 @@ To perform a partial match, you can pass a `RegExp` or use
 #### Examples
 
 ```html
-<button aria-label="Close" aria-describedby="description-close">
-  X
-</button>
-<div id="description-close">
-  Closing will discard any changes
-</div>
+<button aria-label="Close" aria-describedby="description-close">X</button>
+<div id="description-close">Closing will discard any changes</div>
 
 <button>Delete</button>
 ```
@@ -1357,6 +1363,12 @@ Thanks goes to these people ([emoji key][emojis]):
   </tr>
   <tr>
     <td align="center"><a href="http://tu4mo.com"><img src="https://avatars.githubusercontent.com/u/16735302?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tu4mo</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=tu4mo" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://matan.io"><img src="https://avatars.githubusercontent.com/u/12711091?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matan Borenkraout</b></sub></a><br /><a href="#platform-MatanBobi" title="Packaging/porting to new platform">📦</a></td>
+    <td align="center"><a href="https://github.com/yannbf"><img src="https://avatars.githubusercontent.com/u/1671563?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yann Braga</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=yannbf" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/IanVS"><img src="https://avatars.githubusercontent.com/u/4616705?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ian VanSchooten</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=IanVS" title="Code">💻</a></td>
+    <td align="center"><a href="http://chantalbroeren.nl"><img src="https://avatars.githubusercontent.com/u/7499806?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Chantal Broeren</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=cbroeren" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://jeremie.astori.fr"><img src="https://avatars.githubusercontent.com/u/113730?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jérémie Astori</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=astorije" title="Code">💻</a> <a href="#ideas-astorije" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/ashleyryan"><img src="https://avatars.githubusercontent.com/u/9469374?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ashley Ryan</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=ashleyryan" title="Code">💻</a> <a href="#ideas-ashleyryan" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
