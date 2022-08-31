@@ -49,7 +49,6 @@ clear to read and to maintain.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
 - [Usage](#usage)
   - [With TypeScript](#with-typescript)
@@ -424,6 +423,14 @@ An element is visible if **all** the following conditions are met:
 </div>
 <div data-testid="visible">Visible Example</div>
 <div data-testid="hidden-attribute" hidden>Hidden Attribute Example</div>
+<details>
+  <summary>Title of hidden text</summary>
+  Hidden Details Example
+</details>
+<details open>
+  <summary>Title of visible text</summary>
+  <div>Visible Details Example</div>
+</details>
 ```
 
 ```javascript
@@ -433,6 +440,8 @@ expect(getByText('Display None Example')).not.toBeVisible()
 expect(getByText('Hidden Parent Example')).not.toBeVisible()
 expect(getByText('Visible Example')).toBeVisible()
 expect(getByText('Hidden Attribute Example')).not.toBeVisible()
+expect(getByText('Hidden Details Example')).not.toBeVisible()
+expect(getByText('Visible Details Example')).toBeVisible()
 ```
 
 <hr />
@@ -1204,12 +1213,8 @@ To perform a partial match, you can pass a `RegExp` or use
 #### Examples
 
 ```html
-<button aria-label="Close" aria-describedby="description-close">
-  X
-</button>
-<div id="description-close">
-  Closing will discard any changes
-</div>
+<button aria-label="Close" aria-describedby="description-close">X</button>
+<div id="description-close">Closing will discard any changes</div>
 
 <button>Delete</button>
 ```
