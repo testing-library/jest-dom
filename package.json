@@ -41,7 +41,6 @@
     "redent": "^3.0.0"
   },
   "devDependencies": {
-    "@types/testing-library__jest-dom": "^5.9.1",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-watch-select-projects": "^2.0.0",
     "jsdom": "^16.2.1",
