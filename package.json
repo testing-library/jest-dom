@@ -13,6 +13,10 @@
     "./matchers": {
       "require": "./dist/matchers.js",
       "import": "./dist/matchers.mjs"
+    },
+    "./extend-expect.js": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
     }
   },
   "engines": {
@@ -31,7 +35,6 @@
   },
   "files": [
     "dist",
-    "extend-expect.js",
     "matchers.js"
   ],
   "keywords": [
