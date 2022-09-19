@@ -1,33 +1,23 @@
-import pkg from './package.json'
+const entries = ['src/index.js', 'src/matchers.js']
 
 export default [
   {
-    input: 'src/index.js',
-    output: [
-      {
-        file: pkg.exports['.'].import,
-        format: 'esm',
-      },
-      {
-        file: pkg.exports['.'].require,
-        format: 'cjs',
-      },
-    ],
+    input: entries,
+    output: {
+      dir: 'dist',
+      entryFileNames: '[name].mjs',
+      format: 'esm',
+    },
     external: id =>
       !id.startsWith('\0') && !id.startsWith('.') && !id.startsWith('/'),
   },
   {
-    input: 'src/matchers.js',
-    output: [
-      {
-        file: pkg.exports['./matchers'].import,
-        format: 'esm',
-      },
-      {
-        file: pkg.exports['./matchers'].require,
-        format: 'cjs',
-      },
-    ],
+    input: entries,
+    output: {
+      dir: 'dist',
+      entryFileNames: '[name].js',
+      format: 'cjs',
+    },
     external: id =>
       !id.startsWith('\0') && !id.startsWith('.') && !id.startsWith('/'),
   },
