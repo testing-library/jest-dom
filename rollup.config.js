@@ -6,6 +6,7 @@ export default [
     output: {
       dir: 'dist',
       entryFileNames: '[name].mjs',
+      chunkFileNames: '[name]-[hash].mjs',
       format: 'esm',
     },
     external: id =>
@@ -16,6 +17,7 @@ export default [
     output: {
       dir: 'dist',
       entryFileNames: '[name].js',
+      chunkFileNames: '[name]-[hash].js',
       format: 'cjs',
     },
     external: id =>
