@@ -141,6 +141,11 @@ npm install -D @types/testing-library__jest-dom
 yarn add -D @types/testing-library__jest-dom
 ```
 
+```sh
+# for pnpm
+pnpm add -D @types/testing-library__jest-dom
+```
+
 If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js`
 to include the necessary types.
 
