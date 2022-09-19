@@ -1,5 +1,5 @@
-import isEqualWith from 'lodash/isEqualWith'
-import uniq from 'lodash/uniq'
+import isEqualWith from 'lodash/isEqualWith.js'
+import uniq from 'lodash/uniq.js'
 import escape from 'css.escape'
 import {
   checkHtmlElement,

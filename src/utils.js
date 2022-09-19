@@ -1,6 +1,6 @@
 import redent from 'redent'
-import cssParse from 'css/lib/parse'
-import isEqual from 'lodash/isEqual'
+import cssParse from 'css/lib/parse/index.js'
+import isEqual from 'lodash/isEqual.js'
 
 class GenericTypeError extends Error {
   constructor(expectedString, received, matcherFn, context) {
