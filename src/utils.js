@@ -218,8 +218,7 @@ function getSingleElementValue(element) {
     case 'select':
       return getSelectValue(element)
     default: {
-      const accessibleValue = getAccessibleValue(element)
-      return element.value ?? accessibleValue
+      return element.value ?? getAccessibleValue(element)
     }
   }
 }
