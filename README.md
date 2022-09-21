@@ -129,7 +129,7 @@ setupFilesAfterEnv: ['<rootDir>/jest-setup.js']
 
 ### With TypeScript
 
-Install the Typescript types via your package manager.
+Install the Typescript types via your package manager, and usually only needs to be done when your package manager requires all dependencies explicitly installed (pnpm, yarn@>=2).
 
 ```sh
 # for npm
