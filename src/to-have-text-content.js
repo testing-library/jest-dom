@@ -11,6 +11,12 @@ export function toHaveTextContent(
     ? normalize(node.textContent)
     : node.textContent.replace(/\u00a0/g, ' ') // Replace &nbsp; with normal spaces
 
+  if (typeof checkWith === 'string') {
+    checkWith = options.normalizeWhitespace
+      ? normalize(checkWith)
+      : checkWith.replace(/\u00a0/g, ' ')
+  }
+
   const checkingWithEmptyString = textContent !== '' && checkWith === ''
 
   return {

@@ -60,6 +60,28 @@ describe('.toHaveTextContent', () => {
     })
   })
 
+  test('normalize also applies to the expected value', () => {
+    const {container} = render(`<span>&nbsp;&nbsp;Step  1 of 4</span>`)
+
+    expect(container.querySelector('span')).toHaveTextContent(
+      '\u00A0Step 1  of 4',
+      {
+        normalizeWhitespace: true,
+      },
+    )
+  })
+
+  test('nbsp replacement also applies to the expected value', () => {
+    const {container} = render(`<span>&nbsp;&nbsp;Step  1 of 4</span>`)
+
+    expect(container.querySelector('span')).toHaveTextContent(
+      '\u00A0Step  1 of 4',
+      {
+        normalizeWhitespace: false,
+      },
+    )
+  })
+
   test('can handle multiple levels', () => {
     const {container} = render(`<span id="parent"><span>Step 1 
     
