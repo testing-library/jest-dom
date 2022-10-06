@@ -3,6 +3,7 @@
   "version": "0.0.0-semantically-released",
   "description": "Custom jest matchers to test the state of the DOM",
   "main": "dist/index.js",
+  "types": "index.d.js",
   "engines": {
     "node": ">=8",
     "npm": ">=6",
@@ -20,6 +21,7 @@
   "files": [
     "dist",
     "extend-expect.js",
+    "index.d.ts",
     "matchers.js"
   ],
   "keywords": [
@@ -53,6 +55,9 @@
     "rules": {
       "@babel/no-invalid-this": "off"
     },
+    "parserOptions": {
+      "project": ""
+    },
     "overrides": [
       {
         "files": [
@@ -67,7 +72,8 @@
   "eslintIgnore": [
     "node_modules",
     "coverage",
-    "dist"
+    "dist",
+    "/index.d.ts"
   ],
   "repository": {
     "type": "git",
