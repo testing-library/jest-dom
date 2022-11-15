@@ -464,7 +464,7 @@ descendant or not.
 ```javascript
 const ancestor = getByTestId('ancestor')
 const descendant = getByTestId('descendant')
-const nonExistantElement = getByTestId('does-not-exist')
+const nonExistantElement = queryByTestId('does-not-exist')
 
 expect(ancestor).toContainElement(descendant)
 expect(descendant).not.toContainElement(ancestor)
