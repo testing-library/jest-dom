@@ -66,6 +66,7 @@ clear to read and to maintain.
   - [`toHaveAccessibleDescription`](#tohaveaccessibledescription)
   - [`toHaveAccessibleName`](#tohaveaccessiblename)
   - [`toHaveAttribute`](#tohaveattribute)
+  - [`toHaveAttributes`](#tohaveattributes)
   - [`toHaveClass`](#tohaveclass)
   - [`toHaveFocus`](#tohavefocus)
   - [`toHaveFormValues`](#tohaveformvalues)
@@ -627,6 +628,41 @@ expect(button).not.toHaveAttribute('type', 'button')
 
 expect(button).toHaveAttribute('type', expect.stringContaining('sub'))
 expect(button).toHaveAttribute('type', expect.not.stringContaining('but'))
+```
+
+<hr />
+
+### `toHaveAttributes`
+
+```typescript
+toHaveAttributes({[attr: string]: any})
+```
+
+This allows you to check whether the given element has attributes or not. You
+can also optionally check that the attributes have specific expected values or
+partial match using
+[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp)
+
+#### Examples
+
+```html
+<button data-testid="ok-button" type="submit" disabled>ok</button>
+```
+
+```javascript
+const button = getByTestId('ok-button')
+
+expect(button).toHaveAttributes({type: 'submit', disabled: ''})
+expect(button).not.toHaveAttributes({type: 'button', disabled: 'false'})
+
+expect(button).toHaveAttributes({
+  type: expect.stringContaining('sub'),
+  disabled: '',
+})
+expect(button).toHaveAttributes({
+  type: expect.not.stringContaining('but'),
+  disabled: 'false',
+})
 ```
 
 <hr />

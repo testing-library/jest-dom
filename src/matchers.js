@@ -8,6 +8,7 @@ import {toHaveTextContent} from './to-have-text-content'
 import {toHaveAccessibleDescription} from './to-have-accessible-description'
 import {toHaveAccessibleName} from './to-have-accessible-name'
 import {toHaveAttribute} from './to-have-attribute'
+import {toHaveAttributes} from './to-have-attributes'
 import {toHaveClass} from './to-have-class'
 import {toHaveStyle} from './to-have-style'
 import {toHaveFocus} from './to-have-focus'
@@ -34,6 +35,7 @@ export {
   toHaveAccessibleDescription,
   toHaveAccessibleName,
   toHaveAttribute,
+  toHaveAttributes,
   toHaveClass,
   toHaveStyle,
   toHaveFocus,
