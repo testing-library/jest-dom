@@ -143,6 +143,12 @@ haven't already:
   ],
 ```
 
+Finally, remember to install the types for jest-dom via definitely typed:
+
+```bash
+npm install --save-dev @types/testing-library__jest-dom
+```
+
 ## Custom matchers
 
 `@testing-library/jest-dom` can work with any library or framework that returns
