@@ -1,7 +1,8 @@
-import {checkHtmlElement, getMessage, normalize} from './utils'
+import {checkHtmlElement, getMessage, normalize, deprecate} from './utils'
 
 // See aria-errormessage spec https://www.w3.org/TR/wai-aria-1.2/#aria-errormessage
 export function toHaveErrorMessage(htmlElement, checkWith) {
+  deprecate('toHaveErrorMessage', 'Please use toHaveAccessibleErrorMessage.')
   checkHtmlElement(htmlElement, toHaveErrorMessage, this)
 
   if (

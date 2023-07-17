@@ -64,6 +64,7 @@ clear to read and to maintain.
   - [`toContainElement`](#tocontainelement)
   - [`toContainHTML`](#tocontainhtml)
   - [`toHaveAccessibleDescription`](#tohaveaccessibledescription)
+  - [`toHaveAccessibleErrorMessage`](#tohaveaccessibleerrormessage)
   - [`toHaveAccessibleName`](#tohaveaccessiblename)
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
@@ -557,6 +558,63 @@ expect(getByTestId('logo')).not.toHaveAccessibleDescription('Company logo')
 expect(getByTestId('logo')).toHaveAccessibleDescription(
   'The logo of Our Company',
 )
+```
+
+<hr />
+
+### `toHaveAccessibleErrorMessage`
+
+```typescript
+toHaveAccessibleErrorMessage(expectedAccessibleErrorMessage?: string | RegExp)
+```
+
+This allows you to assert that an element has the expected
+[accessible error message](https://w3c.github.io/aria/#aria-errormessage).
+
+You can pass the exact string of the expected accessible error message.
+Alternatively, you can perform a partial match by passing a regular expression
+or by using
+[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp).
+
+#### Examples
+
+```html
+<input
+  aria-label="Has Error"
+  aria-invalid="true"
+  aria-errormessage="error-message"
+/>
+<div id="error-message" role="alert">This field is invalid</div>
+
+<input aria-label="No Error Attributes" />
+<input
+  aria-label="Not Invalid"
+  aria-invalid="false"
+  aria-errormessage="error-message"
+/>
+```
+
+```js
+// Inputs with Valid Error Messages
+expect(getByRole('textbox', {name: 'Has Error'})).toHaveAccessibleErrorMessage()
+expect(getByRole('textbox', {name: 'Has Error'})).toHaveAccessibleErrorMessage(
+  'This field is invalid',
+)
+expect(getByRole('textbox', {name: 'Has Error'})).toHaveAccessibleErrorMessage(
+  /invalid/i,
+)
+expect(
+  getByRole('textbox', {name: 'Has Error'}),
+).not.toHaveAccessibleErrorMessage('This field is absolutely correct!')
+
+// Inputs without Valid Error Messages
+expect(
+  getByRole('textbox', {name: 'No Error Attributes'}),
+).not.toHaveAccessibleErrorMessage()
+
+expect(
+  getByRole('textbox', {name: 'Not Invalid'}),
+).not.toHaveAccessibleErrorMessage()
 ```
 
 <hr />
@@ -1068,6 +1126,10 @@ expect(inputCheckboxIndeterminate).toBePartiallyChecked()
 <hr />
 
 ### `toHaveErrorMessage`
+
+> This custom matcher is deprecated. Prefer
+> [`toHaveAccessibleErrorMessage`](#tohaveaccessibleerrormessage) instead, which
+> is more comprehensive in implementing the official spec.
 
 ```typescript
 toHaveErrorMessage(text: string | RegExp)

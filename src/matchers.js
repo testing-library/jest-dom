@@ -6,6 +6,7 @@ import {toContainElement} from './to-contain-element'
 import {toContainHTML} from './to-contain-html'
 import {toHaveTextContent} from './to-have-text-content'
 import {toHaveAccessibleDescription} from './to-have-accessible-description'
+import {toHaveAccessibleErrorMessage} from './to-have-accessible-errormessage'
 import {toHaveAccessibleName} from './to-have-accessible-name'
 import {toHaveAttribute} from './to-have-attribute'
 import {toHaveClass} from './to-have-class'
@@ -32,6 +33,7 @@ export {
   toContainHTML,
   toHaveTextContent,
   toHaveAccessibleDescription,
+  toHaveAccessibleErrorMessage,
   toHaveAccessibleName,
   toHaveAttribute,
   toHaveClass,
