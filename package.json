@@ -38,7 +38,7 @@
     "@adobe/css-tools": "^4.0.1",
     "css.escape": "^1.5.1",
     "dom-accessibility-api": "^0.5.6",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "redent": "^3.0.0"
   },
   "devDependencies": {
