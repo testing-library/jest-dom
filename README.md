@@ -51,7 +51,10 @@ clear to read and to maintain.
 
 - [Installation](#installation)
 - [Usage](#usage)
+  - [With `@jest/globals`](#with-jestglobals)
+  - [With Vitest](#with-vitest)
   - [With TypeScript](#with-typescript)
+  - [With another Jest-compatible `expect`](#with-another-jest-compatible-expect)
 - [Custom matchers](#custom-matchers)
   - [`toBeDisabled`](#tobedisabled)
   - [`toBeEnabled`](#tobeenabled)
@@ -128,6 +131,39 @@ import '@testing-library/jest-dom'
 setupFilesAfterEnv: ['<rootDir>/jest-setup.js']
 ```
 
+### With `@jest/globals`
+
+If you are using [`@jest/globals`][jest-globals announcement] with
+[`injectGlobals: false`][inject-globals docs], you will need to use a different
+import in your tests setup file:
+
+```javascript
+// In your own jest-setup.js (or any other name)
+import '@testing-library/jest-dom/jest-globals'
+```
+
+[jest-globals announcement]:
+  https://jestjs.io/blog/2020/05/05/jest-26#a-new-way-to-consume-jest---jestglobals
+[inject-globals docs]:
+  https://jestjs.io/docs/configuration#injectglobals-boolean
+
+### With Vitest
+
+If you are using [vitest][], this module will work as-is, but you will need to
+use a different import in your tests setup file. This file should be added to
+the [`setupFiles`][vitest setupfiles] property in your vitest config:
+
+```javascript
+// In your own vitest-setup.js (or any other name)
+import '@testing-library/jest-dom/vitest'
+
+// In vitest.config.js add (if you haven't already)
+setupFiles: ['./vitest-setup.js']
+```
+
+[vitest]: https://vitest.dev/
+[vitest setupfiles]: https://vitest.dev/config/#setupfiles
+
 ### With TypeScript
 
 If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js`
@@ -142,6 +178,18 @@ haven't already:
     ...
     "./jest-setup.ts"
   ],
+```
+
+### With another Jest-compatible `expect`
+
+If you are using a different test runner that is compatible with Jest's `expect`
+interface, it might be possible to use it with this library:
+
+```javascript
+import * as matchers from '@testing-library/jest-dom/matchers'
+import {expect} from 'my-test-runner/expect'
+
+expect.extend(matchers)
 ```
 
 ## Custom matchers

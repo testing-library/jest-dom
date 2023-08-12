@@ -1,4 +1,4 @@
 import {plugins} from 'pretty-format'
-import '../src/extend-expect'
+import '../src/index'
 
 expect.addSnapshotSerializer(plugins.ConvertAnsi)
