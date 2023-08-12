@@ -1,6 +1,6 @@
 /// <reference types="jest" />
 
-import {TestingLibraryMatchers} from './matchers'
+import {type TestingLibraryMatchers} from './matchers'
 
 declare global {
   namespace jest {

@@ -1,5 +1,5 @@
-import type {expect} from 'vitest'
-import type {TestingLibraryMatchers} from './matchers'
+import {type expect} from 'vitest'
+import {type TestingLibraryMatchers} from './matchers'
 
 export {}
 declare module '@vitest/expect' {

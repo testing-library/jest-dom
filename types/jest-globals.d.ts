@@ -1,5 +1,5 @@
-import {expect} from '@jest/globals'
-import {TestingLibraryMatchers} from './matchers'
+import {type expect} from '@jest/globals'
+import {type TestingLibraryMatchers} from './matchers'
 
 export {}
 declare module '@jest/expect' {

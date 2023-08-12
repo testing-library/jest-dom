@@ -50,7 +50,7 @@
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-watch-select-projects": "^2.0.0",
     "jsdom": "^16.2.1",
-    "kcd-scripts": "^11.1.0",
+    "kcd-scripts": "^14.0.0",
     "pretty-format": "^25.1.0",
     "vitest": "^0.34.1",
     "typescript": "^5.1.6"
@@ -77,8 +77,12 @@
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2020
+    },
     "rules": {
-      "@babel/no-invalid-this": "off"
+      "no-invalid-this": "off"
     },
     "overrides": [
       {
