@@ -3,8 +3,9 @@
   "version": "0.0.0-semantically-released",
   "description": "Custom jest matchers to test the state of the DOM",
   "main": "dist/index.js",
+  "types": "types/index.d.ts",
   "engines": {
-    "node": ">=8",
+    "node": ">=14",
     "npm": ">=6",
     "yarn": ">=1"
   },
@@ -19,8 +20,11 @@
   },
   "files": [
     "dist",
-    "extend-expect.js",
-    "matchers.js"
+    "types",
+    "*.d.ts",
+    "jest-globals.js",
+    "matchers.js",
+    "vitest.js"
   ],
   "keywords": [
     "testing",
@@ -32,7 +36,6 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.9.2",
-    "@types/testing-library__jest-dom": "^5.9.1",
     "aria-query": "^5.0.0",
     "chalk": "^3.0.0",
     "@adobe/css-tools": "^4.0.1",
@@ -42,16 +45,44 @@
     "redent": "^3.0.0"
   },
   "devDependencies": {
+    "@jest/globals": "^29.6.2",
+    "expect": "^29.6.2",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-watch-select-projects": "^2.0.0",
     "jsdom": "^16.2.1",
-    "kcd-scripts": "^11.1.0",
-    "pretty-format": "^25.1.0"
+    "kcd-scripts": "^14.0.0",
+    "pretty-format": "^25.1.0",
+    "vitest": "^0.34.1",
+    "typescript": "^5.1.6"
+  },
+  "peerDependencies": {
+    "@jest/globals": ">= 28",
+    "@types/jest": ">= 28",
+    "jest": ">= 28",
+    "vitest": ">= 0.32"
+  },
+  "peerDependenciesMeta": {
+    "@jest/globals": {
+      "optional": true
+    },
+    "@types/jest": {
+      "optional": true
+    },
+    "jest": {
+      "optional": true
+    },
+    "vitest": {
+      "optional": true
+    }
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2020
+    },
     "rules": {
-      "@babel/no-invalid-this": "off"
+      "no-invalid-this": "off"
     },
     "overrides": [
       {
@@ -60,6 +91,18 @@
         ],
         "rules": {
           "max-lines-per-function": "off"
+        }
+      },
+      {
+        "files": [
+          "**/*.d.ts"
+        ],
+        "rules": {
+          "@typescript-eslint/no-empty-interface": "off",
+          "@typescript-eslint/no-explicit-any": "off",
+          "@typescript-eslint/no-invalid-void-type": "off",
+          "@typescript-eslint/no-unused-vars": "off",
+          "@typescript-eslint/triple-slash-reference": "off"
         }
       }
     ]

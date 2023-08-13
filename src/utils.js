@@ -28,7 +28,7 @@ class GenericTypeError extends Error {
         '',
       ),
       '',
-      // eslint-disable-next-line @babel/new-cap
+      // eslint-disable-next-line new-cap
       `${context.utils.RECEIVED_COLOR(
         'received',
       )} value must ${expectedString}.`,
@@ -91,9 +91,9 @@ class InvalidCSSError extends Error {
     this.message = [
       received.message,
       '',
-      // eslint-disable-next-line @babel/new-cap
+      // eslint-disable-next-line new-cap
       context.utils.RECEIVED_COLOR(`Failing css:`),
-      // eslint-disable-next-line @babel/new-cap
+      // eslint-disable-next-line new-cap
       context.utils.RECEIVED_COLOR(`${received.css}`),
     ].join('\n')
   }
@@ -137,11 +137,11 @@ function getMessage(
 ) {
   return [
     `${matcher}\n`,
-    // eslint-disable-next-line @babel/new-cap
+    // eslint-disable-next-line new-cap
     `${expectedLabel}:\n${context.utils.EXPECTED_COLOR(
       redent(display(context, expectedValue), 2),
     )}`,
-    // eslint-disable-next-line @babel/new-cap
+    // eslint-disable-next-line new-cap
     `${receivedLabel}:\n${context.utils.RECEIVED_COLOR(
       redent(display(context, receivedValue), 2),
     )}`,
