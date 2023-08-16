@@ -3,5 +3,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["*.d.ts", "types"]
+  "include": ["*.d.ts", "types", "types-test.ts"]
 }
