@@ -111,7 +111,8 @@
   "eslintIgnore": [
     "node_modules",
     "coverage",
-    "dist"
+    "dist",
+    "types/__tests__"
   ],
   "repository": {
     "type": "git",
