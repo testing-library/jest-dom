@@ -16,7 +16,8 @@
     "setup": "npm install && npm run validate -s",
     "test": "kcd-scripts test",
     "test:update": "npm test -- --updateSnapshot --coverage",
-    "validate": "kcd-scripts validate"
+    "test:types": "tsc -p types/__tests__/jest && tsc -p types/__tests__/jest-globals && tsc -p types/__tests__/vitest",
+    "validate": "kcd-scripts validate && npm run test:types"
   },
   "files": [
     "dist",
@@ -110,7 +111,8 @@
   "eslintIgnore": [
     "node_modules",
     "coverage",
-    "dist"
+    "dist",
+    "types/__tests__"
   ],
   "repository": {
     "type": "git",
