@@ -1,3 +1,5 @@
+const del = require('rollup-plugin-delete')
+
 const entries = [
   'src/index.js',
   'src/jest-globals.js',
@@ -24,5 +26,6 @@ module.exports = [
     ],
     external: id =>
       !id.startsWith('\0') && !id.startsWith('.') && !id.startsWith('/'),
+    plugins: [del({targets: 'dist/*'})],
   },
 ]
