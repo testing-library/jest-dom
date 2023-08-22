@@ -1,10 +1,10 @@
 const del = require('rollup-plugin-delete')
 
 const entries = [
-  'src/index.js',
-  'src/jest-globals.js',
-  'src/matchers.js',
-  'src/vitest.js',
+  './src/index.js',
+  './src/jest-globals.js',
+  './src/matchers.js',
+  './src/vitest.js',
 ]
 
 module.exports = [
