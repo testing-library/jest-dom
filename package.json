@@ -2,7 +2,51 @@
   "name": "@testing-library/jest-dom",
   "version": "0.0.0-semantically-released",
   "description": "Custom jest matchers to test the state of the DOM",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    },
+    "./jest-globals": {
+      "require": {
+        "types": "./types/jest-globals.d.ts",
+        "default": "./dist/jest-globals.js"
+      },
+      "import": {
+        "types": "./types/jest-globals.d.ts",
+        "default": "./dist/jest-globals.mjs"
+      }
+    },
+    "./matchers": {
+      "require": {
+        "types": "./types/matchers.d.ts",
+        "default": "./dist/matchers.js"
+      },
+      "import": {
+        "types": "./types/matchers.d.ts",
+        "default": "./dist/matchers.mjs"
+      }
+    },
+    "./vitest": {
+      "require": {
+        "types": "./types/vitest.d.ts",
+        "default": "./dist/vitest.js"
+      },
+      "import": {
+        "types": "./types/vitest.d.ts",
+        "default": "./dist/vitest.mjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "types": "types/index.d.ts",
   "engines": {
     "node": ">=14",
@@ -10,7 +54,7 @@
     "yarn": ">=1"
   },
   "scripts": {
-    "build": "kcd-scripts build",
+    "build": "rollup -c",
     "format": "kcd-scripts format",
     "lint": "kcd-scripts lint",
     "setup": "npm install && npm run validate -s",
@@ -36,10 +80,10 @@
   "author": "Ernesto Garcia <gnapse@gmail.com> (http://gnapse.github.io)",
   "license": "MIT",
   "dependencies": {
+    "@adobe/css-tools": "^4.0.1",
     "@babel/runtime": "^7.9.2",
     "aria-query": "^5.0.0",
     "chalk": "^3.0.0",
-    "@adobe/css-tools": "^4.0.1",
     "css.escape": "^1.5.1",
     "dom-accessibility-api": "^0.5.6",
     "lodash": "^4.17.15",
@@ -47,14 +91,17 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.6.2",
+    "@rollup/plugin-commonjs": "^25.0.4",
     "expect": "^29.6.2",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-watch-select-projects": "^2.0.0",
     "jsdom": "^16.2.1",
     "kcd-scripts": "^14.0.0",
     "pretty-format": "^25.1.0",
-    "vitest": "^0.34.1",
-    "typescript": "^5.1.6"
+    "rollup": "^3.28.1",
+    "rollup-plugin-delete": "^2.0.0",
+    "typescript": "^5.1.6",
+    "vitest": "^0.34.1"
   },
   "peerDependencies": {
     "@jest/globals": ">= 28",
