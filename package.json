@@ -2,7 +2,51 @@
   "name": "@testing-library/jest-dom",
   "version": "0.0.0-semantically-released",
   "description": "Custom jest matchers to test the state of the DOM",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    },
+    "./jest-globals": {
+      "require": {
+        "types": "./types/jest-globals.d.ts",
+        "default": "./dist/jest-globals.js"
+      },
+      "import": {
+        "types": "./types/jest-globals.d.ts",
+        "default": "./dist/jest-globals.mjs"
+      }
+    },
+    "./matchers": {
+      "require": {
+        "types": "./types/matchers.d.ts",
+        "default": "./dist/matchers.js"
+      },
+      "import": {
+        "types": "./types/matchers.d.ts",
+        "default": "./dist/matchers.mjs"
+      }
+    },
+    "./vitest": {
+      "require": {
+        "types": "./types/vitest.d.ts",
+        "default": "./dist/vitest.js"
+      },
+      "import": {
+        "types": "./types/vitest.d.ts",
+        "default": "./dist/vitest.mjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "types": "types/index.d.ts",
   "engines": {
     "node": ">=14",
@@ -10,7 +54,7 @@
     "yarn": ">=1"
   },
   "scripts": {
-    "build": "kcd-scripts build",
+    "build": "rollup -c",
     "format": "kcd-scripts format",
     "lint": "kcd-scripts lint",
     "setup": "npm install && npm run validate -s",
@@ -54,6 +98,7 @@
     "kcd-scripts": "^14.0.0",
     "pretty-format": "^25.1.0",
     "vitest": "^0.34.1",
+    "rollup": "^3.28.1",
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
