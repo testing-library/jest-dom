@@ -9,3 +9,13 @@ declare module '@jest/expect' {
       R
     > {}
 }
+
+declare global {
+  namespace jest {
+    interface Matchers<R = void | Promise<void>>
+      extends TestingLibraryMatchers<
+        typeof expect.stringContaining,
+        R
+      > {}
+  }
+}
