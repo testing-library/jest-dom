@@ -1,5 +1,5 @@
 import redent from 'redent'
-import isEqual from 'lodash/isEqual'
+import isEqual from 'lodash/isEqual.js'
 import {parse} from '@adobe/css-tools'
 
 class GenericTypeError extends Error {
