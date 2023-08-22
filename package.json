@@ -91,6 +91,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.6.2",
+    "@rollup/plugin-commonjs": "^25.0.4",
     "expect": "^29.6.2",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-watch-select-projects": "^2.0.0",
