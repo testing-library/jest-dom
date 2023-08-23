@@ -2,8 +2,8 @@
   "name": "@testing-library/jest-dom",
   "version": "0.0.0-semantically-released",
   "description": "Custom jest matchers to test the state of the DOM",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "exports": {
     ".": {
       "require": {
