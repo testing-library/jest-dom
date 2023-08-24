@@ -697,9 +697,21 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "SteKoe",
+      "name": "Stephan Köninger",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1809221?v=4",
+      "profile": "http://www.stekoe.de",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "repoHost": "https://github.com",
   "contributorsPerLine": 7,
-  "skipCi": false
+  "skipCi": false,
+  "commitType": "docs",
+  "commitConvention": "angular"
 }
