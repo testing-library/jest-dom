@@ -41,7 +41,7 @@ export function toHaveAccessibleErrorMessage(
     validStates.includes(ariaInvalidVal)
 
   // Enforce Valid `aria-invalid` Attribute
-  if (fieldValid) {
+  if (!fieldValid) {
     return {
       pass: false,
       message: () => {
