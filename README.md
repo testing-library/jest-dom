@@ -883,6 +883,8 @@ expect(getByTestId('login-form')).toHaveFormValues({
 })
 ```
 
+<hr />
+
 ### `toHaveStyle`
 
 ```typescript
@@ -1290,6 +1292,8 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 > will likely cause unintended consequences in your tests. Please make sure when
 > replacing `toBeInTheDOM` to read through the documentation of the proposed
 > alternatives to see which use case works better for your needs.
+
+<hr />
 
 ### `toHaveDescription`
 
