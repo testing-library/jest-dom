@@ -121,9 +121,9 @@ describe('.toHaveStyle', () => {
 
   test('handles inline custom properties', () => {
     const {queryByTestId} = render(`
-      <span data-testid="color-example" style="--color: blue">Hello World</span>
+      <span data-testid="color-example" style="--accentColor: blue">Hello World</span>
     `)
-    expect(queryByTestId('color-example')).toHaveStyle('--color: blue')
+    expect(queryByTestId('color-example')).toHaveStyle('--accentColor: blue')
   })
 
   test('handles global custom properties', () => {
