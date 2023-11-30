@@ -17,11 +17,17 @@ function getStyleDeclaration(document, css) {
 function isSubset(styles, computedStyle) {
   return (
     !!Object.keys(styles).length &&
-    Object.entries(styles).every(
-      ([prop, value]) =>
-        computedStyle[prop] === value ||
-        computedStyle.getPropertyValue(prop.toLowerCase()) === value,
-    )
+    Object.entries(styles).every(([prop, value]) => {
+      const isCustomProperty = prop.startsWith('--')
+      const spellingVariants = [prop]
+      if (!isCustomProperty) spellingVariants.push(prop.toLowerCase())
+
+      return spellingVariants.some(
+        name =>
+          computedStyle[name] === value ||
+          computedStyle.getPropertyValue(name) === value,
+      )
+    })
   )
 }
 

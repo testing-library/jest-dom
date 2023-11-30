@@ -70,6 +70,7 @@ describe('.toHaveStyle', () => {
       background-color: black;
       color: white;
       float: left;
+      --var-name: 0px;
       transition: opacity 0.2s ease-out, top 0.3s cubic-bezier(1.175, 0.885, 0.32, 1.275);
     }
   `
@@ -90,6 +91,11 @@ describe('.toHaveStyle', () => {
       expect(container.querySelector('.label')).toHaveStyle(
         'transition: all 0.7s ease, width 1.0s cubic-bezier(3, 4, 5, 6);',
       ),
+    ).toThrowError()
+
+    // Custom property names are case sensitive
+    expect(() =>
+      expect(container.querySelector('.label')).toHaveStyle('--VAR-NAME: 0px;'),
     ).toThrowError()
 
     // Make sure the test fails if the css syntax is not valid
@@ -119,11 +125,11 @@ describe('.toHaveStyle', () => {
     )
   })
 
-  test('handles inline custom properties', () => {
+  test('handles inline custom properties (with uppercase letters)', () => {
     const {queryByTestId} = render(`
-      <span data-testid="color-example" style="--color: blue">Hello World</span>
+      <span data-testid="color-example" style="--accentColor: blue">Hello World</span>
     `)
-    expect(queryByTestId('color-example')).toHaveStyle('--color: blue')
+    expect(queryByTestId('color-example')).toHaveStyle('--accentColor: blue')
   })
 
   test('handles global custom properties', () => {
@@ -205,7 +211,7 @@ describe('.toHaveStyle', () => {
         <span data-testid="color-example" style="font-size: 12px">Hello World</span>
       `)
       expect(queryByTestId('color-example')).toHaveStyle({
-        fontSize: 12
+        fontSize: 12,
       })
     })
 
@@ -214,7 +220,7 @@ describe('.toHaveStyle', () => {
         <span data-testid="color-example" style="font-size: 12rem">Hello World</span>
       `)
       expect(() => {
-        expect(queryByTestId('color-example')).toHaveStyle({ fontSize: '12px' })
+        expect(queryByTestId('color-example')).toHaveStyle({fontSize: '12px'})
       }).toThrowError()
     })
 
