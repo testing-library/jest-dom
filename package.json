@@ -80,7 +80,7 @@
   "author": "Ernesto Garcia <gnapse@gmail.com> (http://gnapse.github.io)",
   "license": "MIT",
   "dependencies": {
-    "@adobe/css-tools": "^4.3.1",
+    "@adobe/css-tools": "^4.3.2",
     "@babel/runtime": "^7.9.2",
     "aria-query": "^5.0.0",
     "chalk": "^3.0.0",
