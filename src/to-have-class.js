@@ -4,7 +4,7 @@ function getExpectedClassNamesAndOptions(params) {
   const lastParam = params.pop()
   let expectedClassNames, options
 
-  if (typeof lastParam === 'object') {
+  if (typeof lastParam === 'object' && !(lastParam instanceof RegExp)) {
     expectedClassNames = params
     options = lastParam
   } else {
@@ -15,14 +15,16 @@ function getExpectedClassNamesAndOptions(params) {
 }
 
 function splitClassNames(str) {
-  if (!str) {
-    return []
-  }
+  if (!str) return []
   return str.split(/\s+/).filter(s => s.length > 0)
 }
 
 function isSubset(subset, superset) {
-  return subset.every(item => superset.includes(item))
+  return subset.every(strOrRegexp =>
+    typeof strOrRegexp === 'string'
+      ? superset.includes(strOrRegexp)
+      : superset.some(className => strOrRegexp.test(className)),
+  )
 }
 
 export function toHaveClass(htmlElement, ...params) {
@@ -31,9 +33,19 @@ export function toHaveClass(htmlElement, ...params) {
 
   const received = splitClassNames(htmlElement.getAttribute('class'))
   const expected = expectedClassNames.reduce(
-    (acc, className) => acc.concat(splitClassNames(className)),
+    (acc, className) =>
+      acc.concat(
+        typeof className === 'string' || !className
+          ? splitClassNames(className)
+          : className,
+      ),
     [],
   )
+
+  const hasRegExp = expected.some(className => className instanceof RegExp)
+  if (options.exact && hasRegExp) {
+    throw new Error('Exact option does not support RegExp expected class names')
+  }
 
   if (options.exact) {
     return {

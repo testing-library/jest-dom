@@ -249,13 +249,14 @@ declare namespace matchers {
      * const noClasses = getByTestId('no-classes')
      * expect(deleteButton).toHaveClass('btn')
      * expect(deleteButton).toHaveClass('btn-danger xs')
+     * expect(deleteButton).toHaveClass(/danger/, 'xs')
      * expect(deleteButton).toHaveClass('btn xs btn-danger', {exact: true})
      * expect(deleteButton).not.toHaveClass('btn xs btn-danger', {exact: true})
      * expect(noClasses).not.toHaveClass()
      * @see
      * [testing-library/jest-dom#tohaveclass](https://github.com/testing-library/jest-dom#tohaveclass)
      */
-    toHaveClass(...classNames: string[]): R
+    toHaveClass(...classNames: Array<string | RegExp>): R
     toHaveClass(classNames: string, options?: {exact: boolean}): R
     /**
      * @description

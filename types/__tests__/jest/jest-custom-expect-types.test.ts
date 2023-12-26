@@ -38,7 +38,8 @@ customExpect(element).toHaveAttribute('attr', true)
 customExpect(element).toHaveAttribute('attr', 'yes')
 customExpect(element).toHaveClass()
 customExpect(element).toHaveClass('cls1')
-customExpect(element).toHaveClass('cls1', 'cls2', 'cls3', 'cls4')
+customExpect(element).toHaveClass(/cls/)
+customExpect(element).toHaveClass('cls1', 'cls2', /cls(3|4)/)
 customExpect(element).toHaveClass('cls1', {exact: true})
 customExpect(element).toHaveDisplayValue('str')
 customExpect(element).toHaveDisplayValue(['str1', 'str2'])
@@ -94,3 +95,6 @@ customExpect(element).toHaveErrorMessage(
 
 // @ts-expect-error The types accidentally allowed any property by falling back to "any"
 customExpect(element).nonExistentProperty()
+
+// @ts-expect-error
+customExpect(element).toHaveClass(/cls/, {exact: true})
