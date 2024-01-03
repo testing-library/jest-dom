@@ -594,6 +594,12 @@ make a partial match passing a regular expression, or by using
   aria-describedby="t1"
 />
 <span id="t1" role="presentation">The logo of Our Company</span>
+<img
+  src="logo.jpg"
+  data-testid="logo2"
+  alt="Company logo"
+  aria-description="The logo of Our Company"
+/>
 ```
 
 ```js
@@ -604,6 +610,9 @@ expect(getByTestId('extra-link')).not.toHaveAccessibleDescription()
 expect(getByTestId('avatar')).not.toHaveAccessibleDescription()
 expect(getByTestId('logo')).not.toHaveAccessibleDescription('Company logo')
 expect(getByTestId('logo')).toHaveAccessibleDescription(
+  'The logo of Our Company',
+)
+expect(getByTestId('logo2')).toHaveAccessibleDescription(
   'The logo of Our Company',
 )
 ```
