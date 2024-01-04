@@ -27,11 +27,11 @@
     },
     "./matchers": {
       "require": {
-        "types": "./types/matchers.d.ts",
+        "types": "./types/matchers-standalone.d.ts",
         "default": "./dist/matchers.js"
       },
       "import": {
-        "types": "./types/matchers.d.ts",
+        "types": "./types/matchers-standalone.d.ts",
         "default": "./dist/matchers.mjs"
       }
     },
