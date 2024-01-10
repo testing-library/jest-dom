@@ -20,6 +20,7 @@ tutorial to learn how: http://kcd.im/pull-request
 
 - `@testing-library/jest-dom` version:
 - `node` version:
+- `jest` (or `vitest`) version:
 - `npm` (or `yarn`) version:
 
 <!--

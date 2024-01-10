@@ -594,6 +594,12 @@ make a partial match passing a regular expression, or by using
   aria-describedby="t1"
 />
 <span id="t1" role="presentation">The logo of Our Company</span>
+<img
+  src="logo.jpg"
+  data-testid="logo2"
+  alt="Company logo"
+  aria-description="The logo of Our Company"
+/>
 ```
 
 ```js
@@ -604,6 +610,9 @@ expect(getByTestId('extra-link')).not.toHaveAccessibleDescription()
 expect(getByTestId('avatar')).not.toHaveAccessibleDescription()
 expect(getByTestId('logo')).not.toHaveAccessibleDescription('Company logo')
 expect(getByTestId('logo')).toHaveAccessibleDescription(
+  'The logo of Our Company',
+)
+expect(getByTestId('logo2')).toHaveAccessibleDescription(
   'The logo of Our Company',
 )
 ```
@@ -882,6 +891,8 @@ expect(getByTestId('login-form')).toHaveFormValues({
   rememberMe: true,
 })
 ```
+
+<hr />
 
 ### `toHaveStyle`
 
@@ -1290,6 +1301,8 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 > will likely cause unintended consequences in your tests. Please make sure when
 > replacing `toBeInTheDOM` to read through the documentation of the proposed
 > alternatives to see which use case works better for your needs.
+
+<hr />
 
 ### `toHaveDescription`
 
