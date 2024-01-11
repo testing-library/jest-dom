@@ -1,3 +1,5 @@
+import {queryMatchers} from './query-matchers'
+
 export {toBeInTheDOM} from './to-be-in-the-dom'
 export {toBeInTheDocument} from './to-be-in-the-document'
 export {toBeEmpty} from './to-be-empty'
@@ -28,3 +30,22 @@ export {toHaveSelection} from './to-have-selection'
 export {toBePressed} from './to-be-pressed'
 export {toBePartiallyPressed} from './to-be-partially-pressed'
 export {toAppearBefore, toAppearAfter} from './to-appear-before'
+
+export const {
+  toContainAnyByAltText,
+  toContainOneByAltText,
+  toContainAnyByDisplayValue,
+  toContainOneByDisplayValue,
+  toContainAnyByLabelText,
+  toContainOneByLabelText,
+  toContainAnyByPlaceholderText,
+  toContainOneByPlaceholderText,
+  toContainAnyByRole,
+  toContainOneByRole,
+  toContainAnyByTestId,
+  toContainOneByTestId,
+  toContainAnyByText,
+  toContainOneByText,
+  toContainAnyByTitle,
+  toContainOneByTitle,
+} = queryMatchers

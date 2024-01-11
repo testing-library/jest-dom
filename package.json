@@ -49,7 +49,7 @@
   },
   "types": "types/index.d.ts",
   "engines": {
-    "node": ">=14",
+    "node": ">=22",
     "npm": ">=6",
     "yarn": ">=1"
   },
@@ -90,6 +90,7 @@
   "devDependencies": {
     "@jest/globals": "^29.6.2",
     "@rollup/plugin-commonjs": "^25.0.4",
+    "@testing-library/dom": "^10.4.1",
     "@types/bun": "latest",
     "@types/web": "latest",
     "expect": "^29.6.2",
@@ -102,6 +103,9 @@
     "rollup-plugin-delete": "^2.0.0",
     "typescript": "^5.1.6",
     "vitest": "^0.34.1"
+  },
+  "peerDependencies": {
+    "@testing-library/dom": ">=10 <11"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
@@ -118,7 +122,11 @@
           "src/__tests__/*.js"
         ],
         "rules": {
-          "max-lines-per-function": "off"
+          "max-lines-per-function": "off",
+          "testing-library/no-container": "off",
+          "testing-library/no-render-in-setup": "off",
+          "testing-library/prefer-screen-queries": "off",
+          "testing-library/render-result-naming-convention": "off"
         }
       },
       {

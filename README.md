@@ -86,6 +86,7 @@ clear to read and to maintain.
   - [`toBePartiallyPressed`](#tobepartiallypressed)
   - [`toAppearBefore`](#toappearbefore)
   - [`toAppearAfter`](#toappearafter)
+  - [`toContainAnyBy*` / `toContainOneBy*`](#tocontainanyby--tocontainoneby)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDOM`](#tobeinthedom)
@@ -1520,6 +1521,95 @@ expect(textA).not.toAppearAfter(textB)
 
 > Note: This matcher does not take into account CSS styles that may modify the
 > display order of elements, see [`toAppearBefore()`](#toappearbefore)
+
+<hr />
+
+### `toContainAnyBy*` / `toContainOneBy*`
+
+These matchers allow you to assert whether an element contains descendants using
+[Testing Library queries](https://testing-library.com/docs/queries/about).
+
+This is useful when `toBeInTheDocument` is not specific enough. Unlike
+`toBeInTheDocument`, these matchers can scope a query to a specific part of the
+DOM, and they produce a clear pass/fail result rather than throwing when the
+element is absent.
+
+|                         | 0 matches | 1 match | >1 matches |
+| ----------------------- | :-------: | :-----: | :--------: |
+| `toContainOneBy...`     |    ❌     |   ✅    |     ❌     |
+| `not.toContainOneBy...` |    ✅     |   ❌    |     ✅     |
+| `toContainAnyBy...`     |    ❌     |   ✅    |     ✅     |
+| `not.toContainAnyBy...` |    ✅     |   ❌    |     ❌     |
+
+All query options supported by `@testing-library/dom` (e.g. `exact`, `name`,
+`selector`) are passed through to the underlying query.
+
+```typescript
+toContainAnyByAltText(text: string | RegExp, options?: SelectorMatcherOptions): R
+toContainOneByAltText(text: string | RegExp, options?: SelectorMatcherOptions): R
+
+toContainAnyByDisplayValue(value: string | RegExp, options?: SelectorMatcherOptions): R
+toContainOneByDisplayValue(value: string | RegExp, options?: SelectorMatcherOptions): R
+
+toContainAnyByLabelText(text: string | RegExp, options?: SelectorMatcherOptions): R
+toContainOneByLabelText(text: string | RegExp, options?: SelectorMatcherOptions): R
+
+toContainAnyByPlaceholderText(text: string | RegExp, options?: SelectorMatcherOptions): R
+toContainOneByPlaceholderText(text: string | RegExp, options?: SelectorMatcherOptions): R
+
+toContainAnyByRole(role: string, options?: ByRoleOptions): R
+toContainOneByRole(role: string, options?: ByRoleOptions): R
+
+toContainAnyByTestId(testId: string | RegExp, options?: SelectorMatcherOptions): R
+toContainOneByTestId(testId: string | RegExp, options?: SelectorMatcherOptions): R
+
+toContainAnyByText(text: string | RegExp, options?: SelectorMatcherOptions): R
+toContainOneByText(text: string | RegExp, options?: SelectorMatcherOptions): R
+
+toContainAnyByTitle(title: string | RegExp, options?: SelectorMatcherOptions): R
+toContainOneByTitle(title: string | RegExp, options?: SelectorMatcherOptions): R
+```
+
+#### Examples
+
+```html
+<section aria-label="search results">
+  <ul>
+    <li>Result A</li>
+    <li>Result B</li>
+  </ul>
+</section>
+
+<section aria-label="related articles">
+  <article>
+    <h2>Related article</h2>
+  </article>
+</section>
+```
+
+```javascript
+const results = getByRole('region', {name: 'search results'})
+const related = getByRole('region', {name: 'related articles'})
+
+// passes: one or more listitem elements in the results section
+expect(results).toContainAnyByRole('listitem')
+
+// passes: exactly one heading in the related section
+expect(related).toContainOneByRole('heading', {name: 'Related article'})
+
+// fails: there are two listitems, not one
+expect(results).not.toContainOneByRole('listitem')
+
+// fails: no heading in the results section
+expect(results).not.toContainAnyByRole('heading')
+```
+
+Using `document.body` as the container is equivalent to `screen.getBy*`:
+
+```javascript
+expect(document.body).toContainOneByRole('heading', {name: 'Welcome'})
+expect(document.body).not.toContainAnyByRole('dialog')
+```
 
 ## Deprecated matchers
 

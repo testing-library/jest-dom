@@ -1,6 +1,26 @@
 import {type ARIARole} from 'aria-query'
+import {
+  type AllByBoundAttribute,
+  type AllByRole,
+  type AllByText,
+} from '@testing-library/dom'
 
 declare namespace matchers {
+  interface DomQueryFunction {
+    (container: HTMLElement, ...args: any[]): HTMLElement[]
+  }
+
+  type DomQueryArgs<F extends DomQueryFunction = DomQueryFunction> = F extends (
+    container: HTMLElement,
+    ...args: infer A
+  ) => HTMLElement[]
+    ? A
+    : never
+
+  type DomQueryByBoundAttributeArgs = DomQueryArgs<AllByBoundAttribute>
+  type DomQueryByRoleArgs = DomQueryArgs<AllByRole>
+  type DomQueryByTextArgs = DomQueryArgs<AllByText>
+
   interface TestingLibraryMatchers<E, R> {
     /**
      * @deprecated
@@ -761,7 +781,7 @@ declare namespace matchers {
      * [testing-library/jest-dom#tohaveselection](https://github.com/testing-library/jest-dom#tohaveselection)
      */
     toHaveSelection(selection?: string): R
-    /*
+    /**
      * @description
      * This allows to check whether given element has been [pressed](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed)
      *
@@ -791,7 +811,7 @@ declare namespace matchers {
      * [testing-library/jest-dom#tobepressed](https://github.com/testing-library/jest-dom#tobepressed)
      */
     toBePressed(): R
-    /*
+    /**
      * @description
      * This allows to check whether given element has been [partially pressed](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed)
      *
@@ -806,11 +826,11 @@ declare namespace matchers {
      * screen.getByRole('button', { name: 'Partially pressed input button' }).toBePartiallyPressed();
      * screen.getByRole('button', { name: 'Partially pressed span' }).toBePartiallyPressed();
      *
-     * @See
+     * @see
      * [testing-library/jest-dom#tobepartiallypressed](https://github.com/testing-library/jest-dom#tobepartiallypressed)
      */
     toBePartiallyPressed(): R
-    /*
+    /**
      * @description
      * This checks if a given element appears before another element in the DOM tree, as per [`compareDocumentPosition()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition).
      *
@@ -826,11 +846,11 @@ declare namespace matchers {
      * expect(textA).toAppearBefore(textB)
      * expect(textB).not.toAppearBefore(textA)
      *
-     * @See
+     * @see
      * [testing-library/jest-dom#toappearbefore](https://github.com/testing-library/jest-dom#toappearbefore)
      */
     toAppearBefore(element: HTMLElement | SVGElement): R
-    /*
+    /**
      * @description
      * This checks if a given element appears after another element in the DOM tree, as per [`compareDocumentPosition()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition).
      *
@@ -846,10 +866,186 @@ declare namespace matchers {
      * expect(textB).toAppearAfter(textA)
      * expect(textA).not.toAppearAfter(textB)
      *
-     * @See
+     * @see
      * [testing-library/jest-dom#toappearafter](https://github.com/testing-library/jest-dom#toappearafter)
      */
     toAppearAfter(element: HTMLElement | SVGElement): R
+
+    /**
+     * @description
+     * Assert whether an element contains one or more descendants with the specified alt text.
+     * @example
+     * <img alt="Image Description" src="image-with-alt-text.jpg" />
+     * expect(document.body).toContainAnyByAltText('Image Description')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainAnyByAltText(...args: DomQueryByBoundAttributeArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains exactly one descendant with the specified alt text.
+     * @example
+     * <img alt="Image Description" src="image-with-alt-text.jpg" />
+     * expect(document.body).toContainOneByAltText('Image Description')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainOneByAltText(...args: DomQueryByBoundAttributeArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains one or more descendants with the specified display value.
+     * @example
+     * <select><option selected>Option A</option></select>
+     * expect(document.body).toContainAnyByDisplayValue('Option A')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainAnyByDisplayValue(...args: DomQueryByBoundAttributeArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains exactly one descendant with the specified display value.
+     * @example
+     * <select><option selected>Option A</option></select>
+     * expect(document.body).toContainOneByDisplayValue('Option A')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainOneByDisplayValue(...args: DomQueryByBoundAttributeArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains one or more descendants with the specified label text.
+     * @example
+     * <label for="name">Full name</label><input id="name" />
+     * expect(document.body).toContainAnyByLabelText('Full name')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainAnyByLabelText(...args: DomQueryByTextArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains exactly one descendant with the specified label text.
+     * @example
+     * <label for="name">Full name</label><input id="name" />
+     * expect(document.body).toContainOneByLabelText('Full name')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainOneByLabelText(...args: DomQueryByTextArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains one or more descendants with the specified placeholder text.
+     * @example
+     * <input placeholder="Enter name" />
+     * expect(document.body).toContainAnyByPlaceholderText('Enter name')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainAnyByPlaceholderText(...args: DomQueryByBoundAttributeArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains exactly one descendant with the specified placeholder text.
+     * @example
+     * <input placeholder="Enter name" />
+     * expect(document.body).toContainOneByPlaceholderText('Enter name')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainOneByPlaceholderText(...args: DomQueryByBoundAttributeArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains one or more descendants with the specified role.
+     * @example
+     * <div role="alert">Something went wrong.</div>
+     * expect(document.body).toContainAnyByRole('alert')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainAnyByRole(...args: DomQueryByRoleArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains exactly one descendant with the specified role.
+     * @example
+     * <div role="alert">Something went wrong.</div>
+     * expect(document.body).toContainOneByRole('alert')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainOneByRole(...args: DomQueryByRoleArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains one or more descendants with the specified test ID.
+     * @example
+     * <div data-testid="alert">Something went wrong.</div>
+     * expect(document.body).toContainAnyByTestId('alert')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainAnyByTestId(...args: DomQueryByBoundAttributeArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains exactly one descendant with the specified test ID.
+     * @example
+     * <div data-testid="alert">Something went wrong.</div>
+     * expect(document.body).toContainOneByTestId('alert')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainOneByTestId(...args: DomQueryByBoundAttributeArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains one or more descendants with the specified text.
+     * @example
+     * <span>Hello world</span>
+     * expect(document.body).toContainAnyByText('Hello world')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainAnyByText(...args: DomQueryByTextArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains exactly one descendant with the specified text.
+     * @example
+     * <span>Hello world</span>
+     * expect(document.body).toContainOneByText('Hello world')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainOneByText(...args: DomQueryByTextArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains one or more descendants with the specified title.
+     * @example
+     * <h1 title="Page title">Welcome</h1>
+     * expect(document.body).toContainAnyByTitle('Page title')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainAnyByTitle(...args: DomQueryByBoundAttributeArgs): R
+
+    /**
+     * @description
+     * Assert whether an element contains exactly one descendant with the specified title.
+     * @example
+     * <h1 title="Page title">Welcome</h1>
+     * expect(document.body).toContainOneByTitle('Page title')
+     * @see
+     * [testing-library/jest-dom#tocontainanyby--tocontainoneby](https://github.com/testing-library/jest-dom#tocontainanyby--tocontainoneby)
+     */
+    toContainOneByTitle(...args: DomQueryByBoundAttributeArgs): R
   }
 }
 
