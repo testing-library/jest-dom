@@ -93,6 +93,32 @@ test('.toHaveClass', () => {
   ).toThrowError(/(none)/)
 })
 
+test('.toHaveClass with regular expressions', () => {
+  const {queryByTestId} = renderElementWithClasses()
+
+  expect(queryByTestId('delete-button')).toHaveClass(/btn/)
+  expect(queryByTestId('delete-button')).toHaveClass(/danger/)
+  expect(queryByTestId('delete-button')).toHaveClass(
+    /-danger$/,
+    'extra',
+    /^btn-[a-z]+$/,
+    /\bbtn/,
+  )
+
+  // It does not match with "btn extra", even though it is a substring of the
+  // class "btn extra btn-danger". This is because the regular expression is
+  // matched against each class individually.
+  expect(queryByTestId('delete-button')).not.toHaveClass(/btn extra/)
+
+  expect(() =>
+    expect(queryByTestId('delete-button')).not.toHaveClass(/danger/),
+  ).toThrowError()
+
+  expect(() =>
+    expect(queryByTestId('delete-button')).toHaveClass(/dangerous/),
+  ).toThrowError()
+})
+
 test('.toHaveClass with exact mode option', () => {
   const {queryByTestId} = renderElementWithClasses()
 
@@ -102,9 +128,10 @@ test('.toHaveClass with exact mode option', () => {
   expect(queryByTestId('delete-button')).not.toHaveClass('btn extra', {
     exact: true,
   })
-  expect(
-    queryByTestId('delete-button'),
-  ).not.toHaveClass('btn extra btn-danger foo', {exact: true})
+  expect(queryByTestId('delete-button')).not.toHaveClass(
+    'btn extra btn-danger foo',
+    {exact: true},
+  )
 
   expect(queryByTestId('delete-button')).toHaveClass('btn extra btn-danger', {
     exact: false,
@@ -112,9 +139,10 @@ test('.toHaveClass with exact mode option', () => {
   expect(queryByTestId('delete-button')).toHaveClass('btn extra', {
     exact: false,
   })
-  expect(
-    queryByTestId('delete-button'),
-  ).not.toHaveClass('btn extra btn-danger foo', {exact: false})
+  expect(queryByTestId('delete-button')).not.toHaveClass(
+    'btn extra btn-danger foo',
+    {exact: false},
+  )
 
   expect(queryByTestId('delete-button')).toHaveClass(
     'btn',
@@ -177,4 +205,27 @@ test('.toHaveClass with exact mode option', () => {
       exact: true,
     }),
   ).toThrowError(/Expected the element to have EXACTLY defined classes/)
+})
+
+test('.toHaveClass combining {exact:true} and regular expressions throws an error', () => {
+  const {queryByTestId} = renderElementWithClasses()
+
+  expect(() =>
+    expect(queryByTestId('delete-button')).not.toHaveClass(/btn/, {
+      exact: true,
+    }),
+  ).toThrowError()
+
+  expect(() =>
+    expect(queryByTestId('delete-button')).not.toHaveClass(
+      /-danger$/,
+      'extra',
+      /\bbtn/,
+      {exact: true},
+    ),
+  ).toThrowError()
+
+  expect(() =>
+    expect(queryByTestId('delete-button')).toHaveClass(/danger/, {exact: true}),
+  ).toThrowError()
 })
