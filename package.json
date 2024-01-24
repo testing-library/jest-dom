@@ -27,11 +27,11 @@
     },
     "./matchers": {
       "require": {
-        "types": "./types/matchers.d.ts",
+        "types": "./types/matchers-standalone.d.ts",
         "default": "./dist/matchers.js"
       },
       "import": {
-        "types": "./types/matchers.d.ts",
+        "types": "./types/matchers-standalone.d.ts",
         "default": "./dist/matchers.mjs"
       }
     },
@@ -60,7 +60,7 @@
     "setup": "npm install && npm run validate -s",
     "test": "kcd-scripts test",
     "test:update": "npm test -- --updateSnapshot --coverage",
-    "test:types": "tsc -p types/__tests__/jest && tsc -p types/__tests__/jest-globals && tsc -p types/__tests__/vitest",
+    "test:types": "tsc -p types/__tests__/jest && tsc -p types/__tests__/jest-globals && tsc -p types/__tests__/vitest && tsc -p types/__tests__/bun",
     "validate": "kcd-scripts validate && npm run test:types"
   },
   "files": [
@@ -92,6 +92,8 @@
   "devDependencies": {
     "@jest/globals": "^29.6.2",
     "@rollup/plugin-commonjs": "^25.0.4",
+    "@types/bun": "latest",
+    "@types/web": "latest",
     "expect": "^29.6.2",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-watch-select-projects": "^2.0.0",
@@ -105,12 +107,16 @@
   },
   "peerDependencies": {
     "@jest/globals": ">= 28",
+    "@types/bun": "latest",
     "@types/jest": ">= 28",
     "jest": ">= 28",
     "vitest": ">= 0.32"
   },
   "peerDependenciesMeta": {
     "@jest/globals": {
+      "optional": true
+    },
+    "@types/bun": {
       "optional": true
     },
     "@types/jest": {
