@@ -581,6 +581,19 @@ declare namespace matchers {
     toHaveAccessibleName(text?: string | RegExp | E): R
     /**
      * @description
+     * TODO: Write this out
+     *
+     * @example
+     * TODO: Write this out
+     *
+     * @see
+     * [testing-library/jest-dom#tohaverole](https://github.com/testing-library/jest-dom#tohaverole)
+     *
+     * TODO: Ideally, we should limit the role
+     */
+    toHaveRole(role: string): R
+    /**
+     * @description
      * This allows you to check whether the given element is partially checked.
      * It accepts an input of type checkbox and elements with a role of checkbox
      * with a aria-checked="mixed", or input of type checkbox with indeterminate

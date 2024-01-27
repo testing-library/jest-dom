@@ -65,6 +65,7 @@ expect(element).toHaveErrorMessage(
 )
 expect(element).toHaveErrorMessage(/invalid time/i)
 expect(element).toHaveErrorMessage(expect.stringContaining('Invalid time'))
+expect(element).toHaveRole('button')
 
 expect(element).not.toBeInTheDOM()
 expect(element).not.toBeInTheDOM(document.body)
@@ -112,6 +113,7 @@ expect(element).not.toHaveAccessibleName()
 expect(element).not.toBePartiallyChecked()
 expect(element).not.toHaveErrorMessage()
 expect(element).not.toHaveErrorMessage('Pikachu!')
+expect(element).not.toHaveRole('button')
 
 // @ts-expect-error The types accidentally allowed any property by falling back to "any"
 expect(element).nonExistentProperty()
