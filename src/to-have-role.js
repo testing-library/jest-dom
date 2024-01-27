@@ -7,8 +7,6 @@ export function toHaveRole(htmlElement, expectedRole) {
   checkHtmlElement(htmlElement, toHaveRole, this)
 
   const actualRoles = getExplicitOrImplicitRoles(htmlElement)
-
-  // TODO: There might be a helper on this. to check `some`
   const pass = actualRoles.some(el => el === expectedRole)
 
   return {
@@ -33,29 +31,19 @@ export function toHaveRole(htmlElement, expectedRole) {
 }
 
 function getExplicitOrImplicitRoles(htmlElement) {
-  const isRoleSpecifiedExplicitly = htmlElement.hasAttribute('role')
+  const hasExplicitRole = htmlElement.hasAttribute('role')
 
-  if (isRoleSpecifiedExplicitly) {
+  if (hasExplicitRole) {
     const roleValue = htmlElement.getAttribute('role')
 
-    // TODO: For explicit role, we will have to handle fallbacks, since more than one role can be provided.
-    // if (queryFallbacks) {
-    //   return roleValue
-    //     .split(' ')
-    //     .filter(Boolean)
-    //     .some(roleAttributeToken => roleAttributeToken === role)
-    // }
-
-    // For now, only return the first matching token
-    const [firstRoleAttributeToken] = roleValue.split(' ')
-    return [firstRoleAttributeToken]
+    // Handle fallback roles, such as role="switch button"
+    // testing-library gates this behind the `queryFallbacks` flag; it is
+    // unclear why, but it makes sense to support this pattern out of the box
+    // https://testing-library.com/docs/queries/byrole/#queryfallbacks
+    return roleValue.split(' ').filter(Boolean)
   }
 
-  // TODO: The implicit roles have a series of attributes and constraints, that
-  // quantify extra conditions for an implicit role to be assigned. We should
-  // handle them.
   const implicitRoles = getImplicitAriaRoles(htmlElement)
-  console.log({implicitRoles})
 
   return implicitRoles
 }
@@ -71,13 +59,17 @@ function getImplicitAriaRoles(currentNode) {
 }
 
 /**
- * Transform the standard role mapping to a list of roles, paired with functions
- * to match an element against them. The list is sorted by specificity, so that
- * a search from the start of the array will find the more specific role.
+ * Transform the roles map (with required attributes and constraints) to a list
+ * of roles. Each item in the list has functions to match an element against it.
+ * The list is sorted by specificity, so that a search from the start of the
+ * array will find the more specific role.
  *
- * Copied over from dom-testing-library:
+ * Essentially copied over from dom-testing-library:
  * @see
  * {@link https://github.com/testing-library/dom-testing-library/blob/bd04cf95a1ed85a2238f7dfc1a77d5d16b4f59dc/src/role-helpers.js#L80}
+ *
+ * TODO: If we are truly just copying over stuff, would it make sense to move
+ * this to a separate package?
  */
 function buildElementRoleList(elementRolesMap) {
   function makeElementSelector({name, attributes}) {
