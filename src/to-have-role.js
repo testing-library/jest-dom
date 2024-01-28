@@ -63,12 +63,15 @@ function getImplicitAriaRoles(currentNode) {
  * Transform the roles map (with required attributes and constraints) to a list
  * of roles. Each item in the list has functions to match an element against it.
  *
- * Essentially copied over from dom-testing-library:
- * @see
- * {@link https://github.com/testing-library/dom-testing-library/blob/bd04cf95a1ed85a2238f7dfc1a77d5d16b4f59dc/src/role-helpers.js#L80}
+ * Essentially copied over from [dom-testing-library's
+ * helpers](https://github.com/testing-library/dom-testing-library/blob/bd04cf95a1ed85a2238f7dfc1a77d5d16b4f59dc/src/role-helpers.js#L80)
  *
  * TODO: If we are truly just copying over stuff, would it make sense to move
  * this to a separate package?
+ *
+ * TODO: This technique relies on CSS selectors; are those consistently
+ * available in all jest-dom environments? Why do other matchers in this package
+ * not use them like this?
  */
 function buildElementRoleList(elementRolesMap) {
   function makeElementSelector({name, attributes}) {
@@ -123,9 +126,6 @@ function buildElementRoleList(elementRolesMap) {
         return false
       }
 
-      // TODO: This technique relies on CSS selectors; are those consistently
-      // available in all jest-dom environments? Why do other matchers in this
-      // package not use them like this?
       return node.matches(selector)
     }
   }
