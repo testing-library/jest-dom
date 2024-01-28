@@ -1192,7 +1192,42 @@ expect(inputCheckboxIndeterminate).toBePartiallyChecked()
 
 ### `toHaveRole`
 
-TODO: Fill this out
+This allows to assert that an element has the expected
+[role](https://www.w3.org/TR/html-aria/#docconformance).
+
+This is useful in cases where you already have access to an element via some
+query other than the role itself, and want to make additional assertions
+regarding its accessibility.
+
+The role can match either an explicit role (via the `role` attribute), or an
+implicit one via the
+[implicit ARIA semantics](https://www.w3.org/TR/html-aria/).
+
+Note: roles are matched literally by string equality, without inheriting from
+the ARIA role hierarchy. As a result, querying a superclass role like 'checkbox'
+will not include elements with a subclass role like 'switch'.
+
+```typescript
+toHaveRole(expectedRole: string)
+```
+
+```html
+<button data-testid="button">Continue</button>
+<div role="button" data-testid="button-explicit">Continue</button>
+<button role="switch button" data-testid="button-explicit-multiple">Continue</button>
+<a href="/about" data-testid="link">About</a>
+<a data-testid="link-invalid">Invalid link<a/>
+```
+
+```javascript
+expect(getByTestId('button')).toHaveRole('button')
+expect(getByTestId('button-explicit')).toHaveRole('button')
+expect(getByTestId('button-explicit-multiple')).toHaveRole('button')
+expect(getByTestId('button-explicit-multiple')).toHaveRole('switch')
+expect(getByTestId('link')).toHaveRole('link')
+expect(getByTestId('link-invalid')).not.toHaveRole('link')
+expect(getByTestId('link-invalid')).toHaveRole('generic')
+```
 
 <hr />
 
