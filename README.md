@@ -79,6 +79,7 @@ clear to read and to maintain.
   - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
   - [`toBePartiallyChecked`](#tobepartiallychecked)
+  - [`toHaveRole`](#tohaverole)
   - [`toHaveErrorMessage`](#tohaveerrormessage)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeEmpty`](#tobeempty)
@@ -1186,6 +1187,12 @@ expect(ariaCheckboxUnchecked).not.toBePartiallyChecked()
 inputCheckboxIndeterminate.indeterminate = true
 expect(inputCheckboxIndeterminate).toBePartiallyChecked()
 ```
+
+<hr />
+
+### `toHaveRole`
+
+TODO: Fill this out
 
 <hr />
 

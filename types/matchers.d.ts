@@ -581,15 +581,41 @@ declare namespace matchers {
     toHaveAccessibleName(text?: string | RegExp | E): R
     /**
      * @description
-     * TODO: Write this out
+     * This allows to assert that an element has the expected
+     * [role](https://www.w3.org/TR/html-aria/#docconformance).
+     *
+     * This is useful in cases where you already have access to an element via
+     * some query other than the role itself, and want to make additional
+     * assertions regarding its accessibility.
+     *
+     * The role can match either an explicit role (via the `role` attribute), or
+     * an implicit one via the [implicit ARIA
+     * semantics](https://www.w3.org/TR/html-aria/).
+     *
+     * Note: roles are matched literally by string equality, without inheriting
+     * from the ARIA role hierarchy. As a result, querying a superclass role
+     * like 'checkbox' will not include elements with a subclass role like
+     * 'switch'.
      *
      * @example
-     * TODO: Write this out
+     * <button data-testid="button">Continue</button>
+     * <div role="button" data-testid="button-explicit">Continue</button>
+     * <button role="switch button" data-testid="button-explicit-multiple">Continue</button>
+     * <a href="/about" data-testid="link">About</a>
+     * <a data-testid="link-invalid">Invalid link<a/>
+     *
+     * expect(getByTestId('button')).toHaveRole('button')
+     * expect(getByTestId('button-explicit')).toHaveRole('button')
+     * expect(getByTestId('button-explicit-multiple')).toHaveRole('button')
+     * expect(getByTestId('button-explicit-multiple')).toHaveRole('switch')
+     * expect(getByTestId('link')).toHaveRole('link')
+     * expect(getByTestId('link-invalid')).not.toHaveRole('link')
+     * expect(getByTestId('link-invalid')).toHaveRole('generic')
      *
      * @see
      * [testing-library/jest-dom#tohaverole](https://github.com/testing-library/jest-dom#tohaverole)
      *
-     * TODO: Ideally, we should limit the role
+     * TODO: Ideally, we should limit the role to only valid ones; ask about this
      */
     toHaveRole(role: string): R
     /**
