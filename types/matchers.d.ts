@@ -1,3 +1,9 @@
+import {ARIARole} from 'aria-query'
+
+// Get autocomplete for ARIARole union types, while still supporting another string
+// Ref: https://github.com/microsoft/TypeScript/issues/29729#issuecomment-567871939
+export type ByRoleMatcher = ARIARole | (string & {})
+
 declare namespace matchers {
   interface TestingLibraryMatchers<E, R> {
     /**
@@ -614,10 +620,8 @@ declare namespace matchers {
      *
      * @see
      * [testing-library/jest-dom#tohaverole](https://github.com/testing-library/jest-dom#tohaverole)
-     *
-     * TODO: Ideally, we should limit the role to only valid ones; ask about this
      */
-    toHaveRole(role: string): R
+    toHaveRole(role: ByRoleMatcher): R
     /**
      * @description
      * This allows you to check whether the given element is partially checked.

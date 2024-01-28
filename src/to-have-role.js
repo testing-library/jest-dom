@@ -55,14 +55,13 @@ function getImplicitAriaRoles(currentNode) {
     }
   }
 
-  return []
+  /* istanbul ignore next */
+  return [] // this does not get reached in practice, since elements have at least a 'generic' role
 }
 
 /**
  * Transform the roles map (with required attributes and constraints) to a list
  * of roles. Each item in the list has functions to match an element against it.
- * The list is sorted by specificity, so that a search from the start of the
- * array will find the more specific role.
  *
  * Essentially copied over from dom-testing-library:
  * @see
