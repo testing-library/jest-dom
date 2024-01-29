@@ -587,7 +587,7 @@ declare namespace matchers {
     toHaveAccessibleName(text?: string | RegExp | E): R
     /**
      * @description
-     * This allows to assert that an element has the expected
+     * This allows you to assert that an element has the expected
      * [role](https://www.w3.org/TR/html-aria/#docconformance).
      *
      * This is useful in cases where you already have access to an element via
