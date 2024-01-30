@@ -697,9 +697,22 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "fpapado",
+      "name": "Fotis Papadogeorgopoulos",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3210764?v=4",
+      "profile": "http://fotis.xyz",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
   "contributorsPerLine": 7,
-  "skipCi": false
+  "skipCi": false,
+  "commitType": "docs",
+  "commitConvention": "angular"
 }
