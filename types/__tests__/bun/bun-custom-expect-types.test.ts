@@ -94,5 +94,7 @@ customExpect(element).toHaveErrorMessage(
   expect.stringContaining('Invalid time'),
 )
 
+customExpect(element).toHaveRole('button')
+
 // @ts-expect-error The types accidentally allowed any property by falling back to "any"
 customExpect(element).nonExistentProperty()
