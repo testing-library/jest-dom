@@ -1541,6 +1541,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="http://fotis.xyz"><img src="https://avatars.githubusercontent.com/u/3210764?v=4?s=100" width="100px;" alt="Fotis Papadogeorgopoulos"/><br /><sub><b>Fotis Papadogeorgopoulos</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=fpapado" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=fpapado" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=fpapado" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jakeboone02"><img src="https://avatars.githubusercontent.com/u/366438?v=4?s=100" width="100px;" alt="Jake Boone"/><br /><sub><b>Jake Boone</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jakeboone02" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jakeboone02" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.stekoe.de"><img src="https://avatars.githubusercontent.com/u/1809221?v=4?s=100" width="100px;" alt="Stephan Köninger"/><br /><sub><b>Stephan Köninger</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3ASteKoe" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=SteKoe" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
