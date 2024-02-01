@@ -1,4 +1,4 @@
-import {ARIARole} from 'aria-query'
+import {type ARIARole} from 'aria-query'
 
 declare namespace matchers {
   interface TestingLibraryMatchers<E, R> {
