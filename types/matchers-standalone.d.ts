@@ -1,6 +1,4 @@
-import {type TestingLibraryMatchers} from './matchers'
-
-type TLM = TestingLibraryMatchers<any, void>
+import {type TestingLibraryMatchers as _TLM} from './matchers'
 
 interface MatcherReturnType {
   pass: boolean
@@ -18,11 +16,13 @@ interface OverloadedMatchers {
 
 declare namespace matchersStandalone {
   type MatchersStandalone = {
-    [T in keyof TLM]: (
+    [T in keyof _TLM<any, void>]: (
       expected: any,
-      ...rest: Parameters<TLM[T]>
+      ...rest: Parameters<_TLM<any, void>[T]>
     ) => MatcherReturnType
   } & OverloadedMatchers
+
+  type TestingLibraryMatchers<E, R> = _TLM<E, R>
 }
 
 declare const matchersStandalone: matchersStandalone.MatchersStandalone &
