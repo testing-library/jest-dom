@@ -1567,7 +1567,7 @@ MIT
   https://github.com/testing-library/react-testing-library
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/github/workflow/status/testing-library/jest-dom/validate?logo=github&style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/testing-library/jest-dom/validate.yml?branch=main&logo=github&style=flat-square
 [build]: https://github.com/testing-library/jest-dom/actions?query=workflow%3Avalidate
 [coverage-badge]: 
   https://img.shields.io/codecov/c/github/testing-library/jest-dom.svg?style=flat-square
