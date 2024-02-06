@@ -203,4 +203,14 @@ Received:
 <red>  foo</>
 `)
   })
+
+  test('handles value of aria-valuenow', () => {
+    const valueToCheck = 70
+    const {queryByTestId} = render(`
+        <div role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${valueToCheck}" data-testid="meter"></div>
+    `)
+
+    expect(queryByTestId('meter')).toHaveValue(valueToCheck)
+    expect(queryByTestId('meter')).not.toHaveValue(valueToCheck + 1)
+  })
 })
