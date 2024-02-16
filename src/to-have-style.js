@@ -14,6 +14,14 @@ function getStyleDeclaration(document, css) {
   return styles
 }
 
+function isInvalidStyleDeclaration(name, value, computedStyle) {
+  return (
+    name &&
+    !value &&
+    !computedStyle[name] &&
+    !computedStyle.getPropertyValue(name)
+  )
+}
 function isSubset(styles, computedStyle) {
   return (
     !!Object.keys(styles).length &&
@@ -22,11 +30,16 @@ function isSubset(styles, computedStyle) {
       const spellingVariants = [prop]
       if (!isCustomProperty) spellingVariants.push(prop.toLowerCase())
 
-      return spellingVariants.some(
-        name =>
+      return spellingVariants.some(name => {
+        if (isInvalidStyleDeclaration(name, value, computedStyle)) {
+          return false
+        }
+
+        return (
           computedStyle[name] === value ||
-          computedStyle.getPropertyValue(name) === value,
-      )
+          computedStyle.getPropertyValue(name) === value
+        )
+      })
     })
   )
 }
