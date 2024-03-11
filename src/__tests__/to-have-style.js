@@ -262,4 +262,30 @@ describe('.toHaveStyle', () => {
       })
     })
   })
+
+  describe('Fails when invalid value of property', () => {
+    test('with empty strings', () => {
+      const {container} = render(`
+      <div class="border" style="border-width: 2px;" />
+    `)
+
+      expect(() =>
+        expect(container.querySelector('.border')).toHaveStyle({
+          borderWidth: '',
+        }),
+      ).toThrow()
+    })
+
+    test('with strings without unit', () => {
+      const {container} = render(`
+      <div class="border" style="border-width: 2px" />
+    `)
+
+      expect(() => {
+        expect(container.querySelector('.border')).toHaveStyle({
+          borderWidth: '2',
+        })
+      }).toThrow()
+    })
+  })
 })

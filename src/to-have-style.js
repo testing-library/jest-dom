@@ -76,6 +76,14 @@ const unitlessNumbers = new Set([
   'WebkitLineClamp',
 ])
 
+function camelToKebab(camelCaseString) {
+  return camelCaseString.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+}
+
+function isCustomProperty(property) {
+  return property.startsWith('--')
+}
+
 function isUnitProperty([property, value]) {
   if (typeof value !== 'number') {
     return false
@@ -90,7 +98,8 @@ function getStyleDeclaration(document, css) {
   // The next block is necessary to normalize colors
   const copy = document.createElement('div')
   Object.entries(css).forEach(entry => {
-    const [prop, value] = entry
+    const [property, value] = entry
+    const prop = isCustomProperty(property) ? property : camelToKebab(property)
 
     copy.style[prop] = isUnitProperty(entry) ? `${value}px` : value
     styles[prop] = copy.style[prop]
@@ -102,15 +111,15 @@ function isSubset(styles, computedStyle) {
   return (
     !!Object.keys(styles).length &&
     Object.entries(styles).every(([prop, value]) => {
-      const isCustomProperty = prop.startsWith('--')
       const spellingVariants = [prop]
-      if (!isCustomProperty) spellingVariants.push(prop.toLowerCase())
+      if (!isCustomProperty(prop)) spellingVariants.push(prop.toLowerCase())
 
-      return spellingVariants.some(
-        name =>
+      return spellingVariants.some(name => {
+        return (
           computedStyle[name] === value ||
-          computedStyle.getPropertyValue(name) === value,
-      )
+          computedStyle.getPropertyValue(name) === value
+        )
+      })
     })
   )
 }
