@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 
-import {type Assertion, type AsymmetricMatchersContaining} from 'vitest'
+import {
+  type Assertion,
+  type AsymmetricMatchersContaining,
+  type expect,
+} from 'vitest'
 import {type TestingLibraryMatchers} from './matchers'
 
 export {}
