@@ -13,6 +13,7 @@ test('.toBeRequired', () => {
       <textarea data-testid="textarea" required></textarea>
       <div data-testid="supported-role" role="tree" required></div>
       <div data-testid="supported-role-aria" role="tree" aria-required="true"></div>
+      <div data-testid="without-aria-role" aria-required="true"></div>
     </div>
     `)
 
@@ -26,6 +27,7 @@ test('.toBeRequired', () => {
   expect(queryByTestId('textarea')).toBeRequired()
   expect(queryByTestId('supported-role')).not.toBeRequired()
   expect(queryByTestId('supported-role-aria')).toBeRequired()
+  expect(queryByTestId('without-aria-role')).toBeRequired()
 
   // negative test cases wrapped in throwError assertions for coverage.
   expect(() =>

@@ -379,6 +379,7 @@ attribute.
 <textarea data-testid="textarea" required></textarea>
 <div data-testid="supported-role" role="tree" required></div>
 <div data-testid="supported-role-aria" role="tree" aria-required="true"></div>
+<div data-testid="without-aria-role" aria-required="true"></div>
 ```
 
 ```javascript
@@ -392,6 +393,7 @@ expect(getByTestId('select')).toBeRequired()
 expect(getByTestId('textarea')).toBeRequired()
 expect(getByTestId('supported-role')).not.toBeRequired()
 expect(getByTestId('supported-role-aria')).toBeRequired()
+expect(queryByTestId('without-aria-role')).toBeRequired()
 ```
 
 <hr />
