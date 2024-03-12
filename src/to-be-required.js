@@ -3,8 +3,6 @@ import {checkHtmlElement, getTag} from './utils'
 // form elements that support 'required'
 const FORM_TAGS = ['select', 'textarea']
 
-const ARIA_FORM_TAGS = ['input', 'select', 'textarea']
-
 const UNSUPPORTED_INPUT_TYPES = [
   'color',
   'hidden',
@@ -12,14 +10,6 @@ const UNSUPPORTED_INPUT_TYPES = [
   'submit',
   'image',
   'reset',
-]
-
-const SUPPORTED_ARIA_ROLES = [
-  'combobox',
-  'gridcell',
-  'radiogroup',
-  'spinbutton',
-  'tree',
 ]
 
 function isRequiredOnFormTagsExceptInput(element) {
@@ -39,10 +29,7 @@ function isRequiredOnSupportedInput(element) {
 function isElementRequiredByARIA(element) {
   return (
     element.hasAttribute('aria-required') &&
-    element.getAttribute('aria-required') === 'true' &&
-    (ARIA_FORM_TAGS.includes(getTag(element)) ||
-      (element.hasAttribute('role') &&
-        SUPPORTED_ARIA_ROLES.includes(element.getAttribute('role'))))
+    element.getAttribute('aria-required') === 'true'
   )
 }
 
