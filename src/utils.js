@@ -227,6 +227,9 @@ function toSentence(
     array.length > 1 ? lastWordConnector : '',
   )
 }
+function camelToKebab(camelCaseString) {
+  return camelCaseString.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+}
 
 export {
   HtmlElementTypeError,
@@ -242,4 +245,5 @@ export {
   getSingleElementValue,
   compareArraysAsSet,
   toSentence,
+  camelToKebab,
 }

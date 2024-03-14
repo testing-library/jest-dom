@@ -1,7 +1,14 @@
 import chalk from 'chalk'
-import {checkHtmlElement, parseCSS} from './utils'
+import {checkHtmlElement, parseCSS, camelToKebab} from './utils'
 
-/** https://github.com/facebook/react/blob/main/packages/react-dom-bindings/src/shared/isUnitlessNumber.js */
+/**
+ * Set of CSS properties that typically have unitless values.
+ * These properties are commonly used in CSS without specifying units such as px, em, etc.
+ * This set is used to determine whether a numerical value should have a unit appended to it.
+ *
+ * Note: This list is based on the `isUnitlessNumber` module from the React DOM package.
+ * Source: https://github.com/facebook/react/blob/main/packages/react-dom-bindings/src/shared/isUnitlessNumber.js
+ */
 const unitlessNumbers = new Set([
   'animationIterationCount',
   'aspectRatio',
@@ -76,15 +83,11 @@ const unitlessNumbers = new Set([
   'WebkitLineClamp',
 ])
 
-function camelToKebab(camelCaseString) {
-  return camelCaseString.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
-}
-
 function isCustomProperty(property) {
   return property.startsWith('--')
 }
 
-function isUnitProperty([property, value]) {
+function isUnitProperty(property, value) {
   if (typeof value !== 'number') {
     return false
   }
@@ -92,17 +95,31 @@ function isUnitProperty([property, value]) {
   return !unitlessNumbers.has(property)
 }
 
+/**
+ * Convert a CSS object to a valid style object.
+ * This function takes a CSS object and converts it into a valid style object.
+ * It transforms camelCase property names to kebab-case and appends 'px' unit to numerical values.
+ */
+function convertCssObject(css) {
+  return Object.entries(css).reduce((obj, [property, value]) => {
+    const styleProperty = isCustomProperty(property)
+      ? property
+      : camelToKebab(property)
+    const styleValue = isUnitProperty(property, value) ? `${value}px` : value
+    return Object.assign(obj, {
+      [styleProperty]: styleValue,
+    })
+  }, {})
+}
+
 function getStyleDeclaration(document, css) {
   const styles = {}
 
   // The next block is necessary to normalize colors
   const copy = document.createElement('div')
-  Object.entries(css).forEach(entry => {
-    const [property, value] = entry
-    const prop = isCustomProperty(property) ? property : camelToKebab(property)
-
-    copy.style[prop] = isUnitProperty(entry) ? `${value}px` : value
-    styles[prop] = copy.style[prop]
+  Object.entries(css).forEach(([property, value]) => {
+    copy.style[property] = value
+    styles[property] = copy.style[property]
   })
   return styles
 }
@@ -150,9 +167,10 @@ export function toHaveStyle(htmlElement, css) {
   checkHtmlElement(htmlElement, toHaveStyle, this)
   const parsedCSS =
     typeof css === 'object' ? css : parseCSS(css, toHaveStyle, this)
+  const cssObject = convertCssObject(parsedCSS)
   const {getComputedStyle} = htmlElement.ownerDocument.defaultView
 
-  const expected = getStyleDeclaration(htmlElement.ownerDocument, parsedCSS)
+  const expected = getStyleDeclaration(htmlElement.ownerDocument, cssObject)
   const received = getComputedStyle(htmlElement)
 
   return {
