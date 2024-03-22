@@ -1,16 +1,10 @@
-import isEqualWith from 'lodash/isEqualWith.js'
-import uniq from 'lodash/uniq.js'
 import escape from 'css.escape'
-import {
-  checkHtmlElement,
-  compareArraysAsSet,
-  getSingleElementValue,
-} from './utils'
+import {checkHtmlElement, getSingleElementValue} from './utils'
 
 // Returns the combined value of several elements that have the same name
 // e.g. radio buttons or groups of checkboxes
 function getMultiElementValue(elements) {
-  const types = uniq(elements.map(element => element.type))
+  const types = [...new Set(elements.map(element => element.type))]
   if (types.length !== 1) {
     throw new Error(
       'Multiple form elements with the same name must be of the same type',
@@ -69,9 +63,15 @@ export function toHaveFormValues(formElement, expectedValues) {
   }
   const formValues = getAllFormValues(formElement)
   return {
-    pass: Object.entries(expectedValues).every(([name, expectedValue]) =>
-      isEqualWith(formValues[name], expectedValue, compareArraysAsSet),
-    ),
+    pass: Object.entries(expectedValues).every(([name, expectedValue]) => {
+      if (Array.isArray(formValues[name]) && Array.isArray(expectedValue)) {
+        return [...new Set(formValues[name])].every(v =>
+          new Set(expectedValue).has(v),
+        )
+      } else {
+        return formValues[name] === expectedValue
+      }
+    }),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
       const matcher = `${this.isNot ? '.not' : ''}.toHaveFormValues`

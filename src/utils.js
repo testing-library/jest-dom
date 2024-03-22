@@ -1,5 +1,4 @@
 import redent from 'redent'
-import isEqual from 'lodash/isEqual.js'
 import {parse} from '@adobe/css-tools'
 
 class GenericTypeError extends Error {
@@ -212,13 +211,6 @@ function getSingleElementValue(element) {
   }
 }
 
-function compareArraysAsSet(a, b) {
-  if (Array.isArray(a) && Array.isArray(b)) {
-    return isEqual(new Set(a), new Set(b))
-  }
-  return undefined
-}
-
 function toSentence(
   array,
   {wordConnector = ', ', lastWordConnector = ' and '} = {},
@@ -240,6 +232,5 @@ export {
   normalize,
   getTag,
   getSingleElementValue,
-  compareArraysAsSet,
   toSentence,
 }
