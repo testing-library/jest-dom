@@ -86,7 +86,6 @@
     "chalk": "^3.0.0",
     "css.escape": "^1.5.1",
     "dom-accessibility-api": "^0.6.3",
-    "lodash": "^4.17.15",
     "redent": "^3.0.0"
   },
   "devDependencies": {
