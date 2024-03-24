@@ -1,4 +1,9 @@
-import {checkHtmlElement, getMessage, getSingleElementValue} from './utils'
+import {
+  checkHtmlElement,
+  getMessage,
+  getSingleElementValue,
+  isEqualWithArraysAsSets,
+} from './utils'
 
 export function toHaveValue(htmlElement, expectedValue) {
   checkHtmlElement(htmlElement, toHaveValue, this)
@@ -24,9 +29,7 @@ export function toHaveValue(htmlElement, expectedValue) {
 
   return {
     pass: expectsValue
-      ? Array.isArray(receivedValue) && Array.isArray(expectedValue)
-        ? [...new Set(receivedValue)].every(v => new Set(expectedValue).has(v))
-        : receivedValue === expectedValue
+      ? isEqualWithArraysAsSets(receivedValue, expectedValue)
       : Boolean(receivedValue),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'

@@ -1,5 +1,9 @@
 import escape from 'css.escape'
-import {checkHtmlElement, getSingleElementValue} from './utils'
+import {
+  checkHtmlElement,
+  getSingleElementValue,
+  isEqualWithArraysAsSets,
+} from './utils'
 
 // Returns the combined value of several elements that have the same name
 // e.g. radio buttons or groups of checkboxes
@@ -63,15 +67,9 @@ export function toHaveFormValues(formElement, expectedValues) {
   }
   const formValues = getAllFormValues(formElement)
   return {
-    pass: Object.entries(expectedValues).every(([name, expectedValue]) => {
-      if (Array.isArray(formValues[name]) && Array.isArray(expectedValue)) {
-        return [...new Set(formValues[name])].every(v =>
-          new Set(expectedValue).has(v),
-        )
-      } else {
-        return formValues[name] === expectedValue
-      }
-    }),
+    pass: Object.entries(expectedValues).every(([name, expectedValue]) =>
+      isEqualWithArraysAsSets(formValues[name], expectedValue),
+    ),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
       const matcher = `${this.isNot ? '.not' : ''}.toHaveFormValues`
