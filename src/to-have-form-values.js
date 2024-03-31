@@ -1,8 +1,9 @@
+import isEqualWith from 'lodash/isEqualWith'
 import escape from 'css.escape'
 import {
   checkHtmlElement,
   getSingleElementValue,
-  isEqualWithArraysAsSets,
+  compareArraysAsSet,
 } from './utils'
 
 // Returns the combined value of several elements that have the same name
@@ -68,7 +69,7 @@ export function toHaveFormValues(formElement, expectedValues) {
   const formValues = getAllFormValues(formElement)
   return {
     pass: Object.entries(expectedValues).every(([name, expectedValue]) =>
-      isEqualWithArraysAsSets(formValues[name], expectedValue),
+      isEqualWith(formValues[name], expectedValue, compareArraysAsSet),
     ),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
