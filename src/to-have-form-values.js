@@ -1,16 +1,15 @@
-import isEqualWith from 'lodash/isEqualWith.js'
-import uniq from 'lodash/uniq.js'
+import isEqualWith from 'lodash/isEqualWith'
 import escape from 'css.escape'
 import {
   checkHtmlElement,
-  compareArraysAsSet,
   getSingleElementValue,
+  compareArraysAsSet,
 } from './utils'
 
 // Returns the combined value of several elements that have the same name
 // e.g. radio buttons or groups of checkboxes
 function getMultiElementValue(elements) {
-  const types = uniq(elements.map(element => element.type))
+  const types = [...new Set(elements.map(element => element.type))]
   if (types.length !== 1) {
     throw new Error(
       'Multiple form elements with the same name must be of the same type',
