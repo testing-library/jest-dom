@@ -379,7 +379,6 @@ attribute.
 <textarea data-testid="textarea" required></textarea>
 <div data-testid="supported-role" role="tree" required></div>
 <div data-testid="supported-role-aria" role="tree" aria-required="true"></div>
-<div data-testid="without-aria-role" aria-required="true"></div>
 ```
 
 ```javascript
