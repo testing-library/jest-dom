@@ -1,4 +1,5 @@
 import {checkHtmlElement, getTag} from './utils'
+
 // form elements that support 'required'
 const FORM_TAGS = ['select', 'textarea']
 
