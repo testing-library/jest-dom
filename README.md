@@ -392,7 +392,6 @@ expect(getByTestId('select')).toBeRequired()
 expect(getByTestId('textarea')).toBeRequired()
 expect(getByTestId('supported-role')).not.toBeRequired()
 expect(getByTestId('supported-role-aria')).toBeRequired()
-expect(queryByTestId('without-aria-role')).toBeRequired()
 ```
 
 <hr />

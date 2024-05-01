@@ -27,6 +27,7 @@ const SUPPORTED_ARIA_ROLES = [
 function isRequiredOnFormTagsExceptInput(element) {
   return FORM_TAGS.includes(getTag(element)) && element.hasAttribute('required')
 }
+
 function isRequiredOnSupportedInput(element) {
   return (
     getTag(element) === 'input' &&
@@ -36,6 +37,7 @@ function isRequiredOnSupportedInput(element) {
       !element.hasAttribute('type'))
   )
 }
+
 function isElementRequiredByARIA(element) {
   return (
     element.hasAttribute('aria-required') &&
@@ -48,10 +50,12 @@ function isElementRequiredByARIA(element) {
 
 export function toBeRequired(element) {
   checkHtmlElement(element, toBeRequired, this)
+
   const isRequired =
     isRequiredOnFormTagsExceptInput(element) ||
     isRequiredOnSupportedInput(element) ||
     isElementRequiredByARIA(element)
+
   return {
     pass: isRequired,
     message: () => {
