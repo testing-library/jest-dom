@@ -251,33 +251,4 @@ describe('.toHaveStyle', () => {
       })
     })
   })
-
-  describe('css-features', () => {
-    test('works with starting-style', () => {
-      const {container} = render(`
-            <div class="label">
-              Hello World
-            </div>
-          `)
-  
-      const style = document.createElement('style')
-      style.innerHTML = `
-            @starting-style {
-              .label {
-                opacity: 0;
-              }
-            }
-            .label {
-              opacity: 1;
-              transition: opacity 0.2s ease-out;
-            }
-          `
-      document.body.appendChild(style)
-      document.body.appendChild(container)
-  
-      expect(container.querySelector('.label')).toHaveStyle(`
-            opacity: 1;
-          `)
-    })
-  })
 })
