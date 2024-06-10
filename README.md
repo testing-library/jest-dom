@@ -321,7 +321,7 @@ toBeInvalid()
 This allows you to check if an element, is currently invalid.
 
 An element is invalid if it has an
-[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)
+[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid)
 with no value or a value of `"true"`, or if the result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
 is `false`.
@@ -405,7 +405,7 @@ toBeValid()
 This allows you to check if the value of an element, is currently valid.
 
 An element is valid if it has no
-[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)s
+[`aria-invalid` attributes](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid)
 or an attribute value of `"false"`. The result of
 [`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
 must also be `true` if it's a form element.
@@ -1364,7 +1364,7 @@ toHaveDescription(text: string | RegExp)
 This allows you to check whether the given element has a description or not.
 
 An element gets its description via the
-[`aria-describedby` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute).
+[`aria-describedby` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby).
 Set this to the `id` of one or more other elements. These elements may be nested
 inside, be outside, or a sibling of the passed in element.
 

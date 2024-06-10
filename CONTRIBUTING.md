@@ -40,7 +40,7 @@ Also, please watch the repo and respond to questions/bug reports/feature
 requests! Thanks!
 
 <!-- prettier-ignore-start -->
-[egghead]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
+[egghead]: https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github
 [all-contributors]: https://github.com/all-contributors/all-contributors
 [issues]: https://github.com/testing-library/jest-dom/issues
 <!-- prettier-ignore-end -->
