@@ -996,6 +996,9 @@ It accepts `<input>`, `<select>` and `<textarea>` elements with the exception of
 matched only using [`toBeChecked`](#tobechecked) or
 [`toHaveFormValues`](#tohaveformvalues).
 
+It also accepts elements with roles `meter`, `progressbar`, `slider` or
+`spinbutton` and checks their `aria-valuenow` attribute (as a number).
+
 For all other form elements, the value is matched using the same algorithm as in
 [`toHaveFormValues`](#tohaveformvalues) does.
 
