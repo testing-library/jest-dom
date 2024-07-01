@@ -1,5 +1,4 @@
 import redent from 'redent'
-import isEqual from 'lodash/isEqual'
 import {parse} from '@adobe/css-tools'
 
 class GenericTypeError extends Error {
@@ -28,7 +27,7 @@ class GenericTypeError extends Error {
         '',
       ),
       '',
-      // eslint-disable-next-line @babel/new-cap
+      // eslint-disable-next-line new-cap
       `${context.utils.RECEIVED_COLOR(
         'received',
       )} value must ${expectedString}.`,
@@ -91,9 +90,9 @@ class InvalidCSSError extends Error {
     this.message = [
       received.message,
       '',
-      // eslint-disable-next-line @babel/new-cap
+      // eslint-disable-next-line new-cap
       context.utils.RECEIVED_COLOR(`Failing css:`),
-      // eslint-disable-next-line @babel/new-cap
+      // eslint-disable-next-line new-cap
       context.utils.RECEIVED_COLOR(`${received.css}`),
     ].join('\n')
   }
@@ -137,11 +136,11 @@ function getMessage(
 ) {
   return [
     `${matcher}\n`,
-    // eslint-disable-next-line @babel/new-cap
+    // eslint-disable-next-line new-cap
     `${expectedLabel}:\n${context.utils.EXPECTED_COLOR(
       redent(display(context, expectedValue), 2),
     )}`,
-    // eslint-disable-next-line @babel/new-cap
+    // eslint-disable-next-line new-cap
     `${receivedLabel}:\n${context.utils.RECEIVED_COLOR(
       redent(display(context, receivedValue), 2),
     )}`,
@@ -213,13 +212,6 @@ function getSingleElementValue(element) {
   }
 }
 
-function compareArraysAsSet(a, b) {
-  if (Array.isArray(a) && Array.isArray(b)) {
-    return isEqual(new Set(a), new Set(b))
-  }
-  return undefined
-}
-
 function toSentence(
   array,
   {wordConnector = ', ', lastWordConnector = ' and '} = {},
@@ -227,6 +219,13 @@ function toSentence(
   return [array.slice(0, -1).join(wordConnector), array[array.length - 1]].join(
     array.length > 1 ? lastWordConnector : '',
   )
+}
+
+function compareArraysAsSet(arr1, arr2) {
+  if (Array.isArray(arr1) && Array.isArray(arr2)) {
+    return [...new Set(arr1)].every(v => new Set(arr2).has(v))
+  }
+  return undefined
 }
 
 export {
@@ -241,6 +240,6 @@ export {
   normalize,
   getTag,
   getSingleElementValue,
-  compareArraysAsSet,
   toSentence,
+  compareArraysAsSet,
 }

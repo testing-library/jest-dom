@@ -57,6 +57,26 @@ describe('.toHaveAccessibleDescription', () => {
     }).toThrow(/expected element not to have accessible description/i)
   })
 
+  it('works with aria-description attribute', () => {
+    const {queryByTestId} = render(`
+      <img src="logo.jpg" data-testid="logo" alt="Company logo" aria-description="The logo of Our Company">
+   `)
+
+    const logo = queryByTestId('logo')
+    expect(logo).not.toHaveAccessibleDescription('Company logo')
+    expect(logo).toHaveAccessibleDescription('The logo of Our Company')
+    expect(logo).toHaveAccessibleDescription(/logo of our company/i)
+    expect(logo).toHaveAccessibleDescription(
+      expect.stringContaining('logo of Our Company'),
+    )
+    expect(() => {
+      expect(logo).toHaveAccessibleDescription("Our company's logo")
+    }).toThrow(/expected element to have accessible description/i)
+    expect(() => {
+      expect(logo).not.toHaveAccessibleDescription('The logo of Our Company')
+    }).toThrow(/expected element not to have accessible description/i)
+  })
+
   it('handles multiple ids', () => {
     const {queryByTestId} = render(`
       <div>

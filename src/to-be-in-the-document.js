@@ -29,7 +29,7 @@ export function toBeInTheDocument(element) {
           '',
         ),
         '',
-        // eslint-disable-next-line @babel/new-cap
+        // eslint-disable-next-line new-cap
         this.utils.RECEIVED_COLOR(this.isNot ? errorFound() : errorNotFound()),
       ].join('\n')
     },

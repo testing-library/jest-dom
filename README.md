@@ -51,7 +51,10 @@ clear to read and to maintain.
 
 - [Installation](#installation)
 - [Usage](#usage)
+  - [With `@jest/globals`](#with-jestglobals)
+  - [With Vitest](#with-vitest)
   - [With TypeScript](#with-typescript)
+  - [With another Jest-compatible `expect`](#with-another-jest-compatible-expect)
 - [Custom matchers](#custom-matchers)
   - [`toBeDisabled`](#tobedisabled)
   - [`toBeEnabled`](#tobeenabled)
@@ -64,6 +67,7 @@ clear to read and to maintain.
   - [`toContainElement`](#tocontainelement)
   - [`toContainHTML`](#tocontainhtml)
   - [`toHaveAccessibleDescription`](#tohaveaccessibledescription)
+  - [`toHaveAccessibleErrorMessage`](#tohaveaccessibleerrormessage)
   - [`toHaveAccessibleName`](#tohaveaccessiblename)
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
@@ -75,6 +79,7 @@ clear to read and to maintain.
   - [`toHaveDisplayValue`](#tohavedisplayvalue)
   - [`toBeChecked`](#tobechecked)
   - [`toBePartiallyChecked`](#tobepartiallychecked)
+  - [`toHaveRole`](#tohaverole)
   - [`toHaveErrorMessage`](#tohaveerrormessage)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeEmpty`](#tobeempty)
@@ -127,6 +132,39 @@ import '@testing-library/jest-dom'
 setupFilesAfterEnv: ['<rootDir>/jest-setup.js']
 ```
 
+### With `@jest/globals`
+
+If you are using [`@jest/globals`][jest-globals announcement] with
+[`injectGlobals: false`][inject-globals docs], you will need to use a different
+import in your tests setup file:
+
+```javascript
+// In your own jest-setup.js (or any other name)
+import '@testing-library/jest-dom/jest-globals'
+```
+
+[jest-globals announcement]:
+  https://jestjs.io/blog/2020/05/05/jest-26#a-new-way-to-consume-jest---jestglobals
+[inject-globals docs]:
+  https://jestjs.io/docs/configuration#injectglobals-boolean
+
+### With Vitest
+
+If you are using [vitest][], this module will work as-is, but you will need to
+use a different import in your tests setup file. This file should be added to
+the [`setupFiles`][vitest setupfiles] property in your vitest config:
+
+```javascript
+// In your own vitest-setup.js (or any other name)
+import '@testing-library/jest-dom/vitest'
+
+// In vitest.config.js add (if you haven't already)
+setupFiles: ['./vitest-setup.js']
+```
+
+[vitest]: https://vitest.dev/
+[vitest setupfiles]: https://vitest.dev/config/#setupfiles
+
 ### With TypeScript
 
 If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js`
@@ -141,6 +179,18 @@ haven't already:
     ...
     "./jest-setup.ts"
   ],
+```
+
+### With another Jest-compatible `expect`
+
+If you are using a different test runner that is compatible with Jest's `expect`
+interface, it might be possible to use it with this library:
+
+```javascript
+import * as matchers from '@testing-library/jest-dom/matchers'
+import {expect} from 'my-test-runner/expect'
+
+expect.extend(matchers)
 ```
 
 ## Custom matchers
@@ -545,6 +595,12 @@ make a partial match passing a regular expression, or by using
   aria-describedby="t1"
 />
 <span id="t1" role="presentation">The logo of Our Company</span>
+<img
+  src="logo.jpg"
+  data-testid="logo2"
+  alt="Company logo"
+  aria-description="The logo of Our Company"
+/>
 ```
 
 ```js
@@ -557,6 +613,66 @@ expect(getByTestId('logo')).not.toHaveAccessibleDescription('Company logo')
 expect(getByTestId('logo')).toHaveAccessibleDescription(
   'The logo of Our Company',
 )
+expect(getByTestId('logo2')).toHaveAccessibleDescription(
+  'The logo of Our Company',
+)
+```
+
+<hr />
+
+### `toHaveAccessibleErrorMessage`
+
+```typescript
+toHaveAccessibleErrorMessage(expectedAccessibleErrorMessage?: string | RegExp)
+```
+
+This allows you to assert that an element has the expected
+[accessible error message](https://w3c.github.io/aria/#aria-errormessage).
+
+You can pass the exact string of the expected accessible error message.
+Alternatively, you can perform a partial match by passing a regular expression
+or by using
+[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp).
+
+#### Examples
+
+```html
+<input
+  aria-label="Has Error"
+  aria-invalid="true"
+  aria-errormessage="error-message"
+/>
+<div id="error-message" role="alert">This field is invalid</div>
+
+<input aria-label="No Error Attributes" />
+<input
+  aria-label="Not Invalid"
+  aria-invalid="false"
+  aria-errormessage="error-message"
+/>
+```
+
+```js
+// Inputs with Valid Error Messages
+expect(getByRole('textbox', {name: 'Has Error'})).toHaveAccessibleErrorMessage()
+expect(getByRole('textbox', {name: 'Has Error'})).toHaveAccessibleErrorMessage(
+  'This field is invalid',
+)
+expect(getByRole('textbox', {name: 'Has Error'})).toHaveAccessibleErrorMessage(
+  /invalid/i,
+)
+expect(
+  getByRole('textbox', {name: 'Has Error'}),
+).not.toHaveAccessibleErrorMessage('This field is absolutely correct!')
+
+// Inputs without Valid Error Messages
+expect(
+  getByRole('textbox', {name: 'No Error Attributes'}),
+).not.toHaveAccessibleErrorMessage()
+
+expect(
+  getByRole('textbox', {name: 'Not Invalid'}),
+).not.toHaveAccessibleErrorMessage()
 ```
 
 <hr />
@@ -638,10 +754,12 @@ toHaveClass(...classNames: string[], options?: {exact: boolean})
 ```
 
 This allows you to check whether the given element has certain classes within
-its `class` attribute.
+its `class` attribute. You must provide at least one class, unless you are
+asserting that an element does not have any classes.
 
-You must provide at least one class, unless you are asserting that an element
-does not have any classes.
+The list of class names may include strings and regular expressions. Regular
+expressions are matched against each individual class in the target element, and
+it is NOT matched against its full `class` attribute value as whole.
 
 #### Examples
 
@@ -658,8 +776,11 @@ const noClasses = getByTestId('no-classes')
 
 expect(deleteButton).toHaveClass('extra')
 expect(deleteButton).toHaveClass('btn-danger btn')
+expect(deleteButton).toHaveClass(/danger/, 'btn')
 expect(deleteButton).toHaveClass('btn-danger', 'btn')
 expect(deleteButton).not.toHaveClass('btn-link')
+expect(deleteButton).not.toHaveClass(/link/)
+expect(deleteButton).not.toHaveClass(/btn extra/) // It does not match
 
 expect(deleteButton).toHaveClass('btn-danger extra btn', {exact: true}) // to check if the element has EXACTLY a set of classes
 expect(deleteButton).not.toHaveClass('btn-danger extra', {exact: true}) // if it has more than expected it is going to fail
@@ -776,6 +897,8 @@ expect(getByTestId('login-form')).toHaveFormValues({
   rememberMe: true,
 })
 ```
+
+<hr />
 
 ### `toHaveStyle`
 
@@ -1070,7 +1193,52 @@ expect(inputCheckboxIndeterminate).toBePartiallyChecked()
 
 <hr />
 
+### `toHaveRole`
+
+This allows you to assert that an element has the expected
+[role](https://www.w3.org/TR/html-aria/#docconformance).
+
+This is useful in cases where you already have access to an element via some
+query other than the role itself, and want to make additional assertions
+regarding its accessibility.
+
+The role can match either an explicit role (via the `role` attribute), or an
+implicit one via the
+[implicit ARIA semantics](https://www.w3.org/TR/html-aria/).
+
+Note: roles are matched literally by string equality, without inheriting from
+the ARIA role hierarchy. As a result, querying a superclass role like 'checkbox'
+will not include elements with a subclass role like 'switch'.
+
+```typescript
+toHaveRole(expectedRole: string)
+```
+
+```html
+<button data-testid="button">Continue</button>
+<div role="button" data-testid="button-explicit">Continue</button>
+<button role="switch button" data-testid="button-explicit-multiple">Continue</button>
+<a href="/about" data-testid="link">About</a>
+<a data-testid="link-invalid">Invalid link<a/>
+```
+
+```javascript
+expect(getByTestId('button')).toHaveRole('button')
+expect(getByTestId('button-explicit')).toHaveRole('button')
+expect(getByTestId('button-explicit-multiple')).toHaveRole('button')
+expect(getByTestId('button-explicit-multiple')).toHaveRole('switch')
+expect(getByTestId('link')).toHaveRole('link')
+expect(getByTestId('link-invalid')).not.toHaveRole('link')
+expect(getByTestId('link-invalid')).toHaveRole('generic')
+```
+
+<hr />
+
 ### `toHaveErrorMessage`
+
+> This custom matcher is deprecated. Prefer
+> [`toHaveAccessibleErrorMessage`](#tohaveaccessibleerrormessage) instead, which
+> is more comprehensive in implementing the official spec.
 
 ```typescript
 toHaveErrorMessage(text: string | RegExp)
@@ -1184,6 +1352,8 @@ expect(document.querySelector('.cancel-button')).toBeTruthy()
 > replacing `toBeInTheDOM` to read through the documentation of the proposed
 > alternatives to see which use case works better for your needs.
 
+<hr />
+
 ### `toHaveDescription`
 
 > This custom matcher is deprecated. Prefer
@@ -1280,96 +1450,105 @@ Thanks goes to these people ([emoji key][emojis]):
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://kentcdodds.com"><img src="https://avatars.githubusercontent.com/u/1500684?v=3?s=100" width="100px;" alt=""/><br /><sub><b>Kent C. Dodds</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Documentation">📖</a> <a href="#infra-kentcdodds" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://audiolion.github.io"><img src="https://avatars1.githubusercontent.com/u/2430381?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ryan Castner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=audiolion" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://www.dnlsandiego.com"><img src="https://avatars0.githubusercontent.com/u/8008023?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daniel Sandiego</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=dnlsandiego" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/Miklet"><img src="https://avatars2.githubusercontent.com/u/12592677?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Paweł Mikołajczyk</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=Miklet" title="Code">💻</a></td>
-    <td align="center"><a href="http://co.linkedin.com/in/alejandronanez/"><img src="https://avatars3.githubusercontent.com/u/464978?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alejandro Ñáñez Ortiz</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=alejandronanez" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/pbomb"><img src="https://avatars0.githubusercontent.com/u/1402095?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matt Parrish</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Apbomb" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=pbomb" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=pbomb" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=pbomb" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/wKovacs64"><img src="https://avatars1.githubusercontent.com/u/1288694?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Justin Hall</b></sub></a><br /><a href="#platform-wKovacs64" title="Packaging/porting to new platform">📦</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/antoaravinth"><img src="https://avatars1.githubusercontent.com/u/1241511?s=460&v=4?s=100" width="100px;" alt=""/><br /><sub><b>Anto Aravinth</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=antoaravinth" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=antoaravinth" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=antoaravinth" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/JonahMoses"><img src="https://avatars2.githubusercontent.com/u/3462296?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonah Moses</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=JonahMoses" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://team.thebrain.pro"><img src="https://avatars1.githubusercontent.com/u/4002543?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Łukasz Gandecki</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lgandecki" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lgandecki" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lgandecki" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://sompylasar.github.io"><img src="https://avatars2.githubusercontent.com/u/498274?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ivan Babak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Asompylasar" title="Bug reports">🐛</a> <a href="#ideas-sompylasar" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/jday3"><img src="https://avatars3.githubusercontent.com/u/4439618?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jesse Day</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jday3" title="Code">💻</a></td>
-    <td align="center"><a href="http://gnapse.github.io"><img src="https://avatars0.githubusercontent.com/u/15199?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ernesto García</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=gnapse" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=gnapse" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=gnapse" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://ociweb.com/mark/"><img src="https://avatars0.githubusercontent.com/u/79312?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mark Volkmann</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Amvolkmann" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=mvolkmann" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/smacpherson64"><img src="https://avatars1.githubusercontent.com/u/1659099?v=4?s=100" width="100px;" alt=""/><br /><sub><b>smacpherson64</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=smacpherson64" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=smacpherson64" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=smacpherson64" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/jgoz"><img src="https://avatars2.githubusercontent.com/u/132233?v=4?s=100" width="100px;" alt=""/><br /><sub><b>John Gozde</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ajgoz" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jgoz" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/callada"><img src="https://avatars2.githubusercontent.com/u/7830590?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Iwona</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=callada" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=callada" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=callada" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/6ewis"><img src="https://avatars0.githubusercontent.com/u/840609?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lewis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=6ewis" title="Code">💻</a></td>
-    <td align="center"><a href="https://blog.lourenci.com/"><img src="https://avatars3.githubusercontent.com/u/2339362?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Leandro Lourenci</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Alourenci" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lourenci" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lourenci" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lourenci" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/mufasa71"><img src="https://avatars1.githubusercontent.com/u/626420?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shukhrat Mukimov</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Amufasa71" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/dreyks"><img src="https://avatars3.githubusercontent.com/u/1481264?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Roman Usherenko</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=dreyks" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=dreyks" title="Tests">⚠️</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="http://josephhsu.com"><img src="https://avatars1.githubusercontent.com/u/648?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Joe Hsu</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jhsu" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://twitter.com/diegohaz"><img src="https://avatars3.githubusercontent.com/u/3068563?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Haz</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Adiegohaz" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=diegohaz" title="Code">💻</a></td>
-    <td align="center"><a href="https://blog.revathskumar.com"><img src="https://avatars3.githubusercontent.com/u/463904?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Revath S Kumar</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=revathskumar" title="Code">💻</a></td>
-    <td align="center"><a href="https://raccoon.studio"><img src="https://avatars0.githubusercontent.com/u/4989733?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hiwelo.</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Code">💻</a> <a href="#ideas-hiwelo" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/lukaszfiszer"><img src="https://avatars3.githubusercontent.com/u/1201711?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Łukasz Fiszer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lukaszfiszer" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jeanchung"><img src="https://avatars0.githubusercontent.com/u/10778036?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jean Chung</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/CarlaTeo"><img src="https://avatars3.githubusercontent.com/u/9220147?v=4?s=100" width="100px;" alt=""/><br /><sub><b>CarlaTeo</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Tests">⚠️</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/YardenShoham"><img src="https://avatars3.githubusercontent.com/u/20454870?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yarden Shoham</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=YardenShoham" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://jagascript.com"><img src="https://avatars0.githubusercontent.com/u/4562878?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jaga Santagostino</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Akandros" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/connormeredith"><img src="https://avatars0.githubusercontent.com/u/4907463?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Connor Meredith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/pwolaq"><img src="https://avatars3.githubusercontent.com/u/10261750?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pawel Wolak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=pwolaq" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://michaeldeboey.be"><img src="https://avatars3.githubusercontent.com/u/6643991?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michaël De Boey</b></sub></a><br /><a href="#infra-MichaelDeBoey" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="https://github.com/jzarzeckis"><img src="https://avatars3.githubusercontent.com/u/919350?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jānis Zaržeckis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jzarzeckis" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/koala-lava"><img src="https://avatars0.githubusercontent.com/u/15828770?v=4?s=100" width="100px;" alt=""/><br /><sub><b>koala-lava</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=koala-lava" title="Documentation">📖</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://jpblanco.dev"><img src="https://avatars1.githubusercontent.com/u/16567863?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Juan Pablo Blanco</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=JPBlancoDB" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/benmonro"><img src="https://avatars3.githubusercontent.com/u/399236?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ben Monro</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=benmonro" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://jeffbernstein.io"><img src="https://avatars1.githubusercontent.com/u/6685560?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jeff Bernstein</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeffbernst" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/SergiCL"><img src="https://avatars3.githubusercontent.com/u/41625166?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sergi</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=SergiCL" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=SergiCL" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://skovy.dev"><img src="https://avatars1.githubusercontent.com/u/5247455?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Spencer Miskoviak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=skovy" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://twitter.com/jonrimmer"><img src="https://avatars1.githubusercontent.com/u/183786?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jon Rimmer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jonrimmer" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jonrimmer" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/cloud-walker"><img src="https://avatars3.githubusercontent.com/u/1144075?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Luca Barone</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=cloud-walker" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=cloud-walker" title="Tests">⚠️</a> <a href="#ideas-cloud-walker" title="Ideas, Planning, & Feedback">🤔</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/mfelmy"><img src="https://avatars2.githubusercontent.com/u/29504917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Malte Felmy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://ghuser.io/Ishaan28malik"><img src="https://avatars3.githubusercontent.com/u/27343592?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Championrunner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=Ishaan28malik" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://icing.space/"><img src="https://avatars0.githubusercontent.com/u/2635733?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Patrick Smith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://rubenmoya.dev"><img src="https://avatars3.githubusercontent.com/u/905225?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rubén Moya</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://danielavalero.com/"><img src="https://avatars1.githubusercontent.com/u/1307954?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daniela Valero</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/missilev"><img src="https://avatars1.githubusercontent.com/u/33201468?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vladislav Katsura</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://stderr.timfischbach.de"><img src="https://avatars3.githubusercontent.com/u/26554?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tim Fischbach</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=tf" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=tf" title="Tests">⚠️</a> <a href="#ideas-tf" title="Ideas, Planning, & Feedback">🤔</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="http://katieboedges.com/"><img src="https://avatars1.githubusercontent.com/u/8322476?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Katie Boedges</b></sub></a><br /><a href="#infra-kboedges" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="https://github.com/brrianalexis"><img src="https://avatars2.githubusercontent.com/u/51463930?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brian Alexis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=brrianalexis" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://twitter.com/boriscoder"><img src="https://avatars2.githubusercontent.com/u/812240?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Boris Serdiuk</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ajust-boris" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=just-boris" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=just-boris" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://danawoodman.com"><img src="https://avatars1.githubusercontent.com/u/157695?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dana Woodman</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=danawoodman" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/MoSattler"><img src="https://avatars2.githubusercontent.com/u/64152453?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mo Sattler</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=MoSattler" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/geoffrich"><img src="https://avatars2.githubusercontent.com/u/4992896?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Geoff Rich</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=geoffrich" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=geoffrich" title="Tests">⚠️</a> <a href="#ideas-geoffrich" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ageoffrich" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/syneva-runyan"><img src="https://avatars0.githubusercontent.com/u/20505588?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Syneva</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=syneva-runyan" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://nickmccurdy.com/"><img src="https://avatars0.githubusercontent.com/u/927220?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nick McCurdy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=nickmccurdy" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/issues?q=author%3Anickmccurdy" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=nickmccurdy" title="Code">💻</a></td>
-    <td align="center"><a href="https://obedparla.com/"><img src="https://avatars1.githubusercontent.com/u/10674462?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Obed Marquez Parlapiano</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=obedparla" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/calebeby"><img src="https://avatars.githubusercontent.com/u/13206945?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Caleb Eby</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=calebeby" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=calebeby" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=calebeby" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/marcelbarner"><img src="https://avatars.githubusercontent.com/u/12788744?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcel Barner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=marcelbarner" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=marcelbarner" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/SevenOutman"><img src="https://avatars.githubusercontent.com/u/8225666?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Doma</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=SevenOutman" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=SevenOutman" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://everlong.org/"><img src="https://avatars.githubusercontent.com/u/454175?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julien Wajsberg</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=julienw" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=julienw" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://lichess.org/@/StevenEmily"><img src="https://avatars.githubusercontent.com/u/58114641?v=4?s=100" width="100px;" alt=""/><br /><sub><b>steven nguyen</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=icecream17" title="Documentation">📖</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="http://tu4mo.com"><img src="https://avatars.githubusercontent.com/u/16735302?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tu4mo</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=tu4mo" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://matan.io"><img src="https://avatars.githubusercontent.com/u/12711091?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matan Borenkraout</b></sub></a><br /><a href="#platform-MatanBobi" title="Packaging/porting to new platform">📦</a></td>
-    <td align="center"><a href="https://github.com/yannbf"><img src="https://avatars.githubusercontent.com/u/1671563?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yann Braga</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=yannbf" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/IanVS"><img src="https://avatars.githubusercontent.com/u/4616705?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ian VanSchooten</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=IanVS" title="Code">💻</a></td>
-    <td align="center"><a href="http://chantalbroeren.nl"><img src="https://avatars.githubusercontent.com/u/7499806?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Chantal Broeren</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=cbroeren" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://jeremie.astori.fr"><img src="https://avatars.githubusercontent.com/u/113730?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jérémie Astori</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=astorije" title="Code">💻</a> <a href="#ideas-astorije" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/ashleyryan"><img src="https://avatars.githubusercontent.com/u/9469374?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ashley Ryan</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=ashleyryan" title="Code">💻</a> <a href="#ideas-ashleyryan" title="Ideas, Planning, & Feedback">🤔</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://kentcdodds.com"><img src="https://avatars.githubusercontent.com/u/1500684?v=3?s=100" width="100px;" alt="Kent C. Dodds"/><br /><sub><b>Kent C. Dodds</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Documentation">📖</a> <a href="#infra-kentcdodds" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kentcdodds" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://audiolion.github.io"><img src="https://avatars1.githubusercontent.com/u/2430381?v=4?s=100" width="100px;" alt="Ryan Castner"/><br /><sub><b>Ryan Castner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=audiolion" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.dnlsandiego.com"><img src="https://avatars0.githubusercontent.com/u/8008023?v=4?s=100" width="100px;" alt="Daniel Sandiego"/><br /><sub><b>Daniel Sandiego</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=dnlsandiego" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Miklet"><img src="https://avatars2.githubusercontent.com/u/12592677?v=4?s=100" width="100px;" alt="Paweł Mikołajczyk"/><br /><sub><b>Paweł Mikołajczyk</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=Miklet" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://co.linkedin.com/in/alejandronanez/"><img src="https://avatars3.githubusercontent.com/u/464978?v=4?s=100" width="100px;" alt="Alejandro Ñáñez Ortiz"/><br /><sub><b>Alejandro Ñáñez Ortiz</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=alejandronanez" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/pbomb"><img src="https://avatars0.githubusercontent.com/u/1402095?v=4?s=100" width="100px;" alt="Matt Parrish"/><br /><sub><b>Matt Parrish</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Apbomb" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=pbomb" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=pbomb" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=pbomb" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/wKovacs64"><img src="https://avatars1.githubusercontent.com/u/1288694?v=4?s=100" width="100px;" alt="Justin Hall"/><br /><sub><b>Justin Hall</b></sub></a><br /><a href="#platform-wKovacs64" title="Packaging/porting to new platform">📦</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/antoaravinth"><img src="https://avatars1.githubusercontent.com/u/1241511?s=460&v=4?s=100" width="100px;" alt="Anto Aravinth"/><br /><sub><b>Anto Aravinth</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=antoaravinth" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=antoaravinth" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=antoaravinth" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JonahMoses"><img src="https://avatars2.githubusercontent.com/u/3462296?v=4?s=100" width="100px;" alt="Jonah Moses"/><br /><sub><b>Jonah Moses</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=JonahMoses" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://team.thebrain.pro"><img src="https://avatars1.githubusercontent.com/u/4002543?v=4?s=100" width="100px;" alt="Łukasz Gandecki"/><br /><sub><b>Łukasz Gandecki</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lgandecki" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lgandecki" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lgandecki" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://sompylasar.github.io"><img src="https://avatars2.githubusercontent.com/u/498274?v=4?s=100" width="100px;" alt="Ivan Babak"/><br /><sub><b>Ivan Babak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Asompylasar" title="Bug reports">🐛</a> <a href="#ideas-sompylasar" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/jday3"><img src="https://avatars3.githubusercontent.com/u/4439618?v=4?s=100" width="100px;" alt="Jesse Day"/><br /><sub><b>Jesse Day</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jday3" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://gnapse.github.io"><img src="https://avatars0.githubusercontent.com/u/15199?v=4?s=100" width="100px;" alt="Ernesto García"/><br /><sub><b>Ernesto García</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=gnapse" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=gnapse" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=gnapse" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://ociweb.com/mark/"><img src="https://avatars0.githubusercontent.com/u/79312?v=4?s=100" width="100px;" alt="Mark Volkmann"/><br /><sub><b>Mark Volkmann</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Amvolkmann" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=mvolkmann" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/smacpherson64"><img src="https://avatars1.githubusercontent.com/u/1659099?v=4?s=100" width="100px;" alt="smacpherson64"/><br /><sub><b>smacpherson64</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=smacpherson64" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=smacpherson64" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=smacpherson64" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/jgoz"><img src="https://avatars2.githubusercontent.com/u/132233?v=4?s=100" width="100px;" alt="John Gozde"/><br /><sub><b>John Gozde</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ajgoz" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jgoz" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/callada"><img src="https://avatars2.githubusercontent.com/u/7830590?v=4?s=100" width="100px;" alt="Iwona"/><br /><sub><b>Iwona</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=callada" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=callada" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=callada" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/6ewis"><img src="https://avatars0.githubusercontent.com/u/840609?v=4?s=100" width="100px;" alt="Lewis"/><br /><sub><b>Lewis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=6ewis" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://blog.lourenci.com/"><img src="https://avatars3.githubusercontent.com/u/2339362?v=4?s=100" width="100px;" alt="Leandro Lourenci"/><br /><sub><b>Leandro Lourenci</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Alourenci" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lourenci" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lourenci" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=lourenci" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mufasa71"><img src="https://avatars1.githubusercontent.com/u/626420?v=4?s=100" width="100px;" alt="Shukhrat Mukimov"/><br /><sub><b>Shukhrat Mukimov</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Amufasa71" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dreyks"><img src="https://avatars3.githubusercontent.com/u/1481264?v=4?s=100" width="100px;" alt="Roman Usherenko"/><br /><sub><b>Roman Usherenko</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=dreyks" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=dreyks" title="Tests">⚠️</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://josephhsu.com"><img src="https://avatars1.githubusercontent.com/u/648?v=4?s=100" width="100px;" alt="Joe Hsu"/><br /><sub><b>Joe Hsu</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jhsu" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://twitter.com/diegohaz"><img src="https://avatars3.githubusercontent.com/u/3068563?v=4?s=100" width="100px;" alt="Haz"/><br /><sub><b>Haz</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Adiegohaz" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=diegohaz" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://blog.revathskumar.com"><img src="https://avatars3.githubusercontent.com/u/463904?v=4?s=100" width="100px;" alt="Revath S Kumar"/><br /><sub><b>Revath S Kumar</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=revathskumar" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://raccoon.studio"><img src="https://avatars0.githubusercontent.com/u/4989733?v=4?s=100" width="100px;" alt="hiwelo."/><br /><sub><b>hiwelo.</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Code">💻</a> <a href="#ideas-hiwelo" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/commits?author=hiwelo" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/lukaszfiszer"><img src="https://avatars3.githubusercontent.com/u/1201711?v=4?s=100" width="100px;" alt="Łukasz Fiszer"/><br /><sub><b>Łukasz Fiszer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=lukaszfiszer" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/jeanchung"><img src="https://avatars0.githubusercontent.com/u/10778036?v=4?s=100" width="100px;" alt="Jean Chung"/><br /><sub><b>Jean Chung</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jeanchung" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/CarlaTeo"><img src="https://avatars3.githubusercontent.com/u/9220147?v=4?s=100" width="100px;" alt="CarlaTeo"/><br /><sub><b>CarlaTeo</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=CarlaTeo" title="Tests">⚠️</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/YardenShoham"><img src="https://avatars3.githubusercontent.com/u/20454870?v=4?s=100" width="100px;" alt="Yarden Shoham"/><br /><sub><b>Yarden Shoham</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=YardenShoham" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://jagascript.com"><img src="https://avatars0.githubusercontent.com/u/4562878?v=4?s=100" width="100px;" alt="Jaga Santagostino"/><br /><sub><b>Jaga Santagostino</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Akandros" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kandros" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/connormeredith"><img src="https://avatars0.githubusercontent.com/u/4907463?v=4?s=100" width="100px;" alt="Connor Meredith"/><br /><sub><b>Connor Meredith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=connormeredith" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/pwolaq"><img src="https://avatars3.githubusercontent.com/u/10261750?v=4?s=100" width="100px;" alt="Pawel Wolak"/><br /><sub><b>Pawel Wolak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=pwolaq" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://michaeldeboey.be"><img src="https://avatars3.githubusercontent.com/u/6643991?v=4?s=100" width="100px;" alt="Michaël De Boey"/><br /><sub><b>Michaël De Boey</b></sub></a><br /><a href="#infra-MichaelDeBoey" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/jzarzeckis"><img src="https://avatars3.githubusercontent.com/u/919350?v=4?s=100" width="100px;" alt="Jānis Zaržeckis"/><br /><sub><b>Jānis Zaržeckis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jzarzeckis" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/koala-lava"><img src="https://avatars0.githubusercontent.com/u/15828770?v=4?s=100" width="100px;" alt="koala-lava"/><br /><sub><b>koala-lava</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=koala-lava" title="Documentation">📖</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://jpblanco.dev"><img src="https://avatars1.githubusercontent.com/u/16567863?v=4?s=100" width="100px;" alt="Juan Pablo Blanco"/><br /><sub><b>Juan Pablo Blanco</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=JPBlancoDB" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/benmonro"><img src="https://avatars3.githubusercontent.com/u/399236?v=4?s=100" width="100px;" alt="Ben Monro"/><br /><sub><b>Ben Monro</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=benmonro" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://jeffbernstein.io"><img src="https://avatars1.githubusercontent.com/u/6685560?v=4?s=100" width="100px;" alt="Jeff Bernstein"/><br /><sub><b>Jeff Bernstein</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jeffbernst" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/SergiCL"><img src="https://avatars3.githubusercontent.com/u/41625166?v=4?s=100" width="100px;" alt="Sergi"/><br /><sub><b>Sergi</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=SergiCL" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=SergiCL" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://skovy.dev"><img src="https://avatars1.githubusercontent.com/u/5247455?v=4?s=100" width="100px;" alt="Spencer Miskoviak"/><br /><sub><b>Spencer Miskoviak</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=skovy" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://twitter.com/jonrimmer"><img src="https://avatars1.githubusercontent.com/u/183786?v=4?s=100" width="100px;" alt="Jon Rimmer"/><br /><sub><b>Jon Rimmer</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jonrimmer" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jonrimmer" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/cloud-walker"><img src="https://avatars3.githubusercontent.com/u/1144075?v=4?s=100" width="100px;" alt="Luca Barone"/><br /><sub><b>Luca Barone</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=cloud-walker" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=cloud-walker" title="Tests">⚠️</a> <a href="#ideas-cloud-walker" title="Ideas, Planning, & Feedback">🤔</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mfelmy"><img src="https://avatars2.githubusercontent.com/u/29504917?v=4?s=100" width="100px;" alt="Malte Felmy"/><br /><sub><b>Malte Felmy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=mfelmy" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://ghuser.io/Ishaan28malik"><img src="https://avatars3.githubusercontent.com/u/27343592?v=4?s=100" width="100px;" alt="Championrunner"/><br /><sub><b>Championrunner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=Ishaan28malik" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://icing.space/"><img src="https://avatars0.githubusercontent.com/u/2635733?v=4?s=100" width="100px;" alt="Patrick Smith"/><br /><sub><b>Patrick Smith</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=BurntCaramel" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://rubenmoya.dev"><img src="https://avatars3.githubusercontent.com/u/905225?v=4?s=100" width="100px;" alt="Rubén Moya"/><br /><sub><b>Rubén Moya</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=rubenmoya" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://danielavalero.com/"><img src="https://avatars1.githubusercontent.com/u/1307954?v=4?s=100" width="100px;" alt="Daniela Valero"/><br /><sub><b>Daniela Valero</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Tests">⚠️</a> <a href="https://github.com/testing-library/jest-dom/commits?author=DanielaValero" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/missilev"><img src="https://avatars1.githubusercontent.com/u/33201468?v=4?s=100" width="100px;" alt="Vladislav Katsura"/><br /><sub><b>Vladislav Katsura</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=missilev" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://stderr.timfischbach.de"><img src="https://avatars3.githubusercontent.com/u/26554?v=4?s=100" width="100px;" alt="Tim Fischbach"/><br /><sub><b>Tim Fischbach</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=tf" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=tf" title="Tests">⚠️</a> <a href="#ideas-tf" title="Ideas, Planning, & Feedback">🤔</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://katieboedges.com/"><img src="https://avatars1.githubusercontent.com/u/8322476?v=4?s=100" width="100px;" alt="Katie Boedges"/><br /><sub><b>Katie Boedges</b></sub></a><br /><a href="#infra-kboedges" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/brrianalexis"><img src="https://avatars2.githubusercontent.com/u/51463930?v=4?s=100" width="100px;" alt="Brian Alexis"/><br /><sub><b>Brian Alexis</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=brrianalexis" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://twitter.com/boriscoder"><img src="https://avatars2.githubusercontent.com/u/812240?v=4?s=100" width="100px;" alt="Boris Serdiuk"/><br /><sub><b>Boris Serdiuk</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ajust-boris" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=just-boris" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=just-boris" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://danawoodman.com"><img src="https://avatars1.githubusercontent.com/u/157695?v=4?s=100" width="100px;" alt="Dana Woodman"/><br /><sub><b>Dana Woodman</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=danawoodman" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/MoSattler"><img src="https://avatars2.githubusercontent.com/u/64152453?v=4?s=100" width="100px;" alt="Mo Sattler"/><br /><sub><b>Mo Sattler</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=MoSattler" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/geoffrich"><img src="https://avatars2.githubusercontent.com/u/4992896?v=4?s=100" width="100px;" alt="Geoff Rich"/><br /><sub><b>Geoff Rich</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=geoffrich" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=geoffrich" title="Tests">⚠️</a> <a href="#ideas-geoffrich" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/testing-library/jest-dom/issues?q=author%3Ageoffrich" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/syneva-runyan"><img src="https://avatars0.githubusercontent.com/u/20505588?v=4?s=100" width="100px;" alt="Syneva"/><br /><sub><b>Syneva</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=syneva-runyan" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://nickmccurdy.com/"><img src="https://avatars0.githubusercontent.com/u/927220?v=4?s=100" width="100px;" alt="Nick McCurdy"/><br /><sub><b>Nick McCurdy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=nickmccurdy" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/issues?q=author%3Anickmccurdy" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=nickmccurdy" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://obedparla.com/"><img src="https://avatars1.githubusercontent.com/u/10674462?v=4?s=100" width="100px;" alt="Obed Marquez Parlapiano"/><br /><sub><b>Obed Marquez Parlapiano</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=obedparla" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/calebeby"><img src="https://avatars.githubusercontent.com/u/13206945?v=4?s=100" width="100px;" alt="Caleb Eby"/><br /><sub><b>Caleb Eby</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=calebeby" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=calebeby" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=calebeby" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/marcelbarner"><img src="https://avatars.githubusercontent.com/u/12788744?v=4?s=100" width="100px;" alt="Marcel Barner"/><br /><sub><b>Marcel Barner</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=marcelbarner" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=marcelbarner" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/SevenOutman"><img src="https://avatars.githubusercontent.com/u/8225666?v=4?s=100" width="100px;" alt="Doma"/><br /><sub><b>Doma</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=SevenOutman" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=SevenOutman" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://everlong.org/"><img src="https://avatars.githubusercontent.com/u/454175?v=4?s=100" width="100px;" alt="Julien Wajsberg"/><br /><sub><b>Julien Wajsberg</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=julienw" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=julienw" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://lichess.org/@/StevenEmily"><img src="https://avatars.githubusercontent.com/u/58114641?v=4?s=100" width="100px;" alt="steven nguyen"/><br /><sub><b>steven nguyen</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=icecream17" title="Documentation">📖</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://tu4mo.com"><img src="https://avatars.githubusercontent.com/u/16735302?v=4?s=100" width="100px;" alt="tu4mo"/><br /><sub><b>tu4mo</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=tu4mo" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://matan.io"><img src="https://avatars.githubusercontent.com/u/12711091?v=4?s=100" width="100px;" alt="Matan Borenkraout"/><br /><sub><b>Matan Borenkraout</b></sub></a><br /><a href="#platform-MatanBobi" title="Packaging/porting to new platform">📦</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/yannbf"><img src="https://avatars.githubusercontent.com/u/1671563?v=4?s=100" width="100px;" alt="Yann Braga"/><br /><sub><b>Yann Braga</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=yannbf" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/IanVS"><img src="https://avatars.githubusercontent.com/u/4616705?v=4?s=100" width="100px;" alt="Ian VanSchooten"/><br /><sub><b>Ian VanSchooten</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=IanVS" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://chantalbroeren.nl"><img src="https://avatars.githubusercontent.com/u/7499806?v=4?s=100" width="100px;" alt="Chantal Broeren"/><br /><sub><b>Chantal Broeren</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=cbroeren" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://jeremie.astori.fr"><img src="https://avatars.githubusercontent.com/u/113730?v=4?s=100" width="100px;" alt="Jérémie Astori"/><br /><sub><b>Jérémie Astori</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=astorije" title="Code">💻</a> <a href="#ideas-astorije" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ashleyryan"><img src="https://avatars.githubusercontent.com/u/9469374?v=4?s=100" width="100px;" alt="Ashley Ryan"/><br /><sub><b>Ashley Ryan</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=ashleyryan" title="Code">💻</a> <a href="#ideas-ashleyryan" title="Ideas, Planning, & Feedback">🤔</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://fotis.xyz"><img src="https://avatars.githubusercontent.com/u/3210764?v=4?s=100" width="100px;" alt="Fotis Papadogeorgopoulos"/><br /><sub><b>Fotis Papadogeorgopoulos</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=fpapado" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=fpapado" title="Documentation">📖</a> <a href="https://github.com/testing-library/jest-dom/commits?author=fpapado" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/jakeboone02"><img src="https://avatars.githubusercontent.com/u/366438?v=4?s=100" width="100px;" alt="Jake Boone"/><br /><sub><b>Jake Boone</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=jakeboone02" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=jakeboone02" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.stekoe.de"><img src="https://avatars.githubusercontent.com/u/1809221?v=4?s=100" width="100px;" alt="Stephan Köninger"/><br /><sub><b>Stephan Köninger</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3ASteKoe" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=SteKoe" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/kryops"><img src="https://avatars.githubusercontent.com/u/1042594?v=4?s=100" width="100px;" alt="Michael Manzinger"/><br /><sub><b>Michael Manzinger</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Akryops" title="Bug reports">🐛</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kryops" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kryops" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Dennis273"><img src="https://avatars.githubusercontent.com/u/19815164?v=4?s=100" width="100px;" alt="Dennis Chen"/><br /><sub><b>Dennis Chen</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=Dennis273" title="Code">💻</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->

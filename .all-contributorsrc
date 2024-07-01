@@ -697,9 +697,62 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "fpapado",
+      "name": "Fotis Papadogeorgopoulos",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3210764?v=4",
+      "profile": "http://fotis.xyz",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "jakeboone02",
+      "name": "Jake Boone",
+      "avatar_url": "https://avatars.githubusercontent.com/u/366438?v=4",
+      "profile": "https://github.com/jakeboone02",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "SteKoe",
+      "name": "Stephan Köninger",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1809221?v=4",
+      "profile": "http://www.stekoe.de",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "kryops",
+      "name": "Michael Manzinger",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1042594?v=4",
+      "profile": "https://github.com/kryops",
+      "contributions": [
+        "bug",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "Dennis273",
+      "name": "Dennis Chen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19815164?v=4",
+      "profile": "https://github.com/Dennis273",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoHost": "https://github.com",
   "contributorsPerLine": 7,
-  "skipCi": false
+  "skipCi": false,
+  "commitType": "docs",
+  "commitConvention": "angular"
 }
