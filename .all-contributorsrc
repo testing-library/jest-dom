@@ -748,6 +748,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "tonyhallett",
+      "name": "Tony Hallett",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11292998?v=4",
+      "profile": "https://github.com/tonyhallett",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoHost": "https://github.com",
