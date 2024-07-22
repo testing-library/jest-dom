@@ -748,6 +748,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jantimon",
+      "name": "Jan Nicklas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4113649?v=4",
+      "profile": "https://twitter.com/jantimon",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoHost": "https://github.com",
