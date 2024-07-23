@@ -757,6 +757,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "ddolcimascolo",
+      "name": "David DOLCIMASCOLO",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5468291?v=4",
+      "profile": "https://github.com/ddolcimascolo",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "repoHost": "https://github.com",
