@@ -850,8 +850,11 @@ of all cases covered:
     unchecked.
   - if there's more than one checkbox with the same `name` attribute, they are
     all treated collectively as a single form control, which returns the value
-    as an **array** containing all the values of the selected checkboxes in the
+    as an **array** containing all the values of the checkboxes in the
     collection.
+  - a hidden input with same name before the checkbox is allowed which is a
+    common workaround to allow browsers to send `false` for unchecked
+    checkboxes.
 - `<input type="radio">` elements are all grouped by the `name` attribute, and
   such a group treated as a single form control. This form control returns the
   value as a **string** corresponding to the `value` attribute of the selected
