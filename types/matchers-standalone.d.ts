@@ -6,12 +6,12 @@ interface MatcherReturnType {
 }
 
 interface OverloadedMatchers {
-  toHaveClass: (expected: any, ...rest: string[]) => MatcherReturnType
-  toHaveClass: (
+  toHaveClass(expected: any, ...rest: string[]) : MatcherReturnType
+  toHaveClass(
     expected: any,
     className: string,
     options?: {exact: boolean},
-  ) => MatcherReturnType
+  ) : MatcherReturnType
 }
 
 declare namespace matchersStandalone {

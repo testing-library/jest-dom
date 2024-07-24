@@ -81,7 +81,6 @@
   "license": "MIT",
   "dependencies": {
     "@adobe/css-tools": "^4.4.0",
-    "@babel/runtime": "^7.9.2",
     "aria-query": "^5.0.0",
     "chalk": "^3.0.0",
     "css.escape": "^1.5.1",
@@ -104,30 +103,6 @@
     "rollup-plugin-delete": "^2.0.0",
     "typescript": "^5.1.6",
     "vitest": "^0.34.1"
-  },
-  "peerDependencies": {
-    "@jest/globals": ">= 28",
-    "@types/bun": "latest",
-    "@types/jest": ">= 28",
-    "jest": ">= 28",
-    "vitest": ">= 0.32"
-  },
-  "peerDependenciesMeta": {
-    "@jest/globals": {
-      "optional": true
-    },
-    "@types/bun": {
-      "optional": true
-    },
-    "@types/jest": {
-      "optional": true
-    },
-    "jest": {
-      "optional": true
-    },
-    "vitest": {
-      "optional": true
-    }
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
