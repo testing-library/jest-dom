@@ -766,6 +766,15 @@
       "contributions": [
         "maintenance"
       ]
+    },
+    {
+      "login": "aleks-elkin",
+      "name": "Aleksandr Elkin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/55530374?v=4",
+      "profile": "https://github.com/aleks-elkin",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "repoHost": "https://github.com",
