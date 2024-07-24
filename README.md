@@ -1547,6 +1547,9 @@ Thanks goes to these people ([emoji key][emojis]):
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/tonyhallett"><img src="https://avatars.githubusercontent.com/u/11292998?v=4?s=100" width="100px;" alt="Tony Hallett"/><br /><sub><b>Tony Hallett</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Atonyhallett" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ddolcimascolo"><img src="https://avatars.githubusercontent.com/u/5468291?v=4?s=100" width="100px;" alt="David DOLCIMASCOLO"/><br /><sub><b>David DOLCIMASCOLO</b></sub></a><br /><a href="#maintenance-ddolcimascolo" title="Maintenance">🚧</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/aleks-elkin"><img src="https://avatars.githubusercontent.com/u/55530374?v=4?s=100" width="100px;" alt="Aleksandr Elkin"/><br /><sub><b>Aleksandr Elkin</b></sub></a><br /><a href="#maintenance-aleks-elkin" title="Maintenance">🚧</a></td>
+    </tr>
   </tbody>
 </table>
 
