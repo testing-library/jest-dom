@@ -775,6 +775,15 @@
       "contributions": [
         "maintenance"
       ]
+    },
+    {
+      "login": "vorant94",
+      "name": "Mordechai Dror",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9719319?v=4",
+      "profile": "https://www.vorant94.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoHost": "https://github.com",
