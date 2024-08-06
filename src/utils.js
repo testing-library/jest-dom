@@ -199,10 +199,8 @@ function getInputValue(inputElement) {
 const rolesSupportingValues = ['meter', 'progressbar', 'slider', 'spinbutton']
 function getAccessibleValue(element) {
   if (!rolesSupportingValues.includes(element.getAttribute('role'))) {
-    return
+    return undefined
   }
-  // We want same behavior as accessing the `value` property
-  // eslint-disable-next-line consistent-return
   return Number(element.getAttribute('aria-valuenow'))
 }
 
