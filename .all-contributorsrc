@@ -784,6 +784,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "idanen",
+      "name": "Idan Entin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1687893?v=4",
+      "profile": "https://github.com/idanen",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
