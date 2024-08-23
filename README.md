@@ -1553,6 +1553,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/aleks-elkin"><img src="https://avatars.githubusercontent.com/u/55530374?v=4?s=100" width="100px;" alt="Aleksandr Elkin"/><br /><sub><b>Aleksandr Elkin</b></sub></a><br /><a href="#maintenance-aleks-elkin" title="Maintenance">🚧</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.vorant94.io/"><img src="https://avatars.githubusercontent.com/u/9719319?v=4?s=100" width="100px;" alt="Mordechai Dror"/><br /><sub><b>Mordechai Dror</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=vorant94" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/idanen"><img src="https://avatars.githubusercontent.com/u/1687893?v=4?s=100" width="100px;" alt="Idan Entin"/><br /><sub><b>Idan Entin</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=idanen" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=idanen" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
 </table>
