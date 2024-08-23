@@ -162,6 +162,20 @@ import '@testing-library/jest-dom/vitest'
 setupFiles: ['./vitest-setup.js']
 ```
 
+Also, depending on your local setup, you may need to update your `tsconfig.json`:
+
+```json
+  // In tsconfig.json
+  "compilerOptions": {
+    ...
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
+  },
+  "include": [
+    ...
+    "./vitest.setup.ts"
+  ],
+```
+
 [vitest]: https://vitest.dev/
 [vitest setupfiles]: https://vitest.dev/config/#setupfiles
 
