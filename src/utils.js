@@ -196,18 +196,28 @@ function getInputValue(inputElement) {
   }
 }
 
+const rolesSupportingValues = ['meter', 'progressbar', 'slider', 'spinbutton']
+function getAccessibleValue(element) {
+  if (!rolesSupportingValues.includes(element.getAttribute('role'))) {
+    return undefined
+  }
+  return Number(element.getAttribute('aria-valuenow'))
+}
+
 function getSingleElementValue(element) {
   /* istanbul ignore if */
   if (!element) {
     return undefined
   }
+
   switch (element.tagName.toLowerCase()) {
     case 'input':
       return getInputValue(element)
     case 'select':
       return getSelectValue(element)
-    default:
-      return element.value
+    default: {
+      return element.value ?? getAccessibleValue(element)
+    }
   }
 }
 
