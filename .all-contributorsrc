@@ -784,6 +784,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "waynevanson",
+      "name": "Wayne Van Son",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29592214?v=4",
+      "profile": "http://www.waynevanson.com",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
