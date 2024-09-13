@@ -1,9 +1,8 @@
-import isEqualWith from 'lodash/isEqualWith.js'
 import {
   checkHtmlElement,
   getMessage,
   getSingleElementValue,
-  compareArraysAsSet,
+  compare,
 } from './utils'
 
 export function toHaveValue(htmlElement, expectedValue) {
@@ -30,7 +29,7 @@ export function toHaveValue(htmlElement, expectedValue) {
 
   return {
     pass: expectsValue
-      ? isEqualWith(receivedValue, expectedValue, compareArraysAsSet)
+      ? compare(receivedValue, expectedValue)
       : Boolean(receivedValue),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
