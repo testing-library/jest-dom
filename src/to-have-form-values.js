@@ -1,4 +1,4 @@
-import isEqualWith from 'lodash/isEqualWith.js'
+import isEqualWith from 'lodash.isequalwith'
 import escape from 'css.escape'
 import {
   checkHtmlElement,
