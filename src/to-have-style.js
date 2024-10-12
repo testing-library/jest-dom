@@ -22,6 +22,7 @@ function isInvalidStyleDeclaration(name, value, computedStyle) {
     !computedStyle.getPropertyValue(name)
   )
 }
+
 function isSubset(styles, computedStyle) {
   return (
     !!Object.keys(styles).length &&
