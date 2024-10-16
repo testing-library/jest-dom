@@ -814,6 +814,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "silviuaavram",
+      "name": "Silviu Alexandru Avram",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11275392?v=4",
+      "profile": "https://silviuaavram.com",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
