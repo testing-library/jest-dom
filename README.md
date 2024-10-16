@@ -1437,7 +1437,7 @@ NOTE: the expected selection is a string, it does not allow to check for
 selection range indeces.
 
 ```typescript
-toHaveSelection(expectedSelection: string)
+toHaveSelection(expectedSelection?: string)
 ```
 
 ```html
