@@ -236,7 +236,8 @@
       "profile": "https://twitter.com/diegohaz",
       "contributions": [
         "bug",
-        "code"
+        "code",
+        "ideas"
       ]
     },
     {
@@ -325,7 +326,8 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/10261750?v=4",
       "profile": "https://github.com/pwolaq",
       "contributions": [
-        "test"
+        "test",
+        "code"
       ]
     },
     {
@@ -812,6 +814,16 @@
       "profile": "https://github.com/mibcadet",
       "contributions": [
         "doc"
+      ]
+    },
+    {
+      "login": "silviuaavram",
+      "name": "Silviu Alexandru Avram",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11275392?v=4",
+      "profile": "https://silviuaavram.com",
+      "contributions": [
+        "code",
+        "test"
       ]
     }
   ],
