@@ -834,6 +834,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "billyjanitsch",
+      "name": "Billy Janitsch",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1158733?v=4",
+      "profile": "https://billyjanitsch.com",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "repoHost": "https://github.com",

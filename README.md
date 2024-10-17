@@ -1640,6 +1640,9 @@ Thanks goes to these people ([emoji key][emojis]):
       <td align="center" valign="top" width="14.28%"><a href="https://silviuaavram.com"><img src="https://avatars.githubusercontent.com/u/11275392?v=4?s=100" width="100px;" alt="Silviu Alexandru Avram"/><br /><sub><b>Silviu Alexandru Avram</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=silviuaavram" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=silviuaavram" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/G-Rath"><img src="https://avatars.githubusercontent.com/u/3151613?v=4?s=100" width="100px;" alt="Gareth Jones"/><br /><sub><b>Gareth Jones</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=G-Rath" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://billyjanitsch.com"><img src="https://avatars.githubusercontent.com/u/1158733?v=4?s=100" width="100px;" alt="Billy Janitsch"/><br /><sub><b>Billy Janitsch</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Abillyjanitsch" title="Bug reports">🐛</a></td>
+    </tr>
   </tbody>
 </table>
 
