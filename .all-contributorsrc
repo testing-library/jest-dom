@@ -825,6 +825,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "G-Rath",
+      "name": "Gareth Jones",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3151613?v=4",
+      "profile": "https://github.com/G-Rath",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoHost": "https://github.com",
