@@ -1,4 +1,4 @@
-
+import 'vitest'
 import {type TestingLibraryMatchers} from './matchers'
 
 declare module 'vitest' {
