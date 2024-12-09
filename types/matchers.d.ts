@@ -165,7 +165,7 @@ declare namespace matchers {
      * @description
      * Allows you to check if a form element is currently required.
      *
-     * An `input`, `select`, `textarea`, or `form` element is invalid if it has an `aria-invalid` attribute with no
+     * An `input`, `select`, `textarea`, or `form` element is valid if it has an `aria-invalid` attribute with no
      * value or a value of "false", or if the result of `checkValidity()` is true.
      * @example
      * <input data-testid="aria-invalid" aria-invalid />
