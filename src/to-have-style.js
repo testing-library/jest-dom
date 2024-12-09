@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import picocolors from 'picocolors'
 import {checkHtmlElement, parseCSS} from './utils'
 
 function getStyleDeclaration(document, css) {
@@ -50,7 +50,7 @@ function expectedDiff(diffFn, expected, computedStyles) {
     )
   const diffOutput = diffFn(printoutStyles(expected), printoutStyles(received))
   // Remove the "+ Received" annotation because this is a one-way diff
-  return diffOutput.replace(`${chalk.red('+ Received')}\n`, '')
+  return diffOutput.replace(`${picocolors.red('+ Received')}\n`, '')
 }
 
 export function toHaveStyle(htmlElement, css) {
