@@ -156,11 +156,11 @@ use a different import in your tests setup file. This file should be added to
 the [`setupFiles`][vitest setupfiles] property in your vitest config:
 
 ```javascript
-// In your own vitest-setup.js (or any other name)
+// In your own vitest-setup.ts (or any other name)
 import '@testing-library/jest-dom/vitest'
 
 // In vitest.config.js add (if you haven't already)
-setupFiles: ['./vitest-setup.js']
+setupFiles: ['./vitest-setup.ts']
 ```
 
 Also, depending on your local setup, you may need to update your
@@ -171,11 +171,7 @@ Also, depending on your local setup, you may need to update your
   "compilerOptions": {
     ...
     "types": ["vitest/globals", "@testing-library/jest-dom"]
-  },
-  "include": [
-    ...
-    "./vitest.setup.ts"
-  ],
+  }
 ```
 
 [vitest]: https://vitest.dev/
