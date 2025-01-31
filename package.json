@@ -80,13 +80,12 @@
   "author": "Ernesto Garcia <gnapse@gmail.com> (http://gnapse.github.io)",
   "license": "MIT",
   "dependencies": {
-    "@adobe/css-tools": "^4.3.2",
-    "@babel/runtime": "^7.9.2",
+    "@adobe/css-tools": "^4.4.0",
     "aria-query": "^5.0.0",
     "chalk": "^3.0.0",
     "css.escape": "^1.5.1",
     "dom-accessibility-api": "^0.6.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "redent": "^3.0.0"
   },
   "devDependencies": {
@@ -103,30 +102,6 @@
     "rollup-plugin-delete": "^2.0.0",
     "typescript": "^5.1.6",
     "vitest": "^0.34.1"
-  },
-  "peerDependencies": {
-    "@jest/globals": ">= 28",
-    "@types/bun": "latest",
-    "@types/jest": ">= 28",
-    "jest": ">= 28",
-    "vitest": ">= 0.32"
-  },
-  "peerDependenciesMeta": {
-    "@jest/globals": {
-      "optional": true
-    },
-    "@types/bun": {
-      "optional": true
-    },
-    "@types/jest": {
-      "optional": true
-    },
-    "jest": {
-      "optional": true
-    },
-    "vitest": {
-      "optional": true
-    }
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",

@@ -15,10 +15,13 @@ const UNSUPPORTED_INPUT_TYPES = [
 ]
 
 const SUPPORTED_ARIA_ROLES = [
+  'checkbox',
   'combobox',
   'gridcell',
+  'listbox',
   'radiogroup',
   'spinbutton',
+  'textbox',
   'tree',
 ]
 

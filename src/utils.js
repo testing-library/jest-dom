@@ -1,5 +1,4 @@
 import redent from 'redent'
-import isEqual from 'lodash/isEqual.js'
 import {parse} from '@adobe/css-tools'
 
 class GenericTypeError extends Error {
@@ -197,26 +196,29 @@ function getInputValue(inputElement) {
   }
 }
 
+const rolesSupportingValues = ['meter', 'progressbar', 'slider', 'spinbutton']
+function getAccessibleValue(element) {
+  if (!rolesSupportingValues.includes(element.getAttribute('role'))) {
+    return undefined
+  }
+  return Number(element.getAttribute('aria-valuenow'))
+}
+
 function getSingleElementValue(element) {
   /* istanbul ignore if */
   if (!element) {
     return undefined
   }
+
   switch (element.tagName.toLowerCase()) {
     case 'input':
       return getInputValue(element)
     case 'select':
       return getSelectValue(element)
-    default:
-      return element.value
+    default: {
+      return element.value ?? getAccessibleValue(element)
+    }
   }
-}
-
-function compareArraysAsSet(a, b) {
-  if (Array.isArray(a) && Array.isArray(b)) {
-    return isEqual(new Set(a), new Set(b))
-  }
-  return undefined
 }
 
 function toSentence(
@@ -226,6 +228,13 @@ function toSentence(
   return [array.slice(0, -1).join(wordConnector), array[array.length - 1]].join(
     array.length > 1 ? lastWordConnector : '',
   )
+}
+
+function compareArraysAsSet(arr1, arr2) {
+  if (Array.isArray(arr1) && Array.isArray(arr2)) {
+    return [...new Set(arr1)].every(v => new Set(arr2).has(v))
+  }
+  return undefined
 }
 
 export {
@@ -240,6 +249,6 @@ export {
   normalize,
   getTag,
   getSingleElementValue,
-  compareArraysAsSet,
   toSentence,
+  compareArraysAsSet,
 }
