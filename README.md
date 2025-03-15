@@ -174,7 +174,7 @@ Also, depending on your local setup, you may need to update your
   },
   "include": [
     ...
-    "./vitest.setup.ts"
+    "./vitest-setup.ts"
   ],
 ```
 
