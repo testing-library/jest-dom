@@ -1,4 +1,4 @@
-import isEqualWith from 'lodash/isEqualWith.js'
+import isEqualWith from 'es-toolkit/compat/isEqualWith'
 import {checkHtmlElement, compareArraysAsSet, getMessage} from './utils'
 
 /**
