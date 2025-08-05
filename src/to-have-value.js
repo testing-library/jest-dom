@@ -1,9 +1,8 @@
-import {isEqualWith} from 'es-toolkit'
 import {
   checkHtmlElement,
+  compareAsSet,
   getMessage,
   getSingleElementValue,
-  compareArraysAsSet,
 } from './utils'
 
 export function toHaveValue(htmlElement, expectedValue) {
@@ -30,7 +29,7 @@ export function toHaveValue(htmlElement, expectedValue) {
 
   return {
     pass: expectsValue
-      ? isEqualWith(receivedValue, expectedValue, compareArraysAsSet)
+      ? compareAsSet(receivedValue, expectedValue)
       : Boolean(receivedValue),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'

@@ -1,5 +1,4 @@
-import {isEqualWith} from 'es-toolkit'
-import {checkHtmlElement, compareArraysAsSet, getMessage} from './utils'
+import {checkHtmlElement, compareAsSet, getMessage} from './utils'
 
 /**
  * Returns the selection from the element.
@@ -92,7 +91,7 @@ export function toHaveSelection(htmlElement, expectedSelection) {
 
   return {
     pass: expectsSelection
-      ? isEqualWith(receivedSelection, expectedSelection, compareArraysAsSet)
+      ? compareAsSet(receivedSelection, expectedSelection)
       : Boolean(receivedSelection),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'
