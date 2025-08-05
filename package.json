@@ -99,7 +99,7 @@
     "kcd-scripts": "^14.0.0",
     "pretty-format": "^25.1.0",
     "rollup": "^3.28.1",
-    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-delete": "^3.0.1",
     "typescript": "^5.1.6",
     "vitest": "^0.34.1"
   },
