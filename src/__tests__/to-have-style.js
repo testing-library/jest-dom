@@ -215,6 +215,15 @@ describe('.toHaveStyle', () => {
       })
     })
 
+    test('correctly matches invalid properties', () => {
+      const {queryByTestId} = render(`
+        <div data-testid="element" style="fontSize: 8" />
+      `)
+      expect(queryByTestId('element')).not.toHaveStyle({
+        fontSize: 1,
+      })
+    })
+
     test('Fails with an invalid unit', () => {
       const {queryByTestId} = render(`
         <span data-testid="color-example" style="font-size: 12rem">Hello World</span>
