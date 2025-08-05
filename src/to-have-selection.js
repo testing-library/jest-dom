@@ -1,9 +1,9 @@
-import isEqualWith from 'lodash/isEqualWith.js'
+import {isEqualWith} from 'es-toolkit'
 import {checkHtmlElement, compareArraysAsSet, getMessage} from './utils'
 
 /**
  * Returns the selection from the element.
- * 
+ *
  * @param element {HTMLElement} The element to get the selection from.
  * @returns {String} The selection.
  */

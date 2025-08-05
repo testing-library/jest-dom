@@ -1,4 +1,4 @@
-import isEqualWith from 'lodash/isEqualWith.js'
+import {isEqualWith} from 'es-toolkit'
 import {
   checkHtmlElement,
   getMessage,
