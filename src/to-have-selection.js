@@ -1,9 +1,8 @@
-import isEqualWith from 'lodash/isEqualWith.js'
-import {checkHtmlElement, compareArraysAsSet, getMessage} from './utils'
+import {checkHtmlElement, compareMaybeArraysAsSet, getMessage} from './utils'
 
 /**
  * Returns the selection from the element.
- * 
+ *
  * @param element {HTMLElement} The element to get the selection from.
  * @returns {String} The selection.
  */
@@ -92,7 +91,7 @@ export function toHaveSelection(htmlElement, expectedSelection) {
 
   return {
     pass: expectsSelection
-      ? isEqualWith(receivedSelection, expectedSelection, compareArraysAsSet)
+      ? compareMaybeArraysAsSet(receivedSelection, expectedSelection)
       : Boolean(receivedSelection),
     message: () => {
       const to = this.isNot ? 'not to' : 'to'

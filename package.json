@@ -84,7 +84,6 @@
     "aria-query": "^5.0.0",
     "css.escape": "^1.5.1",
     "dom-accessibility-api": "^0.6.3",
-    "lodash": "^4.17.21",
     "picocolors": "^1.1.1",
     "redent": "^3.0.0"
   },
