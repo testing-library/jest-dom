@@ -761,6 +761,36 @@ declare namespace matchers {
      * [testing-library/jest-dom#tohaveselection](https://github.com/testing-library/jest-dom#tohaveselection)
      */
     toHaveSelection(selection?: string): R
+    /*
+     * @description
+     * This allows to check whether given element has been [pressed](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed) 
+     *
+     * It accepts elements with explicit or implicit `button` role and valid `aria-pressed` 
+     * attribute of `"true"` or `"false"`. 
+     *
+     * @example
+     * <button aria-pressed="true">Pressed</button>
+     * <button aria-pressed="false">Released</button>
+     *
+     * <input type="button" aria-pressed="true" value="Pressed input button" />
+     * <input type="button" aria-pressed="false" value="Released input button" />
+     * 
+     * <span role="button" aria-pressed="true">Pressed span</span>
+     * <span role="button" aria-pressed="false">Released span</span>
+     *
+     * screen.getByRole('button', { name: 'Pressed' }).toBePressed();
+     * screen.getByRole('button', { name: 'Released' }).not.toBePressed();
+     * 
+     * screen.getByRole('button', { name: 'Pressed input button' }).toBePressed();
+     * screen.getByRole('button', { name: 'Released input button' }).not.toBePressed();
+     * 
+     * screen.getByRole('button', { name: 'Pressed span' }).toBePressed();
+     * screen.getByRole('button', { name: 'Released span' }).not.toBePressed();
+     *
+     * @see
+     * [testing-library/jest-dom#tobepressed](https://github.com/testing-library/jest-dom#tobepressed)
+     */
+    toBePressed(): R
   }
 }
 

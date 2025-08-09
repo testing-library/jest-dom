@@ -82,6 +82,7 @@ clear to read and to maintain.
   - [`toHaveRole`](#tohaverole)
   - [`toHaveErrorMessage`](#tohaveerrormessage)
   - [`toHaveSelection`](#tohaveselection)
+  - [`toBePressed`](#tobepressed)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDOM`](#tobeinthedom)
@@ -1304,6 +1305,44 @@ expect(timeInput).toHaveErrorMessage(
 expect(timeInput).toHaveErrorMessage(/invalid time/i) // to partially match
 expect(timeInput).toHaveErrorMessage(expect.stringContaining('Invalid time')) // to partially match
 expect(timeInput).not.toHaveErrorMessage('Pikachu!')
+```
+
+<hr />
+
+### `toBePressed`
+
+This allows to check whether given element has been [pressed](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed).
+
+It accepts elements with explicit or implicit `button` role and valid `aria-pressed` attribute of `"true"` or `"false"`.
+
+```typescript
+toBePressed()
+```
+
+#### Examples
+
+```html
+<button aria-pressed="true">Pressed</button>
+<button aria-pressed="false">Released</button>
+
+<input type="button" aria-pressed="true" value="Pressed input button" />
+<input type="button" aria-pressed="false" value="Released input button" />
+
+<span role="button" aria-pressed="true">Pressed span</span>
+<span role="button" aria-pressed="false">Released span</span>
+```
+
+##### Using DOM Testing Library
+
+```javascript
+screen.getByRole('button', { name: 'Pressed' }).toBePressed();
+screen.getByRole('button', { name: 'Released' }).not.toBePressed();
+
+screen.getByRole('button', { name: 'Pressed input button' }).toBePressed();
+screen.getByRole('button', { name: 'Released input button' }).not.toBePressed();
+
+screen.getByRole('button', { name: 'Pressed span' }).toBePressed();
+screen.getByRole('button', { name: 'Released span' }).not.toBePressed();
 ```
 
 ## Deprecated matchers
