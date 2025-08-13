@@ -853,6 +853,16 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "kretajak",
+      "name": "Marcin Kulpa",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2963053?v=4",
+      "profile": "https://github.com/kretajak",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
