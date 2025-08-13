@@ -1684,6 +1684,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://billyjanitsch.com"><img src="https://avatars.githubusercontent.com/u/1158733?v=4?s=100" width="100px;" alt="Billy Janitsch"/><br /><sub><b>Billy Janitsch</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Abillyjanitsch" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://xyynext.com"><img src="https://avatars.githubusercontent.com/u/26314308?v=4?s=100" width="100px;" alt="InfiniteXyy"/><br /><sub><b>InfiniteXyy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=InfiniteXyy" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/issues?q=author%3AInfiniteXyy" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/kretajak"><img src="https://avatars.githubusercontent.com/u/2963053?v=4?s=100" width="100px;" alt="Marcin Kulpa"/><br /><sub><b>Marcin Kulpa</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=kretajak" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kretajak" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
 </table>
