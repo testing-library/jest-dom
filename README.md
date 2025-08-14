@@ -82,6 +82,7 @@ clear to read and to maintain.
   - [`toHaveRole`](#tohaverole)
   - [`toHaveErrorMessage`](#tohaveerrormessage)
   - [`toBePressed`](#tobepressed)
+  - [`toBePartiallyPressed`](#tobepartiallypressed)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDOM`](#tobeinthedom)
@@ -1345,6 +1346,44 @@ screen.getByRole('button', {name: 'Released input button'}).not.toBePressed()
 
 screen.getByRole('button', {name: 'Pressed span'}).toBePressed()
 screen.getByRole('button', {name: 'Released span'}).not.toBePressed()
+```
+
+<hr />
+
+### `toBePartiallyPressed`
+
+This allows to check whether given element is partially
+[pressed](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed).
+
+It accepts elements with explicit or implicit `button` role and valid
+`aria-pressed` attribute of `mixed`.
+
+```typescript
+toBePressed()
+```
+
+#### Examples
+
+```html
+<button aria-pressed="mixed">Partially pressed</button>
+<input
+  type="button"
+  aria-pressed="mixed"
+  value="Partially pressed input button"
+/>
+<span role="button" aria-pressed="mixed">Partially pressed span</span>
+```
+
+##### Using DOM Testing Library
+
+```javascript
+screen.getByRole('button', {name: 'Partially pressed'}).toBePartiallyPressed()
+screen
+  .getByRole('button', {name: 'Partially pressed input button'})
+  .toBePartiallyPressed()
+screen
+  .getByRole('button', {name: 'Partially pressed span'})
+  .toBePartiallyPressed()
 ```
 
 ## Deprecated matchers
