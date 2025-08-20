@@ -860,8 +860,8 @@ is obtained depending on the type of form control. For instance, `<input>`
 elements have a `value` attribute, but `<select>` elements do not. Here's a list
 of all cases covered:
 
-- `<input type="number">` elements return the value as a **number**, instead of
-  a string.
+- `<input type="number">` and `<input type="range">` elements return the value
+  as a **number**, instead of a string.
 - `<input type="checkbox">` elements:
   - if there's a single one with the given `name` attribute, it is treated as a
     **boolean**, returning `true` if the checkbox is checked, `false` if
@@ -1025,6 +1025,7 @@ For all other form elements, the value is matched using the same algorithm as in
 ```html
 <input type="text" value="text" data-testid="input-text" />
 <input type="number" value="5" data-testid="input-number" />
+<input type="range" value="5" data-testid="input-range" />
 <input type="text" data-testid="input-empty" />
 <select multiple data-testid="select-number">
   <option value="first">First Value</option>
@@ -1038,11 +1039,13 @@ For all other form elements, the value is matched using the same algorithm as in
 ```javascript
 const textInput = getByTestId('input-text')
 const numberInput = getByTestId('input-number')
+const rangeInput = getByTestId('input-range')
 const emptyInput = getByTestId('input-empty')
 const selectInput = getByTestId('select-number')
 
 expect(textInput).toHaveValue('text')
 expect(numberInput).toHaveValue(5)
+expect(rangeInput).toHaveValue(5)
 expect(emptyInput).not.toHaveValue()
 expect(selectInput).toHaveValue(['second', 'third'])
 ```
