@@ -125,7 +125,7 @@ Import `@testing-library/jest-dom` once (for instance in your [tests setup
 file][]) and you're good to go:
 
 [tests setup file]:
-  https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array
+  https://jestjs.io/docs/configuration#setupfilesafterenv-array
 
 ```javascript
 // In your own jest-setup.js (or any other name)
@@ -592,7 +592,7 @@ This allows you to assert that an element has the expected
 
 You can pass the exact string of the expected accessible description, or you can
 make a partial match passing a regular expression, or by using
-[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp).
+[expect.stringContaining](https://jestjs.io/docs/expect#expectstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/expect#expectstringmatchingstring--regexp).
 
 #### Examples
 
@@ -707,7 +707,7 @@ to assert that form elements and buttons are properly labelled.
 
 You can pass the exact string of the expected accessible name, or you can make a
 partial match passing a regular expression, or by using
-[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp).
+[expect.stringContaining](https://jestjs.io/docs/expect#expectstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/expect#expectstringmatchingstring--regexp).
 
 #### Examples
 
@@ -744,7 +744,7 @@ toHaveAttribute(attr: string, value?: any)
 This allows you to check whether the given element has an attribute or not. You
 can also optionally check that the attribute has a specific expected value or
 partial match using
-[expect.stringContaining](https://jestjs.io/docs/en/expect.html#expectnotstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/en/expect.html#expectstringmatchingstring-regexp)
+[expect.stringContaining](https://jestjs.io/docs/expect#expectstringcontainingstring)/[expect.stringMatching](https://jestjs.io/docs/expect#expectstringmatchingstring--regexp).
 
 #### Examples
 
