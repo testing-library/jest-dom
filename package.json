@@ -88,7 +88,7 @@
     "redent": "^3.0.0"
   },
   "devDependencies": {
-    "@jest/globals": "^29.6.2",
+    "@jest/globals": "^30.0.5",
     "@rollup/plugin-commonjs": "^25.0.4",
     "@types/bun": "latest",
     "@types/web": "latest",
