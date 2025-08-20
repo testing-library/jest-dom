@@ -189,6 +189,21 @@ describe('.toHaveFormValues', () => {
       }).toThrowError(/must be of the same type/)
     })
 
+    it('allows a checkbox and a hidden input which is a common workaround so forms can send "false" for a checkbox', () => {
+      const {container} = render(`
+        <form>
+          <input type="hidden" name="checkbox-with-hidden-false" value=0>
+          <input type="checkbox" name="checkbox-with-hidden-false" value=1>
+        </form>
+      `)
+      const form = container.querySelector('form')
+      expect(() => {
+        expect(form).toHaveFormValues({
+          'checkbox-with-hidden-false': ['0', '1'],
+        })
+      }).not.toThrowError()
+    })
+
     it('detects multiple elements with the same type and name', () => {
       const {container} = render(`
         <form>
