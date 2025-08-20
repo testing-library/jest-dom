@@ -161,8 +161,8 @@ the [`setupFiles`][vitest setupfiles] property in your vitest config:
 // In your own vitest-setup.js (or any other name)
 import '@testing-library/jest-dom/vitest'
 
-// In vitest.config.js add (if you haven't already)
-setupFiles: ['./vitest-setup.js']
+// In vitest.config.ts add (if you haven't already)
+setupFiles: ['./vitest.setup.ts']
 ```
 
 Also, depending on your local setup, you may need to update your
