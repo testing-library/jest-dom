@@ -83,6 +83,8 @@ clear to read and to maintain.
   - [`toHaveErrorMessage`](#tohaveerrormessage)
   - [`toBePressed`](#tobepressed)
   - [`toBePartiallyPressed`](#tobepartiallypressed)
+  - [`toAppearBefore`](#toappearbefore)
+  - [`toAppearAfter`](#toappearafter)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDOM`](#tobeinthedom)
@@ -1385,6 +1387,72 @@ screen
   .getByRole('button', {name: 'Partially pressed span'})
   .toBePartiallyPressed()
 ```
+
+<hr />
+
+### `toAppearBefore`
+
+This checks if a given element appears before another element in the DOM tree,
+as per
+[`compareDocumentPosition()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition).
+
+```typescript
+toAppearBefore()
+```
+
+#### Examples
+
+```html
+<div>
+  <span data-testid="text-a">Text A</span>
+  <span data-testid="text-b">Text B</span>
+</div>
+```
+
+```javascript
+const textA = queryByTestId('text-a')
+const textB = queryByTestId('text-b')
+
+expect(textA).toAppearBefore(textB)
+expect(textB).not.toAppearBefore(textA)
+```
+
+> Note: This matcher does not take into account CSS styles that may modify the
+> display order of elements, eg:
+>
+> - `flex-direction: row-reverse`,
+> - `flex-direction: column-reverse`,
+> - `display: grid`
+
+### `toAppearAfter`
+
+This checks if a given element appears after another element in the DOM tree, as
+per
+[`compareDocumentPosition()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition).
+
+```typescript
+toAppearAfter()
+```
+
+#### Examples
+
+```html
+<div>
+  <span data-testid="text-a">Text A</span>
+  <span data-testid="text-b">Text B</span>
+</div>
+```
+
+```javascript
+const textA = queryByTestId('text-a')
+const textB = queryByTestId('text-b')
+
+expect(textB).toAppearAfter(textA)
+expect(textA).not.toAppearAfter(textB)
+```
+
+> Note: This matcher does not take into account CSS styles that may modify the
+> display order of elements, see [`toAppearBefore()`](#toappearbefore)
 
 ## Deprecated matchers
 
