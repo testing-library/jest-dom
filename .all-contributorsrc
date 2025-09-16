@@ -863,6 +863,16 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "nossbigg",
+      "name": "Gibson C",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10845858?v=4",
+      "profile": "http://nossbigg.github.io",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "repoHost": "https://github.com",
