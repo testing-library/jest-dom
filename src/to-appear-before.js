@@ -11,7 +11,7 @@ const DOCUMENT_POSITIONS_STRINGS = {
     'Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC',
 }
 
-const makeDocumentPositionErrorString = documentPosition => {
+function makeDocumentPositionErrorString(documentPosition) {
   if (documentPosition in DOCUMENT_POSITIONS_STRINGS) {
     return `${DOCUMENT_POSITIONS_STRINGS[documentPosition]} (${documentPosition})`
   }
@@ -19,7 +19,7 @@ const makeDocumentPositionErrorString = documentPosition => {
   return `Unknown document position (${documentPosition})`
 }
 
-const checkToAppear = (methodName, targetDocumentPosition) => {
+function checkToAppear(methodName, targetDocumentPosition) {
   // eslint-disable-next-line func-names
   return function (element, secondElement) {
     checkHtmlElement(element, toAppearBefore, this)
