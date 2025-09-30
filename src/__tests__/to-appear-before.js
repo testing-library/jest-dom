@@ -28,6 +28,12 @@ describe('.toAppearBefore', () => {
     )
   })
 
+  it('errors out when .not is used but first element is actually before second element', () => {
+    expect(() => expect(textA).not.toAppearBefore(textB)).toThrowError(
+      /\.not\.toAppearBefore/i,
+    )
+  })
+
   it('errors out when first element is parent of second element', () => {
     expect(() => expect(divA).toAppearBefore(textA)).toThrowError(
       /Received: Unknown document position \(20\)/i,
@@ -71,6 +77,12 @@ describe('.toAppearAfter', () => {
   it('errors out when first element is not after second element', () => {
     expect(() => expect(textA).toAppearAfter(textB)).toThrowError(
       /Received: Node.DOCUMENT_POSITION_FOLLOWING \(4\)/i,
+    )
+  })
+
+  it('errors out when .not is used but first element is actually after second element', () => {
+    expect(() => expect(textB).not.toAppearAfter(textA)).toThrowError(
+      /\.not\.toAppearAfter/i,
     )
   })
 
