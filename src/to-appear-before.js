@@ -1,13 +1,21 @@
 import {checkHtmlElement} from './utils'
 
+// ref: https://dom.spec.whatwg.org/#dom-node-document_position_disconnected
+const DOCUMENT_POSITION_DISCONNECTED = 0x01
+const DOCUMENT_POSITION_PRECEDING = 0x02
+const DOCUMENT_POSITION_FOLLOWING = 0x04
+const DOCUMENT_POSITION_CONTAINS = 0x08
+const DOCUMENT_POSITION_CONTAINED_BY = 0x10
+const DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 0x20
+
 // ref: https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
 const DOCUMENT_POSITIONS_STRINGS = {
-  [Node.DOCUMENT_POSITION_DISCONNECTED]: 'Node.DOCUMENT_POSITION_DISCONNECTED',
-  [Node.DOCUMENT_POSITION_PRECEDING]: 'Node.DOCUMENT_POSITION_PRECEDING',
-  [Node.DOCUMENT_POSITION_FOLLOWING]: 'Node.DOCUMENT_POSITION_FOLLOWING',
-  [Node.DOCUMENT_POSITION_CONTAINS]: 'Node.DOCUMENT_POSITION_CONTAINS',
-  [Node.DOCUMENT_POSITION_CONTAINED_BY]: 'Node.DOCUMENT_POSITION_CONTAINED_BY',
-  [Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC]:
+  [DOCUMENT_POSITION_DISCONNECTED]: 'Node.DOCUMENT_POSITION_DISCONNECTED',
+  [DOCUMENT_POSITION_PRECEDING]: 'Node.DOCUMENT_POSITION_PRECEDING',
+  [DOCUMENT_POSITION_FOLLOWING]: 'Node.DOCUMENT_POSITION_FOLLOWING',
+  [DOCUMENT_POSITION_CONTAINS]: 'Node.DOCUMENT_POSITION_CONTAINS',
+  [DOCUMENT_POSITION_CONTAINED_BY]: 'Node.DOCUMENT_POSITION_CONTAINED_BY',
+  [DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC]:
     'Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC',
 }
 
@@ -46,14 +54,14 @@ function checkToAppear(methodName, targetDocumentPosition) {
 }
 
 export function toAppearBefore(element, secondElement) {
-  return checkToAppear(
-    'toAppearBefore',
-    Node.DOCUMENT_POSITION_FOLLOWING,
-  ).apply(this, [element, secondElement])
+  return checkToAppear('toAppearBefore', DOCUMENT_POSITION_FOLLOWING).apply(
+    this,
+    [element, secondElement],
+  )
 }
 
 export function toAppearAfter(element, secondElement) {
-  return checkToAppear('toAppearAfter', Node.DOCUMENT_POSITION_PRECEDING).apply(
+  return checkToAppear('toAppearAfter', DOCUMENT_POSITION_PRECEDING).apply(
     this,
     [element, secondElement],
   )
