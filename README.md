@@ -190,15 +190,20 @@ Also, depending on your local setup, you may need to update your
 If you're using TypeScript, make sure your setup file is a `.ts` and not a `.js`
 to include the necessary types.
 
-You will also need to include your setup file in your `tsconfig.json` if you
-haven't already:
+You will also need to include the following in your `tsconfig.json`:
 
 ```json
+{
   // In tsconfig.json
   "include": [
-    ...
+    // ...
     "./jest-setup.ts"
   ],
+  "compilerOptions": {
+    // ...
+    "types": ["@testing-library/jest-dom"]
+  }
+}
 ```
 
 ### With another Jest-compatible `expect`
