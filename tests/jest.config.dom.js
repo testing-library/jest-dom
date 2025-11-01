@@ -1,9 +1,12 @@
 const path = require('path')
-const config = require('kcd-scripts/jest')
+const baseConfig = require('../jest.config')
 
 module.exports = {
-  ...config,
+  ...baseConfig,
   rootDir: path.resolve(__dirname, '..'),
   displayName: 'jsdom',
   testEnvironment: 'jsdom',
+  // Remove projects and watchPlugins config for sub-projects
+  projects: undefined,
+  watchPlugins: undefined,
 }
