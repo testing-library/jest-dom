@@ -68,7 +68,7 @@ jobs:
         run: npm run build
 
       - name: 🚀 Release
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v6
         with:
           semantic_version: 17
           branches: |
