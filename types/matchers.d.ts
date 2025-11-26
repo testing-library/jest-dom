@@ -231,7 +231,7 @@ declare namespace matchers {
      * @see
      * [testing-library/jest-dom#tohaveattribute](https://github.com/testing-library/jest-dom#tohaveattribute)
      */
-    toHaveAttribute(attr: string, value?: unknown): R
+    toHaveAttribute(attr: string, value?: any): R
     /**
      * @description
      * Check whether the given element has certain classes within its `class` attribute.
@@ -339,7 +339,7 @@ declare namespace matchers {
      * @see
      * [testing-library/jest-dom#tohaveformvalues](https://github.com/testing-library/jest-dom#tohaveformvalues)
      */
-    toHaveFormValues(expectedValues: Record<string, unknown>): R
+    toHaveFormValues(expectedValues: Record<string, any>): R
     /**
      * @description
      * Check if an element has specific css properties with specific values applied.
@@ -362,7 +362,7 @@ declare namespace matchers {
      * @see
      * [testing-library/jest-dom#tohavestyle](https://github.com/testing-library/jest-dom#tohavestyle)
      */
-    toHaveStyle(css: string | Record<string, unknown>): R
+    toHaveStyle(css: string | Record<string, any>): R
     /**
      * @description
      * Check whether the given element has a text content or not.
