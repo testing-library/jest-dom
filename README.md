@@ -1347,7 +1347,7 @@ getByTestId('text').setSelectionRange(5, 13)
 expect(getByTestId('text')).toHaveSelection('selected')
 
 getByTestId('textarea').setSelectionRange(0, 5)
-expect('textarea').toHaveSelection('text ')
+expect(getByTestId('textarea')).toHaveSelection('text ')
 
 const selection = document.getSelection()
 const range = document.createRange()
