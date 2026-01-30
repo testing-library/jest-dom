@@ -761,6 +761,95 @@ declare namespace matchers {
      * [testing-library/jest-dom#tohaveselection](https://github.com/testing-library/jest-dom#tohaveselection)
      */
     toHaveSelection(selection?: string): R
+    /*
+     * @description
+     * This allows to check whether given element has been [pressed](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed)
+     *
+     * It accepts elements with explicit or implicit `button` role and valid `aria-pressed`
+     * attribute of `"true"` or `"false"`.
+     *
+     * @example
+     * <button aria-pressed="true">Pressed</button>
+     * <button aria-pressed="false">Released</button>
+     *
+     * <input type="button" aria-pressed="true" value="Pressed input button" />
+     * <input type="button" aria-pressed="false" value="Released input button" />
+     *
+     * <span role="button" aria-pressed="true">Pressed span</span>
+     * <span role="button" aria-pressed="false">Released span</span>
+     *
+     * screen.getByRole('button', { name: 'Pressed' }).toBePressed();
+     * screen.getByRole('button', { name: 'Released' }).not.toBePressed();
+     *
+     * screen.getByRole('button', { name: 'Pressed input button' }).toBePressed();
+     * screen.getByRole('button', { name: 'Released input button' }).not.toBePressed();
+     *
+     * screen.getByRole('button', { name: 'Pressed span' }).toBePressed();
+     * screen.getByRole('button', { name: 'Released span' }).not.toBePressed();
+     *
+     * @see
+     * [testing-library/jest-dom#tobepressed](https://github.com/testing-library/jest-dom#tobepressed)
+     */
+    toBePressed(): R
+    /*
+     * @description
+     * This allows to check whether given element has been [partially pressed](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed)
+     *
+     * It accepts elements with explicit or implicit `button` role and valid `aria-pressed` of `"mixed"`.
+     *
+     * @example
+     * <button aria-pressed="mixed">Partially Pressed</button>
+     * <input type="button" aria-pressed="mixed" value="Partially pressed input button" />
+     * <span role="button" aria-pressed="mixed">Partially pressed span</span>
+     *
+     * screen.getByRole('button', { name: 'Partially Pressed' }).toBePartiallyPressed();
+     * screen.getByRole('button', { name: 'Partially pressed input button' }).toBePartiallyPressed();
+     * screen.getByRole('button', { name: 'Partially pressed span' }).toBePartiallyPressed();
+     *
+     * @See
+     * [testing-library/jest-dom#tobepartiallypressed](https://github.com/testing-library/jest-dom#tobepartiallypressed)
+     */
+    toBePartiallyPressed(): R
+    /*
+     * @description
+     * This checks if a given element appears before another element in the DOM tree, as per [`compareDocumentPosition()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition).
+     *
+     * @example
+     * <div>
+     *   <span data-testid="text-a">Text A</span>
+     *   <span data-testid="text-b">Text B</span>
+     * </div>
+     *
+     * const textA = queryByTestId('text-a')
+     * const textB = queryByTestId('text-b')
+     *
+     * expect(textA).toAppearBefore(textB)
+     * expect(textB).not.toAppearBefore(textA)
+     *
+     * @See
+     * [testing-library/jest-dom#toappearbefore](https://github.com/testing-library/jest-dom#toappearbefore)
+     */
+    toAppearBefore(element: HTMLElement | SVGElement): R
+    /*
+     * @description
+     * This checks if a given element appears after another element in the DOM tree, as per [`compareDocumentPosition()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition).
+     *
+     * @example
+     * <div>
+     *   <span data-testid="text-a">Text A</span>
+     *   <span data-testid="text-b">Text B</span>
+     * </div>
+     *
+     * const textA = queryByTestId('text-a')
+     * const textB = queryByTestId('text-b')
+     *
+     * expect(textB).toAppearAfter(textA)
+     * expect(textA).not.toAppearAfter(textB)
+     *
+     * @See
+     * [testing-library/jest-dom#toappearafter](https://github.com/testing-library/jest-dom#toappearafter)
+     */
+    toAppearAfter(element: HTMLElement | SVGElement): R
   }
 }
 

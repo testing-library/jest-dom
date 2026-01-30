@@ -81,11 +81,15 @@ clear to read and to maintain.
   - [`toBePartiallyChecked`](#tobepartiallychecked)
   - [`toHaveRole`](#tohaverole)
   - [`toHaveErrorMessage`](#tohaveerrormessage)
-  - [`toHaveSelection`](#tohaveselection)
+  - [`toBePressed`](#tobepressed)
+  - [`toBePartiallyPressed`](#tobepartiallypressed)
+  - [`toAppearBefore`](#toappearbefore)
+  - [`toAppearAfter`](#toappearafter)
 - [Deprecated matchers](#deprecated-matchers)
   - [`toBeEmpty`](#tobeempty)
   - [`toBeInTheDOM`](#tobeinthedom)
   - [`toHaveDescription`](#tohavedescription)
+  - [`toHaveSelection`](#tohaveselection)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Guiding Principles](#guiding-principles)
@@ -1302,6 +1306,150 @@ expect(timeInput).toHaveErrorMessage(expect.stringContaining('Invalid time')) //
 expect(timeInput).not.toHaveErrorMessage('Pikachu!')
 ```
 
+<hr />
+
+### `toBePressed`
+
+This allows to check whether given element is
+[pressed](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed).
+
+It accepts elements with explicit or implicit `button` role and valid
+`aria-pressed` attribute of `"true"` or `"false"`.
+
+```typescript
+toBePressed()
+```
+
+#### Examples
+
+```html
+<button aria-pressed="true">Pressed</button>
+<button aria-pressed="false">Released</button>
+
+<input type="button" aria-pressed="true" value="Pressed input button" />
+<input type="button" aria-pressed="false" value="Released input button" />
+
+<span role="button" aria-pressed="true">Pressed span</span>
+<span role="button" aria-pressed="false">Released span</span>
+```
+
+##### Using DOM Testing Library
+
+```javascript
+screen.getByRole('button', {name: 'Pressed'}).toBePressed()
+screen.getByRole('button', {name: 'Released'}).not.toBePressed()
+
+screen.getByRole('button', {name: 'Pressed input button'}).toBePressed()
+screen.getByRole('button', {name: 'Released input button'}).not.toBePressed()
+
+screen.getByRole('button', {name: 'Pressed span'}).toBePressed()
+screen.getByRole('button', {name: 'Released span'}).not.toBePressed()
+```
+
+<hr />
+
+### `toBePartiallyPressed`
+
+This allows to check whether given element is partially
+[pressed](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed).
+
+It accepts elements with explicit or implicit `button` role and valid
+`aria-pressed` attribute of `mixed`.
+
+```typescript
+toBePressed()
+```
+
+#### Examples
+
+```html
+<button aria-pressed="mixed">Partially pressed</button>
+<input
+  type="button"
+  aria-pressed="mixed"
+  value="Partially pressed input button"
+/>
+<span role="button" aria-pressed="mixed">Partially pressed span</span>
+```
+
+##### Using DOM Testing Library
+
+```javascript
+screen.getByRole('button', {name: 'Partially pressed'}).toBePartiallyPressed()
+screen
+  .getByRole('button', {name: 'Partially pressed input button'})
+  .toBePartiallyPressed()
+screen
+  .getByRole('button', {name: 'Partially pressed span'})
+  .toBePartiallyPressed()
+```
+
+<hr />
+
+### `toAppearBefore`
+
+This checks if a given element appears before another element in the DOM tree,
+as per
+[`compareDocumentPosition()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition).
+
+```typescript
+toAppearBefore()
+```
+
+#### Examples
+
+```html
+<div>
+  <span data-testid="text-a">Text A</span>
+  <span data-testid="text-b">Text B</span>
+</div>
+```
+
+```javascript
+const textA = queryByTestId('text-a')
+const textB = queryByTestId('text-b')
+
+expect(textA).toAppearBefore(textB)
+expect(textB).not.toAppearBefore(textA)
+```
+
+> Note: This matcher does not take into account CSS styles that may modify the
+> display order of elements, eg:
+>
+> - `flex-direction: row-reverse`,
+> - `flex-direction: column-reverse`,
+> - `display: grid`
+
+### `toAppearAfter`
+
+This checks if a given element appears after another element in the DOM tree, as
+per
+[`compareDocumentPosition()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition).
+
+```typescript
+toAppearAfter()
+```
+
+#### Examples
+
+```html
+<div>
+  <span data-testid="text-a">Text A</span>
+  <span data-testid="text-b">Text B</span>
+</div>
+```
+
+```javascript
+const textA = queryByTestId('text-a')
+const textB = queryByTestId('text-b')
+
+expect(textB).toAppearAfter(textA)
+expect(textA).not.toAppearAfter(textB)
+```
+
+> Note: This matcher does not take into account CSS styles that may modify the
+> display order of elements, see [`toAppearBefore()`](#toappearbefore)
+
 ## Deprecated matchers
 
 ### `toBeEmpty`
@@ -1639,6 +1787,8 @@ Thanks goes to these people ([emoji key][emojis]):
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://billyjanitsch.com"><img src="https://avatars.githubusercontent.com/u/1158733?v=4?s=100" width="100px;" alt="Billy Janitsch"/><br /><sub><b>Billy Janitsch</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/issues?q=author%3Abillyjanitsch" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://xyynext.com"><img src="https://avatars.githubusercontent.com/u/26314308?v=4?s=100" width="100px;" alt="InfiniteXyy"/><br /><sub><b>InfiniteXyy</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=InfiniteXyy" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/issues?q=author%3AInfiniteXyy" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/kretajak"><img src="https://avatars.githubusercontent.com/u/2963053?v=4?s=100" width="100px;" alt="Marcin Kulpa"/><br /><sub><b>Marcin Kulpa</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=kretajak" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=kretajak" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://nossbigg.github.io"><img src="https://avatars.githubusercontent.com/u/10845858?v=4?s=100" width="100px;" alt="Gibson C"/><br /><sub><b>Gibson C</b></sub></a><br /><a href="https://github.com/testing-library/jest-dom/commits?author=nossbigg" title="Code">💻</a> <a href="https://github.com/testing-library/jest-dom/commits?author=nossbigg" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
 </table>
@@ -1662,7 +1812,7 @@ MIT
   https://github.com/testing-library/react-testing-library
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/github/workflow/status/testing-library/jest-dom/validate?logo=github&style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/testing-library/jest-dom/validate.yml?branch=main&logo=github&style=flat-square
 [build]: https://github.com/testing-library/jest-dom/actions?query=workflow%3Avalidate
 [coverage-badge]: 
   https://img.shields.io/codecov/c/github/testing-library/jest-dom.svg?style=flat-square

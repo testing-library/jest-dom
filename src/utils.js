@@ -230,11 +230,11 @@ function toSentence(
   )
 }
 
-function compareArraysAsSet(arr1, arr2) {
-  if (Array.isArray(arr1) && Array.isArray(arr2)) {
-    return [...new Set(arr1)].every(v => new Set(arr2).has(v))
+function compareAsSet(val1, val2) {
+  if (Array.isArray(val1) && Array.isArray(val2)) {
+    return [...new Set(val1)].every(v => new Set(val2).has(v))
   }
-  return undefined
+  return val1 === val2
 }
 
 export {
@@ -250,5 +250,5 @@ export {
   getTag,
   getSingleElementValue,
   toSentence,
-  compareArraysAsSet,
+  compareAsSet,
 }
