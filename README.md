@@ -174,7 +174,7 @@ Also, depending on your local setup, you may need to update your
   // In tsconfig.json
   "compilerOptions": {
     ...
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["vitest/globals", "@testing-library/jest-dom/vitest"]
   },
   "include": [
     ...
