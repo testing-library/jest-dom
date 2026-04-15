@@ -1,4 +1,3 @@
-import {type expect} from 'bun:test'
 import { type TestingLibraryMatchers } from './matchers';
 
 declare module 'bun:test' {
