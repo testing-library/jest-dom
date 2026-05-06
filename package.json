@@ -97,7 +97,7 @@
     "jest-watch-select-projects": "^2.0.0",
     "jsdom": "^16.2.1",
     "kcd-scripts": "^14.0.0",
-    "pretty-format": "^25.1.0",
+    "pretty-format": "^30.2.0",
     "rollup": "^3.28.1",
     "rollup-plugin-delete": "^2.0.0",
     "typescript": "^5.1.6",
