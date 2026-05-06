@@ -47,6 +47,29 @@ describe('.toHaveValue', () => {
     expect(queryByTestId('without')).toHaveValue(10)
   })
 
+  test('handles value of range input', () => {
+    const {queryByTestId} = render(`
+        <input type="range" value="5" data-testid="range" />
+        <input type="range" value="" data-testid="empty" />
+        <input type="range" data-testid="without" />
+    `)
+
+    expect(queryByTestId('range')).toHaveValue(5)
+    expect(queryByTestId('range')).toHaveValue()
+    expect(queryByTestId('range')).not.toHaveValue(4)
+    expect(queryByTestId('range')).not.toHaveValue('5')
+
+    // Input type range value default to 50
+    expect(queryByTestId('empty')).toHaveValue(50)
+    expect(queryByTestId('empty')).not.toHaveValue('5')
+
+    // Input type range value default to 50
+    expect(queryByTestId('without')).toHaveValue(50)
+    expect(queryByTestId('without')).not.toHaveValue('10')
+    queryByTestId('without').value = 10
+    expect(queryByTestId('without')).toHaveValue(10)
+  })
+
   test('handles value of select element', () => {
     const {queryByTestId} = render(`
       <select data-testid="single">
