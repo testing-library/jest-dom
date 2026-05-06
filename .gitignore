@@ -2,6 +2,7 @@ node_modules
 coverage
 dist
 .DS_Store
+.jest-cache
 
 # these cause more harm than good
 # when working with contributors

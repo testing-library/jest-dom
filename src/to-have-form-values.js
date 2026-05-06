@@ -1,9 +1,5 @@
 import escape from 'css.escape'
-import {
-  checkHtmlElement,
-  compareAsSet,
-  getSingleElementValue,
-} from './utils'
+import {checkHtmlElement, compareAsSet, getSingleElementValue} from './utils'
 
 // Returns the combined value of several elements that have the same name
 // e.g. radio buttons or groups of checkboxes
