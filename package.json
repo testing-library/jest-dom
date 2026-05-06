@@ -93,7 +93,6 @@
     "@types/bun": "latest",
     "@types/web": "latest",
     "expect": "^29.6.2",
-    "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-watch-select-projects": "^2.0.0",
     "jsdom": "^16.2.1",
     "kcd-scripts": "^14.0.0",
