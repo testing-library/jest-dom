@@ -283,3 +283,20 @@ test('.toBeEnabled custom element', () => {
     expect(queryByTestId('enabled-custom-element')).not.toBeEnabled()
   }).toThrowError('element is enabled')
 })
+
+test('.toBeEnabled web-component', () => {
+  const {queryByTestId} = render(`
+    <custom-element data-testid="disabled-custom-element" disabled=""></custom-element>
+    <custom-element data-testid="enabled-custom-element" disabled="false"></custom-element>
+  `)
+
+  expect(queryByTestId('disabled-custom-element')).not.toBeEnabled()
+  expect(() => {
+    expect(queryByTestId('disabled-custom-element')).toBeEnabled()
+  }).toThrowError('element is not enabled')
+
+  expect(queryByTestId('enabled-custom-element')).toBeEnabled()
+  expect(() => {
+    expect(queryByTestId('enabled-custom-element')).not.toBeEnabled()
+  }).toThrowError('element is enabled')
+})
