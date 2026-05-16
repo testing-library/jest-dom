@@ -64,7 +64,7 @@ function isAncestorDisabled(element) {
 function isElementOrAncestorDisabled(element) {
   return (
     canElementBeDisabled(element) &&
-    (isElementDisabled(element) || isAncestorDisabled(element))
+    (element.hasAttribute('disabled') || isAncestorDisabled(element))
   )
 }
 
