@@ -10,8 +10,13 @@ on:
       - 'alpha'
       - '!all-contributors/**'
   pull_request: {}
+
+permissions: {}
+
 jobs:
   main:
+    permissions:
+      contents: read
     # ignore all-contributors PRs
     if: ${{ !contains(github.head_ref, 'all-contributors') }}
     strategy:
@@ -20,10 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: ⎔ Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
 
@@ -44,6 +49,11 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   release:
+    permissions:
+      id-token: write # required for npm trusted publishing
+      contents: write # to create release tags
+      issues: write # to post semantic-release failure/success issues
+      pull-requests: write # to comment on released pull requests
     needs: main
     runs-on: ubuntu-latest
     if:
@@ -52,12 +62,12 @@ jobs:
       github.ref) && github.event_name == 'push' }}
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: ⎔ Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 14
+          node-version: 24
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
@@ -68,9 +78,9 @@ jobs:
         run: npm run build
 
       - name: 🚀 Release
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v5
         with:
-          semantic_version: 17
+          semantic_version: 25
           branches: |
             [
               '+([0-9])?(.{+([0-9]),x}).x',
@@ -82,4 +92,3 @@ jobs:
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
