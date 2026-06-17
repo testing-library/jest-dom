@@ -143,7 +143,7 @@ describe('.toHaveSelection', () => {
     const selection = queryByTestId('child').ownerDocument.getSelection()
     const range = queryByTestId('child').ownerDocument.createRange()
     selection.removeAllRanges()
-		selection.empty()
+    selection.empty()
     selection.addRange(range)
 
     range.selectNodeContents(queryByTestId('child'))

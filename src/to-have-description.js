@@ -2,10 +2,7 @@ import {checkHtmlElement, getMessage, normalize, deprecate} from './utils'
 
 // See algoritm: https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_description
 export function toHaveDescription(htmlElement, checkWith) {
-  deprecate(
-    'toHaveDescription',
-    'Please use toHaveAccessibleDescription.',
-  )
+  deprecate('toHaveDescription', 'Please use toHaveAccessibleDescription.')
 
   checkHtmlElement(htmlElement, toHaveDescription, this)
 
