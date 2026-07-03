@@ -321,6 +321,25 @@ declare namespace matchers {
     toHaveFocus(): R
     /**
      * @description
+     * Assert whether an element has virtual focus via `aria-activedescendant`,
+     * i.e. it is referenced by the `aria-activedescendant` attribute of the
+     * element that currently has DOM focus.
+     * @example
+     * <ul role="listbox" aria-activedescendant="option1" tabindex="0" data-testid="listbox">
+     *   <li role="option" id="option1" data-testid="option1">option 1</li>
+     *   <li role="option" id="option2" data-testid="option2">option 2</li>
+     * </ul>
+     *
+     * const listbox = getByTestId('listbox')
+     * const option1 = getByTestId('option1')
+     * listbox.focus()
+     * expect(option1).toHaveVirtualFocus()
+     * @see
+     * [testing-library/jest-dom#tohavevirtualfocus](https://github.com/testing-library/jest-dom#tohavevirtualfocus)
+     */
+    toHaveVirtualFocus(): R
+    /**
+     * @description
      * Check if a form or fieldset contains form controls for each given name, and having the specified value.
      *
      * Can only be invoked on a form or fieldset element.
