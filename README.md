@@ -72,6 +72,8 @@ clear to read and to maintain.
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
   - [`toHaveFocus`](#tohavefocus)
+  - [`toHaveActiveDescendant`](#tohaveactivedescendant)
+  - [`toHaveVirtualFocus`](#tohavevirtualfocus)
   - [`toHaveFormValues`](#tohaveformvalues)
   - [`toHaveStyle`](#tohavestyle)
   - [`toHaveTextContent`](#tohavetextcontent)
@@ -833,6 +835,70 @@ expect(input).toHaveFocus()
 
 input.blur()
 expect(input).not.toHaveFocus()
+```
+
+<hr />
+
+### `toHaveActiveDescendant`
+
+```typescript
+toHaveActiveDescendant(
+  activeDescendant?: HTMLElement | SVGElement | string
+)
+```
+
+This allows you to assert whether an element with DOM focus has an active
+descendant through its `aria-activedescendant` attribute.
+
+#### Examples
+
+```html
+<ul role="listbox" tabindex="0" aria-activedescendant="option-1" data-testid="listbox">
+  <li role="option" id="option-1" data-testid="option-1">Option 1</li>
+  <li role="option" id="option-2" data-testid="option-2">Option 2</li>
+</ul>
+```
+
+```javascript
+const listbox = getByTestId('listbox')
+const option1 = getByTestId('option-1')
+const option2 = getByTestId('option-2')
+
+listbox.focus()
+expect(listbox).toHaveActiveDescendant()
+expect(listbox).toHaveActiveDescendant(option1)
+expect(listbox).toHaveActiveDescendant('option-1')
+expect(listbox).not.toHaveActiveDescendant(option2)
+```
+
+<hr />
+
+### `toHaveVirtualFocus`
+
+```typescript
+toHaveVirtualFocus()
+```
+
+This allows you to assert whether an element has virtual focus through the
+current DOM focused element's `aria-activedescendant` attribute.
+
+#### Examples
+
+```html
+<ul role="listbox" tabindex="0" aria-activedescendant="option-1" data-testid="listbox">
+  <li role="option" id="option-1" data-testid="option-1">Option 1</li>
+  <li role="option" id="option-2" data-testid="option-2">Option 2</li>
+</ul>
+```
+
+```javascript
+const listbox = getByTestId('listbox')
+const option1 = getByTestId('option-1')
+const option2 = getByTestId('option-2')
+
+listbox.focus()
+expect(option1).toHaveVirtualFocus()
+expect(option2).not.toHaveVirtualFocus()
 ```
 
 <hr />

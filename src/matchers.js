@@ -15,6 +15,10 @@ export {toHaveAttribute} from './to-have-attribute'
 export {toHaveClass} from './to-have-class'
 export {toHaveStyle} from './to-have-style'
 export {toHaveFocus} from './to-have-focus'
+export {
+  toHaveActiveDescendant,
+  toHaveVirtualFocus,
+} from './to-have-active-descendant'
 export {toHaveFormValues} from './to-have-form-values'
 export {toBeVisible} from './to-be-visible'
 export {toBeDisabled, toBeEnabled} from './to-be-disabled'
