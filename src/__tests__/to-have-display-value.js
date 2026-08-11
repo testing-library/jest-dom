@@ -162,3 +162,27 @@ test('it should work with numbers', () => {
 
   expect(queryByTestId('select')).toHaveDisplayValue(1)
 })
+
+test('it should use the label attribute of an option when it has one', () => {
+  const {queryByTestId} = render(`
+    <select data-testid="select">
+      <option value="apple" label="Apple"></option>
+      <option value="banana" label="Banana"></option>
+    </select>
+  `)
+
+  expect(queryByTestId('select')).toHaveDisplayValue('Apple')
+
+  queryByTestId('select').value = 'banana'
+  expect(queryByTestId('select')).toHaveDisplayValue('Banana')
+})
+
+test('it should fall back to the option text when the label attribute is empty', () => {
+  const {queryByTestId} = render(`
+    <select data-testid="select">
+      <option value="apple" label="">Apple</option>
+    </select>
+  `)
+
+  expect(queryByTestId('select')).toHaveDisplayValue('Apple')
+})
