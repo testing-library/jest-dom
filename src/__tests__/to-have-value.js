@@ -217,4 +217,20 @@ Received:
     // Role that does not support aria-valuenow
     expect(queryByTestId('textbox')).not.toHaveValue(70)
   })
+
+  test.each([
+    'meter',
+    'progressbar',
+    'scrollbar',
+    'separator',
+    'slider',
+    'spinbutton',
+  ])('handles value of aria-valuenow when role is %s', role => {
+    const valueToCheck = 120
+    const {queryByTestId} = render(
+      `<div role="${role}" aria-valuenow="${valueToCheck}" tabindex="0" data-testid="element"></div>`,
+    )
+
+    expect(queryByTestId('element')).toHaveValue(valueToCheck)
+  })
 })

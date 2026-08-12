@@ -196,7 +196,14 @@ function getInputValue(inputElement) {
   }
 }
 
-const rolesSupportingValues = ['meter', 'progressbar', 'slider', 'spinbutton']
+const rolesSupportingValues = [
+  'meter',
+  'progressbar',
+  'scrollbar',
+  'separator',
+  'slider',
+  'spinbutton',
+]
 function getAccessibleValue(element) {
   if (!rolesSupportingValues.includes(element.getAttribute('role'))) {
     return undefined
