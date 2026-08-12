@@ -72,6 +72,7 @@ clear to read and to maintain.
   - [`toHaveAttribute`](#tohaveattribute)
   - [`toHaveClass`](#tohaveclass)
   - [`toHaveFocus`](#tohavefocus)
+  - [`toHaveVirtualFocus`](#tohavevirtualfocus)
   - [`toHaveFormValues`](#tohaveformvalues)
   - [`toHaveStyle`](#tohavestyle)
   - [`toHaveTextContent`](#tohavetextcontent)
@@ -833,6 +834,44 @@ expect(input).toHaveFocus()
 
 input.blur()
 expect(input).not.toHaveFocus()
+```
+
+<hr />
+
+### `toHaveVirtualFocus`
+
+```typescript
+toHaveVirtualFocus()
+```
+
+This allows you to assert whether an element has "virtual focus", i.e. it is
+referenced by the `aria-activedescendant` attribute of the element that
+currently has DOM focus. This is common in composite widgets such as listboxes
+and comboboxes, where DOM focus stays on a container element while
+`aria-activedescendant` points at the item that is currently "active".
+
+#### Examples
+
+```html
+<ul
+  role="listbox"
+  aria-activedescendant="option1"
+  tabindex="0"
+  data-testid="listbox"
+>
+  <li role="option" id="option1" data-testid="option1">option 1</li>
+  <li role="option" id="option2" data-testid="option2">option 2</li>
+</ul>
+```
+
+```javascript
+const listbox = getByTestId('listbox')
+const option1 = getByTestId('option1')
+const option2 = getByTestId('option2')
+
+listbox.focus()
+expect(option1).toHaveVirtualFocus()
+expect(option2).not.toHaveVirtualFocus()
 ```
 
 <hr />
