@@ -1,9 +1,12 @@
-import escape from 'css.escape'
-import {
-  checkHtmlElement,
-  compareAsSet,
-  getSingleElementValue,
-} from './utils'
+import cssEscape from 'css.escape'
+import {checkHtmlElement, compareAsSet, getSingleElementValue} from './utils'
+
+function escape(name, container) {
+  const nativeEscape = container.ownerDocument.defaultView?.CSS?.escape
+  return typeof nativeEscape === 'function'
+    ? nativeEscape(name)
+    : cssEscape(name)
+}
 
 // Returns the combined value of several elements that have the same name
 // e.g. radio buttons or groups of checkboxes
@@ -30,7 +33,9 @@ function getMultiElementValue(elements) {
 }
 
 function getFormValue(container, name) {
-  const elements = [...container.querySelectorAll(`[name="${escape(name)}"]`)]
+  const elements = [
+    ...container.querySelectorAll(`[name="${escape(name, container)}"]`),
+  ]
   /* istanbul ignore if */
   if (elements.length === 0) {
     return undefined // shouldn't happen, but just in case
