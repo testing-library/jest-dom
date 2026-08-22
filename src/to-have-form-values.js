@@ -10,9 +10,18 @@ import {
 function getMultiElementValue(elements) {
   const types = [...new Set(elements.map(element => element.type))]
   if (types.length !== 1) {
-    throw new Error(
-      'Multiple form elements with the same name must be of the same type',
-    )
+    if (
+      types.length === 2 &&
+      types[0] === 'hidden' &&
+      types[1] === 'checkbox'
+    ) {
+      // Allow the special case where there's a 'checkbox' input, and a matching 'hidden' input
+      // before it, which works around browser forms so a 'false' value is submitted.
+    } else {
+      throw new Error(
+        'Multiple form elements with the same name must be of the same type',
+      )
+    }
   }
   switch (types[0]) {
     case 'radio': {
