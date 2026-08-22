@@ -188,6 +188,7 @@ function getSelectValue({multiple, options}) {
 function getInputValue(inputElement) {
   switch (inputElement.type) {
     case 'number':
+    case 'range':
       return inputElement.value === '' ? null : Number(inputElement.value)
     case 'checkbox':
       return inputElement.checked

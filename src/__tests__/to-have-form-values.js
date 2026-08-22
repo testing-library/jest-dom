@@ -174,6 +174,21 @@ describe('.toHaveFormValues', () => {
     })
   })
 
+  it('handles <input type="range"> values correctly', () => {
+    const renderInputRange = value => {
+      const {container} = render(`
+        <form>
+          <input type="range" name="volume" value="${value}">
+        </form>
+      `)
+      return container.querySelector('form')
+    }
+
+    expect(renderInputRange('10')).toHaveFormValues({
+      volume: 10,
+    })
+  })
+
   describe('edge cases', () => {
     // This is also to ensure 100% code coverage for edge cases
     it('detects multiple elements with the same name but different type', () => {
