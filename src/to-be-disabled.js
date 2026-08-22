@@ -50,7 +50,11 @@ function canElementBeDisabled(element) {
 }
 
 function isElementDisabled(element) {
-  return canElementBeDisabled(element) && element.hasAttribute('disabled')
+  return (
+    canElementBeDisabled(element) &&
+    element.hasAttribute('disabled') &&
+    element.attributes.disabled.value !== 'false'
+  )
 }
 
 function isAncestorDisabled(element) {
