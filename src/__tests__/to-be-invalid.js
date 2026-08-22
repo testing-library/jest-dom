@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 import {JSDOM} from 'jsdom'
 import {render} from './helpers/test-utils'
 
