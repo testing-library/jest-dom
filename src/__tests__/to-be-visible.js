@@ -42,6 +42,21 @@ describe('.toBeVisible', () => {
     expect(() => expect(subject).toBeVisible()).toThrowError()
   })
 
+  test('element without getRootNode can still be visible', () => {
+    const {container} = render(`<div>hello</div>`)
+    const subject = container.querySelector('div')
+    subject.getRootNode = undefined
+    expect(subject).toBeVisible()
+    expect(() => expect(subject).not.toBeVisible()).toThrowError()
+  })
+
+  test('detached element without getRootNode is not visible', () => {
+    const subject = document.createElement('div')
+    subject.getRootNode = undefined
+    expect(subject).not.toBeVisible()
+    expect(() => expect(subject).toBeVisible()).toThrowError()
+  })
+
   describe('with a <details /> element', () => {
     let subject
 

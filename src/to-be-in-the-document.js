@@ -1,14 +1,11 @@
-import {checkHtmlElement} from './utils'
+import {checkHtmlElement, isElementInDocument} from './utils'
 
 export function toBeInTheDocument(element) {
   if (element !== null || !this.isNot) {
     checkHtmlElement(element, toBeInTheDocument, this)
   }
 
-  const pass =
-    element === null
-      ? false
-      : element.ownerDocument === element.getRootNode({composed: true})
+  const pass = element === null ? false : isElementInDocument(element)
 
   const errorFound = () => {
     return `expected document not to contain element, found ${this.utils.stringify(

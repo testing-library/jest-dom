@@ -1,4 +1,4 @@
-import {checkHtmlElement} from './utils'
+import {checkHtmlElement, isElementInDocument} from './utils'
 
 function isStyleVisible(element) {
   const {getComputedStyle} = element.ownerDocument.defaultView
@@ -39,8 +39,7 @@ function isElementVisible(element, previousElement) {
 
 export function toBeVisible(element) {
   checkHtmlElement(element, toBeVisible, this)
-  const isInDocument =
-    element.ownerDocument === element.getRootNode({composed: true})
+  const isInDocument = isElementInDocument(element)
   const isVisible = isInDocument && isElementVisible(element)
   return {
     pass: isVisible,
