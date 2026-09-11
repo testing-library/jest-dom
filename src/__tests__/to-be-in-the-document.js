@@ -36,6 +36,14 @@ test('.toBeInTheDocument', () => {
   expect(detachedElement).not.toBeInTheDocument()
   expect(nullElement).not.toBeInTheDocument()
 
+  const attachedWithoutGetRootNode = document.createElement('div')
+  document.body.appendChild(attachedWithoutGetRootNode)
+  attachedWithoutGetRootNode.getRootNode = undefined
+  const detachedWithoutGetRootNode = document.createElement('div')
+  detachedWithoutGetRootNode.getRootNode = undefined
+  expect(attachedWithoutGetRootNode).toBeInTheDocument()
+  expect(detachedWithoutGetRootNode).not.toBeInTheDocument()
+
   // negative test cases wrapped in throwError assertions for coverage.
   const expectToBe = /expect.*\.toBeInTheDocument/
   const expectNotToBe = /expect.*not\.toBeInTheDocument/

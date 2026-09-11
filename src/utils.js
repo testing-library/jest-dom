@@ -79,6 +79,12 @@ function checkHtmlElement(htmlElement, ...args) {
   }
 }
 
+function isElementInDocument(element) {
+  return typeof element.getRootNode === 'function'
+    ? element.ownerDocument === element.getRootNode({composed: true})
+    : element.ownerDocument.contains(element)
+}
+
 class InvalidCSSError extends Error {
   constructor(received, matcherFn, context) {
     super()
@@ -242,6 +248,7 @@ export {
   NodeTypeError,
   checkHtmlElement,
   checkNode,
+  isElementInDocument,
   parseCSS,
   deprecate,
   getMessage,
