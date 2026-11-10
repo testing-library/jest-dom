@@ -156,6 +156,9 @@ import '@testing-library/jest-dom/jest-globals'
 
 ### With Vitest
 
+> [!NOTE]
+> As of v8, this library supports vitest 5 or later. If you cannot yet upgrade to vitest 5, stay on `@testing-library/jest-dom` v7 which supports up to vitest 4. Upgrade both together when you are ready.
+
 If you are using [vitest][], this module will work as-is, but you will need to
 use a different import in your tests setup file. This file should be added to
 the [`setupFiles`][vitest setupfiles] property in your vitest config:
