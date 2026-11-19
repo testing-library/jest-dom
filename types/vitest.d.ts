@@ -2,14 +2,7 @@ import 'vitest'
 import {type TestingLibraryMatchers} from './matchers'
 
 declare module 'vitest' {
-  interface Assertion<T = any>
-    extends TestingLibraryMatchers<
-      any,
-      T
-    > {}
+  interface Assertion<R, T> extends TestingLibraryMatchers<T, R> {}
   interface AsymmetricMatchersContaining
-    extends TestingLibraryMatchers<
-      any,
-      any
-    > {}
+    extends TestingLibraryMatchers<any, any> {}
 }

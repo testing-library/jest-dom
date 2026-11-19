@@ -150,5 +150,9 @@ expect(element).not.toContainOneByText('Submit')
 expect(element).not.toContainAnyByTitle('Page title')
 expect(element).not.toContainOneByTitle('Page title')
 
+// Verify that matchers return the correct type rather than any or the element type
+const r: void = expect(element).toBeInTheDocument()
+const p: Promise<void> = expect(Promise.resolve(element)).resolves.toBeVisible()
+
 // @ts-expect-error The types accidentally allowed any property by falling back to "any"
 expect(element).nonExistentProperty()
