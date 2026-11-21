@@ -972,6 +972,15 @@ This also works with rules that are applied to the element via a class name for
 which some rules are defined in a stylesheet currently active in the document.
 The usual rules of css precedence apply.
 
+`toHaveStyle` compares against the result of `getComputedStyle()`. A browser or
+DOM test environment can resolve relative lengths to pixels, even when the
+inline declaration keeps its original unit. To assert the inline declaration
+rather than the computed style, read it from `element.style`:
+
+```javascript
+expect(element.style.maxHeight).toBe('50vh')
+```
+
 <hr />
 
 ### `toHaveTextContent`
