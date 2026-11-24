@@ -31,7 +31,7 @@
         "default": "./dist/matchers.js"
       },
       "import": {
-        "types": "./types/matchers-standalone.d.ts",
+        "types": "./types/matchers-standalone.d.mts",
         "default": "./dist/matchers.mjs"
       }
     },
@@ -60,7 +60,7 @@
     "setup": "npm install && npm run validate -s",
     "test": "kcd-scripts test",
     "test:update": "npm test -- --updateSnapshot --coverage",
-    "test:types": "tsc -p types/__tests__/jest && tsc -p types/__tests__/jest-globals && tsc -p types/__tests__/vitest && tsc -p types/__tests__/bun",
+    "test:types": "tsc -p types/__tests__/jest && tsc -p types/__tests__/jest-globals && tsc -p types/__tests__/vitest && tsc -p types/__tests__/bun && tsc -p types/__tests__/matchers-import && tsc -p types/__tests__/matchers-import/tsconfig.node16.json",
     "validate": "kcd-scripts validate && npm run test:types"
   },
   "files": [
