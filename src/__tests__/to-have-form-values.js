@@ -139,6 +139,22 @@ describe('.toHaveFormValues', () => {
     })
   })
 
+  it('prefers native CSS.escape when it is available', () => {
+    const form = renderForm()
+    const window = form.ownerDocument.defaultView
+    const originalCSS = window.CSS
+    const escape = jest.fn(value => value)
+    window.CSS = {escape}
+
+    try {
+      expect(form).toHaveFormValues(defaultValues)
+    } finally {
+      window.CSS = originalCSS
+    }
+
+    expect(escape).toHaveBeenCalledWith('title')
+  })
+
   it('correctly handles empty values', () => {
     expect(
       renderForm({
