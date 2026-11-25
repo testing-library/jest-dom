@@ -81,6 +81,7 @@
   "license": "MIT",
   "dependencies": {
     "@adobe/css-tools": "^4.4.0",
+    "@types/aria-query": "^5.0.1",
     "aria-query": "^5.0.0",
     "css.escape": "^1.5.1",
     "dom-accessibility-api": "^0.6.3",
