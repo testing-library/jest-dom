@@ -52,7 +52,9 @@ function getValues(tagName, htmlElement) {
   return tagName === 'select'
     ? Array.from(htmlElement)
         .filter(option => option.selected)
-        .map(option => option.textContent)
+        // an option's label attribute wins over its text, unless it is empty
+        // https://html.spec.whatwg.org/multipage/form-elements.html#concept-option-label
+        .map(option => option.getAttribute('label') || option.textContent)
     : [htmlElement.value]
 }
 
