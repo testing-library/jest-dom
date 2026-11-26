@@ -341,6 +341,45 @@ declare namespace matchers {
     toHaveFocus(): R
     /**
      * @description
+     * Assert whether an element with DOM focus has an active descendant, or an expected active descendant,
+     * through its `aria-activedescendant` attribute.
+     * @example
+     * <ul role="listbox" tabindex="0" aria-activedescendant="option-1" data-testid="listbox">
+     *   <li role="option" id="option-1" data-testid="option-1">Option 1</li>
+     *   <li role="option" id="option-2" data-testid="option-2">Option 2</li>
+     * </ul>
+     *
+     * const listbox = getByTestId('listbox')
+     * const option1 = getByTestId('option-1')
+     * listbox.focus()
+     * expect(listbox).toHaveActiveDescendant(option1)
+     * expect(listbox).toHaveActiveDescendant('option-1')
+     * @see
+     * [testing-library/jest-dom#tohaveactivedescendant](https://github.com/testing-library/jest-dom#tohaveactivedescendant)
+     */
+    toHaveActiveDescendant(
+      activeDescendant?: HTMLElement | SVGElement | string,
+    ): R
+    /**
+     * @description
+     * Assert whether an element has virtual focus from the current DOM focused element's
+     * `aria-activedescendant` attribute.
+     * @example
+     * <ul role="listbox" tabindex="0" aria-activedescendant="option-1" data-testid="listbox">
+     *   <li role="option" id="option-1" data-testid="option-1">Option 1</li>
+     *   <li role="option" id="option-2" data-testid="option-2">Option 2</li>
+     * </ul>
+     *
+     * const listbox = getByTestId('listbox')
+     * const option1 = getByTestId('option-1')
+     * listbox.focus()
+     * expect(option1).toHaveVirtualFocus()
+     * @see
+     * [testing-library/jest-dom#tohavevirtualfocus](https://github.com/testing-library/jest-dom#tohavevirtualfocus)
+     */
+    toHaveVirtualFocus(): R
+    /**
+     * @description
      * Check if a form or fieldset contains form controls for each given name, and having the specified value.
      *
      * Can only be invoked on a form or fieldset element.
