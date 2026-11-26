@@ -235,6 +235,33 @@ describe('.toHaveStyle', () => {
       })
     })
 
+    test('supports properties the environment does not implement (aspect-ratio)', () => {
+      // https://github.com/testing-library/jest-dom/issues/570
+      // jsdom's computed style drops aspect-ratio, so toHaveStyle falls back
+      // to the element's own style declaration.
+      const {container} = render(`
+        <div class="label" style="aspect-ratio: 16/9">
+          Hello World
+        </div>
+      `)
+      const element = container.querySelector('.label')
+      expect(element).toHaveStyle('aspect-ratio: 16/9')
+      expect(element).toHaveStyle({'aspect-ratio': '16/9'})
+      expect(element).not.toHaveStyle('aspect-ratio: 4/3')
+      expect(element).not.toHaveStyle({'aspect-ratio': '4/3'})
+    })
+
+    test('supports aspect-ratio set via direct style assignment', () => {
+      // React sets styles via direct property assignment rather than the
+      // style attribute, e.g. style={{aspectRatio: '1 / 1'}}
+      const element = document.createElement('div')
+      element.style.aspectRatio = '1 / 1'
+      document.body.appendChild(element)
+      expect(element).toHaveStyle({'aspect-ratio': '1 / 1'})
+      expect(element).toHaveStyle({aspectRatio: '1 / 1'})
+      document.body.removeChild(element)
+    })
+
     test('requires strict empty properties matching', () => {
       const {container} = render(`
         <div class="label" style="width: 100%;height: 100%">
