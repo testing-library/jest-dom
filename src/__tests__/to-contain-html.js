@@ -106,7 +106,15 @@ describe('.toContainHTML', () => {
 Expected:
   <green><div> non-existant element </div></>
 Received:
-  <red><span data-testid="child" /></>
+  <red><span data-testid="child"></span></>
 `)
+  })
+
+  test('ignores attribute order when comparing HTML', () => {
+    const {container} = render('<a target="_blank" href="foo">link</a>')
+    const link = container.querySelector('a')
+
+    expect(link).toContainHTML('<a href="foo" target="_blank">link</a>')
+    expect(link).toContainHTML('<a target="_blank" href="foo">link</a>')
   })
 })
