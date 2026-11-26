@@ -19,6 +19,7 @@ describe('.toHaveStyle', () => {
             float: left;
             transition: opacity 0.2s ease-out, top 0.3s cubic-bezier(1.175, 0.885, 0.32, 1.275);
             transform: translateX(0px);
+            aspect-ratio: 1 / 1;
           }
         `
     document.body.appendChild(style)
@@ -54,6 +55,10 @@ describe('.toHaveStyle', () => {
 
     expect(container.querySelector('.label')).toHaveStyle(`
       transform: translateX(0px);
+    `)
+
+    expect(container.querySelector('.label')).toHaveStyle(`
+      aspect-ratio: 1 / 1;
     `)
   })
 
